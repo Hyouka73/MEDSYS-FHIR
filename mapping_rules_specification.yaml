@@ -1,0 +1,142 @@
+# ==============================================================================
+# ESPECIFICACIÓN DE REGLAS DE MAPEO DECLARATIVO — MedSys-FHIR
+# Formato: YAML 1.2
+# Estándar destino: HL7 FHIR Release 4 (R4)
+# ==============================================================================
+
+version: "1.0.0"
+description: "Reglas de transformación entre esquema relacional legado simulado y HL7 FHIR R4"
+
+resources:
+  # ----------------------------------------------------------------------------
+  # RECURSO 1: Patient (Datos demográficos e identificadores oficiales)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Patient"
+    source_table: "tbl_pacientes"
+    primary_key: "id_paciente"
+    mappings:
+      # CURP como identificador nacional oficial en México
+      - source_column: "curp"
+        target_path: "identifier[0].value"
+        system: "urn:oid:2.16.840.1.113883.4.629"
+        use: "official"
+      - source_column: "primer_nombre"
+        target_path: "name[0].given[0]"
+      - source_column: "segundo_nombre"
+        target_path: "name[0].given[1]"
+        optional: true
+      - source_column: "apellido_paterno"
+        target_path: "name[0].family"
+      - source_column: "fecha_nacimiento"
+        target_path: "birthDate"
+        transform: "date_iso8601"
+      - source_column: "sexo_biologico"
+        target_path: "gender"
+        dictionary:
+          "M": "male"
+          "F": "female"
+          "I": "other"
+      - source_column: "telefono_contacto"
+        target_path: "telecom[0].value"
+        system: "phone"
+        optional: true
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 2: Encounter (Acto médico o consulta ambulatoria en CESSA)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Encounter"
+    source_table: "tbl_consultas"
+    primary_key: "id_consulta"
+    mappings:
+      - source_column: "id_consulta"
+        target_path: "identifier[0].value"
+        system: "https://distritosalud1.chiapas.gob.mx/encounters"
+      - source_column: "estado_consulta"
+        target_path: "status"
+        dictionary:
+          "FINALIZADA": "finished"
+          "EN_CURSO": "in-progress"
+          "CANCELADA": "cancelled"
+      - constant_value: "AMB"
+        target_path: "class.code"
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "fecha_hora_inicio"
+        target_path: "period.start"
+        transform: "datetime_iso8601"
+      - source_column: "fecha_hora_fin"
+        target_path: "period.end"
+        transform: "datetime_iso8601"
+      - source_column: "cedula_medico_tratante"
+        target_path: "participant[0].individual.identifier.value"
+        system: "http://cedulaprofesional.sep.gob.mx"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3: Observation (Signos vitales y somatometría - NOM-004-SSA3-2012)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    source_table: "tbl_signos_vitales"
+    primary_key: "id_signo"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "id_consulta"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fecha_registro"
+        target_path: "effectiveDateTime"
+        transform: "datetime_iso8601"
+      # Presión Arterial (Panel Sistólica / Diastólica con código LOINC 85354-9)
+      - source_column: "presion_sistolica"
+        target_path: "component[0].valueQuantity.value"
+        unit: "mmHg"
+        code: "8480-6"
+        system: "http://loinc.org"
+      - source_column: "presion_diastolica"
+        target_path: "component[1].valueQuantity.value"
+        unit: "mmHg"
+        code: "8462-4"
+        system: "http://loinc.org"
+      # Temperatura corporal (LOINC 8310-5)
+      - source_column: "temperatura_celsius"
+        target_path: "valueQuantity.value"
+        unit: "Cel"
+        code: "8310-5"
+        system: "http://loinc.org"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 4: Condition (Diagnósticos clínicos codificados bajo CIE-10)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Condition"
+    source_table: "tbl_diagnosticos"
+    primary_key: "id_diagnostico"
+    mappings:
+      - constant_value: "active"
+        target_path: "clinicalStatus.coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/condition-clinical"
+      - constant_value: "confirmed"
+        target_path: "verificationStatus.coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "id_consulta"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      # Código oficial CIE-10 según normativa mexicana
+      - source_column: "codigo_cie10"
+        target_path: "code.coding[0].code"
+        system: "http://hl7.org/fhir/sid/icd-10"
+      - source_column: "descripcion_diagnostico"
+        target_path: "code.coding[0].display"
+      - source_column: "fecha_diagnostico"
+        target_path: "recordedDate"
+        transform: "date_iso8601"

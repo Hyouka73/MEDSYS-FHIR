@@ -1,0 +1,34 @@
+# Rust
+/target/
+crates/**/target/
+**/*.rs.bk
+*.pdb
+
+# Node & Dashboard
+node_modules/
+/dashboard/node_modules/
+/dashboard/dist/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Docker volumes and local data
+/docker/pgdata/
