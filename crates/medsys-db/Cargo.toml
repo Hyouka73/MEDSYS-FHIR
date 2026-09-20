@@ -1,0 +1,13 @@
+[package]
+name = "medsys-db"
+version = "0.1.0"
+edition = "2021"
+description = "Adaptador de persistencia asíncrona con SQLx para MedSys-FHIR"
+
+[dependencies]
+medsys-core = { path = "../medsys-core" }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }

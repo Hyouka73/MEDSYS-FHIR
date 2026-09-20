@@ -1,0 +1,17 @@
+[package]
+name = "medsys-core"
+version = "0.1.0"
+edition = "2021"
+description = "Núcleo de dominio, modelos y motor de mapeo YAML para MedSys-FHIR"
+
+[dependencies]
+serde = { workspace = true }
+serde_yaml = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+helios-fhir = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }

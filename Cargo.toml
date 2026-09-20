@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/medsys-core",
+    "crates/medsys-db",
+    "crates/medsys-server",
+]
+
+[workspace.dependencies]
+tokio = { version = "1.38", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+helios-fhir = { version = "0.2", features = ["R4"] }
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+chrono = { version = "0.4", features = ["serde"] }

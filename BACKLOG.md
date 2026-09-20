@@ -2,13 +2,13 @@
 
 ## Cronograma Canónico del Proyecto (16 Tareas / 4 Sprints)
 
-### Sprint 1: Motor de Mapeo Declarativo YAML y Monorepo Workspace (ACTIVO)
-- [ ] **Tarea 1.1:** Inicialización del Monorepo Cargo Workspace (`Cargo.toml`) y estructura de crates.
-- [ ] **Tarea 1.2:** Definición del sistema centralizado de errores `MedSysError` y modelos de mapeo en `medsys-core`.
-- [ ] **Tarea 1.3:** Parser y deserialización de reglas YAML (`mapping_rules_specification.yaml`).
-- [ ] **Tarea 1.4:** Pruebas unitarias del motor de mapeo con macro `include_str!` en memoria.
+### Sprint 1: Motor de Mapeo Declarativo YAML y Monorepo Workspace (COMPLETADO)
+- [x] **Tarea 1.1:** Inicialización del Monorepo Cargo Workspace (`Cargo.toml`) y estructura de crates (`medsys-core`, `medsys-db`, `medsys-server`).
+- [x] **Tarea 1.2:** Definición del sistema centralizado de errores `MedSysError` y modelos de mapeo en `medsys-core`.
+- [x] **Tarea 1.3:** Parser y deserialización de reglas YAML (`mapping_rules_specification.yaml`).
+- [x] **Tarea 1.4:** Pruebas unitarias del motor de mapeo con macro `include_str!` en memoria (5/5 tests PASS).
 
-### Sprint 2: Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) (PENDIENTE)
+### Sprint 2: Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) (SIGUIENTE)
 - [ ] **Tarea 2.1:** Modelado canónico del recurso `Patient` (CURP oficial y demografía).
 - [ ] **Tarea 2.2:** Modelado canónico del recurso `Encounter` (clase AMB y médico tratante).
 - [ ] **Tarea 2.3:** Modelado canónico del recurso `Observation` (códigos LOINC de signos vitales).

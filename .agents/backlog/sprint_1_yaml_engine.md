@@ -7,22 +7,22 @@ Establecer la estructura monorepo Cargo Workspace, el crate de dominio puro `med
 
 ## Lista de Tareas
 
-- [ ] **Tarea 1.1: Inicialización del Monorepo Cargo Workspace**
-  - Crear `Cargo.toml` raíz con `[workspace]`, `members` y `[workspace.dependencies]`.
-  - Configurar esqueletos de crates `medsys-core`, `medsys-db`, y `medsys-server`.
-  - Criterio de aceptación: `cargo check --workspace` compila exitosamente.
+- [x] **Tarea 1.1: Inicialización del Monorepo Cargo Workspace**
+  - Creado `Cargo.toml` raíz con `[workspace]`, `members` (`medsys-core`, `medsys-db`, `medsys-server`) y dependencias canónicas.
+  - Configurados esqueletos de crates con dependencias requeridas.
+  - Finalizado: 2026-09-20T13:21:00-06:00. Verificado con `cargo check --workspace`.
 
-- [ ] **Tarea 1.2: Definición del Sistema Centralizado de Errores y Modelos**
-  - Implementar enum `MedSysError` usando `thiserror` en `crates/medsys-core/src/error.rs`.
-  - Tipar variantes para errores de parseo YAML, reglas inválidas y transformaciones.
-  - Criterio de aceptación: Código sin `unwrap()` ni `expect()`.
+- [x] **Tarea 1.2: Definición del Sistema Centralizado de Errores y Modelos**
+  - Implementado enum `MedSysError` usando `thiserror` en `crates/medsys-core/src/error.rs`.
+  - Sin uso de `unwrap()` ni `expect()` en código de producción.
+  - Finalizado: 2026-09-20T13:21:00-06:00.
 
-- [ ] **Tarea 1.3: Parser y Deserialización de Reglas Declarativas YAML**
-  - Definir estructuras Serde (`MappingRules`, `ResourceMapping`, `FieldMapping`, `TransformRule`) en `crates/medsys-core/src/model/mapping.rs`.
-  - Implementar parser en `crates/medsys-core/src/engine/mod.rs` que cargue y valide la especificación YAML.
-  - Criterio de aceptación: Deserialización completa de los 4 recursos sin pérdida de atributos.
+- [x] **Tarea 1.3: Parser y Deserialización de Reglas Declarativas YAML**
+  - Definidas estructuras Serde (`MappingRules`, `ResourceMapping`, `FieldMapping`, `SupportedResource`) en `crates/medsys-core/src/model/mapping.rs`.
+  - Implementado parser y validador de integridad en `crates/medsys-core/src/engine/mod.rs`.
+  - Finalizado: 2026-09-20T13:21:00-06:00.
 
-- [ ] **Tarea 1.4: Pruebas Unitarias del Motor de Reglas en Memoria**
-  - Escribir suite de pruebas unitarias en `crates/medsys-core/src/engine/tests.rs` empleando `include_str!("../../../mapping_rules_specification.yaml")`.
-  - Validar estáticamente las tablas fuentes, claves primarias y campos de los recursos `Patient`, `Encounter`, `Observation` y `Condition`.
-  - Criterio de aceptación: `cargo test -p medsys-core` pasa al 100%.
+- [x] **Tarea 1.4: Pruebas Unitarias del Motor de Reglas en Memoria**
+  - Creada suite de pruebas unitarias en `crates/medsys-core/src/engine/mod.rs` empleando `include_str!("../../../../mapping_rules_specification.yaml")`.
+  - Cobertura de validación para `Patient`, `Encounter`, `Observation` y `Condition`.
+  - Finalizado: 2026-09-20T13:21:00-06:00. Verificado con `cargo test --workspace` (5 de 5 tests aprobados).

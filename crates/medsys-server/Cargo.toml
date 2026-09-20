@@ -1,0 +1,15 @@
+[package]
+name = "medsys-server"
+version = "0.1.0"
+edition = "2021"
+description = "Servidor API REST Axum y Facade de interoperabilidad FHIR para MedSys-FHIR"
+
+[dependencies]
+medsys-core = { path = "../medsys-core" }
+medsys-db = { path = "../medsys-db" }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
