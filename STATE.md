@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-09-24T16:53:00-06:00
+- **Última Actualización:** 2026-09-24T17:20:00-06:00
 - **Sprint Activo:** Sprint 4 (`.agents/backlog/sprint_4_axum_dashboard.md`)
-- **Estado General:** 12 / 16 tareas completadas (75%)
-- **Tarea en Curso:** Ninguna (Sprint 3 concluido al 100%, listo para Sprint 4)
-- **Última Tarea Cerrada:** Tarea 3.4: Pruebas de integración de persistencia sobre datos sintéticos (Cierre del Sprint 3 al 100%).
-- **Siguiente Tarea Inmediata:** Tarea 4.1: Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
-- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 31/31 PASS [9 en medsys-core, 19 en medsys-db, 3 en tests de integración]).
+- **Estado General:** 14 / 16 tareas completadas (87.5%)
+- **Tarea en Curso:** Tarea 4.3: Dashboard interactivo en React 19 + Vite + Tailwind CSS.
+- **Última Tarea Cerrada:** Tarea 4.2: Manejador global de excepciones traduciendo a `OperationOutcome` (junto con Tarea 4.1).
+- **Siguiente Tarea Inmediata:** Tarea 4.3: Desarrollo del Dashboard Frontend (React 19 + Vite + Tailwind CSS + Lucide Icons).
+- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 38/38 PASS [11 en medsys-core, 19 en medsys-db, 3 en medsys-db integration, 5 en medsys-server integration]).
 
 ---
 
 ## 1. Decisiones Arquitectónicas Establecidas
-1. **Lenguaje y Stack:** Rust 2021, runtime Tokio, framework Axum, SQLx para persistencia de solo lectura en PostgreSQL 16.
+1. **Lenguaje y Stack:** Rust 2021, runtime Tokio, framework Axum 0.8, Tower / Tower-HTTP 0.6, SQLx 0.8 para persistencia de solo lectura en PostgreSQL 16.
 2. **Entorno de Compilación:** Toolchain Rust GNU `stable-x86_64-pc-windows-gnu` con MinGW-w64 (`C:\msys64\mingw64\bin`) configurado en el entorno de usuario.
 3. **Estándar:** HL7 FHIR R4 oficial vía crate `helios-fhir` v0.2 (`R4`).
 4. **Reglas Declarativas de Mapeo (v1.1.0):**
@@ -23,42 +23,52 @@
      - *Recurso 3A:* Panel de Presión Arterial (`http://hl7.org/fhir/StructureDefinition/bp`, LOINC `85354-9`) con subcomponentes sistólica (LOINC `8480-6`) y diastólica (LOINC `8462-4`) en `mmHg`.
      - *Recurso 3B:* Temperatura Corporal (`http://hl7.org/fhir/StructureDefinition/bodytemp`, LOINC `8310-5`) en unidad UCUM `Cel`.
    - `Condition`: Catálogo internacional CIE-10 (`http://hl7.org/fhir/sid/icd-10`), estado clínico `active` y estado de verificación tipado desde `tipo_diagnostico` (`confirmed` / `provisional`).
-5. **Infraestructura de Persistencia Relacional (PostgreSQL 16 en Docker):**
-   - Servicio contenerizado bajo imagen oficial `postgres:16-alpine` montando en modo solo lectura (`:ro`) el archivo `schema_legado_simulado_nom004.sql` hacia `/docker-entrypoint-initdb.d/01_schema_legado_simulado_nom004.sql`.
-   - Volumen dedicado `postgres_data` y healthcheck autónomo con `pg_isready`.
-   - Cadena de conexión canónica: `postgres://medsys_user:medsys_secure_pass_2026@localhost:5432/medsys_legacy`.
-   - Scripts de ciclo de vida PowerShell (`start-db.ps1`, `stop-db.ps1`, `reset-db.ps1`) y Bash (`start-db.sh`, `stop-db.sh`, `reset-db.sh`).
-6. **Pool Asíncrono SQLx y Capa de Persistencia (`medsys-db`):**
-   - Implementado en `crates/medsys-db` desacoplado de `medsys-core` (el cual se mantiene puro sin dependencias de base de datos ni red).
-   - `DbConfig`: lectura jerárquica desde variables de entorno y archivos `.env` (dotenvy), gestión de límites (`max_connections`, `min_connections`) y timeouts de ciclo de vida (`acquire_timeout`, `idle_timeout`, `max_lifetime`). Función `masked_url()` para prevención de fuga de credenciales en logs/tracing.
-   - `DbManager`: inicialización eager (`init_pool`) y lazy (`init_pool_lazy`), healthcheck tipado no bloqueante (`SELECT 1`), cierre ordenado (`close`), acceso integrado a repositorios (`repositories()`).
-   - Mapeo unificado de errores (`map_sqlx_error`) hacia `MedSysError::DatabaseError` y `MedSysError::NotFound`, asegurando compatibilidad directa con `OperationOutcome`.
-7. **Repositorios de Lectura Parametrizada y Modelado Relacional (NOM-004):**
-   - Entidades intermedias `sqlx::FromRow`: `PacienteEntity`, `ConsultaEntity`, `SignoVitalEntity`, `DiagnosticoEntity` en `crates/medsys-db/src/entities.rs` con conversión sin pérdida hacia los modelos de dominio `LegacyPaciente`, `LegacyConsulta`, `LegacySignoVital`, `LegacyDiagnostico` de `medsys-core`.
-   - Repositorios especializados en `crates/medsys-db/src/repository/`: `PacienteRepository`, `ConsultaRepository`, `SignosVitalesRepository` y `DiagnosticosRepository`, orquestados mediante el bundle `MedsysRepositories`.
-   - Garantía de invariantes de seguridad: Cero mutaciones (estricto `SELECT`), cero concatenación de cadenas, todas las sentencias parametrizadas exclusivamente con placeholders `$1`, `$2`... previniendo inyecciones SQL.
-8. **Suite de Integración y Transformación Canónica E2E (Tarea 3.4):**
-   - Pruebas en `crates/medsys-db/tests/persistence_integration.rs`:
-     - `test_schema_sql_contract_integrity`: Valida que el archivo SQL de laboratorio cumpla con todas las columnas, restricciones normativas y datos sintéticos.
-     - `test_synthetic_data_persistence_mapping_to_fhir_e2e`: Valida la cadena completa: datos relacionales de prueba -> conversión a entidades -> conversión a modelos legacy -> transformación a recursos HL7 FHIR R4 canónicos (`Resource::Patient`, `Resource::Encounter`, `Resource::Observation`, `Resource::Condition`) -> serialización JSON conforme a estándar.
-     - `test_live_postgresql_persistence_when_available`: Conexión en vivo contra contenedor PostgreSQL 16 con verificación de consultas reales parametrizadas y reporte no bloqueante si Docker no está activo.
-9. **Endpoints HTTP y Pruebas de Carga (Sprint 4):**
-   - Los endpoints REST FHIR operarán canónicamente bajo el prefijo `/fhir/r4/` (`GET /fhir/r4/Patient/{id}`, `GET /fhir/r4/Encounter/{id}`, etc.).
-   - Validación de rendimiento, latencia y concurrencia integrada con suites de k6.
-10. **Manejo de Errores:** Excepciones gestionadas estrictamente con `MedSysError` (cero `unwrap()` y cero `expect()` en código de producción).
+5. **Servidor Axum y Endpoints REST FHIR Canónicos (Tarea 4.1):**
+   - Servidor montado en `crates/medsys-server` exponiendo los recursos FHIR bajo el prefijo canónico `/fhir/r4/`:
+     - `GET /fhir/r4/Patient/{id}` y `GET /fhir/r4/Patient` (Bundle searchset).
+     - `GET /fhir/r4/Encounter/{id}` y `GET /fhir/r4/Encounter` (Bundle searchset, filtro opcional `?patient={id}`).
+     - `GET /fhir/r4/Observation/{id}` (soporte para prefijos `bp-{id}`, `temp-{id}` o id puro) y `GET /fhir/r4/Observation` (Bundle searchset que emite las 2 observaciones desacopladas por cada signo vital).
+     - `GET /fhir/r4/Condition/{id}` (soporte para prefijo `cond-{id}` o id puro) y `GET /fhir/r4/Condition` (Bundle searchset, filtros por paciente, consulta o código CIE-10).
+   - Negociación estricta de contenido con cabecera `Content-Type: application/fhir+json; charset=utf-8` mediante struct `FhirResponse`.
+   - Middlewares de telemetría con `tracing` (`TraceLayer::new_for_http()`) y CORS permisivo (`CorsLayer`) para el Dashboard React.
+6. **Manejo Global de Excepciones Clínicas con OperationOutcome (Tarea 4.2):**
+   - Implementado el trait `IntoResponse` en `ServerError` mapeando todas las excepciones de dominio (`MedSysError`), persistencia (`sqlx::Error`), errores de ruta y fallos JSON.
+   - Todo error 404 (`not-found`), 422 (`invalid` / `required`), 500 (`transient` / `processing` / `exception`) y 400 (`value`) emite invariablemente el recurso canónico `OperationOutcome` con cabecera `Content-Type: application/fhir+json; charset=utf-8` y diagnósticos en español técnico. Cero respuestas de error con JSON genérico.
+   - Implementado fallback universal de enrutador `not_found_fallback` que captura cualquier URI inexistente y devuelve `OperationOutcome` 404.
+   - Endpoints auxiliares de salud y monitoreo (`/health`, `/api/health`) e inspección relacional/comparativa para el frontend (`/api/legacy/patients`, `/api/legacy/patients/{id}/full`).
+7. **Infraestructura de Persistencia Relacional y Pool SQLx:**
+   - PostgreSQL 16 contenerizado con esquema `schema_legado_simulado_nom004.sql`.
+   - Pool asíncrono con `sqlx::PgPool` gestionado por `medsys_db::DbManager` y `MedsysRepositories`. Invariantes de seguridad: Cero mutaciones, consultas 100% parametrizadas con placeholders `$1`, `$2`... previniendo inyección SQL.
 
 ---
 
 ## 2. Archivos Creados / Modificados en este Turno
-- `crates/medsys-db/Cargo.toml`: Adición de `helios-fhir` a `[dev-dependencies]` para pruebas de integración de transformación a recursos FHIR.
-- `crates/medsys-db/tests/persistence_integration.rs`: Suite de pruebas de integración de persistencia sobre datos sintéticos NOM-004 y transformación canónica HL7 FHIR R4.
-- `BACKLOG.md`: Marcada Tarea 3.4 como completada `[x]`, Sprint 3 cerrado al 100% y Sprint 4 en estado SIGUIENTE.
-- `.agents/backlog/sprint_3_sqlx_docker.md`: Tarea 3.4 marcada como completada `[x]` con nota técnica y declaración de Sprint 3 concluido al 100%.
-- `.agents/backlog/overview.md`: Progreso actualizado a 12/16 tareas (75%), Sprint 3 completado (4/4, 100%).
-- `STATE.md`: Consolidación del estado del proyecto tras finalizar el Sprint 3.
+- `Cargo.toml`: Adición de `axum`, `tower` y `tower-http` a dependencias del workspace.
+- `crates/medsys-core/src/engine/transform.rs`: Funciones constructoras canónicas `create_operation_outcome` y `create_searchset_bundle`.
+- `crates/medsys-core/src/engine/mod.rs`: Pruebas unitarias de serialización canónica para `OperationOutcome` y `Bundle`.
+- `crates/medsys-core/src/lib.rs`: Exportación pública de `create_operation_outcome` y `create_searchset_bundle`.
+- `crates/medsys-server/Cargo.toml`: Configuración de dependencias (`axum`, `tower`, `tower-http`, `helios-fhir`, `sqlx`, `chrono`, `http-body-util`).
+- `crates/medsys-server/src/error.rs`: Manejador centralizado de errores `ServerError` implementando `IntoResponse` hacia `OperationOutcome`, constante `FHIR_JSON_CONTENT_TYPE` y `not_found_fallback`.
+- `crates/medsys-server/src/response.rs`: Wrapper `FhirResponse` que garantiza emisión de cabecera `application/fhir+json`.
+- `crates/medsys-server/src/state.rs`: `AppState` thread-safe conteniendo repositorios, reglas de mapeo, pool y temporizador de uptime.
+- `crates/medsys-server/src/config.rs`: `ServerConfig` para lectura de host, puerto, URL de BD y ruta de especificación YAML.
+- `crates/medsys-server/src/handlers/patient.rs`: Endpoints `GET /fhir/r4/Patient/{id}` y `GET /fhir/r4/Patient`.
+- `crates/medsys-server/src/handlers/encounter.rs`: Endpoints `GET /fhir/r4/Encounter/{id}` y `GET /fhir/r4/Encounter`.
+- `crates/medsys-server/src/handlers/observation.rs`: Endpoints `GET /fhir/r4/Observation/{id}` y `GET /fhir/r4/Observation`.
+- `crates/medsys-server/src/handlers/condition.rs`: Endpoints `GET /fhir/r4/Condition/{id}` y `GET /fhir/r4/Condition`.
+- `crates/medsys-server/src/handlers/health.rs`: Endpoints `/health` y `/api/health`.
+- `crates/medsys-server/src/handlers/legacy.rs`: Endpoints `/api/legacy/patients` y `/api/legacy/patients/{id}/full` para el Dashboard.
+- `crates/medsys-server/src/handlers/mod.rs`: Módulo agrupador y re-exportador de controladores.
+- `crates/medsys-server/src/router.rs`: Ensamblado de rutas, capas de middleware (CORS, TraceLayer) y fallback de error.
+- `crates/medsys-server/src/lib.rs`: Exposición pública de la biblioteca `medsys-server`.
+- `crates/medsys-server/src/main.rs`: Punto de entrada del binario del servidor con bindeo TCP en `0.0.0.0:8080`.
+- `crates/medsys-server/tests/server_integration.rs`: Suite de pruebas de integración con 5 casos validando healthcheck, OperationOutcome, fallback, validación de parámetros y endpoints canónicos FHIR.
+- `BACKLOG.md`: Tareas 4.1 y 4.2 marcadas como completadas `[x]`, progreso 14/16 (87.5%).
+- `.agents/backlog/sprint_4_axum_dashboard.md`: Tareas 4.1 y 4.2 marcadas como completadas `[x]`.
+- `.agents/backlog/overview.md`: Progreso global actualizado al 87.5%.
 
 ---
 
 ## 3. Comando de Arranque para el Siguiente Turno
-Para comenzar de inmediato con el Sprint 4 (Tarea 4.1):
-> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 4.1 del Sprint 4."
+Para continuar de inmediato con la Tarea 4.3 del Sprint 4 (Dashboard React 19 + Vite):
+> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 4.3 del Sprint 4."

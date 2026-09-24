@@ -1,8 +1,9 @@
 use chrono::NaiveTime;
 use helios_fhir::r4::{
-    Condition, ContactPoint, Encounter, EncounterParticipant, HumanName, Observation,
-    ObservationComponent, ObservationComponentValue, ObservationEffective, ObservationValue,
-    Patient, Period, Quantity, Reference,
+    Bundle, BundleEntry, Condition, ContactPoint, Encounter, EncounterParticipant, HumanName,
+    Observation, ObservationComponent, ObservationComponentValue, ObservationEffective,
+    ObservationValue, OperationOutcome, OperationOutcomeIssue, Patient, Period, Quantity,
+    Reference, Resource,
 };
 use helios_fhir::Element;
 use rust_decimal::Decimal as RustDecimal;
@@ -569,4 +570,91 @@ pub fn transform_condition(
 /// Serializa cualquier recurso FHIR hacia una cadena JSON canónica `application/fhir+json`.
 pub fn serialize_to_fhir_json<T: serde::Serialize>(resource: &T) -> Result<String> {
     serde_json::to_string_pretty(resource).map_err(MedSysError::from)
+}
+
+/// Construye un recurso canónico `OperationOutcome` de HL7 FHIR R4 para reporte técnico de excepciones.
+pub fn create_operation_outcome(
+    id: Option<&str>,
+    severity: &str,
+    code: &str,
+    diagnostics: &str,
+) -> OperationOutcome {
+    let issue_details = fhir_concept(
+        Some("http://hl7.org/fhir/issue-type"),
+        Some(code),
+        None,
+        Some(diagnostics),
+    );
+
+    let issue = OperationOutcomeIssue {
+        id: None,
+        extension: None,
+        modifier_extension: None,
+        severity: fhir_code(severity),
+        code: fhir_code(code),
+        details: Some(issue_details),
+        diagnostics: Some(fhir_string(diagnostics)),
+        location: None,
+        expression: None,
+    };
+
+    OperationOutcome {
+        id: id.map(fhir_string),
+        meta: None,
+        implicit_rules: None,
+        language: Some(fhir_code("es")),
+        text: None,
+        contained: None,
+        extension: None,
+        modifier_extension: None,
+        issue: Some(vec![issue]),
+    }
+}
+
+/// Construye un recurso `Bundle` de tipo `searchset` para responder a consultas de colección en FHIR R4.
+pub fn create_searchset_bundle(
+    id: Option<&str>,
+    entries: Vec<Resource>,
+    total: Option<usize>,
+) -> Bundle {
+    let bundle_entries = if entries.is_empty() {
+        None
+    } else {
+        Some(
+            entries
+                .into_iter()
+                .map(|resource| BundleEntry {
+                    id: None,
+                    extension: None,
+                    modifier_extension: None,
+                    link: None,
+                    full_url: None,
+                    resource: Some(resource),
+                    search: None,
+                    request: None,
+                    response: None,
+                })
+                .collect(),
+        )
+    };
+
+    let total_element = total.map(|t| Element {
+        id: None,
+        extension: None,
+        value: Some(t as i32),
+    });
+
+    Bundle {
+        id: id.map(fhir_string),
+        meta: None,
+        implicit_rules: None,
+        language: None,
+        identifier: None,
+        r#type: fhir_code("searchset"),
+        timestamp: None,
+        total: total_element,
+        link: None,
+        entry: bundle_entries,
+        signature: None,
+    }
 }

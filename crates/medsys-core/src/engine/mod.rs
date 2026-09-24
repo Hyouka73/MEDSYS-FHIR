@@ -576,4 +576,47 @@ mod tests {
         assert!(json_cond.contains("I10"));
         assert!(json_cond.contains("Hipertensión esencial (primaria)"));
     }
+
+    #[test]
+    fn test_create_operation_outcome_canonical() {
+        let outcome = create_operation_outcome(
+            Some("outcome-404"),
+            "error",
+            "not-found",
+            "Paciente con identificador '999' no localizado en la base de datos clínica.",
+        );
+
+        let json = serialize_to_fhir_json(&Resource::OperationOutcome(Box::new(outcome)))
+            .expect("Debe serializar OperationOutcome");
+
+        assert!(json.contains("\"resourceType\": \"OperationOutcome\""));
+        assert!(json.contains("\"severity\": \"error\""));
+        assert!(json.contains("\"code\": \"not-found\""));
+        assert!(json.contains("Paciente con identificador '999' no localizado"));
+        assert!(json.contains("\"language\": \"es\""));
+    }
+
+    #[test]
+    fn test_create_searchset_bundle_canonical() {
+        let outcome = create_operation_outcome(
+            Some("outcome-1"),
+            "information",
+            "informational",
+            "Resultado de búsqueda procesado correctamente",
+        );
+
+        let bundle = create_searchset_bundle(
+            Some("bundle-test"),
+            vec![Resource::OperationOutcome(Box::new(outcome))],
+            Some(1),
+        );
+
+        let json = serialize_to_fhir_json(&Resource::Bundle(Box::new(bundle)))
+            .expect("Debe serializar Bundle");
+
+        assert!(json.contains("\"resourceType\": \"Bundle\""));
+        assert!(json.contains("\"type\": \"searchset\""));
+        assert!(json.contains("\"total\": 1"));
+        assert!(json.contains("\"entry\""));
+    }
 }
