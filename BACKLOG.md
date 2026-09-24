@@ -8,13 +8,13 @@
 - [x] **Tarea 1.3:** Parser y deserialización de reglas YAML (`mapping_rules_specification.yaml`).
 - [x] **Tarea 1.4:** Pruebas unitarias del motor de mapeo con macro `include_str!` en memoria (5/5 tests PASS).
 
-### Sprint 2: Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) (SIGUIENTE)
-- [ ] **Tarea 2.1:** Modelado canónico del recurso `Patient` (CURP oficial y demografía).
-- [ ] **Tarea 2.2:** Modelado canónico del recurso `Encounter` (clase AMB y médico tratante).
-- [ ] **Tarea 2.3:** Modelado canónico del recurso `Observation` (códigos LOINC de signos vitales).
-- [ ] **Tarea 2.4:** Modelado canónico del recurso `Condition` (codificación internacional CIE-10).
+### Sprint 2: Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) (COMPLETADO)
+- [x] **Tarea 2.1:** Modelado canónico del recurso `Patient` (CURP oficial y demografía).
+- [x] **Tarea 2.2:** Modelado canónico del recurso `Encounter` (clase AMB y médico tratante).
+- [x] **Tarea 2.3:** Modelado canónico del recurso `Observation` (códigos LOINC de signos vitales).
+- [x] **Tarea 2.4:** Modelado canónico del recurso `Condition` (codificación internacional CIE-10).
 
-### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (PENDIENTE)
+### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (SIGUIENTE)
 - [ ] **Tarea 3.1:** Configuración de infraestructura Docker Compose con PostgreSQL 16 y esquema sintético.
 - [ ] **Tarea 3.2:** Configuración del pool asíncrono SQLx en `medsys-db`.
 - [ ] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).

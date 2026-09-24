@@ -20,10 +20,7 @@ pub enum MedSysError {
     UnknownResource(String),
 
     #[error("Campo requerido faltante '{field}' para el recurso '{resource}'")]
-    MissingField {
-        field: String,
-        resource: String,
-    },
+    MissingField { field: String, resource: String },
 
     #[error("Fallo durante la transformación de datos: {0}")]
     TransformationError(String),

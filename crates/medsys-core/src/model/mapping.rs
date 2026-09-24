@@ -114,8 +114,6 @@ impl FieldMapping {
 
     /// Retorna el atributo de uso ('use' o 'use_type') si está presente.
     pub fn effective_use(&self) -> Option<&str> {
-        self.use_field
-            .as_deref()
-            .or(self.use_type.as_deref())
+        self.use_field.as_deref().or(self.use_type.as_deref())
     }
 }
