@@ -1,13 +1,13 @@
 # ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-09-24T16:16:00-06:00
+- **Última Actualización:** 2026-09-24T16:34:00-06:00
 - **Sprint Activo:** Sprint 3 (`.agents/backlog/sprint_3_sqlx_docker.md`)
-- **Estado General:** 10 / 16 tareas completadas (62.5%)
-- **Tarea en Curso:** Ninguna (Tarea 3.2 concluida al 100%, pool asíncrono SQLx y DbManager listos)
-- **Última Tarea Cerrada:** Tarea 3.2: Configuración del pool asíncrono SQLx en `medsys-db`.
-- **Siguiente Tarea Inmediata:** Tarea 3.3: Implementación de repositorios de lectura parametrizada ($1, $2).
-- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 19/19 PASS [9 en medsys-core, 10 en medsys-db]).
+- **Estado General:** 11 / 16 tareas completadas (68.75%)
+- **Tarea en Curso:** Ninguna (Tarea 3.3 concluida al 100%, repositorios de persistencia relacional implementados)
+- **Última Tarea Cerrada:** Tarea 3.3: Implementación de repositorios de lectura parametrizada ($1, $2).
+- **Siguiente Tarea Inmediata:** Tarea 3.4: Pruebas de integración de persistencia sobre datos sintéticos.
+- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 28/28 PASS [9 en medsys-core, 19 en medsys-db]).
 
 ---
 
@@ -31,30 +31,35 @@
 6. **Pool Asíncrono SQLx y Capa de Persistencia (`medsys-db`):**
    - Implementado en `crates/medsys-db` desacoplado de `medsys-core` (el cual se mantiene puro sin dependencias de base de datos ni red).
    - `DbConfig`: lectura jerárquica desde variables de entorno y archivos `.env` (dotenvy), gestión de límites (`max_connections`, `min_connections`) y timeouts de ciclo de vida (`acquire_timeout`, `idle_timeout`, `max_lifetime`). Función `masked_url()` para prevención de fuga de credenciales en logs/tracing.
-   - `DbManager`: inicialización eager (`init_pool`) y lazy (`init_pool_lazy`), healthcheck tipado no bloqueante (`SELECT 1`), cierre ordenado (`close`).
+   - `DbManager`: inicialización eager (`init_pool`) y lazy (`init_pool_lazy`), healthcheck tipado no bloqueante (`SELECT 1`), cierre ordenado (`close`), acceso integrado a repositorios (`repositories()`).
    - Mapeo unificado de errores (`map_sqlx_error`) hacia `MedSysError::DatabaseError` y `MedSysError::NotFound`, asegurando compatibilidad directa con `OperationOutcome`.
-7. **Endpoints HTTP y Pruebas de Carga (Sprint 4):**
+7. **Repositorios de Lectura Parametrizada y Modelado Relacional (NOM-004):**
+   - Entidades intermedias `sqlx::FromRow`: `PacienteEntity`, `ConsultaEntity`, `SignoVitalEntity`, `DiagnosticoEntity` en `crates/medsys-db/src/entities.rs` con conversión sin pérdida hacia los modelos de dominio `LegacyPaciente`, `LegacyConsulta`, `LegacySignoVital`, `LegacyDiagnostico` de `medsys-core`.
+   - Repositorios especializados en `crates/medsys-db/src/repository/`: `PacienteRepository`, `ConsultaRepository`, `SignosVitalesRepository` y `DiagnosticosRepository`, orquestados mediante el bundle `MedsysRepositories`.
+   - Garantía de invariantes de seguridad: Cero mutaciones (estricto `SELECT`), cero concatenación de cadenas, todas las sentencias parametrizadas exclusivamente con placeholders `$1`, `$2`... previniendo inyecciones SQL.
+8. **Endpoints HTTP y Pruebas de Carga (Sprint 4):**
    - Los endpoints REST FHIR operarán canónicamente bajo el prefijo `/fhir/r4/` (`GET /fhir/r4/Patient/{id}`, `GET /fhir/r4/Encounter/{id}`, etc.).
    - Validación de rendimiento, latencia y concurrencia integrada con suites de k6.
-8. **Manejo de Errores:** Excepciones gestionadas estrictamente con `MedSysError` (cero `unwrap()` y cero `expect()` en código de producción).
+9. **Manejo de Errores:** Excepciones gestionadas estrictamente con `MedSysError` (cero `unwrap()` y cero `expect()` en código de producción).
 
 ---
 
 ## 2. Archivos Creados / Modificados en este Turno
-- `Cargo.toml`: Adición de `sqlx` (v0.8 con soporte Tokio, PostgreSQL, Chrono, RustDecimal) y `dotenvy` a `[workspace.dependencies]`.
-- `crates/medsys-db/Cargo.toml`: Inclusión de dependencias de persistencia relacional.
-- `crates/medsys-core/src/error.rs`: Adición de variante `MedSysError::DatabaseError(String)`.
-- `crates/medsys-db/src/config.rs`: Implementación de `DbConfig` con parámetros de pool, lectura de `.env`, timeouts tipados y pruebas unitarias.
-- `crates/medsys-db/src/error.rs`: Tipado de `DbError` y función `map_sqlx_error` con pruebas unitarias.
-- `crates/medsys-db/src/pool.rs`: Implementación de `create_pool_options`, `init_pool`, `init_pool_lazy`, `DbManager`, healthchecks y pruebas asíncronas Tokio.
-- `crates/medsys-db/src/lib.rs`: Exposición pública de los módulos de configuración, pool y gestión de errores.
-- `BACKLOG.md`: Marcada Tarea 3.2 como completada `[x]`.
-- `.agents/backlog/sprint_3_sqlx_docker.md`: Tarea 3.2 marcada como completada `[x]` con nota técnica detallada.
-- `.agents/backlog/overview.md`: Progreso actualizado a 10/16 tareas (62.5%), Sprint 3 al 50%.
-- `STATE.md`: Consolidación del estado del proyecto tras finalizar la Tarea 3.2.
+- `crates/medsys-db/src/entities.rs`: Entidades intermedias `sqlx::FromRow` y conversiones bidireccionales `From` con los modelos de dominio clínico.
+- `crates/medsys-db/src/repository/pacientes.rs`: `PacienteRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_curp` y `find_all`.
+- `crates/medsys-db/src/repository/consultas.rs`: `ConsultaRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_paciente_id` y `find_all`.
+- `crates/medsys-db/src/repository/signos_vitales.rs`: `SignosVitalesRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_consulta_id`, `find_by_paciente_id` y `find_all`.
+- `crates/medsys-db/src/repository/diagnosticos.rs`: `DiagnosticosRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_consulta_id`, `find_by_paciente_id`, `find_by_codigo_cie10` y `find_all`.
+- `crates/medsys-db/src/repository/mod.rs`: Módulo agregador y estructura contenedora `MedsysRepositories`.
+- `crates/medsys-db/src/pool.rs`: Agregado método de conveniencia `repositories(&self)` en `DbManager`.
+- `crates/medsys-db/src/lib.rs`: Exposición pública de entidades y repositorios relacionales.
+- `BACKLOG.md`: Marcada Tarea 3.3 como completada `[x]`.
+- `.agents/backlog/sprint_3_sqlx_docker.md`: Tarea 3.3 marcada como completada `[x]` con nota técnica detallada.
+- `.agents/backlog/overview.md`: Progreso actualizado a 11/16 tareas (68.75%), Sprint 3 al 75%.
+- `STATE.md`: Consolidación del estado del proyecto tras finalizar la Tarea 3.3.
 
 ---
 
 ## 3. Comando de Arranque para el Siguiente Turno
-Para continuar de inmediato con la Tarea 3.3 del Sprint 3:
-> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 3.3 del Sprint 3."
+Para continuar de inmediato con la Tarea 3.4 del Sprint 3:
+> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 3.4 del Sprint 3."

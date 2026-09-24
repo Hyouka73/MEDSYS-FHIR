@@ -112,6 +112,11 @@ impl DbManager {
         }
     }
 
+    /// Obtiene el bundle de repositorios de persistencia relacional listo para consultas de solo lectura.
+    pub fn repositories(&self) -> crate::repository::MedsysRepositories {
+        crate::repository::MedsysRepositories::new(self.pool.clone())
+    }
+
     /// Cierra ordenadamente el pool de conexiones.
     pub async fn close(&self) {
         info!("Cerrando pool de conexiones PostgreSQL...");

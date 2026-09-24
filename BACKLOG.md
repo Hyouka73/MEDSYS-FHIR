@@ -17,7 +17,7 @@
 ### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (EN CURSO)
 - [x] **Tarea 3.1:** Configuración de infraestructura Docker Compose con PostgreSQL 16 y esquema sintético.
 - [x] **Tarea 3.2:** Configuración del pool asíncrono SQLx en `medsys-db`.
-- [ ] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).
+- [x] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).
 - [ ] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.
 
 ### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (PENDIENTE)

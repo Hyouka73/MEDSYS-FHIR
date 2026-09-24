@@ -19,9 +19,11 @@ Configurar la infraestructura de persistencia relacional en PostgreSQL 16 conten
   - *Finalizado:* 2026-09-24T16:16:00-06:00. Integración de `sqlx` 0.8 con soporte Tokio, PostgreSQL, Chrono y RustDecimal. Implementado `DbConfig` con parámetros de pool (`max_connections`, `min_connections`, `acquire_timeout_secs`, `idle_timeout_secs`, `max_lifetime_secs`), enmascaramiento seguro de URLs para tracing, inicialización eager (`init_pool`) y lazy (`init_pool_lazy`), `DbManager` con healthcheck no bloqueante (`SELECT 1`), mapeo tipado de errores SQLx a `MedSysError` (`DatabaseError`, `NotFound`). 10/10 pruebas unitarias en `medsys-db` PASS, Clippy 0 warnings.
 
 
-- [ ] **Tarea 3.3: Implementación de Repositorios de Lectura Parametrizada**
+- [x] **Tarea 3.3: Implementación de Repositorios de Lectura Parametrizada**
   - Implementar structs de acceso a datos para `tbl_pacientes`, `tbl_consultas`, `tbl_signos_vitales` y `tbl_diagnosticos`.
   - Garantizar uso estricto de consultas parametrizadas (`$1`, `$2`) sin concatenación ni mutaciones (solo lectura).
+  - *Finalizado:* 2026-09-24T16:34:00-06:00. Implementadas entidades intermedias `sqlx::FromRow` (`PacienteEntity`, `ConsultaEntity`, `SignoVitalEntity`, `DiagnosticoEntity`) con conversión bidireccional `From` hacia modelos de dominio en `medsys-core`. Implementados 4 repositorios especializados (`PacienteRepository`, `ConsultaRepository`, `SignosVitalesRepository`, `DiagnosticosRepository`) y bundle unificado `MedsysRepositories`. Todas las consultas son estrictamente de solo lectura (`SELECT`), parametrizadas con placeholders (`$1`, `$2`), sin concatenación de cadenas, con mapeo tipado a `MedSysError::NotFound` y `MedSysError::DatabaseError`. 19/19 tests en `medsys-db` PASS (28/28 global), Clippy 0 warnings.
+
 
 - [ ] **Tarea 3.4: Pruebas de Integración de Persistencia**
   - Pruebas automatizadas de lectura y mapeo de filas de PostgreSQL a estructuras intermedias en Rust.
