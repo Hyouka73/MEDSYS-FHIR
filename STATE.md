@@ -1,13 +1,13 @@
 # ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-09-24T17:20:00-06:00
+- **Última Actualización:** 2026-09-24T17:35:00-06:00
 - **Sprint Activo:** Sprint 4 (`.agents/backlog/sprint_4_axum_dashboard.md`)
-- **Estado General:** 14 / 16 tareas completadas (87.5%)
-- **Tarea en Curso:** Tarea 4.3: Dashboard interactivo en React 19 + Vite + Tailwind CSS.
-- **Última Tarea Cerrada:** Tarea 4.2: Manejador global de excepciones traduciendo a `OperationOutcome` (junto con Tarea 4.1).
-- **Siguiente Tarea Inmediata:** Tarea 4.3: Desarrollo del Dashboard Frontend (React 19 + Vite + Tailwind CSS + Lucide Icons).
-- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 38/38 PASS [11 en medsys-core, 19 en medsys-db, 3 en medsys-db integration, 5 en medsys-server integration]).
+- **Estado General:** 15 / 16 tareas completadas (93.75%)
+- **Tarea en Curso:** Tarea 4.4: Pruebas E2E, validación de carga k6, auditoría Clippy y release final.
+- **Última Tarea Cerrada:** Tarea 4.3: Desarrollo del Dashboard Frontend (React 19 + Vite + Tailwind CSS + Lucide Icons).
+- **Siguiente Tarea Inmediata:** Tarea 4.4: Pruebas E2E de interoperabilidad, validación con k6, auditoría Clippy y release final.
+- **Estado del Build:** PASS (Backend Rust GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 38/38 PASS; Frontend Dashboard React 19 + Vite build PASS, oxlint 0 warnings/0 errors).
 
 ---
 
@@ -58,17 +58,25 @@
 - `crates/medsys-server/src/handlers/condition.rs`: Endpoints `GET /fhir/r4/Condition/{id}` y `GET /fhir/r4/Condition`.
 - `crates/medsys-server/src/handlers/health.rs`: Endpoints `/health` y `/api/health`.
 - `crates/medsys-server/src/handlers/legacy.rs`: Endpoints `/api/legacy/patients` y `/api/legacy/patients/{id}/full` para el Dashboard.
-- `crates/medsys-server/src/handlers/mod.rs`: Módulo agrupador y re-exportador de controladores.
-- `crates/medsys-server/src/router.rs`: Ensamblado de rutas, capas de middleware (CORS, TraceLayer) y fallback de error.
-- `crates/medsys-server/src/lib.rs`: Exposición pública de la biblioteca `medsys-server`.
-- `crates/medsys-server/src/main.rs`: Punto de entrada del binario del servidor con bindeo TCP en `0.0.0.0:8080`.
-- `crates/medsys-server/tests/server_integration.rs`: Suite de pruebas de integración con 5 casos validando healthcheck, OperationOutcome, fallback, validación de parámetros y endpoints canónicos FHIR.
-- `BACKLOG.md`: Tareas 4.1 y 4.2 marcadas como completadas `[x]`, progreso 14/16 (87.5%).
-- `.agents/backlog/sprint_4_axum_dashboard.md`: Tareas 4.1 y 4.2 marcadas como completadas `[x]`.
-- `.agents/backlog/overview.md`: Progreso global actualizado al 87.5%.
+- `crates/medsys-server/src/config.rs`: Soporte dual para variables `SERVER_PORT`/`SERVER_HOST` con fallback a 3000.
+- `dashboard/package.json`: Configuración de dependencias React 19 (`^19.2.8`), Vite 8, Tailwind CSS y Lucide Icons.
+- `dashboard/vite.config.js`: Configuración de proxy HTTP hacia `http://localhost:3000` (`/fhir`, `/health`, `/api`).
+- `dashboard/src/services/api.js`: Cliente API con medición de latencia en ms, emisor de eventos y fallback automático a datos sintéticos.
+- `dashboard/src/services/mockData.js`: Datos sintéticos de `tbl_pacientes`, `tbl_consultas`, `tbl_signos_vitales`, `tbl_diagnosticos` y sus recursos FHIR correspondientes.
+- `dashboard/src/components/Header.jsx`: Encabezado sticky con badges de arquitectura, estado en vivo y pestañas de navegación.
+- `dashboard/src/components/MetricsPanel.jsx`: 4 tarjetas de métricas en tiempo real (salud, latencia, base de datos, total transacciones).
+- `dashboard/src/components/FhirViewer.jsx`: Navegador interactivo de recursos FHIR R4 (`Patient`, `Encounter`, `Observation`, `Condition`) con soporte para instancias individuales y Bundles searchset.
+- `dashboard/src/components/InteroperabilityComparator.jsx`: Demostración visual trifásica lado a lado (Fila relacional NOM-004 ⇄ Reglas YAML ⇄ Recurso FHIR R4).
+- `dashboard/src/components/EventConsole.jsx`: Stream de peticiones HTTP, códigos de estado, disparador de fallos diagnósticos e inspección de `OperationOutcome`.
+- `dashboard/src/components/JsonSyntaxHighlighter.jsx`: Resaltador sintáctico para JSON FHIR con botones de copia y descarga.
+- `dashboard/src/App.jsx`: Ensamblado de componentes, polling periódico y footer académico UNACH 2026.
+- `dashboard/README.md`: Documentación completa de arquitectura y ejecución del Dashboard.
+- `BACKLOG.md`: Tarea 4.3 marcada como completada `[x]`, progreso 15/16 (93.75%).
+- `.agents/backlog/sprint_4_axum_dashboard.md`: Tarea 4.3 marcada como completada `[x]`.
+- `.agents/backlog/overview.md`: Progreso global actualizado al 93.75%.
 
 ---
 
 ## 3. Comando de Arranque para el Siguiente Turno
-Para continuar de inmediato con la Tarea 4.3 del Sprint 4 (Dashboard React 19 + Vite):
-> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 4.3 del Sprint 4."
+Para continuar de inmediato con la Tarea 4.4 del Sprint 4 (Pruebas E2E, Validación con k6, Clippy y Release Final):
+> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 4.4 del Sprint 4."

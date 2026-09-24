@@ -19,9 +19,14 @@ Exponer la capa de servicio HTTP mediante el framework Axum en `crates/medsys-se
   - Endpoints auxiliares de salud (`/health`, `/api/health`) e inspección relacional/comparativa para el frontend (`/api/legacy/patients`, `/api/legacy/patients/{id}/full`).
 
 
-- [ ] **Tarea 4.3: Desarrollo del Dashboard Frontend (React 19 + Vite + Tailwind)**
-  - Inicializar `/dashboard` con Vite, React 19, Tailwind CSS y Lucide Icons.
-  - Implementar visualizador de recursos FHIR, comparador entre fila SQL legada y recurso FHIR generado, y consola de inspección clínica.
+- [x] **Tarea 4.3: Desarrollo del Dashboard Frontend (React 19 + Vite + Tailwind)** *(Completada: 2026-09-24)*
+  - Inicializado proyecto `/dashboard` con React 19 (`^19.2.8`), Vite 8, `@tailwindcss/vite`, y Lucide Icons (`lucide-react`).
+  - Configurado proxy en `vite.config.js` hacia el backend Axum en `http://localhost:3000` para las rutas `/fhir`, `/health`, y `/api`.
+  - Panel superior de métricas (`MetricsPanel.jsx`): Monitoreo continuo de salud `/health`, latencia en milisegundos (`ms`), estado de PostgreSQL y recuento de eventos.
+  - Visor interactivo FHIR (`FhirViewer.jsx`): Navegación entre `Patient`, `Encounter`, `Observation`, `Condition`, soporte para instancias individuales y colecciones `Bundle` (`searchset`), búsqueda por ID y resaltado sintáctico con copia/descarga (`JsonSyntaxHighlighter.jsx`).
+  - Comparador de interoperabilidad (`InteroperabilityComparator.jsx`): Demostración visual trifásica lado a lado (Fila relacional NOM-004 ⇄ Reglas YAML ⇄ Recurso FHIR R4) consumiendo `/api/legacy/patients/{id}/full` y garantizando el principio de solo lectura.
+  - Consola de eventos y `OperationOutcome` (`EventConsole.jsx`): Historial en vivo de peticiones HTTP, códigos de estado, inspector detallado del recurso diagnóstico y disparadores de prueba (404, 400, fallback no encontrado).
+  - Verificación de calidad: 0 errores y 0 advertencias con `oxlint`, build de producción Vite (`npm run build`) completado con éxito.
 
 - [ ] **Tarea 4.4: Pruebas E2E, Auditoría Clippy, Validación de Rendimiento con k6 y Build Release Final**
   - Ejecutar verificación integral de compilación, clippy y tests en todo el workspace.

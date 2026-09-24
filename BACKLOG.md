@@ -23,6 +23,6 @@
 ### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (EN CURSO)
 - [x] **Tarea 4.1:** Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
 - [x] **Tarea 4.2:** Manejador global de excepciones traduciendo a `OperationOutcome`.
-- [ ] **Tarea 4.3:** Dashboard interactivo en React 19 + Vite + Tailwind CSS.
+- [x] **Tarea 4.3:** Dashboard interactivo en React 19 + Vite + Tailwind CSS.
 - [ ] **Tarea 4.4:** Pruebas E2E de interoperabilidad, validación con k6, auditoría Clippy y release final.
 
