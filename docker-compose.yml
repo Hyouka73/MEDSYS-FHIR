@@ -1,0 +1,37 @@
+# ==============================================================================
+# INFRAESTRUCTURA POSTGRESQL 16 (RAÍZ) — MedSys-FHIR
+# Esquema relacional sintético NOM-004-SSA3-2012 / NOM-024-SSA3-2012
+# Tarea 3.1: Entorno de Persistencia Relacional Contenerizado
+# ==============================================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: medsys_fhir_postgres
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-medsys_legacy}
+      POSTGRES_USER: ${POSTGRES_USER:-medsys_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-medsys_secure_pass_2026}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema_legado_simulado_nom004.sql:/docker-entrypoint-initdb.d/01_schema_legado_simulado_nom004.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-medsys_user} -d ${POSTGRES_DB:-medsys_legacy}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - medsys_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  medsys_network:
+    driver: bridge

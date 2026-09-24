@@ -14,8 +14,8 @@
 - [x] **Tarea 2.3:** Modelado canónico del recurso `Observation` (códigos LOINC de signos vitales).
 - [x] **Tarea 2.4:** Modelado canónico del recurso `Condition` (codificación internacional CIE-10).
 
-### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (SIGUIENTE)
-- [ ] **Tarea 3.1:** Configuración de infraestructura Docker Compose con PostgreSQL 16 y esquema sintético.
+### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (EN CURSO)
+- [x] **Tarea 3.1:** Configuración de infraestructura Docker Compose con PostgreSQL 16 y esquema sintético.
 - [ ] **Tarea 3.2:** Configuración del pool asíncrono SQLx en `medsys-db`.
 - [ ] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).
 - [ ] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.

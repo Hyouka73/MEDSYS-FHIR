@@ -7,9 +7,11 @@ Configurar la infraestructura de persistencia relacional en PostgreSQL 16 conten
 
 ## Lista de Tareas
 
-- [ ] **Tarea 3.1: Configuración de Infraestructura Docker para PostgreSQL 16**
+- [x] **Tarea 3.1: Configuración de Infraestructura Docker para PostgreSQL 16**
   - Crear `docker/docker-compose.yml` con servicio PostgreSQL 16 y volumen de inicialización que monte `schema_legado_simulado_nom004.sql`.
   - Configurar variables de entorno y scripts de arranque.
+  - *Finalizado:* 2026-09-24T15:56:00-06:00. Infraestructura contenerizada con PostgreSQL 16 Alpine, volumen de datos `postgres_data`, montaje de lectura de `schema_legado_simulado_nom004.sql` en `/docker-entrypoint-initdb.d/`, healthcheck con `pg_isready`, variables de entorno (`.env`, `.env.example`, `docker/.env.example`) y scripts de arranque/parada/reinicio (`start-db.ps1`, `stop-db.ps1`, `reset-db.ps1`, `start-db.sh`, `stop-db.sh`, `reset-db.sh`). Sintaxis validada con `docker compose config`.
+
 
 - [ ] **Tarea 3.2: Configuración del Pool Asíncrono SQLx en medsys-db**
   - Implementar inicialización de `sqlx::PgPool` con timeouts, límites de conexión y manejo seguro de errores.
