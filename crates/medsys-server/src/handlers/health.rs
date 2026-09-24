@@ -10,6 +10,7 @@ use crate::state::AppState;
 #[derive(Serialize)]
 pub struct HealthResponse {
     pub status: &'static str,
+    pub server_name: &'static str,
     pub server_version: &'static str,
     pub uptime_seconds: u64,
     pub database_status: &'static str,
@@ -22,6 +23,7 @@ pub async fn health_check(State(state): State<AppState>) -> Json<HealthResponse>
 
     Json(HealthResponse {
         status: if db_ok { "ok" } else { "degraded" },
+        server_name: "MedSys-FHIR",
         server_version: env!("CARGO_PKG_VERSION"),
         uptime_seconds: state.uptime_secs(),
         database_status: if db_ok { "connected" } else { "disconnected" },

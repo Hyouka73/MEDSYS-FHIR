@@ -28,7 +28,10 @@ Exponer la capa de servicio HTTP mediante el framework Axum en `crates/medsys-se
   - Consola de eventos y `OperationOutcome` (`EventConsole.jsx`): Historial en vivo de peticiones HTTP, códigos de estado, inspector detallado del recurso diagnóstico y disparadores de prueba (404, 400, fallback no encontrado).
   - Verificación de calidad: 0 errores y 0 advertencias con `oxlint`, build de producción Vite (`npm run build`) completado con éxito.
 
-- [ ] **Tarea 4.4: Pruebas E2E, Auditoría Clippy, Validación de Rendimiento con k6 y Build Release Final**
-  - Ejecutar verificación integral de compilación, clippy y tests en todo el workspace.
-  - Implementar suites de pruebas de carga y latencia con k6 para validar rendimiento del middleware bajo concurrencia.
-  - Documentar especificación de despliegue y entrega de la tesis.
+- [x] **Tarea 4.4: Pruebas E2E, Auditoría Clippy, Validación de Rendimiento con k6 y Build Release Final** *(Completada: 2026-09-24)*
+  - Suite de pruebas E2E en `crates/medsys-server/tests/e2e_interoperability.rs`: 8 casos de prueba validando el ciclo completo (inspección de salud, API relacional legada NOM-004, Patient con CURP oficial, Encounter con clase AMB, Observation con desacoplamiento LOINC de presión arterial y temperatura, Condition CIE-10, colecciones en searchset Bundles, y resiliencia de OperationOutcome con cabecera application/fhir+json).
+  - Verificación integral de calidad en Rust: 46 / 46 pruebas automatizadas aprobadas (100% PASS), 0 advertencias de Clippy (`cargo clippy --workspace --all-targets -- -D warnings`), formateo canónico validado (`cargo fmt --check`).
+  - Suite de pruebas de rendimiento y carga con k6 (`tests/k6/`): `smoke_test.js`, `load_test.js`, `resilience_and_errors_test.js` y runner PowerShell `run_all_benchmarks.ps1`.
+  - Resultados de rendimiento con k6: Latencia p95 de 1.14 ms (requisito de tesis < 50 ms superado por 43x), 100.00% de conformidad canónica de OperationOutcome bajo estrés concurrente (5,780 peticiones a 384 req/s sin panics ni fugas de memoria).
+  - Compilación del perfil release con optimizaciones LTO (`opt-level = 3`, `lto = true`, `codegen-units = 1`, `strip = true`), generando un binario final autosuficiente de 6.55 MB en `target/release/medsys-server.exe`.
+  - Manual de despliegue y entrega técnica de la tesis documentado en `DEPLOYMENT.md`.

@@ -32,8 +32,13 @@ impl EncounterQueryParams {
 /// con clase ambulatoria AMB y cédula SEP del médico tratante.
 pub async fn get_encounter(
     State(state): State<AppState>,
-    Path(id): Path<i32>,
+    Path(raw_id): Path<String>,
 ) -> Result<FhirResponse, ServerError> {
+    let clean_id = raw_id.strip_prefix("enc-").unwrap_or(&raw_id);
+    let id: i32 = clean_id.parse().map_err(|_| {
+        ServerError::InvalidPath(format!("Identificador de encuentro inválido: '{raw_id}'"))
+    })?;
+
     let legacy_consulta = state.repositories.consultas.find_by_id(id).await?;
     let fhir_encounter = transform_encounter(&legacy_consulta, Some(&state.mapping_rules))?;
 

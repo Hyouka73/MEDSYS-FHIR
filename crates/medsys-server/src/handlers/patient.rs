@@ -31,8 +31,13 @@ impl PaginationParams {
 /// al recurso estándar `Patient` con CURP oficial.
 pub async fn get_patient(
     State(state): State<AppState>,
-    Path(id): Path<i32>,
+    Path(raw_id): Path<String>,
 ) -> Result<FhirResponse, ServerError> {
+    let clean_id = raw_id.strip_prefix("pat-").unwrap_or(&raw_id);
+    let id: i32 = clean_id.parse().map_err(|_| {
+        ServerError::InvalidPath(format!("Identificador de paciente inválido: '{raw_id}'"))
+    })?;
+
     let legacy_paciente = state.repositories.pacientes.find_by_id(id).await?;
     let fhir_patient = transform_patient(&legacy_paciente, Some(&state.mapping_rules))?;
 

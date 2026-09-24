@@ -159,6 +159,6 @@ mod tests {
         let manager = DbManager::from_pool(pool, config.clone());
 
         assert_eq!(manager.config().database_url, config.database_url);
-        assert_eq!(manager.pool().is_closed(), false);
+        assert!(!manager.pool().is_closed());
     }
 }

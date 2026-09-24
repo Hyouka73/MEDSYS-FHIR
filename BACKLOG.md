@@ -20,9 +20,9 @@
 - [x] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).
 - [x] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.
 
-### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (EN CURSO)
+### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (COMPLETADO)
 - [x] **Tarea 4.1:** Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
 - [x] **Tarea 4.2:** Manejador global de excepciones traduciendo a `OperationOutcome`.
 - [x] **Tarea 4.3:** Dashboard interactivo en React 19 + Vite + Tailwind CSS.
-- [ ] **Tarea 4.4:** Pruebas E2E de interoperabilidad, validación con k6, auditoría Clippy y release final.
+- [x] **Tarea 4.4:** Pruebas E2E de interoperabilidad, validación con k6, auditoría Clippy y release final.
 

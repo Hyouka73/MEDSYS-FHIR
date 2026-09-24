@@ -8,9 +8,9 @@ MedSys-FHIR se desarrolla bajo un esquema de 16 semanas agrupadas en 4 Sprints c
 | **Sprint 1** | Motor de Mapeo Declarativo YAML y Monorepo Workspace | COMPLETADO | 4 | 4 |
 | **Sprint 2** | Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) | COMPLETADO | 4 | 4 |
 | **Sprint 3** | Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 | COMPLETADO | 4 | 4 |
-| **Sprint 4** | API Axum Facade, `OperationOutcome` y Dashboard React 19 | EN CURSO | 3 | 4 |
+| **Sprint 4** | API Axum Facade, `OperationOutcome` y Dashboard React 19 | COMPLETADO | 4 | 4 |
 
-**Progreso Total:** 15 / 16 tareas completadas (93.75%)
+**Progreso Total:** 16 / 16 tareas completadas (100.0%)
 
 ---
 
@@ -18,5 +18,5 @@ MedSys-FHIR se desarrolla bajo un esquema de 16 semanas agrupadas en 4 Sprints c
 - [x] [Sprint 1: Motor YAML y Workspace](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/.agents/backlog/sprint_1_yaml_engine.md) (100%)
 - [x] [Sprint 2: HL7 FHIR R4 canónico](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/.agents/backlog/sprint_2_helios_fhir.md) (100%)
 - [x] [Sprint 3: Persistencia SQLx y Docker](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/.agents/backlog/sprint_3_sqlx_docker.md) (100%)
-- [ ] [Sprint 4: API REST Axum y Dashboard](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/.agents/backlog/sprint_4_axum_dashboard.md) (75%)
+- [x] [Sprint 4: API REST Axum y Dashboard](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/.agents/backlog/sprint_4_axum_dashboard.md) (100%)
 
