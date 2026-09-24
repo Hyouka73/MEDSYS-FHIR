@@ -14,13 +14,13 @@
 - [x] **Tarea 2.3:** Modelado canónico del recurso `Observation` (códigos LOINC de signos vitales).
 - [x] **Tarea 2.4:** Modelado canónico del recurso `Condition` (codificación internacional CIE-10).
 
-### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (EN CURSO)
+### Sprint 3: Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 (COMPLETADO)
 - [x] **Tarea 3.1:** Configuración de infraestructura Docker Compose con PostgreSQL 16 y esquema sintético.
 - [x] **Tarea 3.2:** Configuración del pool asíncrono SQLx en `medsys-db`.
 - [x] **Tarea 3.3:** Implementación de repositorios de lectura parametrizada ($1, $2).
-- [ ] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.
+- [x] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.
 
-### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (PENDIENTE)
+### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (SIGUIENTE)
 - [ ] **Tarea 4.1:** Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
 - [ ] **Tarea 4.2:** Manejador global de excepciones traduciendo a `OperationOutcome`.
 - [ ] **Tarea 4.3:** Dashboard interactivo en React 19 + Vite + Tailwind CSS.

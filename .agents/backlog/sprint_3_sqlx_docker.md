@@ -25,5 +25,7 @@ Configurar la infraestructura de persistencia relacional en PostgreSQL 16 conten
   - *Finalizado:* 2026-09-24T16:34:00-06:00. Implementadas entidades intermedias `sqlx::FromRow` (`PacienteEntity`, `ConsultaEntity`, `SignoVitalEntity`, `DiagnosticoEntity`) con conversión bidireccional `From` hacia modelos de dominio en `medsys-core`. Implementados 4 repositorios especializados (`PacienteRepository`, `ConsultaRepository`, `SignosVitalesRepository`, `DiagnosticosRepository`) y bundle unificado `MedsysRepositories`. Todas las consultas son estrictamente de solo lectura (`SELECT`), parametrizadas con placeholders (`$1`, `$2`), sin concatenación de cadenas, con mapeo tipado a `MedSysError::NotFound` y `MedSysError::DatabaseError`. 19/19 tests en `medsys-db` PASS (28/28 global), Clippy 0 warnings.
 
 
-- [ ] **Tarea 3.4: Pruebas de Integración de Persistencia**
+- [x] **Tarea 3.4: Pruebas de Integración de Persistencia**
   - Pruebas automatizadas de lectura y mapeo de filas de PostgreSQL a estructuras intermedias en Rust.
+  - *Finalizado:* 2026-09-24T16:52:00-06:00. Implementada suite de integración en `crates/medsys-db/tests/persistence_integration.rs`: validación de contrato estricto del archivo SQL sintético NOM-004 (`test_schema_sql_contract_integrity`), verificación end-to-end de mapeo relacional a modelos de dominio y transformación FHIR R4 canónica (`test_synthetic_data_persistence_mapping_to_fhir_e2e`) serializando a JSON con etiquetas oficiales de `Resource`, y prueba en vivo contra PostgreSQL contenerizado con fallback diagnóstico (`test_live_postgresql_persistence_when_available`). 31/31 tests PASS a nivel workspace, Clippy 0 warnings, rustfmt PASS. **Sprint 3 completado al 100% (4/4 tareas).**
+

@@ -1,13 +1,13 @@
 # ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-09-24T16:34:00-06:00
-- **Sprint Activo:** Sprint 3 (`.agents/backlog/sprint_3_sqlx_docker.md`)
-- **Estado General:** 11 / 16 tareas completadas (68.75%)
-- **Tarea en Curso:** Ninguna (Tarea 3.3 concluida al 100%, repositorios de persistencia relacional implementados)
-- **Última Tarea Cerrada:** Tarea 3.3: Implementación de repositorios de lectura parametrizada ($1, $2).
-- **Siguiente Tarea Inmediata:** Tarea 3.4: Pruebas de integración de persistencia sobre datos sintéticos.
-- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 28/28 PASS [9 en medsys-core, 19 en medsys-db]).
+- **Última Actualización:** 2026-09-24T16:53:00-06:00
+- **Sprint Activo:** Sprint 4 (`.agents/backlog/sprint_4_axum_dashboard.md`)
+- **Estado General:** 12 / 16 tareas completadas (75%)
+- **Tarea en Curso:** Ninguna (Sprint 3 concluido al 100%, listo para Sprint 4)
+- **Última Tarea Cerrada:** Tarea 3.4: Pruebas de integración de persistencia sobre datos sintéticos (Cierre del Sprint 3 al 100%).
+- **Siguiente Tarea Inmediata:** Tarea 4.1: Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
+- **Estado del Build:** PASS (Compilación GNU/MinGW, Clippy 0 warnings, rustfmt PASS, cargo test 31/31 PASS [9 en medsys-core, 19 en medsys-db, 3 en tests de integración]).
 
 ---
 
@@ -37,29 +37,28 @@
    - Entidades intermedias `sqlx::FromRow`: `PacienteEntity`, `ConsultaEntity`, `SignoVitalEntity`, `DiagnosticoEntity` en `crates/medsys-db/src/entities.rs` con conversión sin pérdida hacia los modelos de dominio `LegacyPaciente`, `LegacyConsulta`, `LegacySignoVital`, `LegacyDiagnostico` de `medsys-core`.
    - Repositorios especializados en `crates/medsys-db/src/repository/`: `PacienteRepository`, `ConsultaRepository`, `SignosVitalesRepository` y `DiagnosticosRepository`, orquestados mediante el bundle `MedsysRepositories`.
    - Garantía de invariantes de seguridad: Cero mutaciones (estricto `SELECT`), cero concatenación de cadenas, todas las sentencias parametrizadas exclusivamente con placeholders `$1`, `$2`... previniendo inyecciones SQL.
-8. **Endpoints HTTP y Pruebas de Carga (Sprint 4):**
+8. **Suite de Integración y Transformación Canónica E2E (Tarea 3.4):**
+   - Pruebas en `crates/medsys-db/tests/persistence_integration.rs`:
+     - `test_schema_sql_contract_integrity`: Valida que el archivo SQL de laboratorio cumpla con todas las columnas, restricciones normativas y datos sintéticos.
+     - `test_synthetic_data_persistence_mapping_to_fhir_e2e`: Valida la cadena completa: datos relacionales de prueba -> conversión a entidades -> conversión a modelos legacy -> transformación a recursos HL7 FHIR R4 canónicos (`Resource::Patient`, `Resource::Encounter`, `Resource::Observation`, `Resource::Condition`) -> serialización JSON conforme a estándar.
+     - `test_live_postgresql_persistence_when_available`: Conexión en vivo contra contenedor PostgreSQL 16 con verificación de consultas reales parametrizadas y reporte no bloqueante si Docker no está activo.
+9. **Endpoints HTTP y Pruebas de Carga (Sprint 4):**
    - Los endpoints REST FHIR operarán canónicamente bajo el prefijo `/fhir/r4/` (`GET /fhir/r4/Patient/{id}`, `GET /fhir/r4/Encounter/{id}`, etc.).
    - Validación de rendimiento, latencia y concurrencia integrada con suites de k6.
-9. **Manejo de Errores:** Excepciones gestionadas estrictamente con `MedSysError` (cero `unwrap()` y cero `expect()` en código de producción).
+10. **Manejo de Errores:** Excepciones gestionadas estrictamente con `MedSysError` (cero `unwrap()` y cero `expect()` en código de producción).
 
 ---
 
 ## 2. Archivos Creados / Modificados en este Turno
-- `crates/medsys-db/src/entities.rs`: Entidades intermedias `sqlx::FromRow` y conversiones bidireccionales `From` con los modelos de dominio clínico.
-- `crates/medsys-db/src/repository/pacientes.rs`: `PacienteRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_curp` y `find_all`.
-- `crates/medsys-db/src/repository/consultas.rs`: `ConsultaRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_paciente_id` y `find_all`.
-- `crates/medsys-db/src/repository/signos_vitales.rs`: `SignosVitalesRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_consulta_id`, `find_by_paciente_id` y `find_all`.
-- `crates/medsys-db/src/repository/diagnosticos.rs`: `DiagnosticosRepository` con métodos parametrizados `find_by_id`, `find_optional_by_id`, `find_by_consulta_id`, `find_by_paciente_id`, `find_by_codigo_cie10` y `find_all`.
-- `crates/medsys-db/src/repository/mod.rs`: Módulo agregador y estructura contenedora `MedsysRepositories`.
-- `crates/medsys-db/src/pool.rs`: Agregado método de conveniencia `repositories(&self)` en `DbManager`.
-- `crates/medsys-db/src/lib.rs`: Exposición pública de entidades y repositorios relacionales.
-- `BACKLOG.md`: Marcada Tarea 3.3 como completada `[x]`.
-- `.agents/backlog/sprint_3_sqlx_docker.md`: Tarea 3.3 marcada como completada `[x]` con nota técnica detallada.
-- `.agents/backlog/overview.md`: Progreso actualizado a 11/16 tareas (68.75%), Sprint 3 al 75%.
-- `STATE.md`: Consolidación del estado del proyecto tras finalizar la Tarea 3.3.
+- `crates/medsys-db/Cargo.toml`: Adición de `helios-fhir` a `[dev-dependencies]` para pruebas de integración de transformación a recursos FHIR.
+- `crates/medsys-db/tests/persistence_integration.rs`: Suite de pruebas de integración de persistencia sobre datos sintéticos NOM-004 y transformación canónica HL7 FHIR R4.
+- `BACKLOG.md`: Marcada Tarea 3.4 como completada `[x]`, Sprint 3 cerrado al 100% y Sprint 4 en estado SIGUIENTE.
+- `.agents/backlog/sprint_3_sqlx_docker.md`: Tarea 3.4 marcada como completada `[x]` con nota técnica y declaración de Sprint 3 concluido al 100%.
+- `.agents/backlog/overview.md`: Progreso actualizado a 12/16 tareas (75%), Sprint 3 completado (4/4, 100%).
+- `STATE.md`: Consolidación del estado del proyecto tras finalizar el Sprint 3.
 
 ---
 
 ## 3. Comando de Arranque para el Siguiente Turno
-Para continuar de inmediato con la Tarea 3.4 del Sprint 3:
-> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 3.4 del Sprint 3."
+Para comenzar de inmediato con el Sprint 4 (Tarea 4.1):
+> "Lee .agents/rules/rules.md, .agents/orchestrator/workflow.md, STATE.md y BACKLOG.md. Continúa con la Tarea 4.1 del Sprint 4."
