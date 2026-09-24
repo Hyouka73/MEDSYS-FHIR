@@ -21,7 +21,7 @@
 - [ ] **Tarea 3.4:** Pruebas de integración de persistencia sobre datos sintéticos.
 
 ### Sprint 4: API REST Axum, OperationOutcome y Dashboard React 19 (PENDIENTE)
-- [ ] **Tarea 4.1:** Enrutamiento HTTP en Axum y endpoints REST FHIR.
+- [ ] **Tarea 4.1:** Enrutamiento HTTP en Axum y endpoints REST FHIR canónicos (`/fhir/r4/`).
 - [ ] **Tarea 4.2:** Manejador global de excepciones traduciendo a `OperationOutcome`.
 - [ ] **Tarea 4.3:** Dashboard interactivo en React 19 + Vite + Tailwind CSS.
-- [ ] **Tarea 4.4:** Pruebas E2E de interoperabilidad, auditoría Clippy y release final.
+- [ ] **Tarea 4.4:** Pruebas E2E de interoperabilidad, validación con k6, auditoría Clippy y release final.

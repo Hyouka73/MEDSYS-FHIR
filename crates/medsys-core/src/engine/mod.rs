@@ -90,8 +90,8 @@ mod tests {
     fn test_parse_embedded_specification_yaml() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML)
             .expect("El archivo mapping_rules_specification.yaml debe deserializar sin errores");
-        assert_eq!(rules.version, "1.0.0");
-        assert_eq!(rules.resources.len(), 4);
+        assert_eq!(rules.version, "1.1.0");
+        assert_eq!(rules.resources.len(), 5);
     }
 
     #[test]
@@ -151,19 +151,43 @@ mod tests {
     #[test]
     fn test_observation_resource_mappings() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
-        let observation = rules
-            .get_resource_mapping(SupportedResource::Observation)
-            .expect("Observation debe existir");
-        assert_eq!(observation.source_table, "tbl_signos_vitales");
+        let observations: Vec<_> = rules
+            .resources
+            .iter()
+            .filter(|r| r.resource_type == "Observation")
+            .collect();
+        assert_eq!(observations.len(), 2);
 
-        let temp = observation
+        // 3A: Panel de Presión Arterial
+        let bp_obs = observations
+            .iter()
+            .find(|o| {
+                o.mappings
+                    .iter()
+                    .any(|m| m.source_column.as_deref() == Some("presion_sistolica"))
+            })
+            .expect("Observation BP debe existir");
+        assert_eq!(bp_obs.source_table, "tbl_signos_vitales");
+
+        // 3B: Temperatura Corporal
+        let temp_obs = observations
+            .iter()
+            .find(|o| {
+                o.mappings
+                    .iter()
+                    .any(|m| m.source_column.as_deref() == Some("temperatura_celsius"))
+            })
+            .expect("Observation Temperatura debe existir");
+        assert_eq!(temp_obs.source_table, "tbl_signos_vitales");
+
+        let temp = temp_obs
             .mappings
             .iter()
             .find(|m| m.source_column.as_deref() == Some("temperatura_celsius"))
             .expect("Debe existir mapeo de temperatura");
         assert_eq!(temp.unit.as_deref(), Some("Cel"));
-        assert_eq!(temp.code.as_deref(), Some("8310-5"));
-        assert_eq!(temp.system.as_deref(), Some("http://loinc.org"));
+        assert_eq!(temp.code.as_deref(), Some("Cel"));
+        assert_eq!(temp.system.as_deref(), Some("http://unitsofmeasure.org"));
     }
 
     #[test]

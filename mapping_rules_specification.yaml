@@ -4,18 +4,17 @@
 # Estándar destino: HL7 FHIR Release 4 (R4)
 # ==============================================================================
 
-version: "1.0.0"
-description: "Reglas de transformación entre esquema relacional legado simulado y HL7 FHIR R4"
+version: "1.1.0"
+description: "Reglas de transformación entre esquema relacional legado simulado (NOM-004/NOM-024) y HL7 FHIR R4"
 
 resources:
   # ----------------------------------------------------------------------------
-  # RECURSO 1: Patient (Datos demográficos e identificadores oficiales)
+  # RECURSO 1: Patient (Datos demográficos e identificadores oficiales NOM-004)
   # ----------------------------------------------------------------------------
   - resource_type: "Patient"
     source_table: "tbl_pacientes"
     primary_key: "id_paciente"
     mappings:
-      # CURP como identificador nacional oficial en México
       - source_column: "curp"
         target_path: "identifier[0].value"
         system: "urn:oid:2.16.840.1.113883.4.629"
@@ -27,6 +26,8 @@ resources:
         optional: true
       - source_column: "apellido_paterno"
         target_path: "name[0].family"
+        combine_with: "apellido_materno"
+        combine_format: "{apellido_paterno} {apellido_materno}"
       - source_column: "fecha_nacimiento"
         target_path: "birthDate"
         transform: "date_iso8601"
@@ -63,6 +64,8 @@ resources:
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"
+      - source_column: "motivo_consulta"
+        target_path: "reasonCode[0].text"
       - source_column: "fecha_hora_inicio"
         target_path: "period.start"
         transform: "datetime_iso8601"
@@ -72,19 +75,27 @@ resources:
       - source_column: "cedula_medico_tratante"
         target_path: "participant[0].individual.identifier.value"
         system: "http://cedulaprofesional.sep.gob.mx"
+      - source_column: "nombre_medico"
+        target_path: "participant[0].individual.display"
 
   # ----------------------------------------------------------------------------
-  # RECURSO 3: Observation (Signos vitales y somatometría - NOM-004-SSA3-2012)
+  # RECURSO 3A: Observation - Panel de Presión Arterial (LOINC 85354-9)
   # ----------------------------------------------------------------------------
   - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/bp"
     source_table: "tbl_signos_vitales"
     primary_key: "id_signo"
+    observation_type: "blood_pressure_panel"
     mappings:
       - constant_value: "final"
         target_path: "status"
       - constant_value: "vital-signs"
         target_path: "category[0].coding[0].code"
         system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "85354-9"
+        target_path: "code.coding[0].code"
+        display: "Blood pressure panel with all children optional"
+        system: "http://loinc.org"
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"
@@ -94,7 +105,6 @@ resources:
       - source_column: "fecha_registro"
         target_path: "effectiveDateTime"
         transform: "datetime_iso8601"
-      # Presión Arterial (Panel Sistólica / Diastólica con código LOINC 85354-9)
       - source_column: "presion_sistolica"
         target_path: "component[0].valueQuantity.value"
         unit: "mmHg"
@@ -105,12 +115,39 @@ resources:
         unit: "mmHg"
         code: "8462-4"
         system: "http://loinc.org"
-      # Temperatura corporal (LOINC 8310-5)
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3B: Observation - Temperatura Corporal (LOINC 8310-5)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/bodytemp"
+    source_table: "tbl_signos_vitales"
+    primary_key: "id_signo"
+    observation_type: "body_temperature"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "8310-5"
+        target_path: "code.coding[0].code"
+        display: "Body temperature"
+        system: "http://loinc.org"
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "id_consulta"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fecha_registro"
+        target_path: "effectiveDateTime"
+        transform: "datetime_iso8601"
       - source_column: "temperatura_celsius"
         target_path: "valueQuantity.value"
         unit: "Cel"
-        code: "8310-5"
-        system: "http://loinc.org"
+        code: "Cel"
+        system: "http://unitsofmeasure.org"
 
   # ----------------------------------------------------------------------------
   # RECURSO 4: Condition (Diagnósticos clínicos codificados bajo CIE-10)
@@ -122,16 +159,18 @@ resources:
       - constant_value: "active"
         target_path: "clinicalStatus.coding[0].code"
         system: "http://terminology.hl7.org/CodeSystem/condition-clinical"
-      - constant_value: "confirmed"
+      - source_column: "tipo_diagnostico"
         target_path: "verificationStatus.coding[0].code"
         system: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+        dictionary:
+          "CONFIRMADO": "confirmed"
+          "PRESUNTIVO": "provisional"
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"
       - source_column: "id_consulta"
         target_path: "encounter.reference"
         transform: "reference:Encounter/{value}"
-      # Código oficial CIE-10 según normativa mexicana
       - source_column: "codigo_cie10"
         target_path: "code.coding[0].code"
         system: "http://hl7.org/fhir/sid/icd-10"
