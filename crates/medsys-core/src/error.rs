@@ -31,6 +31,9 @@ pub enum MedSysError {
     #[error("Recurso clínico no encontrado: {0}")]
     NotFound(String),
 
+    #[error("Error de base de datos relacional: {0}")]
+    DatabaseError(String),
+
     #[error("Error interno del motor de interoperabilidad: {0}")]
     Internal(String),
 }

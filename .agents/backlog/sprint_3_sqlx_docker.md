@@ -13,9 +13,11 @@ Configurar la infraestructura de persistencia relacional en PostgreSQL 16 conten
   - *Finalizado:* 2026-09-24T15:56:00-06:00. Infraestructura contenerizada con PostgreSQL 16 Alpine, volumen de datos `postgres_data`, montaje de lectura de `schema_legado_simulado_nom004.sql` en `/docker-entrypoint-initdb.d/`, healthcheck con `pg_isready`, variables de entorno (`.env`, `.env.example`, `docker/.env.example`) y scripts de arranque/parada/reinicio (`start-db.ps1`, `stop-db.ps1`, `reset-db.ps1`, `start-db.sh`, `stop-db.sh`, `reset-db.sh`). Sintaxis validada con `docker compose config`.
 
 
-- [ ] **Tarea 3.2: Configuración del Pool Asíncrono SQLx en medsys-db**
+- [x] **Tarea 3.2: Configuración del Pool Asíncrono SQLx en medsys-db**
   - Implementar inicialización de `sqlx::PgPool` con timeouts, límites de conexión y manejo seguro de errores.
   - Integrar conexión en `crates/medsys-db`.
+  - *Finalizado:* 2026-09-24T16:16:00-06:00. Integración de `sqlx` 0.8 con soporte Tokio, PostgreSQL, Chrono y RustDecimal. Implementado `DbConfig` con parámetros de pool (`max_connections`, `min_connections`, `acquire_timeout_secs`, `idle_timeout_secs`, `max_lifetime_secs`), enmascaramiento seguro de URLs para tracing, inicialización eager (`init_pool`) y lazy (`init_pool_lazy`), `DbManager` con healthcheck no bloqueante (`SELECT 1`), mapeo tipado de errores SQLx a `MedSysError` (`DatabaseError`, `NotFound`). 10/10 pruebas unitarias en `medsys-db` PASS, Clippy 0 warnings.
+
 
 - [ ] **Tarea 3.3: Implementación de Repositorios de Lectura Parametrizada**
   - Implementar structs de acceso a datos para `tbl_pacientes`, `tbl_consultas`, `tbl_signos_vitales` y `tbl_diagnosticos`.
