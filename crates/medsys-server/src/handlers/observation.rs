@@ -5,7 +5,7 @@ use axum::extract::{Path, Query, State};
 use helios_fhir::r4::Resource;
 use medsys_core::{
     create_searchset_bundle, transform_observation_blood_pressure,
-    transform_observation_temperature,
+    transform_observation_heart_rate, transform_observation_temperature,
 };
 use serde::Deserialize;
 
@@ -35,6 +35,7 @@ impl ObservationQueryParams {
 /// Endpoint canónico: `GET /fhir/r4/Observation/{id}`
 /// Permite recuperar una observación específica por su prefijo canónico:
 /// - `temp-{id}`: Observación de Temperatura Corporal (LOINC 8310-5, Cel)
+/// - `hr-{id}`: Observación de Frecuencia Cardíaca (LOINC 8867-4, /min)
 /// - `bp-{id}` o `{id}`: Panel de Presión Arterial (LOINC 85354-9, mmHg)
 pub async fn get_observation(
     State(state): State<AppState>,
@@ -46,6 +47,13 @@ pub async fn get_observation(
         })?;
         let signo = state.repositories.signos_vitales.find_by_id(id).await?;
         let obs = transform_observation_temperature(&signo, Some(&state.mapping_rules))?;
+        Ok(FhirResponse(Resource::Observation(Box::new(obs))))
+    } else if let Some(id_str) = raw_id.strip_prefix("hr-") {
+        let id: i32 = id_str.parse().map_err(|_| {
+            ServerError::InvalidPath(format!("Identificador numérico inválido: '{id_str}'"))
+        })?;
+        let signo = state.repositories.signos_vitales.find_by_id(id).await?;
+        let obs = transform_observation_heart_rate(&signo, Some(&state.mapping_rules))?;
         Ok(FhirResponse(Resource::Observation(Box::new(obs))))
     } else if let Some(id_str) = raw_id.strip_prefix("bp-") {
         let id: i32 = id_str.parse().map_err(|_| {
@@ -65,7 +73,7 @@ pub async fn get_observation(
 }
 
 /// Endpoint canónico: `GET /fhir/r4/Observation`
-/// Retorna la colección de observaciones clínicas desacopladas (Presión Arterial y Temperatura)
+/// Retorna la colección de observaciones clínicas desacopladas (Presión Arterial, Temperatura y Frecuencia Cardíaca)
 /// empaquetadas en un `Bundle` FHIR de tipo `searchset`.
 pub async fn list_observations(
     State(state): State<AppState>,
@@ -96,7 +104,7 @@ pub async fn list_observations(
         signos.clear();
     }
 
-    let mut resources = Vec::with_capacity(signos.len() * 2);
+    let mut resources = Vec::with_capacity(signos.len() * 3);
 
     for s in &signos {
         // Recurso 3A: Panel de Presión Arterial
@@ -106,6 +114,10 @@ pub async fn list_observations(
         // Recurso 3B: Temperatura Corporal
         let obs_temp = transform_observation_temperature(s, Some(&state.mapping_rules))?;
         resources.push(Resource::Observation(Box::new(obs_temp)));
+
+        // Recurso 3C: Frecuencia Cardíaca
+        let obs_hr = transform_observation_heart_rate(s, Some(&state.mapping_rules))?;
+        resources.push(Resource::Observation(Box::new(obs_hr)));
     }
 
     let total = resources.len();

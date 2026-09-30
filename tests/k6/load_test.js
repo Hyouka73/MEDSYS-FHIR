@@ -20,9 +20,10 @@ export const transactionCounter = new Counter('fhir_total_transactions');
 
 export const options = {
   stages: [
-    { duration: '5s', target: 5 },   // Ramp-up inicial a 5 VUs
-    { duration: '15s', target: 20 }, // Carga sostenida a 20 VUs
-    { duration: '5s', target: 0 },   // Ramp-down a 0
+    { duration: '30s', target: 5 },  // 30s warm-up (5 VUs)
+    { duration: '1m', target: 50 },  // 1m rampa a 50 VUs
+    { duration: '5m', target: 50 },  // 5m meseta (50 VUs)
+    { duration: '30s', target: 0 },  // 30s rampa de bajada
   ],
   thresholds: {
     // Requisitos de tesis: Latencia p95 < 50ms para lecturas del middleware
@@ -41,8 +42,8 @@ const fhirHeaders = {
 };
 
 export default function () {
-  // Simular IDs de pacientes sintéticos (1 al 10)
-  const patientId = Math.floor(Math.random() * 5) + 1;
+  // Simular IDs de pacientes sintéticos (1 al 1,000)
+  const patientId = Math.floor(Math.random() * 1000) + 1;
 
   group('Flujo Clínico Concurrente', function () {
     // 1. Consulta de Paciente

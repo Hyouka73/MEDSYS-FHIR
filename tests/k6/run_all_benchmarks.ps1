@@ -49,9 +49,11 @@ Write-Host "--------------------------------------------------------" -Foregroun
 
 # 4. Ejecutar Load Test (Concurrencia)
 Write-Host "`n--------------------------------------------------------" -ForegroundColor Cyan
-Write-Host " 2/3: Ejecutando Load Test (Concurrencia hasta 20 VUs)" -ForegroundColor Cyan
+Write-Host " 2/3: Ejecutando Load Test (Concurrencia hasta 50 VUs)" -ForegroundColor Cyan
 Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
-& $K6Path run --env BASE_URL=$BaseUrl "$scriptDir\load_test.js"
+$resultsLoadJson = Join-Path $scriptDir "results_load.json"
+& $K6Path run --env BASE_URL=$BaseUrl --out json="$resultsLoadJson" "$scriptDir\load_test.js"
+Write-Host "[✓] Resultados guardados en: $resultsLoadJson" -ForegroundColor Green
 
 # 5. Ejecutar Resilience & Errors Test
 Write-Host "`n--------------------------------------------------------" -ForegroundColor Cyan

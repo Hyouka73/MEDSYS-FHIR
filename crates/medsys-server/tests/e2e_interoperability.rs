@@ -199,7 +199,7 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
         .body(Body::empty())
         .unwrap();
 
-    let res_temp = app.oneshot(req_temp).await.unwrap();
+    let res_temp = app.clone().oneshot(req_temp).await.unwrap();
     assert_eq!(
         res_temp.headers().get("content-type").unwrap(),
         FHIR_JSON_CONTENT_TYPE
@@ -213,6 +213,28 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
         assert!(body_temp.contains("Cel"));
     } else {
         assert!(body_temp.contains("\"resourceType\": \"OperationOutcome\""));
+    }
+
+    // 3. Frecuencia Cardíaca (hr-1)
+    let req_hr = Request::builder()
+        .uri("/fhir/r4/Observation/hr-1")
+        .body(Body::empty())
+        .unwrap();
+
+    let res_hr = app.oneshot(req_hr).await.unwrap();
+    assert_eq!(
+        res_hr.headers().get("content-type").unwrap(),
+        FHIR_JSON_CONTENT_TYPE
+    );
+    let status_hr = res_hr.status();
+    let body_hr = body_to_string(res_hr).await;
+
+    if status_hr == StatusCode::OK {
+        assert!(body_hr.contains("\"resourceType\": \"Observation\""));
+        assert!(body_hr.contains("8867-4")); // Frecuencia Cardíaca LOINC
+        assert!(body_hr.contains("/min"));
+    } else {
+        assert!(body_hr.contains("\"resourceType\": \"OperationOutcome\""));
     }
 }
 

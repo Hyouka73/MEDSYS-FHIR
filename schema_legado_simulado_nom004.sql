@@ -4,6 +4,20 @@
 -- Motor: PostgreSQL 16
 -- ==============================================================================
 
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'medsys_user') THEN
+    CREATE ROLE medsys_user WITH SUPERUSER LOGIN PASSWORD 'medsys_secure_pass_2026';
+  ELSE
+    ALTER ROLE medsys_user WITH PASSWORD 'medsys_secure_pass_2026';
+  END IF;
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'postgres') THEN
+    CREATE ROLE postgres WITH SUPERUSER LOGIN PASSWORD 'medsys_secure_pass_2026';
+  ELSE
+    ALTER ROLE postgres WITH PASSWORD 'medsys_secure_pass_2026';
+  END IF;
+END $$;
+
 CREATE TABLE IF NOT EXISTS tbl_pacientes (
     id_paciente SERIAL PRIMARY KEY,
     curp VARCHAR(18) UNIQUE NOT NULL,

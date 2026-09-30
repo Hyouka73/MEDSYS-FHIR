@@ -471,6 +471,20 @@ mod tests {
             Some("8310-5")
         );
 
+        // 3. Frecuencia Cardíaca
+        let fhir_hr = transform_observation_heart_rate(&signo_legado, Some(&rules))
+            .expect("Transformación de frecuencia cardíaca debe ser exitosa");
+
+        assert_eq!(
+            fhir_hr.id.as_ref().and_then(|i| i.value.as_deref()),
+            Some("hr-1")
+        );
+        let hr_code = fhir_hr.code.coding.as_ref().unwrap();
+        assert_eq!(
+            hr_code[0].code.as_ref().and_then(|c| c.value.as_deref()),
+            Some("8867-4")
+        );
+
         // Serialización
         let json_bp = serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_bp))).unwrap();
         assert!(json_bp.contains("\"resourceType\": \"Observation\""));
@@ -481,6 +495,12 @@ mod tests {
         assert!(json_temp.contains("\"resourceType\": \"Observation\""));
         assert!(json_temp.contains("8310-5"));
         assert!(json_temp.contains("Cel"));
+
+        let json_hr =
+            serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_hr))).unwrap();
+        assert!(json_hr.contains("\"resourceType\": \"Observation\""));
+        assert!(json_hr.contains("8867-4"));
+        assert!(json_hr.contains("/min"));
     }
 
     #[test]

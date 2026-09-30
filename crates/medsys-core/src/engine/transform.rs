@@ -487,6 +487,80 @@ pub fn transform_observation_temperature(
     })
 }
 
+/// Transformador canónico de `tbl_signos_vitales` hacia el recurso oficial `Observation` de HL7 FHIR R4
+/// para la medición de Frecuencia Cardíaca (LOINC 8867-4, unidad /min).
+pub fn transform_observation_heart_rate(
+    signo: &LegacySignoVital,
+    _rules: Option<&MappingRules>,
+) -> Result<Observation> {
+    let effective_dt = fhir_datetime(signo.fecha_registro)?;
+
+    let category = vec![fhir_concept(
+        Some("http://terminology.hl7.org/CodeSystem/observation-category"),
+        Some("vital-signs"),
+        Some("Vital Signs"),
+        None,
+    )];
+
+    let code = fhir_concept(
+        Some("http://loinc.org"),
+        Some("8867-4"),
+        Some("Heart rate"),
+        Some("Frecuencia cardíaca"),
+    );
+
+    let value = ObservationValue::Quantity(Quantity {
+        id: None,
+        extension: None,
+        value: Some(fhir_decimal(RustDecimal::from(signo.frecuencia_cardiaca))),
+        comparator: None,
+        unit: Some(fhir_string("/min")),
+        system: Some(fhir_uri("http://unitsofmeasure.org")),
+        code: Some(fhir_code("/min")),
+    });
+
+    Ok(Observation {
+        id: Some(fhir_string(format!("hr-{}", signo.id_signo))),
+        meta: None,
+        implicit_rules: None,
+        language: None,
+        text: None,
+        contained: None,
+        extension: None,
+        modifier_extension: None,
+        identifier: None,
+        based_on: None,
+        part_of: None,
+        status: fhir_code("final"),
+        category: Some(category),
+        code,
+        subject: Some(fhir_reference(
+            &format!("Patient/{}", signo.id_paciente),
+            None,
+        )),
+        focus: None,
+        encounter: Some(fhir_reference(
+            &format!("Encounter/{}", signo.id_consulta),
+            None,
+        )),
+        effective: Some(ObservationEffective::DateTime(effective_dt)),
+        issued: None,
+        performer: None,
+        value: Some(value),
+        data_absent_reason: None,
+        interpretation: None,
+        note: None,
+        body_site: None,
+        method: None,
+        specimen: None,
+        device: None,
+        reference_range: None,
+        has_member: None,
+        derived_from: None,
+        component: None,
+    })
+}
+
 /// Transformador canónico de `tbl_diagnosticos` hacia el recurso oficial `Condition` de HL7 FHIR R4
 /// codificado bajo el catálogo internacional CIE-10.
 /// Implementa la Tarea 2.4 del Sprint 2.
