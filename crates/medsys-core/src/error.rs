@@ -25,6 +25,9 @@ pub enum MedSysError {
     #[error("Fallo durante la transformación de datos: {0}")]
     TransformationError(String),
 
+    #[error("Error de procesamiento o corrupción de datos: {0}")]
+    ProcessingError(String),
+
     #[error("Error de validación sintáctica FHIR: {0}")]
     ValidationError(String),
 
@@ -37,5 +40,8 @@ pub enum MedSysError {
     #[error("Error interno del motor de interoperabilidad: {0}")]
     Internal(String),
 }
+
+/// Alias canónico para MedSysError en contextos de aplicación/servidor.
+pub type AppError = MedSysError;
 
 pub type Result<T> = std::result::Result<T, MedSysError>;

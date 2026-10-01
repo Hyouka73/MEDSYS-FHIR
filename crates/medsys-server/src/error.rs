@@ -45,6 +45,11 @@ impl IntoResponse for ServerError {
                 "required",
                 format!("Campo requerido '{field}' faltante para el recurso '{resource}'"),
             ),
+            ServerError::Domain(MedSysError::ProcessingError(msg)) => (
+                StatusCode::UNPROCESSABLE_ENTITY,
+                "processing",
+                format!("Error de procesamiento o corrupción de datos clínicos: {msg}"),
+            ),
             ServerError::InvalidPath(msg) => (StatusCode::BAD_REQUEST, "value", msg.clone()),
             ServerError::Domain(MedSysError::DatabaseError(msg)) => (
                 StatusCode::INTERNAL_SERVER_ERROR,

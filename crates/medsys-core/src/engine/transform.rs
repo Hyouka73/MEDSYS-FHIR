@@ -8,13 +8,11 @@ use helios_fhir::r4::{
 use helios_fhir::Element;
 use rust_decimal::Decimal as RustDecimal;
 
-use tracing::warn;
-
-use crate::engine::evaluator::parse_date_iso8601_with_fallback;
+use crate::engine::evaluator::parse_date_iso8601;
 use crate::error::{MedSysError, Result};
 use crate::model::fhir_helpers::{
-    fhir_code, fhir_concept, fhir_date, fhir_datetime, fhir_decimal, fhir_identifier,
-    fhir_reference, fhir_string, fhir_uri,
+    fhir_absent_element, fhir_code, fhir_concept, fhir_date, fhir_datetime, fhir_decimal,
+    fhir_identifier, fhir_reference, fhir_string, fhir_uri,
 };
 use crate::model::legacy::{LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital};
 use crate::model::mapping::{MappingRules, SupportedResource};
@@ -44,20 +42,13 @@ pub fn transform_patient(
         ("urn:oid:2.16.840.1.113883.4.629", "official")
     };
 
-    // Identificador nacional oficial en México: CURP (con degradación elegante si está vacío)
-    let curp_value = if paciente.curp.trim().is_empty() {
-        if let Some(fb) = curp_rule.and_then(|r| r.fallback_value()) {
-            warn!(
-                "Degradación elegante: CURP ausente o vacía. Inyectando fallback_value: '{}'",
-                fb
-            );
-            fb
-        } else {
-            paciente.curp.as_str()
-        }
-    } else {
-        paciente.curp.as_str()
-    };
+    // Identificador nacional oficial en México: CURP
+    if paciente.curp.trim().is_empty() {
+        return Err(MedSysError::ProcessingError(
+            "Data corruption: CURP es un campo crítico obligatorio y no puede estar vacío".into(),
+        ));
+    }
+    let curp_value = paciente.curp.as_str();
 
     let identifier = fhir_identifier(Some(curp_system), curp_value, Some(curp_use));
 
@@ -94,77 +85,81 @@ pub fn transform_patient(
         period: None,
     };
 
-    // Mapeo de género clínico según catálogo normativo y especificación de mapeo (con degradación elegante)
+    // Mapeo de género clínico según catálogo normativo y especificación de mapeo (con soporte data-absent-reason)
     let gender_rule = patient_mapping.and_then(|res| {
         res.mappings.iter().find(|m| {
             m.source_column.as_deref() == Some("sexo_biologico") || m.target_path == "gender"
         })
     });
 
-    let gender_code: &str = match (gender_rule, paciente.sexo_biologico.as_deref()) {
+    let use_absent = gender_rule
+        .map(|r| r.use_data_absent_reason())
+        .unwrap_or(true);
+
+    let gender: Option<helios_fhir::r4::Code> = match (gender_rule, paciente.sexo_biologico.as_deref()) {
         (Some(rule), Some(raw)) => {
             if let Some(ref dict) = rule.dictionary {
                 if let Some(val) = dict.get(raw) {
-                    val.as_str()
-                } else if let Some(fb) = rule.fallback_value() {
-                    warn!(
-                        "Degradación elegante: Valor '{}' no encontrado en diccionario para target '{}'. Inyectando fallback_value: '{}'",
-                        raw,
-                        rule.target_path,
-                        fb
-                    );
-                    fb
+                    Some(fhir_code(val.as_str()))
+                } else if rule.use_data_absent_reason() {
+                    Some(fhir_absent_element())
+                } else if rule.is_optional() {
+                    None
                 } else {
-                    match raw {
-                        "M" => "male",
-                        "F" => "female",
-                        "I" => "other",
-                        _ => "unknown",
-                    }
-                }
-            } else if let Some(fb) = rule.fallback_value() {
-                match raw {
-                    "M" => "male",
-                    "F" => "female",
-                    "I" => "other",
-                    _ => {
-                        warn!(
-                            "Degradación elegante: Valor '{}' no reconocido para target '{}'. Inyectando fallback_value: '{}'",
-                            raw,
-                            rule.target_path,
-                            fb
-                        );
-                        fb
-                    }
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Valor de sexo_biologico '{raw}' no encontrado en diccionario para target '{}'",
+                        rule.target_path
+                    )));
                 }
             } else {
                 match raw {
-                    "M" => "male",
-                    "F" => "female",
-                    "I" => "other",
-                    _ => "unknown",
+                    "M" => Some(fhir_code("male")),
+                    "F" => Some(fhir_code("female")),
+                    "I" => Some(fhir_code("other")),
+                    _ => {
+                        if rule.use_data_absent_reason() {
+                            Some(fhir_absent_element())
+                        } else if rule.is_optional() {
+                            None
+                        } else {
+                            return Err(MedSysError::ProcessingError(format!(
+                                "Data corruption: Valor de sexo_biologico '{raw}' no reconocido"
+                            )));
+                        }
+                    }
                 }
             }
         }
         (Some(rule), None) => {
-            if let Some(fb) = rule.fallback_value() {
-                warn!(
-                    "Degradación elegante: Columna 'sexo_biologico' nula/ausente para target '{}'. Inyectando fallback_value: '{}'",
-                    rule.target_path,
-                    fb
-                );
-                fb
+            if rule.use_data_absent_reason() {
+                Some(fhir_absent_element())
+            } else if rule.is_optional() {
+                None
             } else {
-                "unknown"
+                return Err(MedSysError::ProcessingError(
+                    "Data corruption: Columna 'sexo_biologico' nula o ausente para campo obligatorio".into(),
+                ));
             }
         }
         (None, Some(raw)) => match raw {
-            "M" => "male",
-            "F" => "female",
-            "I" => "other",
-            _ => "unknown",
+            "M" => Some(fhir_code("male")),
+            "F" => Some(fhir_code("female")),
+            "I" => Some(fhir_code("other")),
+            _ => {
+                if use_absent {
+                    Some(fhir_absent_element())
+                } else {
+                    Some(fhir_code("unknown"))
+                }
+            }
         },
-        (None, None) => "unknown",
+        (None, None) => {
+            if use_absent {
+                Some(fhir_absent_element())
+            } else {
+                None
+            }
+        }
     };
 
     // Medios de contacto (teléfono opcional)
@@ -199,7 +194,7 @@ pub fn transform_patient(
         }),
         name: Some(vec![human_name]),
         telecom,
-        gender: Some(fhir_code(gender_code)),
+        gender,
         birth_date: Some(birth_date),
         deceased: None,
         address: None,
@@ -265,37 +260,27 @@ pub fn transform_encounter(
         })
     });
 
-    // Mapeo del estado de la consulta a código oficial FHIR con degradación elegante
-    let status_str = match consulta.estado_consulta.as_str() {
-        "FINALIZADA" => "finished",
-        "EN_CURSO" => "in-progress",
-        "CANCELADA" => "cancelled",
+    // Mapeo del estado de la consulta a código oficial FHIR
+    let status_code: helios_fhir::r4::Code = match consulta.estado_consulta.as_str() {
+        "FINALIZADA" => fhir_code("finished"),
+        "EN_CURSO" => fhir_code("in-progress"),
+        "CANCELADA" => fhir_code("cancelled"),
         other => {
             if let Some(dict) = status_rule.and_then(|r| r.dictionary.as_ref()) {
                 if let Some(val) = dict.get(other) {
-                    val.as_str()
-                } else if let Some(fb) = status_rule.and_then(|r| r.fallback_value()) {
-                    warn!(
-                        "Degradación elegante: Estado de consulta desconocido '{}'. Inyectando fallback_value: '{}'",
-                        other,
-                        fb
-                    );
-                    fb
+                    fhir_code(val.as_str())
+                } else if status_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                    fhir_absent_element()
                 } else {
-                    return Err(MedSysError::TransformationError(format!(
-                        "Estado de consulta desconocido: {other}"
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Estado de consulta desconocido '{other}'"
                     )));
                 }
-            } else if let Some(fb) = status_rule.and_then(|r| r.fallback_value()) {
-                warn!(
-                    "Degradación elegante: Estado de consulta desconocido '{}'. Inyectando fallback_value: '{}'",
-                    other,
-                    fb
-                );
-                fb
+            } else if status_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                fhir_absent_element()
             } else {
-                return Err(MedSysError::TransformationError(format!(
-                    "Estado de consulta desconocido: {other}"
+                return Err(MedSysError::ProcessingError(format!(
+                    "Data corruption: Estado de consulta desconocido '{other}'"
                 )));
             }
         }
@@ -377,7 +362,7 @@ pub fn transform_encounter(
         extension: None,
         modifier_extension: None,
         identifier: Some(vec![identifier]),
-        status: fhir_code(status_str),
+        status: status_code,
         status_history: None,
         class: class_coding,
         class_history: None,
@@ -696,7 +681,7 @@ pub fn transform_condition(
         None,
     );
 
-    // Estado de verificación: CONFIRMADO -> confirmed, PRESUNTIVO -> provisional (con degradación elegante)
+    // Estado de verificación: CONFIRMADO -> confirmed, PRESUNTIVO -> provisional
     let (ver_code, ver_display) = match diagnostico.tipo_diagnostico.as_str() {
         "CONFIRMADO" => ("confirmed", "Confirmed"),
         "PRESUNTIVO" => ("provisional", "Provisional"),
@@ -704,25 +689,19 @@ pub fn transform_condition(
             if let Some(dict) = ver_rule.and_then(|r| r.dictionary.as_ref()) {
                 if let Some(val) = dict.get(other) {
                     (val.as_str(), val.as_str())
-                } else if let Some(fb) = ver_rule.and_then(|r| r.fallback_value()) {
-                    warn!(
-                        "Degradación elegante: Tipo de diagnóstico '{}' no encontrado en diccionario. Inyectando fallback_value: '{}'",
-                        other,
-                        fb
-                    );
-                    (fb, fb)
+                } else if ver_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                    ("unknown", "Unknown")
                 } else {
-                    ("confirmed", "Confirmed")
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Tipo de diagnóstico desconocido '{other}'"
+                    )));
                 }
-            } else if let Some(fb) = ver_rule.and_then(|r| r.fallback_value()) {
-                warn!(
-                    "Degradación elegante: Tipo de diagnóstico '{}' no reconocido. Inyectando fallback_value: '{}'",
-                    other,
-                    fb
-                );
-                (fb, fb)
+            } else if ver_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                ("unknown", "Unknown")
             } else {
-                ("confirmed", "Confirmed")
+                return Err(MedSysError::ProcessingError(format!(
+                    "Data corruption: Tipo de diagnóstico desconocido '{other}'"
+                )));
             }
         }
     };
@@ -749,21 +728,13 @@ pub fn transform_condition(
     ) {
         Ok(dt) => dt,
         Err(err) => {
-            if let Some(fb) = date_rule.and_then(|r| r.fallback_value()) {
-                warn!(
-                    "Degradación elegante: Error al formatear fecha_diagnostico ({:?}). Inyectando fallback_value: '{}'",
-                    err,
-                    fb
-                );
-                let fallback_naive = chrono::NaiveDate::parse_from_str(fb, "%Y-%m-%d")
-                    .map(|d| d.and_hms_opt(0, 0, 0).unwrap_or_default())
-                    .unwrap_or_else(|_| {
-                        chrono::NaiveDateTime::parse_from_str(fb, "%Y-%m-%dT%H:%M:%S")
-                            .unwrap_or_default()
-                    });
-                fhir_datetime(fallback_naive)?
+            if date_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                fhir_absent_element()
             } else {
-                return Err(err);
+                return Err(MedSysError::ProcessingError(format!(
+                    "Data corruption: Error al formatear fecha_diagnostico ({:?})",
+                    err
+                )));
             }
         }
     };
@@ -825,27 +796,50 @@ pub fn transform_condition_raw(
         })
     });
 
-    let fallback = date_rule.and_then(|r| r.fallback_value());
-    let parsed_date_str = parse_date_iso8601_with_fallback(fecha_diagnostico_raw, fallback)?;
+    let use_absent = date_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false);
 
-    let parsed_date =
-        chrono::NaiveDate::parse_from_str(&parsed_date_str, "%Y-%m-%d").map_err(|e| {
-            MedSysError::TransformationError(format!(
-                "Fallo al interpretar fecha de diagnóstico resultante '{parsed_date_str}': {e}"
-            ))
-        })?;
+    match parse_date_iso8601(fecha_diagnostico_raw) {
+        Ok(parsed_date_str) => {
+            let parsed_date = chrono::NaiveDate::parse_from_str(&parsed_date_str, "%Y-%m-%d")
+                .map_err(|e| {
+                    MedSysError::ProcessingError(format!(
+                        "Data corruption: Fallo al interpretar fecha de diagnóstico resultante '{parsed_date_str}': {e}"
+                    ))
+                })?;
 
-    let diag = LegacyDiagnostico {
-        id_diagnostico,
-        id_consulta,
-        id_paciente,
-        codigo_cie10: codigo_cie10.to_string(),
-        descripcion_diagnostico: descripcion_diagnostico.to_string(),
-        tipo_diagnostico: tipo_diagnostico.to_string(),
-        fecha_diagnostico: parsed_date,
-    };
+            let diag = LegacyDiagnostico {
+                id_diagnostico,
+                id_consulta,
+                id_paciente,
+                codigo_cie10: codigo_cie10.to_string(),
+                descripcion_diagnostico: descripcion_diagnostico.to_string(),
+                tipo_diagnostico: tipo_diagnostico.to_string(),
+                fecha_diagnostico: parsed_date,
+            };
 
-    transform_condition(&diag, rules)
+            transform_condition(&diag, rules)
+        }
+        Err(err) => {
+            if use_absent {
+                let diag = LegacyDiagnostico {
+                    id_diagnostico,
+                    id_consulta,
+                    id_paciente,
+                    codigo_cie10: codigo_cie10.to_string(),
+                    descripcion_diagnostico: descripcion_diagnostico.to_string(),
+                    tipo_diagnostico: tipo_diagnostico.to_string(),
+                    fecha_diagnostico: chrono::NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(),
+                };
+                let mut cond = transform_condition(&diag, rules)?;
+                cond.recorded_date = Some(fhir_absent_element());
+                Ok(cond)
+            } else {
+                Err(MedSysError::ProcessingError(format!(
+                    "Data corruption: Fallo al parsear fecha_diagnostico '{fecha_diagnostico_raw}': {err}"
+                )))
+            }
+        }
+    }
 }
 
 /// Serializa cualquier recurso FHIR hacia una cadena JSON canónica `application/fhir+json`.

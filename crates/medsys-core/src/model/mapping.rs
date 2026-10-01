@@ -106,7 +106,7 @@ pub struct FieldMapping {
     pub code: Option<String>,
 
     #[serde(default)]
-    pub fallback_value: Option<String>,
+    pub use_data_absent_reason: Option<bool>,
 }
 
 impl FieldMapping {
@@ -120,8 +120,8 @@ impl FieldMapping {
         self.use_field.as_deref().or(self.use_type.as_deref())
     }
 
-    /// Retorna el valor de degradación elegante (fallback) si está configurado en la regla.
-    pub fn fallback_value(&self) -> Option<&str> {
-        self.fallback_value.as_deref()
+    /// Determina si la regla especifica el uso de la extensión FHIR `data-absent-reason`.
+    pub fn use_data_absent_reason(&self) -> bool {
+        self.use_data_absent_reason.unwrap_or(false)
     }
 }

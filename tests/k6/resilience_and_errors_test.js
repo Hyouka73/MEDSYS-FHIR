@@ -5,6 +5,10 @@
 // Inyecta fallos y peticiones anómalas concurrentes para certificar que el 100%
 // de las excepciones del middleware se traduzcan invariablemente a OperationOutcome
 // bajo Content-Type: application/fhir+json; charset=utf-8.
+//
+// Refactorización: Se elimina el anti-patrón de inventar datos falsos (fallback_value).
+// Ahora ante datos críticos corruptos el middleware emite OperationOutcome HTTP 422,
+// y ante datos ausentes o no casteables se valida la presencia de data-absent-reason.
 // ============================================================================
 
 import http from 'k6/http';
@@ -32,7 +36,7 @@ const fhirHeaders = {
 };
 
 export default function () {
-  group('Inyección de Fallos Controlados', function () {
+  group('Inyección de Fallos Controlados y Resiliencia FHIR R4', function () {
     // 1. Error 400: Parámetro de ruta con formato inválido
     const resBadParam = http.get(
       `${BASE_URL}/fhir/r4/Condition/id_texto_invalido_alfa`,
@@ -72,6 +76,65 @@ export default function () {
         r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
       'Fallback: OperationOutcome emitido': () => isFallbackConformant,
     });
+
+    // 3. Error 422: Datos críticos corruptos o recurso no procesable devuelve OperationOutcome
+    // El motor elimina el anti-patrón de inventar datos falseados; ante datos obligatorios corruptos
+    // debe emitirse estrictamente un OperationOutcome con status HTTP 422 o 404 según corresponda.
+    const resCorruptEntity = http.get(
+      `${BASE_URL}/fhir/r4/Patient/999999`,
+      fhirHeaders
+    );
+    const isErrorOrOutcome =
+      (resCorruptEntity.status === 422 || resCorruptEntity.status === 404) &&
+      resCorruptEntity.headers['Content-Type'] &&
+      resCorruptEntity.headers['Content-Type'].includes('application/fhir+json') &&
+      resCorruptEntity.body.includes('"resourceType": "OperationOutcome"');
+
+    operationOutcomeConformityRate.add(isErrorOrOutcome);
+    check(resCorruptEntity, {
+      'Corrupt/Missing: Status 422 o 404 controlado': (r) =>
+        r.status === 422 || r.status === 404,
+      'Corrupt/Missing: Content-Type FHIR': (r) =>
+        r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
+      'Corrupt/Missing: OperationOutcome emitido sin datos falseados': () => isErrorOrOutcome,
+    });
+
+    // 4. Validación de la extensión data-absent-reason (HL7 FHIR R4):
+    // Se certifica que las respuestas exitosas NO contengan datos clínicos falseados arbitrarios
+    // (como '1970-01-01' o valores de rescate inventados). En caso de existir degradación por datos
+    // ausentes o no conformes, se valida la presencia de la extensión canónica data-absent-reason.
+    const resPatient = http.get(`${BASE_URL}/fhir/r4/Patient/1`, fhirHeaders);
+    if (resPatient.status === 200) {
+      check(resPatient, {
+        'No contiene fechas falseadas 1970-01-01': (r) => !r.body.includes('1970-01-01'),
+        'No contiene valores de rescate inventados': (r) =>
+          !r.body.includes('VALOR_RESCATE_DEFAULT'),
+        'Estructura FHIR R4 conforme (Patient o data-absent-reason)': (r) => {
+          try {
+            const body = r.body;
+            if (body.includes('data-absent-reason')) {
+              return (
+                body.includes('http://hl7.org/fhir/StructureDefinition/data-absent-reason') &&
+                body.includes('"valueCode": "error"')
+              );
+            }
+            return body.includes('"resourceType": "Patient"');
+          } catch (_) {
+            return false;
+          }
+        },
+      });
+    } else {
+      const isCriticalOutcome =
+        resPatient.status === 422 &&
+        resPatient.headers['Content-Type'] &&
+        resPatient.headers['Content-Type'].includes('application/fhir+json') &&
+        resPatient.body.includes('"resourceType": "OperationOutcome"');
+      operationOutcomeConformityRate.add(isCriticalOutcome);
+      check(resPatient, {
+        'Patient corrupto: Status 422 con OperationOutcome': () => isCriticalOutcome,
+      });
+    }
   });
 
   sleep(0.05);

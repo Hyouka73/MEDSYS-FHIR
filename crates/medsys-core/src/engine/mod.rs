@@ -647,11 +647,11 @@ mod tests {
     // =========================================================================
 
     #[test]
-    fn test_yaml_fallback_value_specification() {
+    fn test_yaml_data_absent_reason_specification() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML)
             .expect("El archivo mapping_rules_specification.yaml debe deserializar sin errores");
 
-        // Verificación de fallback_value en Patient (sexo_biologico)
+        // Verificación de use_data_absent_reason en Patient (sexo_biologico)
         let patient = rules
             .get_resource_mapping(SupportedResource::Patient)
             .expect("Patient debe existir");
@@ -660,10 +660,10 @@ mod tests {
             .iter()
             .find(|m| m.source_column.as_deref() == Some("sexo_biologico"))
             .expect("Mapeo de sexo_biologico debe existir");
-        assert_eq!(gender.fallback_value.as_deref(), Some("unknown"));
-        assert_eq!(gender.fallback_value(), Some("unknown"));
+        assert_eq!(gender.use_data_absent_reason, Some(true));
+        assert!(gender.use_data_absent_reason());
 
-        // Verificación de fallback_value en Condition (fecha_diagnostico)
+        // Verificación de use_data_absent_reason en Condition (fecha_diagnostico)
         let condition = rules
             .get_resource_mapping(SupportedResource::Condition)
             .expect("Condition debe existir");
@@ -672,12 +672,12 @@ mod tests {
             .iter()
             .find(|m| m.source_column.as_deref() == Some("fecha_diagnostico"))
             .expect("Mapeo de fecha_diagnostico debe existir");
-        assert_eq!(fecha.fallback_value.as_deref(), Some("1970-01-01"));
-        assert_eq!(fecha.fallback_value(), Some("1970-01-01"));
+        assert_eq!(fecha.use_data_absent_reason, Some(true));
+        assert!(fecha.use_data_absent_reason());
     }
 
     #[test]
-    fn test_evaluator_corrupted_date_graceful_degradation() {
+    fn test_evaluator_corrupted_date_data_absent_reason() {
         use serde_json::json;
 
         let rule = FieldMapping {
@@ -692,7 +692,7 @@ mod tests {
             dictionary: None,
             unit: None,
             code: None,
-            fallback_value: Some("1970-01-01".to_string()),
+            use_data_absent_reason: Some(true),
         };
 
         let mut row = serde_json::Map::new();
@@ -703,13 +703,20 @@ mod tests {
 
         let mut target_json = json!({});
         evaluate_field_mapping(&rule, "Condition", &row, &mut target_json)
-            .expect("No debe hacer panic ni fallar catastróficamente al tener fallback_value");
+            .expect("Debe manejar el error de casteo e inyectar data-absent-reason sin panic");
 
-        assert_eq!(target_json["recordedDate"], "1970-01-01");
+        assert_eq!(
+            target_json["recordedDate"]["extension"][0]["url"],
+            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+        );
+        assert_eq!(
+            target_json["recordedDate"]["extension"][0]["valueCode"],
+            "error"
+        );
     }
 
     #[test]
-    fn test_evaluator_corrupted_date_without_fallback_fails() {
+    fn test_evaluator_corrupted_date_without_data_absent_reason_fails() {
         use serde_json::json;
 
         let rule = FieldMapping {
@@ -724,7 +731,7 @@ mod tests {
             dictionary: None,
             unit: None,
             code: None,
-            fallback_value: None, // Sin fallback: debe fallar para retrocompatibilidad
+            use_data_absent_reason: None,
         };
 
         let mut row = serde_json::Map::new();
@@ -734,12 +741,18 @@ mod tests {
         let result = evaluate_field_mapping(&rule, "Condition", &row, &mut target_json);
         assert!(
             result.is_err(),
-            "Debe retornar error de transformación cuando no hay fallback_value"
+            "Debe retornar error ProcessingError cuando el casteo falla en campo obligatorio sin data_absent_reason"
         );
+        match result.unwrap_err() {
+            MedSysError::ProcessingError(msg) => {
+                assert!(msg.contains("Data corruption"));
+            }
+            other => panic!("Esperaba MedSysError::ProcessingError pero obtuvo {:?}", other),
+        }
     }
 
     #[test]
-    fn test_evaluator_dictionary_miss_graceful_degradation() {
+    fn test_evaluator_dictionary_miss_data_absent_reason() {
         use serde_json::json;
         use std::collections::BTreeMap;
 
@@ -759,7 +772,7 @@ mod tests {
             dictionary: Some(dict),
             unit: None,
             code: None,
-            fallback_value: Some("unknown".to_string()),
+            use_data_absent_reason: Some(true),
         };
 
         let mut row = serde_json::Map::new();
@@ -770,13 +783,20 @@ mod tests {
 
         let mut target_json = json!({});
         evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
-            .expect("Debe atrapar el fallo del diccionario e inyectar el fallback");
+            .expect("Debe atrapar el fallo del diccionario e inyectar data-absent-reason");
 
-        assert_eq!(target_json["gender"], "unknown");
+        assert_eq!(
+            target_json["gender"]["extension"][0]["url"],
+            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+        );
+        assert_eq!(
+            target_json["gender"]["extension"][0]["valueCode"],
+            "error"
+        );
     }
 
     #[test]
-    fn test_evaluator_missing_source_column_with_fallback() {
+    fn test_evaluator_missing_source_column_with_data_absent_reason() {
         use serde_json::json;
 
         let rule = FieldMapping {
@@ -791,17 +811,21 @@ mod tests {
             dictionary: None,
             unit: None,
             code: None,
-            fallback_value: Some("VALOR_RESCATE_DEFAULT".to_string()),
+            use_data_absent_reason: Some(true),
         };
 
         let row = serde_json::Map::new(); // Fila vacía
         let mut target_json = json!({});
         evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
-            .expect("Debe inyectar fallback_value si la extracción del source_column falla");
+            .expect("Debe inyectar data-absent-reason si la extracción del source_column falla");
 
         assert_eq!(
-            target_json["identifier"][0]["value"],
-            "VALOR_RESCATE_DEFAULT"
+            target_json["identifier"][0]["value"]["extension"][0]["url"],
+            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+        );
+        assert_eq!(
+            target_json["identifier"][0]["value"]["extension"][0]["valueCode"],
+            "error"
         );
     }
 
@@ -827,7 +851,7 @@ mod tests {
     }
 
     #[test]
-    fn test_transform_condition_raw_corrupted_date_with_fallback() {
+    fn test_transform_condition_raw_corrupted_date_with_data_absent_reason() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
 
         // Se envía una fecha clínica corrupta/malformada
@@ -841,32 +865,38 @@ mod tests {
             "FECHA_CORRUPTA_MALFORMADA",
             Some(&rules),
         )
-        .expect("Debe degradar elegantemente y aplicar fallback_value sin hacer panic");
+        .expect("Debe aplicar data-absent-reason sin hacer panic");
 
         assert_eq!(fhir_cond.id.as_ref().unwrap().value.as_deref(), Some("101"));
         let recorded = fhir_cond
             .recorded_date
             .as_ref()
-            .expect("Debe tener recorded_date");
+            .expect("Debe tener recorded_date como elemento");
         assert!(
-            recorded
-                .value
-                .as_ref()
-                .unwrap()
-                .to_string()
-                .starts_with("1970-01-01"),
-            "Debe contener la fecha de rescate configurada en la especificación"
+            recorded.value.is_none(),
+            "El valor de fecha NO debe contener fecha inventada (anti-patrón clínico)"
+        );
+        let exts = recorded
+            .extension
+            .as_ref()
+            .expect("Debe incluir extensión data-absent-reason");
+        assert_eq!(exts.len(), 1);
+        assert_eq!(
+            exts[0].url.value.as_deref(),
+            Some("http://hl7.org/fhir/StructureDefinition/data-absent-reason")
         );
 
-        // Verificamos que serialice a JSON FHIR válido sin errores
+        // Verificamos que serialice a JSON FHIR válido conteniendo la extensión
         let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(fhir_cond)))
             .expect("Debe serializar Condition a JSON");
         assert!(json_str.contains("\"resourceType\": \"Condition\""));
-        assert!(json_str.contains("1970-01-01"));
+        assert!(json_str.contains("data-absent-reason"));
+        assert!(json_str.contains("\"valueCode\": \"error\""));
+        assert!(!json_str.contains("1970-01-01"));
     }
 
     #[test]
-    fn test_transform_patient_corrupt_gender_with_fallback() {
+    fn test_transform_patient_corrupt_gender_with_data_absent_reason() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
 
         let paciente_legado = LegacyPaciente {
@@ -883,26 +913,24 @@ mod tests {
         };
 
         let fhir_patient = transform_patient(&paciente_legado, Some(&rules))
-            .expect("La transformación debe ser exitosa mediante degradación elegante");
+            .expect("La transformación debe ser exitosa mediante data-absent-reason");
 
-        assert_eq!(
-            fhir_patient
-                .gender
-                .as_ref()
-                .and_then(|g| g.value.as_deref()),
-            Some("unknown")
-        );
+        let gender_elem = fhir_patient.gender.as_ref().expect("Gender debe estar presente");
+        assert!(gender_elem.value.is_none(), "No debe inventar valor sintético");
+        assert!(gender_elem.extension.is_some(), "Debe contener extensión data-absent-reason");
 
         let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
             .expect("Debe serializar Patient a JSON");
-        assert!(json_str.contains("\"gender\": \"unknown\""));
+        assert!(json_str.contains("\"resourceType\": \"Patient\""));
+        assert!(json_str.contains("data-absent-reason"));
+        assert!(json_str.contains("\"valueCode\": \"error\""));
     }
 
     #[test]
-    fn test_transform_encounter_corrupt_status_with_and_without_fallback() {
+    fn test_transform_encounter_corrupt_status_with_and_without_data_absent_reason() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
 
-        // 1. Consulta con estado desconocido usando especificación por defecto
+        // 1. Consulta con estado desconocido usando especificación por defecto (sin data_absent_reason en status)
         let consulta_corrupta = LegacyConsulta {
             id_consulta: 50,
             id_paciente: 1,
@@ -923,11 +951,17 @@ mod tests {
             unidad_medica: None,
         };
 
-        // Sin fallback en estado_consulta: falla de manera controlada (retrocompatible)
-        let res_no_fallback = transform_encounter(&consulta_corrupta, Some(&rules));
-        assert!(res_no_fallback.is_err());
+        // Sin data_absent_reason en estado_consulta: falla con ProcessingError
+        let res_no_absent = transform_encounter(&consulta_corrupta, Some(&rules));
+        assert!(res_no_absent.is_err());
+        match res_no_absent.unwrap_err() {
+            MedSysError::ProcessingError(msg) => {
+                assert!(msg.contains("Data corruption"));
+            }
+            other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
+        }
 
-        // 2. Consulta con especificación que sí define fallback_value
+        // 2. Consulta con especificación que sí define use_data_absent_reason
         let mut custom_rules = rules.clone();
         let enc_map = custom_rules
             .resources
@@ -939,10 +973,12 @@ mod tests {
             .iter_mut()
             .find(|m| m.target_path == "status")
             .unwrap();
-        status_mapping.fallback_value = Some("in-progress".to_string());
+        status_mapping.use_data_absent_reason = Some(true);
 
         let fhir_enc = transform_encounter(&consulta_corrupta, Some(&custom_rules))
-            .expect("Debe degradar a 'in-progress' exitosamente");
-        assert_eq!(fhir_enc.status.value.as_deref(), Some("in-progress"));
+            .expect("Debe transformar con extensión data-absent-reason exitosamente");
+        assert!(fhir_enc.status.value.is_none());
+        assert!(fhir_enc.status.extension.is_some());
     }
 }
+

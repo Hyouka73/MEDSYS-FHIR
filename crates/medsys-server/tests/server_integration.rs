@@ -128,7 +128,16 @@ async fn test_server_error_into_response_conformity() {
     let body_field = response_body_to_string(res_field).await;
     assert!(body_field.contains("\"code\": \"required\""));
 
-    // 4. DatabaseError -> 500
+    // 4. ProcessingError -> 422
+    let err_proc = ServerError::Domain(MedSysError::ProcessingError("Data corruption in critical field".into()));
+    let res_proc = err_proc.into_response();
+    assert_eq!(res_proc.status(), StatusCode::UNPROCESSABLE_ENTITY);
+    let body_proc = response_body_to_string(res_proc).await;
+    assert!(body_proc.contains("\"resourceType\": \"OperationOutcome\""));
+    assert!(body_proc.contains("\"code\": \"processing\""));
+    assert!(body_proc.contains("Data corruption in critical field"));
+
+    // 5. DatabaseError -> 500
     let err_db = ServerError::Domain(MedSysError::DatabaseError("Conexión rechazada".into()));
     let res_500 = err_db.into_response();
     assert_eq!(res_500.status(), StatusCode::INTERNAL_SERVER_ERROR);

@@ -37,9 +37,9 @@ resources:
           "M": "male"
           "F": "female"
           "I": "other"
-        # Degradación elegante (Fallback): Si el dato original está corrupto, nulo o no existe en el diccionario,
-        # el motor usará 'unknown' garantizando la serialización válida del recurso FHIR.
-        fallback_value: "unknown"
+        # Razón de ausencia clínica (data-absent-reason): Si el dato original está corrupto, nulo o no existe en el diccionario,
+        # el motor inyecta la extensión canónica FHIR data-absent-reason con valueCode: error.
+        use_data_absent_reason: true
       - source_column: "telefono_contacto"
         target_path: "telecom[0].value"
         system: "phone"
@@ -182,5 +182,6 @@ resources:
       - source_column: "fecha_diagnostico"
         target_path: "recordedDate"
         transform: "date_iso8601"
-        # Degradación elegante (Fallback): Se usará si el dato original de fecha está corrupto, malformado o no parseable
-        fallback_value: "1970-01-01"
+        # Razón de ausencia clínica (data-absent-reason): Se usará si el dato original de fecha está corrupto, malformado o no parseable,
+        # inyectando la extensión canónica FHIR data-absent-reason con valueCode: error en lugar de falsear datos.
+        use_data_absent_reason: true

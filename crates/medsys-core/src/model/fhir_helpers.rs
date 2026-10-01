@@ -138,3 +138,27 @@ pub fn fhir_identifier(system: Option<&str>, value: &str, use_code: Option<&str>
         assigner: None,
     }
 }
+
+/// URL oficial de la extensión canónica FHIR R4 para razones de ausencia de datos.
+pub const FHIR_DATA_ABSENT_REASON_URL: &str =
+    "http://hl7.org/fhir/StructureDefinition/data-absent-reason";
+
+/// Crea una extensión `data-absent-reason` de FHIR R4 con valueCode: "error".
+pub fn fhir_data_absent_reason_extension() -> Extension {
+    Extension {
+        id: None,
+        extension: None,
+        url: fhir_uri(FHIR_DATA_ABSENT_REASON_URL),
+        value: Some(helios_fhir::r4::ExtensionValue::Code(fhir_code("error"))),
+    }
+}
+
+/// Crea un elemento primitivo FHIR cuyo valor está ausente por error,
+/// documentado formalmente bajo la extensión estándar `data-absent-reason`.
+pub fn fhir_absent_element<T>() -> Element<T, Extension> {
+    Element {
+        id: None,
+        extension: Some(vec![fhir_data_absent_reason_extension()]),
+        value: None,
+    }
+}

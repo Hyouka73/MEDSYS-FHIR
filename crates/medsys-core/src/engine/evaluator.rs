@@ -1,7 +1,6 @@
 use chrono::{NaiveDate, NaiveDateTime};
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
-use tracing::warn;
 
 use crate::error::{MedSysError, Result};
 use crate::model::mapping::{FieldMapping, ResourceMapping};
@@ -133,12 +132,22 @@ pub fn set_json_path(root: &mut Value, path: &str, new_value: Value) -> Result<(
     Ok(())
 }
 
+/// Construye la estructura JSON canónica de la extensión FHIR data-absent-reason.
+pub fn fhir_data_absent_reason_json() -> Value {
+    json!({
+        "extension": [
+            {
+                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                "valueCode": "error"
+            }
+        ]
+    })
+}
+
 /// Parsea una fecha hacia el formato canónico ISO 8601 (`YYYY-MM-DD`).
-/// En caso de fallo, si se proporciona `fallback`, atrapa el error como advertencia y devuelve el fallback.
-pub fn parse_date_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
+pub fn parse_date_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
 
-    // Intentos de parseo con múltiples formatos comunes en bases de datos clínicas
     let parsed_date = NaiveDate::parse_from_str(trimmed, "%Y-%m-%d")
         .or_else(|_| NaiveDate::parse_from_str(trimmed, "%Y/%m/%d"))
         .or_else(|_| NaiveDate::parse_from_str(trimmed, "%d/%m/%Y"))
@@ -153,25 +162,28 @@ pub fn parse_date_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Re
 
     match parsed_date {
         Ok(date) => Ok(date.format("%Y-%m-%d").to_string()),
+        Err(err) => Err(MedSysError::TransformationError(format!(
+            "Fallo al parsear fecha '{raw}' con transformación date_iso8601: {err}"
+        ))),
+    }
+}
+
+/// Helper para compatibilidad hacia atrás en caso de requerir un valor de contingencia opcional.
+pub fn parse_date_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
+    match parse_date_iso8601(raw) {
+        Ok(val) => Ok(val),
         Err(err) => {
             if let Some(fb) = fallback {
-                warn!(
-                    "Degradación elegante: Fallo al parsear fecha con date_iso8601 para valor '{}' ({:?}). Inyectando fallback_value: '{}'",
-                    raw, err, fb
-                );
                 Ok(fb.to_string())
             } else {
-                Err(MedSysError::TransformationError(format!(
-                    "Fallo al parsear fecha '{raw}' con transformación date_iso8601: {err}"
-                )))
+                Err(err)
             }
         }
     }
 }
 
 /// Parsea fecha y hora hacia el formato canónico ISO 8601 (`YYYY-MM-DDTHH:MM:SS`).
-/// En caso de fallo, si se proporciona `fallback`, atrapa el error como advertencia y devuelve el fallback.
-pub fn parse_datetime_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
+pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
 
     let parsed_dt = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S")
@@ -185,84 +197,57 @@ pub fn parse_datetime_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -
 
     match parsed_dt {
         Ok(dt) => Ok(dt.format("%Y-%m-%dT%H:%M:%S").to_string()),
+        Err(err) => Err(MedSysError::TransformationError(format!(
+            "Fallo al parsear fecha y hora '{raw}' con transformación datetime_iso8601: {err}"
+        ))),
+    }
+}
+
+/// Helper para compatibilidad hacia atrás en caso de requerir un valor de contingencia opcional.
+pub fn parse_datetime_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
+    match parse_datetime_iso8601(raw) {
+        Ok(val) => Ok(val),
         Err(err) => {
             if let Some(fb) = fallback {
-                warn!(
-                    "Degradación elegante: Fallo al parsear datetime con datetime_iso8601 para valor '{}' ({:?}). Inyectando fallback_value: '{}'",
-                    raw, err, fb
-                );
                 Ok(fb.to_string())
             } else {
-                Err(MedSysError::TransformationError(format!(
-                    "Fallo al parsear fecha y hora '{raw}' con transformación datetime_iso8601: {err}"
-                )))
+                Err(err)
             }
         }
     }
 }
 
 /// Aplica una directiva `transform` (e.g. `date_iso8601`, `datetime_iso8601`, `reference:Patient/{value}`).
-/// Si la transformación falla y existe un `fallback`, se emite una advertencia y se retorna el fallback.
-pub fn apply_transform(
-    transform_name: &str,
-    raw_value: &str,
-    fallback: Option<&str>,
-) -> Result<String> {
+pub fn apply_transform(transform_name: &str, raw_value: &str) -> Result<String> {
     match transform_name {
-        "date_iso8601" => parse_date_iso8601_with_fallback(raw_value, fallback),
-        "datetime_iso8601" => parse_datetime_iso8601_with_fallback(raw_value, fallback),
+        "date_iso8601" => parse_date_iso8601(raw_value),
+        "datetime_iso8601" => parse_datetime_iso8601(raw_value),
         custom if custom.starts_with("reference:") => {
             let pattern = &custom["reference:".len()..];
             let trimmed = raw_value.trim();
             if trimmed.is_empty() {
-                if let Some(fb) = fallback {
-                    warn!(
-                        "Degradación elegante: Valor origen vacío para referencia '{}'. Inyectando fallback_value: '{}'",
-                        custom, fb
-                    );
-                    Ok(fb.to_string())
-                } else {
-                    Err(MedSysError::TransformationError(format!(
-                        "Valor vacío al construir referencia FHIR con patrón '{pattern}'"
-                    )))
-                }
+                Err(MedSysError::TransformationError(format!(
+                    "Valor vacío al construir referencia FHIR con patrón '{pattern}'"
+                )))
             } else {
                 Ok(pattern.replace("{value}", trimmed))
             }
         }
-        unknown => {
-            if let Some(fb) = fallback {
-                warn!(
-                    "Degradación elegante: Transformación desconocida '{}' sobre valor '{}'. Inyectando fallback_value: '{}'",
-                    unknown, raw_value, fb
-                );
-                Ok(fb.to_string())
-            } else {
-                Err(MedSysError::TransformationError(format!(
-                    "Transformación no soportada: '{unknown}'"
-                )))
-            }
-        }
+        unknown => Err(MedSysError::TransformationError(format!(
+            "Transformación no soportada: '{unknown}'"
+        ))),
     }
 }
 
-/// Aplica la búsqueda en diccionario catalogo.
-/// Si el valor no coincide con ninguna clave y se define un `fallback`, se atrapa el fallo y se devuelve el fallback.
+/// Aplica la búsqueda en diccionario catalogo normativo.
 pub fn apply_dictionary(
     dictionary: &BTreeMap<String, String>,
     raw_value: &str,
-    fallback: Option<&str>,
     target_path: &str,
 ) -> Result<String> {
     let trimmed = raw_value.trim();
     if let Some(val) = dictionary.get(trimmed) {
         Ok(val.clone())
-    } else if let Some(fb) = fallback {
-        warn!(
-            "Degradación elegante: Valor '{}' no encontrado en diccionario para target '{}'. Inyectando fallback_value: '{}'",
-            trimmed, target_path, fb
-        );
-        Ok(fb.to_string())
     } else {
         Err(MedSysError::TransformationError(format!(
             "Valor '{trimmed}' no encontrado en diccionario de mapeo para '{target_path}'"
@@ -271,8 +256,8 @@ pub fn apply_dictionary(
 }
 
 /// Evalúa una regla individual `FieldMapping` contra una fila de datos origen y escribe el resultado en `target_json`.
-/// Si la extracción del `source_column` o la función `transform` o la búsqueda en `dictionary` falla,
-/// y existe `fallback_value`, atrapa el error como advertencia e inyecta el `fallback_value` en el `target_path`.
+/// Si el casteo o extracción falla y `use_data_absent_reason` es true, inyecta la extensión canónica FHIR
+/// `data-absent-reason` en el nodo de destino. Si falla en un campo crítico obligatorio, retorna `ProcessingError`.
 pub fn evaluate_field_mapping(
     rule: &FieldMapping,
     resource_type: &str,
@@ -287,21 +272,17 @@ pub fn evaluate_field_mapping(
             Some(Value::Bool(b)) => Some(b.to_string()),
             Some(Value::Null) | None | Some(Value::String(_)) => {
                 // Extracción fallida (columna ausente, nula o cadena vacía)
-                if let Some(ref fb) = rule.fallback_value {
-                    warn!(
-                        "Degradación elegante: Extracción fallida de source_column '{}' para '{}'. Inyectando fallback_value: '{}'",
-                        col, rule.target_path, fb
-                    );
-                    Some(fb.clone())
+                if rule.use_data_absent_reason() {
+                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    return Ok(());
                 } else if rule.is_optional() {
                     None
                 } else if let Some(ref cv) = rule.constant_value {
                     Some(cv.clone())
                 } else {
-                    return Err(MedSysError::MissingField {
-                        field: col.clone(),
-                        resource: resource_type.to_string(),
-                    });
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Campo crítico obligatorio '{col}' ausente o nulo para el recurso '{resource_type}'"
+                    )));
                 }
             }
             Some(other) => Some(other.to_string()),
@@ -323,19 +304,44 @@ pub fn evaluate_field_mapping(
 
     // 2. Aplicación de diccionario si existe
     let processed_val = if let Some(ref dict) = rule.dictionary {
-        apply_dictionary(
-            dict,
-            &raw_val,
-            rule.fallback_value.as_deref(),
-            &rule.target_path,
-        )?
+        match apply_dictionary(dict, &raw_val, &rule.target_path) {
+            Ok(v) => v,
+            Err(e) => {
+                if rule.use_data_absent_reason() {
+                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    return Ok(());
+                } else if rule.is_optional() {
+                    return Ok(());
+                } else {
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Fallo de casteo en diccionario para campo crítico '{}': {}",
+                        rule.target_path, e
+                    )));
+                }
+            }
+        }
     } else {
         raw_val
     };
 
     // 3. Aplicación de transformación si existe
     let final_val = if let Some(ref trans) = rule.transform {
-        apply_transform(trans, &processed_val, rule.fallback_value.as_deref())?
+        match apply_transform(trans, &processed_val) {
+            Ok(v) => v,
+            Err(e) => {
+                if rule.use_data_absent_reason() {
+                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    return Ok(());
+                } else if rule.is_optional() {
+                    return Ok(());
+                } else {
+                    return Err(MedSysError::ProcessingError(format!(
+                        "Data corruption: Fallo de casteo en transformación '{}' para campo crítico '{}': {}",
+                        trans, rule.target_path, e
+                    )));
+                }
+            }
+        }
     } else {
         processed_val
     };
@@ -346,8 +352,16 @@ pub fn evaluate_field_mapping(
         if rule.target_path.ends_with(".value") && rule.target_path.contains("valueQuantity") {
             if let Ok(num) = final_val.parse::<f64>() {
                 json!(num)
+            } else if rule.use_data_absent_reason() {
+                set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                return Ok(());
+            } else if rule.is_optional() {
+                return Ok(());
             } else {
-                json!(final_val)
+                return Err(MedSysError::ProcessingError(format!(
+                    "Data corruption: No se pudo parsear como numérico el campo crítico '{}'",
+                    rule.target_path
+                )));
             }
         } else {
             json!(final_val)
