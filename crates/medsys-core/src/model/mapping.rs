@@ -104,6 +104,9 @@ pub struct FieldMapping {
 
     #[serde(default)]
     pub code: Option<String>,
+
+    #[serde(default)]
+    pub fallback_value: Option<String>,
 }
 
 impl FieldMapping {
@@ -115,5 +118,10 @@ impl FieldMapping {
     /// Retorna el atributo de uso ('use' o 'use_type') si está presente.
     pub fn effective_use(&self) -> Option<&str> {
         self.use_field.as_deref().or(self.use_type.as_deref())
+    }
+
+    /// Retorna el valor de degradación elegante (fallback) si está configurado en la regla.
+    pub fn fallback_value(&self) -> Option<&str> {
+        self.fallback_value.as_deref()
     }
 }

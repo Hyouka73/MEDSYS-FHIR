@@ -8,6 +8,9 @@ use helios_fhir::r4::{
 use helios_fhir::Element;
 use rust_decimal::Decimal as RustDecimal;
 
+use tracing::warn;
+
+use crate::engine::evaluator::parse_date_iso8601_with_fallback;
 use crate::error::{MedSysError, Result};
 use crate::model::fhir_helpers::{
     fhir_code, fhir_concept, fhir_date, fhir_datetime, fhir_decimal, fhir_identifier,
@@ -17,34 +20,46 @@ use crate::model::legacy::{LegacyConsulta, LegacyDiagnostico, LegacyPaciente, Le
 use crate::model::mapping::{MappingRules, SupportedResource};
 
 /// Transformador canónico de `tbl_pacientes` hacia el recurso oficial `Patient` de HL7 FHIR R4.
-/// Implementa la Tarea 2.1 del Sprint 2.
+/// Implementa la Tarea 2.1 del Sprint 2 con degradación elegante.
 pub fn transform_patient(
     paciente: &LegacyPaciente,
     rules: Option<&MappingRules>,
 ) -> Result<Patient> {
-    // Si se proporcionan reglas de mapeo, verificamos parámetros clave de Patient
-    let (curp_system, curp_use) = if let Some(r) = rules {
-        if let Some(res_map) = r.get_resource_mapping(SupportedResource::Patient) {
-            let curp_rule = res_map
-                .mappings
-                .iter()
-                .find(|m| m.source_column.as_deref() == Some("curp"));
-            let sys = curp_rule
-                .and_then(|m| m.system.as_deref())
-                .unwrap_or("urn:oid:2.16.840.1.113883.4.629");
-            let u = curp_rule
-                .and_then(|m| m.effective_use())
-                .unwrap_or("official");
-            (sys, u)
-        } else {
-            ("urn:oid:2.16.840.1.113883.4.629", "official")
-        }
+    let patient_mapping = rules.and_then(|r| r.get_resource_mapping(SupportedResource::Patient));
+
+    let curp_rule = patient_mapping.and_then(|res_map| {
+        res_map.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("curp") || m.target_path == "identifier[0].value"
+        })
+    });
+
+    let (curp_system, curp_use) = if let Some(rule) = curp_rule {
+        let sys = rule
+            .system
+            .as_deref()
+            .unwrap_or("urn:oid:2.16.840.1.113883.4.629");
+        let u = rule.effective_use().unwrap_or("official");
+        (sys, u)
     } else {
         ("urn:oid:2.16.840.1.113883.4.629", "official")
     };
 
-    // Identificador nacional oficial en México: CURP
-    let identifier = fhir_identifier(Some(curp_system), &paciente.curp, Some(curp_use));
+    // Identificador nacional oficial en México: CURP (con degradación elegante si está vacío)
+    let curp_value = if paciente.curp.trim().is_empty() {
+        if let Some(fb) = curp_rule.and_then(|r| r.fallback_value()) {
+            warn!(
+                "Degradación elegante: CURP ausente o vacía. Inyectando fallback_value: '{}'",
+                fb
+            );
+            fb
+        } else {
+            paciente.curp.as_str()
+        }
+    } else {
+        paciente.curp.as_str()
+    };
+
+    let identifier = fhir_identifier(Some(curp_system), curp_value, Some(curp_use));
 
     // Nombres de la persona física
     let mut given_names = vec![fhir_string(paciente.primer_nombre.clone())];
@@ -79,12 +94,77 @@ pub fn transform_patient(
         period: None,
     };
 
-    // Mapeo de género clínico según catálogo normativo
-    let gender_code = match paciente.sexo_biologico.as_deref() {
-        Some("M") => "male",
-        Some("F") => "female",
-        Some("I") => "other",
-        _ => "unknown",
+    // Mapeo de género clínico según catálogo normativo y especificación de mapeo (con degradación elegante)
+    let gender_rule = patient_mapping.and_then(|res| {
+        res.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("sexo_biologico") || m.target_path == "gender"
+        })
+    });
+
+    let gender_code: &str = match (gender_rule, paciente.sexo_biologico.as_deref()) {
+        (Some(rule), Some(raw)) => {
+            if let Some(ref dict) = rule.dictionary {
+                if let Some(val) = dict.get(raw) {
+                    val.as_str()
+                } else if let Some(fb) = rule.fallback_value() {
+                    warn!(
+                        "Degradación elegante: Valor '{}' no encontrado en diccionario para target '{}'. Inyectando fallback_value: '{}'",
+                        raw,
+                        rule.target_path,
+                        fb
+                    );
+                    fb
+                } else {
+                    match raw {
+                        "M" => "male",
+                        "F" => "female",
+                        "I" => "other",
+                        _ => "unknown",
+                    }
+                }
+            } else if let Some(fb) = rule.fallback_value() {
+                match raw {
+                    "M" => "male",
+                    "F" => "female",
+                    "I" => "other",
+                    _ => {
+                        warn!(
+                            "Degradación elegante: Valor '{}' no reconocido para target '{}'. Inyectando fallback_value: '{}'",
+                            raw,
+                            rule.target_path,
+                            fb
+                        );
+                        fb
+                    }
+                }
+            } else {
+                match raw {
+                    "M" => "male",
+                    "F" => "female",
+                    "I" => "other",
+                    _ => "unknown",
+                }
+            }
+        }
+        (Some(rule), None) => {
+            if let Some(fb) = rule.fallback_value() {
+                warn!(
+                    "Degradación elegante: Columna 'sexo_biologico' nula/ausente para target '{}'. Inyectando fallback_value: '{}'",
+                    rule.target_path,
+                    fb
+                );
+                fb
+            } else {
+                "unknown"
+            }
+        }
+        (None, Some(raw)) => match raw {
+            "M" => "male",
+            "F" => "female",
+            "I" => "other",
+            _ => "unknown",
+        },
+        (None, None) => "unknown",
     };
 
     // Medios de contacto (teléfono opcional)
@@ -140,35 +220,30 @@ pub fn transform_encounter(
     consulta: &LegacyConsulta,
     rules: Option<&MappingRules>,
 ) -> Result<Encounter> {
-    let (encounter_system, class_code, class_system) = if let Some(r) = rules {
-        if let Some(res_map) = r.get_resource_mapping(SupportedResource::Encounter) {
-            let id_rule = res_map
-                .mappings
-                .iter()
-                .find(|m| m.source_column.as_deref() == Some("id_consulta"));
-            let sys = id_rule
-                .and_then(|m| m.system.as_deref())
-                .unwrap_or("https://distritosalud1.chiapas.gob.mx/encounters");
+    let encounter_mapping =
+        rules.and_then(|r| r.get_resource_mapping(SupportedResource::Encounter));
 
-            let class_rule = res_map
-                .mappings
-                .iter()
-                .find(|m| m.constant_value.as_deref() == Some("AMB"));
-            let c_code = class_rule
-                .and_then(|m| m.constant_value.as_deref())
-                .unwrap_or("AMB");
-            let c_sys = class_rule
-                .and_then(|m| m.system.as_deref())
-                .unwrap_or("http://terminology.hl7.org/CodeSystem/v3-ActCode");
+    let (encounter_system, class_code, class_system) = if let Some(res_map) = encounter_mapping {
+        let id_rule = res_map
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("id_consulta"));
+        let sys = id_rule
+            .and_then(|m| m.system.as_deref())
+            .unwrap_or("https://distritosalud1.chiapas.gob.mx/encounters");
 
-            (sys, c_code, c_sys)
-        } else {
-            (
-                "https://distritosalud1.chiapas.gob.mx/encounters",
-                "AMB",
-                "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-            )
-        }
+        let class_rule = res_map
+            .mappings
+            .iter()
+            .find(|m| m.constant_value.as_deref() == Some("AMB"));
+        let c_code = class_rule
+            .and_then(|m| m.constant_value.as_deref())
+            .unwrap_or("AMB");
+        let c_sys = class_rule
+            .and_then(|m| m.system.as_deref())
+            .unwrap_or("http://terminology.hl7.org/CodeSystem/v3-ActCode");
+
+        (sys, c_code, c_sys)
     } else {
         (
             "https://distritosalud1.chiapas.gob.mx/encounters",
@@ -184,15 +259,45 @@ pub fn transform_encounter(
         Some("official"),
     );
 
-    // Mapeo del estado de la consulta a código oficial FHIR
+    let status_rule = encounter_mapping.and_then(|res| {
+        res.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("estado_consulta") || m.target_path == "status"
+        })
+    });
+
+    // Mapeo del estado de la consulta a código oficial FHIR con degradación elegante
     let status_str = match consulta.estado_consulta.as_str() {
         "FINALIZADA" => "finished",
         "EN_CURSO" => "in-progress",
         "CANCELADA" => "cancelled",
         other => {
-            return Err(MedSysError::TransformationError(format!(
-                "Estado de consulta desconocido: {other}"
-            )))
+            if let Some(dict) = status_rule.and_then(|r| r.dictionary.as_ref()) {
+                if let Some(val) = dict.get(other) {
+                    val.as_str()
+                } else if let Some(fb) = status_rule.and_then(|r| r.fallback_value()) {
+                    warn!(
+                        "Degradación elegante: Estado de consulta desconocido '{}'. Inyectando fallback_value: '{}'",
+                        other,
+                        fb
+                    );
+                    fb
+                } else {
+                    return Err(MedSysError::TransformationError(format!(
+                        "Estado de consulta desconocido: {other}"
+                    )));
+                }
+            } else if let Some(fb) = status_rule.and_then(|r| r.fallback_value()) {
+                warn!(
+                    "Degradación elegante: Estado de consulta desconocido '{}'. Inyectando fallback_value: '{}'",
+                    other,
+                    fb
+                );
+                fb
+            } else {
+                return Err(MedSysError::TransformationError(format!(
+                    "Estado de consulta desconocido: {other}"
+                )));
+            }
         }
     };
 
@@ -563,11 +668,26 @@ pub fn transform_observation_heart_rate(
 
 /// Transformador canónico de `tbl_diagnosticos` hacia el recurso oficial `Condition` de HL7 FHIR R4
 /// codificado bajo el catálogo internacional CIE-10.
-/// Implementa la Tarea 2.4 del Sprint 2.
+/// Implementa la Tarea 2.4 del Sprint 2 con degradación elegante.
 pub fn transform_condition(
     diagnostico: &LegacyDiagnostico,
-    _rules: Option<&MappingRules>,
+    rules: Option<&MappingRules>,
 ) -> Result<Condition> {
+    let condition_mapping =
+        rules.and_then(|r| r.get_resource_mapping(SupportedResource::Condition));
+    let ver_rule = condition_mapping.and_then(|res| {
+        res.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("tipo_diagnostico")
+                || m.target_path.contains("verificationStatus")
+        })
+    });
+    let date_rule = condition_mapping.and_then(|res| {
+        res.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("fecha_diagnostico")
+                || m.target_path == "recordedDate"
+        })
+    });
+
     // Estado clínico activo
     let clinical_status = fhir_concept(
         Some("http://terminology.hl7.org/CodeSystem/condition-clinical"),
@@ -576,11 +696,35 @@ pub fn transform_condition(
         None,
     );
 
-    // Estado de verificación: CONFIRMADO -> confirmed, PRESUNTIVO -> provisional
+    // Estado de verificación: CONFIRMADO -> confirmed, PRESUNTIVO -> provisional (con degradación elegante)
     let (ver_code, ver_display) = match diagnostico.tipo_diagnostico.as_str() {
         "CONFIRMADO" => ("confirmed", "Confirmed"),
         "PRESUNTIVO" => ("provisional", "Provisional"),
-        _ => ("confirmed", "Confirmed"),
+        other => {
+            if let Some(dict) = ver_rule.and_then(|r| r.dictionary.as_ref()) {
+                if let Some(val) = dict.get(other) {
+                    (val.as_str(), val.as_str())
+                } else if let Some(fb) = ver_rule.and_then(|r| r.fallback_value()) {
+                    warn!(
+                        "Degradación elegante: Tipo de diagnóstico '{}' no encontrado en diccionario. Inyectando fallback_value: '{}'",
+                        other,
+                        fb
+                    );
+                    (fb, fb)
+                } else {
+                    ("confirmed", "Confirmed")
+                }
+            } else if let Some(fb) = ver_rule.and_then(|r| r.fallback_value()) {
+                warn!(
+                    "Degradación elegante: Tipo de diagnóstico '{}' no reconocido. Inyectando fallback_value: '{}'",
+                    other,
+                    fb
+                );
+                (fb, fb)
+            } else {
+                ("confirmed", "Confirmed")
+            }
+        }
     };
 
     let verification_status = fhir_concept(
@@ -598,11 +742,31 @@ pub fn transform_condition(
         Some(&diagnostico.descripcion_diagnostico),
     );
 
-    let recorded_date = fhir_datetime(
+    let recorded_date = match fhir_datetime(
         diagnostico
             .fecha_diagnostico
             .and_time(NaiveTime::from_hms_opt(0, 0, 0).unwrap_or_default()),
-    )?;
+    ) {
+        Ok(dt) => dt,
+        Err(err) => {
+            if let Some(fb) = date_rule.and_then(|r| r.fallback_value()) {
+                warn!(
+                    "Degradación elegante: Error al formatear fecha_diagnostico ({:?}). Inyectando fallback_value: '{}'",
+                    err,
+                    fb
+                );
+                let fallback_naive = chrono::NaiveDate::parse_from_str(fb, "%Y-%m-%d")
+                    .map(|d| d.and_hms_opt(0, 0, 0).unwrap_or_default())
+                    .unwrap_or_else(|_| {
+                        chrono::NaiveDateTime::parse_from_str(fb, "%Y-%m-%dT%H:%M:%S")
+                            .unwrap_or_default()
+                    });
+                fhir_datetime(fallback_naive)?
+            } else {
+                return Err(err);
+            }
+        }
+    };
 
     Ok(Condition {
         id: Some(fhir_string(diagnostico.id_diagnostico.to_string())),
@@ -639,6 +803,49 @@ pub fn transform_condition(
         evidence: None,
         note: None,
     })
+}
+
+/// Transforma un diagnóstico clínico desde una representación relacional cruda con soporte de degradación elegante para fechas malformadas.
+#[allow(clippy::too_many_arguments)]
+pub fn transform_condition_raw(
+    id_diagnostico: i32,
+    id_consulta: i32,
+    id_paciente: i32,
+    codigo_cie10: &str,
+    descripcion_diagnostico: &str,
+    tipo_diagnostico: &str,
+    fecha_diagnostico_raw: &str,
+    rules: Option<&MappingRules>,
+) -> Result<Condition> {
+    let cond_mapping = rules.and_then(|r| r.get_resource_mapping(SupportedResource::Condition));
+    let date_rule = cond_mapping.and_then(|res| {
+        res.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("fecha_diagnostico")
+                || m.target_path == "recordedDate"
+        })
+    });
+
+    let fallback = date_rule.and_then(|r| r.fallback_value());
+    let parsed_date_str = parse_date_iso8601_with_fallback(fecha_diagnostico_raw, fallback)?;
+
+    let parsed_date =
+        chrono::NaiveDate::parse_from_str(&parsed_date_str, "%Y-%m-%d").map_err(|e| {
+            MedSysError::TransformationError(format!(
+                "Fallo al interpretar fecha de diagnóstico resultante '{parsed_date_str}': {e}"
+            ))
+        })?;
+
+    let diag = LegacyDiagnostico {
+        id_diagnostico,
+        id_consulta,
+        id_paciente,
+        codigo_cie10: codigo_cie10.to_string(),
+        descripcion_diagnostico: descripcion_diagnostico.to_string(),
+        tipo_diagnostico: tipo_diagnostico.to_string(),
+        fecha_diagnostico: parsed_date,
+    };
+
+    transform_condition(&diag, rules)
 }
 
 /// Serializa cualquier recurso FHIR hacia una cadena JSON canónica `application/fhir+json`.

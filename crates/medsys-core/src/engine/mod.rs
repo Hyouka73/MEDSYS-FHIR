@@ -1,5 +1,7 @@
+pub mod evaluator;
 pub mod transform;
 
+pub use evaluator::*;
 pub use transform::*;
 
 use crate::error::{MedSysError, Result};
@@ -79,6 +81,7 @@ mod tests {
     use crate::model::legacy::{
         LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital,
     };
+    use crate::model::mapping::FieldMapping;
 
     const SPECIFICATION_YAML: &str = include_str!("../../../../mapping_rules_specification.yaml");
 
@@ -496,8 +499,7 @@ mod tests {
         assert!(json_temp.contains("8310-5"));
         assert!(json_temp.contains("Cel"));
 
-        let json_hr =
-            serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_hr))).unwrap();
+        let json_hr = serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_hr))).unwrap();
         assert!(json_hr.contains("\"resourceType\": \"Observation\""));
         assert!(json_hr.contains("8867-4"));
         assert!(json_hr.contains("/min"));
@@ -638,5 +640,309 @@ mod tests {
         assert!(json.contains("\"type\": \"searchset\""));
         assert!(json.contains("\"total\": 1"));
         assert!(json.contains("\"entry\""));
+    }
+
+    // =========================================================================
+    // PRUEBAS DE RESILIENCIA Y DEGRADACIÓN ELEGANTE (GRACEFUL DEGRADATION)
+    // =========================================================================
+
+    #[test]
+    fn test_yaml_fallback_value_specification() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML)
+            .expect("El archivo mapping_rules_specification.yaml debe deserializar sin errores");
+
+        // Verificación de fallback_value en Patient (sexo_biologico)
+        let patient = rules
+            .get_resource_mapping(SupportedResource::Patient)
+            .expect("Patient debe existir");
+        let gender = patient
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("sexo_biologico"))
+            .expect("Mapeo de sexo_biologico debe existir");
+        assert_eq!(gender.fallback_value.as_deref(), Some("unknown"));
+        assert_eq!(gender.fallback_value(), Some("unknown"));
+
+        // Verificación de fallback_value en Condition (fecha_diagnostico)
+        let condition = rules
+            .get_resource_mapping(SupportedResource::Condition)
+            .expect("Condition debe existir");
+        let fecha = condition
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("fecha_diagnostico"))
+            .expect("Mapeo de fecha_diagnostico debe existir");
+        assert_eq!(fecha.fallback_value.as_deref(), Some("1970-01-01"));
+        assert_eq!(fecha.fallback_value(), Some("1970-01-01"));
+    }
+
+    #[test]
+    fn test_evaluator_corrupted_date_graceful_degradation() {
+        use serde_json::json;
+
+        let rule = FieldMapping {
+            source_column: Some("fecha_diagnostico".to_string()),
+            constant_value: None,
+            target_path: "recordedDate".to_string(),
+            system: None,
+            use_type: None,
+            use_field: None,
+            optional: None,
+            transform: Some("date_iso8601".to_string()),
+            dictionary: None,
+            unit: None,
+            code: None,
+            fallback_value: Some("1970-01-01".to_string()),
+        };
+
+        let mut row = serde_json::Map::new();
+        row.insert(
+            "fecha_diagnostico".to_string(),
+            json!("FECHA_CORRUPTA_2026/99/99"),
+        );
+
+        let mut target_json = json!({});
+        evaluate_field_mapping(&rule, "Condition", &row, &mut target_json)
+            .expect("No debe hacer panic ni fallar catastróficamente al tener fallback_value");
+
+        assert_eq!(target_json["recordedDate"], "1970-01-01");
+    }
+
+    #[test]
+    fn test_evaluator_corrupted_date_without_fallback_fails() {
+        use serde_json::json;
+
+        let rule = FieldMapping {
+            source_column: Some("fecha_diagnostico".to_string()),
+            constant_value: None,
+            target_path: "recordedDate".to_string(),
+            system: None,
+            use_type: None,
+            use_field: None,
+            optional: None,
+            transform: Some("date_iso8601".to_string()),
+            dictionary: None,
+            unit: None,
+            code: None,
+            fallback_value: None, // Sin fallback: debe fallar para retrocompatibilidad
+        };
+
+        let mut row = serde_json::Map::new();
+        row.insert("fecha_diagnostico".to_string(), json!("FECHA_INVALIDA"));
+
+        let mut target_json = json!({});
+        let result = evaluate_field_mapping(&rule, "Condition", &row, &mut target_json);
+        assert!(
+            result.is_err(),
+            "Debe retornar error de transformación cuando no hay fallback_value"
+        );
+    }
+
+    #[test]
+    fn test_evaluator_dictionary_miss_graceful_degradation() {
+        use serde_json::json;
+        use std::collections::BTreeMap;
+
+        let mut dict = BTreeMap::new();
+        dict.insert("M".to_string(), "male".to_string());
+        dict.insert("F".to_string(), "female".to_string());
+
+        let rule = FieldMapping {
+            source_column: Some("sexo_biologico".to_string()),
+            constant_value: None,
+            target_path: "gender".to_string(),
+            system: None,
+            use_type: None,
+            use_field: None,
+            optional: None,
+            transform: None,
+            dictionary: Some(dict),
+            unit: None,
+            code: None,
+            fallback_value: Some("unknown".to_string()),
+        };
+
+        let mut row = serde_json::Map::new();
+        row.insert(
+            "sexo_biologico".to_string(),
+            json!("VALOR_ENTROPIA_CLINICA_XXX"),
+        );
+
+        let mut target_json = json!({});
+        evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
+            .expect("Debe atrapar el fallo del diccionario e inyectar el fallback");
+
+        assert_eq!(target_json["gender"], "unknown");
+    }
+
+    #[test]
+    fn test_evaluator_missing_source_column_with_fallback() {
+        use serde_json::json;
+
+        let rule = FieldMapping {
+            source_column: Some("columna_inexistente".to_string()),
+            constant_value: None,
+            target_path: "identifier[0].value".to_string(),
+            system: None,
+            use_type: None,
+            use_field: None,
+            optional: Some(false),
+            transform: None,
+            dictionary: None,
+            unit: None,
+            code: None,
+            fallback_value: Some("VALOR_RESCATE_DEFAULT".to_string()),
+        };
+
+        let row = serde_json::Map::new(); // Fila vacía
+        let mut target_json = json!({});
+        evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
+            .expect("Debe inyectar fallback_value si la extracción del source_column falla");
+
+        assert_eq!(
+            target_json["identifier"][0]["value"],
+            "VALOR_RESCATE_DEFAULT"
+        );
+    }
+
+    #[test]
+    fn test_set_json_path_complex_nested_structures() {
+        use serde_json::json;
+
+        let mut root = json!({});
+        set_json_path(&mut root, "code.coding[0].code", json!("8480-6")).unwrap();
+        set_json_path(
+            &mut root,
+            "code.coding[0].system",
+            json!("http://loinc.org"),
+        )
+        .unwrap();
+        set_json_path(&mut root, "component[0].valueQuantity.value", json!(120.0)).unwrap();
+        set_json_path(&mut root, "component[1].valueQuantity.value", json!(80.0)).unwrap();
+
+        assert_eq!(root["code"]["coding"][0]["code"], "8480-6");
+        assert_eq!(root["code"]["coding"][0]["system"], "http://loinc.org");
+        assert_eq!(root["component"][0]["valueQuantity"]["value"], 120.0);
+        assert_eq!(root["component"][1]["valueQuantity"]["value"], 80.0);
+    }
+
+    #[test]
+    fn test_transform_condition_raw_corrupted_date_with_fallback() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        // Se envía una fecha clínica corrupta/malformada
+        let fhir_cond = transform_condition_raw(
+            101,
+            202,
+            303,
+            "I10",
+            "Hipertensión esencial",
+            "CONFIRMADO",
+            "FECHA_CORRUPTA_MALFORMADA",
+            Some(&rules),
+        )
+        .expect("Debe degradar elegantemente y aplicar fallback_value sin hacer panic");
+
+        assert_eq!(fhir_cond.id.as_ref().unwrap().value.as_deref(), Some("101"));
+        let recorded = fhir_cond
+            .recorded_date
+            .as_ref()
+            .expect("Debe tener recorded_date");
+        assert!(
+            recorded
+                .value
+                .as_ref()
+                .unwrap()
+                .to_string()
+                .starts_with("1970-01-01"),
+            "Debe contener la fecha de rescate configurada en la especificación"
+        );
+
+        // Verificamos que serialice a JSON FHIR válido sin errores
+        let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(fhir_cond)))
+            .expect("Debe serializar Condition a JSON");
+        assert!(json_str.contains("\"resourceType\": \"Condition\""));
+        assert!(json_str.contains("1970-01-01"));
+    }
+
+    #[test]
+    fn test_transform_patient_corrupt_gender_with_fallback() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        let paciente_legado = LegacyPaciente {
+            id_paciente: 99,
+            curp: "ROMA900101HCSNN01".to_string(),
+            primer_nombre: "María".to_string(),
+            segundo_nombre: None,
+            apellido_paterno: "Pérez".to_string(),
+            apellido_materno: None,
+            fecha_nacimiento: NaiveDate::from_ymd_opt(1995, 5, 20).unwrap(),
+            sexo_biologico: Some("ENTROPIA_CLINICA_DESCONOCIDA".to_string()),
+            telefono_contacto: None,
+            fecha_registro: None,
+        };
+
+        let fhir_patient = transform_patient(&paciente_legado, Some(&rules))
+            .expect("La transformación debe ser exitosa mediante degradación elegante");
+
+        assert_eq!(
+            fhir_patient
+                .gender
+                .as_ref()
+                .and_then(|g| g.value.as_deref()),
+            Some("unknown")
+        );
+
+        let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
+            .expect("Debe serializar Patient a JSON");
+        assert!(json_str.contains("\"gender\": \"unknown\""));
+    }
+
+    #[test]
+    fn test_transform_encounter_corrupt_status_with_and_without_fallback() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        // 1. Consulta con estado desconocido usando especificación por defecto
+        let consulta_corrupta = LegacyConsulta {
+            id_consulta: 50,
+            id_paciente: 1,
+            cedula_medico_tratante: "1234567".to_string(),
+            nombre_medico: "Dr. Carlos".to_string(),
+            estado_consulta: "ESTADO_BASURA".to_string(),
+            motivo_consulta: "Revisión".to_string(),
+            fecha_hora_inicio: NaiveDateTime::parse_from_str(
+                "2026-09-18 09:00:00",
+                "%Y-%m-%d %H:%M:%S",
+            )
+            .unwrap(),
+            fecha_hora_fin: NaiveDateTime::parse_from_str(
+                "2026-09-18 09:30:00",
+                "%Y-%m-%d %H:%M:%S",
+            )
+            .unwrap(),
+            unidad_medica: None,
+        };
+
+        // Sin fallback en estado_consulta: falla de manera controlada (retrocompatible)
+        let res_no_fallback = transform_encounter(&consulta_corrupta, Some(&rules));
+        assert!(res_no_fallback.is_err());
+
+        // 2. Consulta con especificación que sí define fallback_value
+        let mut custom_rules = rules.clone();
+        let enc_map = custom_rules
+            .resources
+            .iter_mut()
+            .find(|r| r.resource_type == "Encounter")
+            .unwrap();
+        let status_mapping = enc_map
+            .mappings
+            .iter_mut()
+            .find(|m| m.target_path == "status")
+            .unwrap();
+        status_mapping.fallback_value = Some("in-progress".to_string());
+
+        let fhir_enc = transform_encounter(&consulta_corrupta, Some(&custom_rules))
+            .expect("Debe degradar a 'in-progress' exitosamente");
+        assert_eq!(fhir_enc.status.value.as_deref(), Some("in-progress"));
     }
 }
