@@ -4,11 +4,16 @@
 # Consulta los endpoints canónicos de medsys-server y persiste cada recurso
 # como archivo JSON individual en el directorio de salida (output/).
 # Diseñado para validación por lotes con org.hl7.fhir.validator-cli.
+#
+# Comando oficial de validación sintáctica offline (Capítulo III, §3.6.2):
+#   java -jar validator_cli.jar output/*.json -version 4.0.1 -tx n/a
 # ==============================================================================
 
 import argparse
+import glob
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -54,6 +59,39 @@ def fetch_resource(url: str, output_path: str) -> bool:
         return False
 
 
+def run_hl7_validator(validator_jar: str, output_dir: str) -> bool:
+    """Ejecuta org.hl7.fhir.validator-cli sobre los archivos JSON exportados
+    utilizando estrictamente el parámetro offline `-tx n/a`.
+    """
+    exact_cmd = f"java -jar {validator_jar} {output_dir}/*.json -version 4.0.1 -tx n/a"
+    print(f"\n[*] Ejecutando validador oficial HL7 en modo offline (-tx n/a)...")
+    print(f"    Comando: {exact_cmd}\n")
+
+    if not os.path.exists(validator_jar):
+        print(f"[WARN] No se localizó el archivo '{validator_jar}'.")
+        print(f"       Para ejecutar manualmente descargue validator_cli.jar y corra:")
+        print(f"       {exact_cmd}")
+        return False
+
+    # En entornos Windows la expansión de glob para Java CLI se realiza resolviendo rutas
+    json_files = glob.glob(os.path.join(output_dir, "*.json"))
+    if not json_files:
+        print(f"[WARN] No se encontraron archivos JSON en '{output_dir}' para validar.")
+        return False
+
+    cmd = ["java", "-jar", validator_jar] + json_files + ["-version", "4.0.1", "-tx", "n/a"]
+
+    try:
+        result = subprocess.run(cmd, check=False)
+        return result.returncode == 0
+    except FileNotFoundError:
+        print("[ERROR] Java Runtime Environment no está disponible en el PATH del sistema.", file=sys.stderr)
+        return False
+    except Exception as e:
+        print(f"[ERROR] Error al invocar validator_cli.jar: {e}", file=sys.stderr)
+        return False
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Exportador de muestras de recursos FHIR R4 para validación sintáctica oficial (HL7 validator-cli)"
@@ -75,6 +113,17 @@ def main():
         type=str,
         default="output",
         help="Directorio de destino para los archivos JSON exportados (default: output)",
+    )
+    parser.add_argument(
+        "--validator-jar",
+        type=str,
+        default="validator_cli.jar",
+        help="Ruta al binario ejecutable validator_cli.jar de HL7 (default: validator_cli.jar)",
+    )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Ejecuta automáticamente la validación HL7 offline invocando: java -jar validator_cli.jar output/*.json -version 4.0.1 -tx n/a",
     )
 
     args = parser.parse_args()
@@ -157,6 +206,17 @@ def main():
     print("-" * 60, flush=True)
     print(f"TOTAL RECURSOS EXPORTADOS:         {total_all}", flush=True)
     print("=" * 60, flush=True)
+
+    exact_validation_cmd = f"java -jar {args.validator_jar} {output_dir}/*.json -version 4.0.1 -tx n/a"
+    print("\n" + "=" * 60, flush=True)
+    print("COMANDO OFICIAL DE VALIDACIÓN SINTÁCTICA HL7 FHIR (OFFLINE)", flush=True)
+    print("=" * 60, flush=True)
+    print("Para validar los recursos exportados en modo desconectado estricto (sin tx.fhir.org):", flush=True)
+    print(f"  {exact_validation_cmd}", flush=True)
+    print("=" * 60, flush=True)
+
+    if args.validate:
+        run_hl7_validator(args.validator_jar, output_dir)
 
 
 if __name__ == "__main__":

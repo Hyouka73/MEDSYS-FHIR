@@ -77,8 +77,27 @@ export default function () {
       'Fallback: OperationOutcome emitido': () => isFallbackConformant,
     });
 
-    // 3. Error 422: Datos críticos corruptos o recurso no procesable devuelve OperationOutcome
-    // El motor elimina el anti-patrón de inventar datos falseados; ante datos obligatorios corruptos
+    // 3. Error 404: Identificador numérico negativo (fuera de dominio relacional)
+    const resNegativeId = http.get(
+      `${BASE_URL}/fhir/r4/Patient/-1`,
+      fhirHeaders
+    );
+    const isNegativeIdConformant =
+      resNegativeId.status === 404 &&
+      resNegativeId.headers['Content-Type'] &&
+      resNegativeId.headers['Content-Type'].includes('application/fhir+json') &&
+      resNegativeId.body.includes('"resourceType": "OperationOutcome"');
+
+    operationOutcomeConformityRate.add(isNegativeIdConformant);
+    check(resNegativeId, {
+      'NegativeId: Status 404': (r) => r.status === 404,
+      'NegativeId: Content-Type FHIR': (r) =>
+        r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
+      'NegativeId: OperationOutcome emitido': () => isNegativeIdConformant,
+    });
+
+    // 4. Error 422 o 404: ID inexistente fuera de rango devuelve OperationOutcome
+    // El motor elimina el anti-patrón de inventar datos falseados; ante datos obligatorios ausentes
     // debe emitirse estrictamente un OperationOutcome con status HTTP 422 o 404 según corresponda.
     const resCorruptEntity = http.get(
       `${BASE_URL}/fhir/r4/Patient/999999`,
@@ -99,7 +118,7 @@ export default function () {
       'Corrupt/Missing: OperationOutcome emitido sin datos falseados': () => isErrorOrOutcome,
     });
 
-    // 4. Validación de la extensión data-absent-reason (HL7 FHIR R4):
+    // 5. Validación de la extensión data-absent-reason (HL7 FHIR R4):
     // Se certifica que las respuestas exitosas NO contengan datos clínicos falseados arbitrarios
     // (como '1970-01-01' o valores de rescate inventados). En caso de existir degradación por datos
     // ausentes o no conformes, se valida la presencia de la extensión canónica data-absent-reason.

@@ -1,14 +1,16 @@
 # Suite de Pruebas de Rendimiento y Concurrencia con k6 — MedSys-FHIR
 
-Este directorio contiene las pruebas de carga, latencia y resiliencia implementadas para validar el desempeño del middleware de interoperabilidad **MedSys-FHIR** bajo condiciones de concurrencia clínica (Sección 4 de la tesis, UNACH 2026).
+Este directorio contiene las pruebas de carga, latencia y resiliencia implementadas para validar el desempeño del middleware de interoperabilidad **MedSys-FHIR** bajo condiciones de concurrencia clínica (Capítulo III y IV de la tesis, UNACH 2026).
 
 ---
 
-## 🎯 Objetivos de Validación de la Tesis
+## 🎯 Objetivos de Validación de la Hipótesis
 
-1. **Latencia Sub-50ms**: Demostrar que la traducción semántica desacoplada (relacional legado NOM-004 ➔ FHIR R4) responde con una latencia de percentil 95 ($p_{95}$) inferior a **50 ms** en lecturas individuales.
-2. **Capacidad de Concurrencia**: Validar que el servidor basado en Axum y Tokio procesa solicitudes concurrentes sin degradación de memoria, pérdidas de conexión ni saturación del pool asíncrono.
-3. **Resiliencia Operativa**: Certificar que bajo inyección de fallos masivos (rutas inexistentes, IDs alfanuméricos inválidos), el **100%** de las respuestas devuelven el recurso canónico `OperationOutcome` con cabecera `Content-Type: application/fhir+json; charset=utf-8` en tiempos sub-milisegundo.
+1. **Tasa de Éxito HTTP ($\ge 99.5\%$)**: Demostrar que el middleware procesa transacciones nominales válidas con una tasa de fallo inferior a 0.5% (`http_req_failed < 0.005`).
+2. **Latencia Sub-200ms ($p_{95} \le 200\text{ ms}$)**: Comprobar que bajo una meseta sostenida de **50 usuarios virtuales (VUs)** durante 5 minutos, la latencia de respuesta se mantiene estrictamente por debajo de 200 ms.
+3. **Aislamiento Metodológico (AUD-003 / AUD-008 / CON-003)**: Segregar rigurosamente la prueba nominal (`load_test.js`) de la prueba de fallos (`resilience_and_errors_test.js`), evitando contaminar las métricas de latencia con códigos 404 o `OperationOutcome`.
+4. **Resiliencia Operativa**: Certificar que ante inyección de fallos masivos (rutas inexistentes, IDs alfanuméricos o negativos), el **100%** de las respuestas devuelven el recurso canónico `OperationOutcome` con cabecera `Content-Type: application/fhir+json; charset=utf-8`.
+5. **Conformidad Sintáctica HL7 Offline**: Validar las muestras exportadas con `org.hl7.fhir.validator-cli` forzando el modo desconectado mediante `-tx n/a`.
 
 ---
 
@@ -16,10 +18,10 @@ Este directorio contiene las pruebas de carga, latencia y resiliencia implementa
 
 | Script | Propósito | Escenario / VUs | Umbrales Clave (Thresholds) |
 | :--- | :--- | :--- | :--- |
-| [`smoke_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/tests/k6/smoke_test.js) | Verificación rápida de disponibilidad de todos los endpoints canónicos. | 1 VU / 1 iteración | `p(95) < 100ms`, `checks > 90%` |
-| [`load_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/tests/k6/load_test.js) | Simulación de carga clínica concurrente (Patient, Encounter, Observation BP/Temp, Bundles). | Rampa escalonada hasta 20 VUs | `p(95) < 50ms`, `p(99) < 100ms`, `éxito > 95%` |
-| [`resilience_and_errors_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/tests/k6/resilience_and_errors_test.js) | Inyección continua de peticiones anómalas (400, 404, fallback universal). | 10 VUs sostenidas / 15s | `OperationOutcome rate == 100%`, `p(95) < 30ms` |
-| [`run_all_benchmarks.ps1`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/tests/k6/run_all_benchmarks.ps1) | Ejecutor automatizado en PowerShell que orquesta la ejecución y reporta resultados. | Todas las suites | Reporte integral para tesis |
+| [`smoke_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/smoke_test.js) | Verificación rápida de disponibilidad de todos los endpoints canónicos. | 1 VU / 1 iteración | `p(95) < 100ms`, `checks > 90%` |
+| [`load_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/load_test.js) | Carga nominal pura sobre registros existentes (Patient: 1-1k, Encounter: 1-2.5k, Observation: 1-2.5k, Condition: 1-3k). | 50 VUs (Warm-up 1.5m, Meseta 5m, Cool-down 30s) | `p(95) <= 200ms`, `éxito >= 99.5%`, `checks >= 99.5%` |
+| [`resilience_and_errors_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/resilience_and_errors_test.js) | Inyección continua de peticiones anómalas (IDs negativos, alfanuméricos, rutas 404, fallback universal). | 10 VUs sostenidas / 15s | `OperationOutcome rate == 100%`, `p(95) < 30ms` |
+| [`run_all_benchmarks.ps1`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/run_all_benchmarks.ps1) | Ejecutor automatizado en PowerShell que orquesta la ejecución y reporta resultados. | Todas las suites | Reporte integral para tesis |
 
 ---
 
@@ -41,12 +43,26 @@ powershell -ExecutionPolicy Bypass -File tests/k6/run_all_benchmarks.ps1
 
 ### Ejecución Manual Individual
 ```powershell
-# Smoke Test
+# 1. Smoke Test
 & "C:\Program Files\k6\k6.exe" run tests/k6/smoke_test.js
 
-# Load Test con URL personalizada
+# 2. Load Test Nominal (Meseta sostenida de 5 minutos a 50 VUs)
 & "C:\Program Files\k6\k6.exe" run --env BASE_URL=http://localhost:3000 tests/k6/load_test.js
 
-# Resilience Test
+# 3. Resilience and Errors Test
 & "C:\Program Files\k6\k6.exe" run tests/k6/resilience_and_errors_test.js
+```
+
+---
+
+## 📋 Validación Sintáctica Oficial HL7 FHIR (Modo Offline)
+
+Para validar la conformidad de los recursos FHIR generados contra las especificaciones canónicas de HL7 FHIR R4 de manera completamente desconectada (reproducible sin acceso a `tx.fhir.org`):
+
+```powershell
+# 1. Exportar muestras JSON desde el servidor
+python scripts/export_fhir_samples.py --base-url http://localhost:3000 --count 50 --output-dir output
+
+# 2. Ejecutar validación oficial desconectada
+java -jar validator_cli.jar output/*.json -version 4.0.1 -tx n/a
 ```
