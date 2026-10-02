@@ -160,6 +160,40 @@ resources:
         system: "http://unitsofmeasure.org"
 
   # ----------------------------------------------------------------------------
+  # RECURSO 3C: Observation - Frecuencia Respiratoria (LOINC 9279-1)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/resprate"
+    source_table: "tbl_signos_vitales"
+    primary_key: "id_signo"
+    observation_type: "respiratory_rate"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "9279-1"
+        target_path: "code.coding[0].code"
+        display: "Respiratory rate"
+        system: "http://loinc.org"
+        # VERIFICAR código en loinc.org
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "id_consulta"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fecha_registro"
+        target_path: "effectiveDateTime"
+        transform: "datetime_iso8601"
+      - source_column: "frecuencia_respiratoria"
+        target_path: "valueQuantity.value"
+        unit: "/min"
+        code: "/min"
+        system: "http://unitsofmeasure.org"
+
+  # ----------------------------------------------------------------------------
   # RECURSO 4: Condition (Diagnósticos clínicos codificados bajo CIE-10)
   # ----------------------------------------------------------------------------
   - resource_type: "Condition"
