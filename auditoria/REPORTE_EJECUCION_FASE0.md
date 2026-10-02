@@ -39,6 +39,7 @@ La presencia de la cláusula `DEFAULT 'CONFIRMADO'` en la definición DDL de la 
 - **Commit Registrado:**
   ```bash
   git commit -m "fase0: eliminar DEFAULT 'CONFIRMADO' de tipo_diagnostico (principio de no alteración de datos)"
+  # Hash: 24d99eb
   ```
 
 ### 1.3 Revisión de Archivos e Inserciones (`INSERT`)
@@ -60,7 +61,7 @@ La presencia de la cláusula `DEFAULT 'CONFIRMADO'` en la definición DDL de la 
 ### 1.4 `git diff` del Cambio DDL
 ```diff
 diff --git a/schema_legado_simulado_nom004.sql b/schema_legado_simulado_nom004.sql
-index 8e4c7a1..9d3b1f2 100644
+index 32fff05..ca6a01f 100644
 --- a/schema_legado_simulado_nom004.sql
 +++ b/schema_legado_simulado_nom004.sql
 @@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS tbl_diagnosticos (
@@ -80,6 +81,9 @@ index 8e4c7a1..9d3b1f2 100644
   > *"A check constraint is satisfied if the check expression evaluates to true or the null value. Since most expressions evaluate to the null value if any operand is null, they will not prevent null values in the constrained columns."*
   Por tanto, el registro se inserta exitosamente con `NULL`, permitiendo ejercitar la lógica de omisión de `verificationStatus` en el middleware.
 - **Rechazo ante valores no permitidos (`CHECK constraint`):** Una inserción con un valor fuera del dominio evalúa a `FALSE`, provocando la interrupción transaccional inmediata con error de violación de `CHECK constraint`.
+- **Validación con Pruebas Automatizadas:**
+  - `cargo test -p medsys-db`: **22/22 pruebas PASADAS**, incluyendo `test_schema_sql_contract_integrity` (que compila e inspecciona `schema_legado_simulado_nom004.sql`) y las pruebas de entidad para `LegacyDiagnostico` / `DiagnosticoEntity`.
+  - `cargo test -p medsys-server`: **13/13 pruebas PASADAS** (8 e2e de interoperabilidad y 5 de integración HTTP/Axum).
 
 ---
 
@@ -208,11 +212,13 @@ index 12b11be..53e49a3 100644
 
 ### 3.1 Historial de Commits en `fase0-sync`
 ```text
-* 22582bc (HEAD -> fase0-sync) fase0: agregar mapeo de frecuencia respiratoria (Observation vital-signs, LOINC 9279-1)
+* 24d99eb (HEAD -> fase0-sync) fase0: eliminar DEFAULT 'CONFIRMADO' de tipo_diagnostico (principio de no alteración de datos)
+* e507782 docs(auditoria): consolidar reporte de ejecucion de fase0-sync
+* 22582bc fase0: agregar mapeo de frecuencia respiratoria (Observation vital-signs, LOINC 9279-1)
 * 31ade2f docs: create audit documentation files for decisions, sources, and registry
 * 38efb31 fix(AUD-007): ampliar export_fhir_samples.py con --all y concurrencia controlada
+* 18bbca1 feat(docker,k6): orquestación docker y pipeline de benchmarking reproducible (PROMPT-COD-02)
 ```
-*(Nota: la modificación DDL de `tipo_diagnostico` fue ejecutada y verificada como paso inicial de la fase de sincronización).*
 
 ### 3.2 Matriz de Modificaciones de Archivos
 | Archivo | Tipo de Cambio | Líneas Afectadas | Propósito Técnico |
@@ -237,7 +243,7 @@ index 12b11be..53e49a3 100644
 ### 3.4 Matriz de Verificación de Criterios de Aceptación
 | Criterio de Aceptación | Tarea Asociada | Estado | Evidencia / Observaciones |
 | :--- | :---: | :---: | :--- |
-| Ausencia de `DEFAULT 'CONFIRMADO'` | Tarea 1 (DDL) | **CUMPLIDO** | `grep` confirmó 0 ocurrencias en todo el repositorio. |
+| Ausencia de `DEFAULT 'CONFIRMADO'` | Tarea 1 (DDL) | **CUMPLIDO** | `grep` confirmó 0 ocurrencias en esquemas DDL, código y scripts (`schema_legado_simulado_nom004.sql` actualizado en commit `24d99eb`). Únicas menciones corresponden a citas históricas en documentación de auditoría (`DECISIONES.md` y este informe). |
 | Admisión de `NULL` con `CHECK` intacto | Tarea 1 (DDL) | **CUMPLIDO** | `tipo_diagnostico VARCHAR(20) CHECK (tipo_diagnostico IN ('PRESUNTIVO', 'CONFIRMADO'))`. |
 | Integridad de sentencias `INSERT` | Tarea 1 (DDL) | **CUMPLIDO** | Todos los INSERTs en DDL y scripts especifican explícitamente sus valores. |
 | YAML parseable sin errores | Tarea 2 (YAML) | **CUMPLIDO** | `serde_yaml` y `parse_mapping_rules` validan la sintaxis y estructura sin fallos. |
