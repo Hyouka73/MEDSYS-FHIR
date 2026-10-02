@@ -180,7 +180,7 @@ fn test_synthetic_data_persistence_mapping_to_fhir_e2e() {
         id_paciente: 1,
         codigo_cie10: "I10".to_string(),
         descripcion_diagnostico: "Hipertensión esencial (primaria)".to_string(),
-        tipo_diagnostico: "CONFIRMADO".to_string(),
+        tipo_diagnostico: Some("CONFIRMADO".to_string()),
         fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
     };
 

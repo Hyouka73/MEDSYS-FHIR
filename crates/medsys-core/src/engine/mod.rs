@@ -267,6 +267,20 @@ mod tests {
             cie10.system.as_deref(),
             Some("http://hl7.org/fhir/sid/icd-10")
         );
+
+        let tipo_diag = condition
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("tipo_diagnostico"))
+            .expect("Debe existir mapeo de tipo_diagnostico");
+        assert_eq!(
+            tipo_diag.fallback_value.as_deref(),
+            Some("provisional")
+        );
+        assert_eq!(
+            tipo_diag.target_path,
+            "verificationStatus.coding[0].code"
+        );
     }
 
     // =========================================================================
@@ -739,7 +753,7 @@ mod tests {
             id_paciente: 1,
             codigo_cie10: "I10".to_string(),
             descripcion_diagnostico: "Hipertensión esencial (primaria)".to_string(),
-            tipo_diagnostico: "CONFIRMADO".to_string(),
+            tipo_diagnostico: Some("CONFIRMADO".to_string()),
             fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 18).unwrap(),
         };
 
@@ -915,6 +929,7 @@ mod tests {
             optional: None,
             transform: Some("date_iso8601".to_string()),
             dictionary: None,
+            fallback_value: None,
             unit: None,
             code: None,
             use_data_absent_reason: Some(true),
@@ -955,6 +970,7 @@ mod tests {
             optional: None,
             transform: Some("date_iso8601".to_string()),
             dictionary: None,
+            fallback_value: None,
             unit: None,
             code: None,
             use_data_absent_reason: None,
@@ -1000,6 +1016,7 @@ mod tests {
             optional: None,
             transform: None,
             dictionary: Some(dict),
+            fallback_value: None,
             unit: None,
             code: None,
             use_data_absent_reason: Some(true),
@@ -1037,6 +1054,7 @@ mod tests {
             optional: Some(false),
             transform: None,
             dictionary: None,
+            fallback_value: None,
             unit: None,
             code: None,
             use_data_absent_reason: Some(true),
@@ -1216,5 +1234,142 @@ mod tests {
             .expect("Debe transformar con extensión data-absent-reason exitosamente");
         assert!(fhir_enc.status.value.is_none());
         assert!(fhir_enc.status.extension.is_some());
+    }
+
+    #[test]
+    fn test_transform_condition_fallback_value_when_tipo_diagnostico_is_none() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        // Tupla simulada con tipo_diagnostico = None (incompletitud de datos legados)
+        let diagnostico_nulo = LegacyDiagnostico {
+            id_diagnostico: 10,
+            id_consulta: 20,
+            id_paciente: 30,
+            codigo_cie10: "E11.9".to_string(),
+            descripcion_diagnostico: "Diabetes mellitus tipo 2 sin mención de complicación".to_string(),
+            tipo_diagnostico: None,
+            fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
+        };
+
+        let fhir_cond = transform_condition(&diagnostico_nulo, Some(&rules))
+            .expect("Transformación de Condition con tipo_diagnostico = None debe aplicar fallback_value sin fallar");
+
+        assert_eq!(
+            fhir_cond.id.as_ref().and_then(|i| i.value.as_deref()),
+            Some("10")
+        );
+
+        // Verificación de degradación elegante: verificationStatus debe ser 'provisional'
+        let ver_stat = fhir_cond
+            .verification_status
+            .as_ref()
+            .expect("Debe incluir verificationStatus");
+        let codings = ver_stat
+            .coding
+            .as_ref()
+            .expect("Debe incluir codings de verificationStatus");
+        assert_eq!(codings.len(), 1);
+        assert_eq!(
+            codings[0].code.as_ref().and_then(|c| c.value.as_deref()),
+            Some("provisional"),
+            "Debe aplicar fallback_value: 'provisional' ante columna nula"
+        );
+        assert_eq!(
+            codings[0].display.as_ref().and_then(|d| d.value.as_deref()),
+            Some("Provisional")
+        );
+        assert_eq!(
+            codings[0].system.as_ref().and_then(|s| s.value.as_deref()),
+            Some("http://terminology.hl7.org/CodeSystem/condition-ver-status")
+        );
+
+        // Verificación de serialización JSON HL7 FHIR R4 canónica
+        let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(fhir_cond)))
+            .expect("Debe serializar recurso Condition a JSON");
+        assert!(json_str.contains("\"resourceType\": \"Condition\""));
+        assert!(json_str.contains("\"code\": \"provisional\""));
+        assert!(json_str.contains("\"display\": \"Provisional\""));
+        assert!(json_str.contains("http://terminology.hl7.org/CodeSystem/condition-ver-status"));
+    }
+
+    #[test]
+    fn test_evaluator_condition_declarative_fallback_value_null_column() {
+        use serde_json::json;
+
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        let cond_mapping = rules
+            .get_resource_mapping(SupportedResource::Condition)
+            .expect("Condition mapping debe existir");
+
+        // Fila relacional simulada donde la columna tipo_diagnostico es SQL NULL
+        let mut row = serde_json::Map::new();
+        row.insert("id_diagnostico".to_string(), json!(77));
+        row.insert("id_consulta".to_string(), json!(88));
+        row.insert("id_paciente".to_string(), json!(99));
+        row.insert("codigo_cie10".to_string(), json!("J00"));
+        row.insert(
+            "descripcion_diagnostico".to_string(),
+            json!("Rinofaringitis aguda (resfriado común)"),
+        );
+        row.insert("tipo_diagnostico".to_string(), serde_json::Value::Null);
+        row.insert(
+            "fecha_diagnostico".to_string(),
+            json!("2026-09-18"),
+        );
+
+        let target_json = evaluate_resource_mapping(cond_mapping, &row)
+            .expect("Evaluación declarativa debe aplicar fallback_value ante columna con valor SQL NULL");
+
+        assert_eq!(
+            target_json["verificationStatus"]["coding"][0]["code"],
+            "provisional",
+            "El evaluador declarativo debe inyectar 'provisional' como fallback ante SQL NULL"
+        );
+        assert_eq!(
+            target_json["verificationStatus"]["coding"][0]["system"],
+            "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+        );
+    }
+
+    #[test]
+    fn test_transform_condition_without_fallback_and_none_fails_closed() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        // Modificamos las reglas para remover fallback_value de tipo_diagnostico
+        let mut strict_rules = rules.clone();
+        let cond_map = strict_rules
+            .resources
+            .iter_mut()
+            .find(|r| r.resource_type == "Condition")
+            .unwrap();
+        let tipo_diag_map = cond_map
+            .mappings
+            .iter_mut()
+            .find(|m| m.source_column.as_deref() == Some("tipo_diagnostico"))
+            .unwrap();
+        tipo_diag_map.fallback_value = None;
+
+        let diagnostico_nulo = LegacyDiagnostico {
+            id_diagnostico: 10,
+            id_consulta: 20,
+            id_paciente: 30,
+            codigo_cie10: "E11.9".to_string(),
+            descripcion_diagnostico: "Diabetes mellitus".to_string(),
+            tipo_diagnostico: None,
+            fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
+        };
+
+        // Sin fallback_value configurado, el motor debe fallar cerrado (Fail-Closed, D-006)
+        let result = transform_condition(&diagnostico_nulo, Some(&strict_rules));
+        assert!(
+            result.is_err(),
+            "Debe emitir ProcessingError si tipo_diagnostico es nulo y no hay fallback_value"
+        );
+        match result.unwrap_err() {
+            MedSysError::ProcessingError(msg) => {
+                assert!(msg.contains("Data corruption"));
+            }
+            other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
+        }
     }
 }

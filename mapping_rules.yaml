@@ -175,6 +175,7 @@ resources:
         dictionary:
           "CONFIRMADO": "confirmed"
           "PRESUNTIVO": "provisional"
+        fallback_value: "provisional"
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"

@@ -55,6 +55,6 @@ pub struct LegacyDiagnostico {
     pub id_paciente: i32,
     pub codigo_cie10: String,
     pub descripcion_diagnostico: String,
-    pub tipo_diagnostico: String,
+    pub tipo_diagnostico: Option<String>,
     pub fecha_diagnostico: NaiveDate,
 }

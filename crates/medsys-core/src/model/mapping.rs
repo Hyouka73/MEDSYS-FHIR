@@ -118,6 +118,9 @@ pub struct FieldMapping {
     pub dictionary: Option<BTreeMap<String, String>>,
 
     #[serde(default)]
+    pub fallback_value: Option<String>,
+
+    #[serde(default)]
     pub unit: Option<String>,
 
     #[serde(default)]

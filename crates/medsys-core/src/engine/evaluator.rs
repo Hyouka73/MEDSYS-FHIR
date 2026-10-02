@@ -265,6 +265,7 @@ pub fn evaluate_field_mapping(
     target_json: &mut Value,
 ) -> Result<()> {
     // 1. Extracción del valor de origen o constante
+    let mut is_fallback = false;
     let extracted: Option<String> = if let Some(ref col) = rule.source_column {
         match row.get(col) {
             Some(Value::String(s)) if !s.trim().is_empty() => Some(s.clone()),
@@ -272,7 +273,10 @@ pub fn evaluate_field_mapping(
             Some(Value::Bool(b)) => Some(b.to_string()),
             Some(Value::Null) | None | Some(Value::String(_)) => {
                 // Extracción fallida (columna ausente, nula o cadena vacía)
-                if rule.use_data_absent_reason() {
+                if let Some(ref fb) = rule.fallback_value {
+                    is_fallback = true;
+                    Some(fb.clone())
+                } else if rule.use_data_absent_reason() {
                     set_json_path(
                         target_json,
                         &rule.target_path,
@@ -308,23 +312,29 @@ pub fn evaluate_field_mapping(
 
     // 2. Aplicación de diccionario si existe
     let processed_val = if let Some(ref dict) = rule.dictionary {
-        match apply_dictionary(dict, &raw_val, &rule.target_path) {
-            Ok(v) => v,
-            Err(e) => {
-                if rule.use_data_absent_reason() {
-                    set_json_path(
-                        target_json,
-                        &rule.target_path,
-                        fhir_data_absent_reason_json(),
-                    )?;
-                    return Ok(());
-                } else if rule.is_optional() {
-                    return Ok(());
-                } else {
-                    return Err(MedSysError::ProcessingError(format!(
-                        "Data corruption: Fallo de casteo en diccionario para campo crítico '{}': {}",
-                        rule.target_path, e
-                    )));
+        if is_fallback {
+            raw_val
+        } else {
+            match apply_dictionary(dict, &raw_val, &rule.target_path) {
+                Ok(v) => v,
+                Err(e) => {
+                    if let Some(ref fb) = rule.fallback_value {
+                        fb.clone()
+                    } else if rule.use_data_absent_reason() {
+                        set_json_path(
+                            target_json,
+                            &rule.target_path,
+                            fhir_data_absent_reason_json(),
+                        )?;
+                        return Ok(());
+                    } else if rule.is_optional() {
+                        return Ok(());
+                    } else {
+                        return Err(MedSysError::ProcessingError(format!(
+                            "Data corruption: Fallo de casteo en diccionario para campo crítico '{}': {}",
+                            rule.target_path, e
+                        )));
+                    }
                 }
             }
         }
@@ -334,23 +344,29 @@ pub fn evaluate_field_mapping(
 
     // 3. Aplicación de transformación si existe
     let final_val = if let Some(ref trans) = rule.transform {
-        match apply_transform(trans, &processed_val) {
-            Ok(v) => v,
-            Err(e) => {
-                if rule.use_data_absent_reason() {
-                    set_json_path(
-                        target_json,
-                        &rule.target_path,
-                        fhir_data_absent_reason_json(),
-                    )?;
-                    return Ok(());
-                } else if rule.is_optional() {
-                    return Ok(());
-                } else {
-                    return Err(MedSysError::ProcessingError(format!(
-                        "Data corruption: Fallo de casteo en transformación '{}' para campo crítico '{}': {}",
-                        trans, rule.target_path, e
-                    )));
+        if is_fallback {
+            processed_val
+        } else {
+            match apply_transform(trans, &processed_val) {
+                Ok(v) => v,
+                Err(e) => {
+                    if let Some(ref fb) = rule.fallback_value {
+                        fb.clone()
+                    } else if rule.use_data_absent_reason() {
+                        set_json_path(
+                            target_json,
+                            &rule.target_path,
+                            fhir_data_absent_reason_json(),
+                        )?;
+                        return Ok(());
+                    } else if rule.is_optional() {
+                        return Ok(());
+                    } else {
+                        return Err(MedSysError::ProcessingError(format!(
+                            "Data corruption: Fallo de casteo en transformación '{}' para campo crítico '{}': {}",
+                            trans, rule.target_path, e
+                        )));
+                    }
                 }
             }
         }

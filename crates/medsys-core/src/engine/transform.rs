@@ -784,13 +784,33 @@ pub fn transform_condition(
     );
 
     // Estado de verificación: CONFIRMADO -> confirmed, PRESUNTIVO -> provisional
-    let (ver_code, ver_display) = match diagnostico.tipo_diagnostico.as_str() {
-        "CONFIRMADO" => ("confirmed", "Confirmed"),
-        "PRESUNTIVO" => ("provisional", "Provisional"),
-        other => {
+    // con soporte de fallback_value ante valores nulos o desconocidos
+    let fallback = ver_rule.and_then(|r| r.fallback_value.as_deref());
+
+    let (ver_code, ver_display) = match diagnostico.tipo_diagnostico.as_deref() {
+        Some("CONFIRMADO") => ("confirmed", "Confirmed"),
+        Some("PRESUNTIVO") => ("provisional", "Provisional"),
+        Some(other) if !other.trim().is_empty() => {
+            let trimmed = other.trim();
             if let Some(dict) = ver_rule.and_then(|r| r.dictionary.as_ref()) {
-                if let Some(val) = dict.get(other) {
-                    (val.as_str(), val.as_str())
+                if let Some(val) = dict.get(trimmed) {
+                    let disp = if val == "confirmed" {
+                        "Confirmed"
+                    } else if val == "provisional" {
+                        "Provisional"
+                    } else {
+                        val.as_str()
+                    };
+                    (val.as_str(), disp)
+                } else if let Some(fb) = fallback {
+                    let disp = if fb == "provisional" {
+                        "Provisional"
+                    } else if fb == "confirmed" {
+                        "Confirmed"
+                    } else {
+                        fb
+                    };
+                    (fb, disp)
                 } else if ver_rule
                     .map(|r| r.use_data_absent_reason())
                     .unwrap_or(false)
@@ -801,6 +821,15 @@ pub fn transform_condition(
                         "Data corruption: Tipo de diagnóstico desconocido '{other}'"
                     )));
                 }
+            } else if let Some(fb) = fallback {
+                let disp = if fb == "provisional" {
+                    "Provisional"
+                } else if fb == "confirmed" {
+                    "Confirmed"
+                } else {
+                    fb
+                };
+                (fb, disp)
             } else if ver_rule
                 .map(|r| r.use_data_absent_reason())
                 .unwrap_or(false)
@@ -810,6 +839,28 @@ pub fn transform_condition(
                 return Err(MedSysError::ProcessingError(format!(
                     "Data corruption: Tipo de diagnóstico desconocido '{other}'"
                 )));
+            }
+        }
+        _ => {
+            // Valor nulo (None) o cadena vacía ("")
+            if let Some(fb) = fallback {
+                let disp = if fb == "provisional" {
+                    "Provisional"
+                } else if fb == "confirmed" {
+                    "Confirmed"
+                } else {
+                    fb
+                };
+                (fb, disp)
+            } else if ver_rule
+                .map(|r| r.use_data_absent_reason())
+                .unwrap_or(false)
+            {
+                ("unknown", "Unknown")
+            } else {
+                return Err(MedSysError::ProcessingError(
+                    "Data corruption: Campo obligatorio 'tipo_diagnostico' ausente o nulo sin fallback_value configurado".to_string(),
+                ));
             }
         }
     };
@@ -926,7 +977,11 @@ pub fn transform_condition_raw(
                 id_paciente,
                 codigo_cie10: codigo_cie10.to_string(),
                 descripcion_diagnostico: descripcion_diagnostico.to_string(),
-                tipo_diagnostico: tipo_diagnostico.to_string(),
+                tipo_diagnostico: if tipo_diagnostico.trim().is_empty() {
+                    None
+                } else {
+                    Some(tipo_diagnostico.to_string())
+                },
                 fecha_diagnostico: parsed_date,
             };
 
@@ -940,7 +995,11 @@ pub fn transform_condition_raw(
                     id_paciente,
                     codigo_cie10: codigo_cie10.to_string(),
                     descripcion_diagnostico: descripcion_diagnostico.to_string(),
-                    tipo_diagnostico: tipo_diagnostico.to_string(),
+                    tipo_diagnostico: if tipo_diagnostico.trim().is_empty() {
+                        None
+                    } else {
+                        Some(tipo_diagnostico.to_string())
+                    },
                     fecha_diagnostico: chrono::NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(),
                 };
                 let mut cond = transform_condition(&diag, rules)?;
