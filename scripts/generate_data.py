@@ -5,14 +5,15 @@
 # Semilla: 20260930 (Evaluación Experimental UNACH 2026)
 # ==============================================================================
 
+import argparse
 import os
 import random
 from datetime import datetime, timedelta, date
 
-SEED = 20260930
-random.seed(SEED)
-
-OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "..", "docker", "sql", "02_bulk_data.sql")
+DEFAULT_SEED = 20260930
+DEFAULT_OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "..", "docker", "sql", "02_bulk_data.sql")
+SEED = DEFAULT_SEED
+OUTPUT_FILE = DEFAULT_OUTPUT_FILE
 
 FIRST_NAMES_M = [
     "Alberto", "Carlos", "Alexis", "Manuel", "Juan", "Pedro", "Luis", "Jorge",
@@ -137,8 +138,11 @@ def generate_curp(paterno: str, materno: str, nombre: str, bdate: date, sex: str
     used_curps.add(curp)
     return curp
 
-def main():
-    print(f"[*] Generando datos sintéticos reproducibles con SEED={SEED}...")
+def main(seed: int = DEFAULT_SEED, output_path: str = DEFAULT_OUTPUT_FILE):
+    random.seed(seed)
+    used_curps.clear()
+    used_curps.update({"ROMA900101HCSNN01", "LOPE950512MCSNN02"})
+    print(f"[*] Generando datos sintéticos reproducibles con SEED={seed}...")
     
     pacientes = []
     # Pacientes 1 y 2 ya existen en schema_legado_simulado_nom004.sql
@@ -270,12 +274,14 @@ def main():
         })
         diag_id += 1
 
-    os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("-- ==============================================================================\n")
         f.write("-- DATOS SINTÉTICOS MASIVOS REPRODUCIBLES (1,000 Pacientes / 2,500 Consultas)\n")
-        f.write(f"-- Semilla fija: {SEED} | MedSys-FHIR Evaluación Capítulo III\n")
+        f.write(f"-- Semilla fija: {seed} | MedSys-FHIR Evaluación Capítulo III\n")
         f.write("-- ==============================================================================\n\n")
         
         # Inserción tbl_pacientes
@@ -327,11 +333,27 @@ def main():
         f.write("SELECT setval('tbl_signos_vitales_id_signo_seq', (SELECT COALESCE(MAX(id_signo), 1) FROM tbl_signos_vitales));\n")
         f.write("SELECT setval('tbl_diagnosticos_id_diagnostico_seq', (SELECT COALESCE(MAX(id_diagnostico), 1) FROM tbl_diagnosticos));\n")
 
-    print(f"[OK] Archivo SQL generado con exito: {OUTPUT_FILE}")
+    print(f"[OK] Archivo SQL generado con exito: {output_path}")
     print(f"    - Pacientes generados: {len(pacientes)} (Total acumulado: 1,000)")
     print(f"    - Consultas generadas: {len(consultas)} (Total acumulado: 2,500)")
     print(f"    - Signos vitales generados: {len(signos)} (Total acumulado: 2,500)")
     print(f"    - Diagnosticos generados: {len(diagnosticos)} (Total acumulado: 3,000)")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Generador de Datos Clínicos Sintéticos Reproducibles (MedSys-FHIR)"
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=DEFAULT_SEED,
+        help="Semilla pseudoaleatoria para reproducibilidad de datos sintéticos"
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        default=DEFAULT_OUTPUT_FILE,
+        help="Ruta del archivo SQL de salida"
+    )
+    args = parser.parse_args()
+    main(seed=args.seed, output_path=args.output)
