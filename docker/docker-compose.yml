@@ -1,7 +1,8 @@
 # ==============================================================================
-# INFRAESTRUCTURA POSTGRESQL 16 — MedSys-FHIR
-# Esquema relacional sintético NOM-004-SSA3-2012 / NOM-024-SSA3-2012
-# Tarea 3.1: Entorno de Persistencia Relacional Contenerizado
+# INFRAESTRUCTURA DE CONTENEDORES (DOCKER COMPOSE) — MedSys-FHIR
+# Middleware Axum + Base de Datos PostgreSQL 16 (NOM-004-SSA3-2012 / NOM-024)
+# Tesis: Carlos Eduardo Iglesias de la Cruz & Alexis Andrey Gálvez Roblero
+# Trazabilidad: AUD-002 / CON-004 / CVD-004 (Límites cgroups 1.0 vCPU, 256MB RAM)
 # ==============================================================================
 
 services:
@@ -19,6 +20,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ../schema_legado_simulado_nom004.sql:/docker-entrypoint-initdb.d/01_schema_legado_simulado_nom004.sql:ro
+      - ./sql/02_bulk_data.sql:/docker-entrypoint-initdb.d/02_bulk_data.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-medsys_user} -d ${POSTGRES_DB:-medsys_legacy}"]
       interval: 5s
@@ -26,12 +28,42 @@ services:
       retries: 5
       start_period: 10s
     networks:
-      - medsys_network
+      - medsys-net
+
+  medsys-server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.server
+    container_name: medsys-server
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:3000"
+    environment:
+      SERVER_HOST: "0.0.0.0"
+      SERVER_PORT: "3000"
+      DATABASE_URL: "postgres://${POSTGRES_USER:-medsys_user}:${POSTGRES_PASSWORD:-medsys_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-medsys_legacy}"
+      RUST_LOG: "info,medsys_server=debug,medsys_db=debug"
+      MAPPING_RULES_PATH: "/app/mapping_rules.yaml"
+    volumes:
+      - ../mapping_rules.yaml:/app/mapping_rules.yaml:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 256M
+    mem_limit: 256m
+    cpus: 1.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - medsys-net
 
 volumes:
   postgres_data:
     driver: local
 
 networks:
-  medsys_network:
+  medsys-net:
+    name: medsys-net
     driver: bridge

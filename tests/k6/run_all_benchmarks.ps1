@@ -4,9 +4,18 @@
 # ============================================================================
 
 param(
-    [string]$BaseUrl = "http://localhost:3000",
+    [string]$BaseUrl = "",
     [string]$K6Path = "C:\Program Files\k6\k6.exe"
 )
+
+if (-not $BaseUrl) {
+    try {
+        $null = Invoke-RestMethod -Uri "http://localhost:8080/health" -Method Get -TimeoutSec 1 -ErrorAction Stop
+        $BaseUrl = "http://localhost:8080"
+    } catch {
+        $BaseUrl = "http://localhost:3000"
+    }
+}
 
 Write-Host "`n========================================================" -ForegroundColor Cyan
 Write-Host " MedSys-FHIR — Suite de Pruebas de Rendimiento k6 (UNACH 2026)" -ForegroundColor Cyan

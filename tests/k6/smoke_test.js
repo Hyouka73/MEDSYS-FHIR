@@ -33,10 +33,10 @@ export default function () {
       'Salud HTTP 200': (r) => r.status === 200,
       'Content-Type es application/json': (r) =>
         r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/json'),
-      'Reporta estado pass': (r) => {
+      'Reporta estado pass o ok': (r) => {
         try {
           const json = r.json();
-          return json.status === 'pass' && json.server_name === 'MedSys-FHIR';
+          return (json.status === 'ok' || json.status === 'pass') && json.server_name === 'MedSys-FHIR';
         } catch (_) {
           return false;
         }

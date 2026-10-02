@@ -15,13 +15,15 @@ Este directorio contiene las pruebas de carga, latencia y resiliencia implementa
 ---
 
 ## 📁 Estructura de Scripts
-
+ 
 | Script | Propósito | Escenario / VUs | Umbrales Clave (Thresholds) |
 | :--- | :--- | :--- | :--- |
 | [`smoke_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/smoke_test.js) | Verificación rápida de disponibilidad de todos los endpoints canónicos. | 1 VU / 1 iteración | `p(95) < 100ms`, `checks > 90%` |
 | [`load_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/load_test.js) | Carga nominal pura sobre registros existentes (Patient: 1-1k, Encounter: 1-2.5k, Observation: 1-2.5k, Condition: 1-3k). | 50 VUs (Warm-up 1.5m, Meseta 5m, Cool-down 30s) | `p(95) <= 200ms`, `éxito >= 99.5%`, `checks >= 99.5%` |
 | [`resilience_and_errors_test.js`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/resilience_and_errors_test.js) | Inyección continua de peticiones anómalas (IDs negativos, alfanuméricos, rutas 404, fallback universal). | 10 VUs sostenidas / 15s | `OperationOutcome rate == 100%`, `p(95) < 30ms` |
-| [`run_all_benchmarks.ps1`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/run_all_benchmarks.ps1) | Ejecutor automatizado en PowerShell que orquesta la ejecución y reporta resultados. | Todas las suites | Reporte integral para tesis |
+| [`run_benchmark_with_stats.ps1`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/run_benchmark_with_stats.ps1) | Pipeline automatizado en PowerShell: levanta contenedor con cgroups, recolecta `docker stats` cada 5s y corre k6. | Meseta 50 VUs + docker stats | CPU $\le 50\%$, RAM $\le 150\text{ MB}$, $p_{95} \le 200\text{ms}$ |
+| [`run_benchmark_with_stats.sh`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/run_benchmark_with_stats.sh) | Equivalente POSIX Bash para Linux/WSL del pipeline con telemetría de `docker stats`. | Meseta 50 VUs + docker stats | CPU $\le 50\%$, RAM $\le 150\text{ MB}$, $p_{95} \le 200\text{ms}$ |
+| [`run_all_benchmarks.ps1`](file:///c:/Users/Judirico/Documents/MedSys-FHIR/MEDSYS-FHIR/tests/k6/run_all_benchmarks.ps1) | Ejecutor automatizado en PowerShell que orquesta la suite k6 completa (smoke, load, resilience). | Todas las suites | Reporte integral para tesis |
 
 ---
 

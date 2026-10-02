@@ -33,10 +33,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: medsys_fhir_server
+    container_name: medsys-server
     restart: unless-stopped
     ports:
-      - "${SERVER_PORT:-3000}:3000"
+      - "${HOST_PORT:-${SERVER_PORT:-3000}}:3000"
     environment:
       SERVER_HOST: "0.0.0.0"
       SERVER_PORT: "3000"
@@ -50,6 +50,8 @@ services:
         limits:
           cpus: '1.0'
           memory: 256M
+    mem_limit: 256m
+    cpus: 1.0
     depends_on:
       postgres:
         condition: service_healthy

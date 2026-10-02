@@ -58,7 +58,7 @@ export const options = {
       vus: 50,
       duration: '5m',
       startTime: '1m30s',
-      tags: { phase: 'plateau' },
+      tags: { phase: 'plateau', scenario: 'steady_load' },
     },
 
     // Fase 3: Rampa de enfriamiento (Cool-down) -> 30s
@@ -110,7 +110,7 @@ function randomId(min, max) {
 const OBSERVATION_SUBTYPES = ['bp', 'temp', 'hr'];
 
 export default function () {
-  const isPlateau = scenario.name === 'plateau';
+  const isPlateau = scenario.name === 'plateau' || scenario.name === 'steady_load';
 
   // Selección de IDs válidos dentro de los límites reales de la BD precargada
   const patientId = randomId(1, 1000);
@@ -139,9 +139,10 @@ export default function () {
 
     check(resPatient, {
       'Patient: Status 200 OK': (r) => r.status === 200,
-      'Patient: Content-Type application/fhir+json': (r) =>
-        r.headers['Content-Type'] !== undefined &&
-        r.headers['Content-Type'].includes('application/fhir+json'),
+      'Patient: Content-Type application/fhir+json': (r) => {
+        const ct = r.headers['Content-Type'] || r.headers['content-type'];
+        return ct !== undefined && ct.includes('application/fhir+json');
+      },
     });
 
     // ------------------------------------------------------------------------
@@ -163,9 +164,10 @@ export default function () {
 
     check(resEnc, {
       'Encounter: Status 200 OK': (r) => r.status === 200,
-      'Encounter: Content-Type application/fhir+json': (r) =>
-        r.headers['Content-Type'] !== undefined &&
-        r.headers['Content-Type'].includes('application/fhir+json'),
+      'Encounter: Content-Type application/fhir+json': (r) => {
+        const ct = r.headers['Content-Type'] || r.headers['content-type'];
+        return ct !== undefined && ct.includes('application/fhir+json');
+      },
     });
 
     // ------------------------------------------------------------------------
@@ -187,9 +189,10 @@ export default function () {
 
     check(resObs, {
       'Observation: Status 200 OK': (r) => r.status === 200,
-      'Observation: Content-Type application/fhir+json': (r) =>
-        r.headers['Content-Type'] !== undefined &&
-        r.headers['Content-Type'].includes('application/fhir+json'),
+      'Observation: Content-Type application/fhir+json': (r) => {
+        const ct = r.headers['Content-Type'] || r.headers['content-type'];
+        return ct !== undefined && ct.includes('application/fhir+json');
+      },
     });
 
     // ------------------------------------------------------------------------
@@ -211,9 +214,10 @@ export default function () {
 
     check(resCond, {
       'Condition: Status 200 OK': (r) => r.status === 200,
-      'Condition: Content-Type application/fhir+json': (r) =>
-        r.headers['Content-Type'] !== undefined &&
-        r.headers['Content-Type'].includes('application/fhir+json'),
+      'Condition: Content-Type application/fhir+json': (r) => {
+        const ct = r.headers['Content-Type'] || r.headers['content-type'];
+        return ct !== undefined && ct.includes('application/fhir+json');
+      },
     });
   });
 

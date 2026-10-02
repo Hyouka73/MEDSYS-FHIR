@@ -4,13 +4,14 @@
 # ==============================================================================
 
 # Etapa 1: Compilación de la aplicación en Rust
-FROM rust:1.80-slim-bookworm AS builder
+FROM rust:slim-bookworm AS builder
 
 WORKDIR /usr/src/app
 
 # Instalar certificados y dependencias para compilación
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
+    libssl-dev \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
