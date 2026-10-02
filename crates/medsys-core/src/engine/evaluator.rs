@@ -362,7 +362,9 @@ pub fn evaluate_field_mapping(
     // Determinar si el valor debe ser numérico o booleano según target_path
     let json_val =
         if rule.target_path.ends_with(".value") && rule.target_path.contains("valueQuantity") {
-            if let Ok(num) = final_val.parse::<f64>() {
+            if let Ok(int_val) = final_val.parse::<i64>() {
+                json!(int_val)
+            } else if let Ok(num) = final_val.parse::<f64>() {
                 json!(num)
             } else if rule.use_data_absent_reason() {
                 set_json_path(
@@ -385,7 +387,7 @@ pub fn evaluate_field_mapping(
 
     set_json_path(target_json, &rule.target_path, json_val)?;
 
-    // 5. Inyecciones auxiliares declarativas (system, use, unit, code)
+    // 5. Inyecciones auxiliares declarativas (system, display, use, unit, code)
     if let Some(ref sys) = rule.system {
         if rule.target_path.ends_with(".value") {
             let sys_path = format!("{}.system", &rule.target_path[..rule.target_path.len() - 6]);
@@ -393,6 +395,13 @@ pub fn evaluate_field_mapping(
         } else if rule.target_path.ends_with(".code") {
             let sys_path = format!("{}.system", &rule.target_path[..rule.target_path.len() - 5]);
             let _ = set_json_path(target_json, &sys_path, json!(sys));
+        }
+    }
+
+    if let Some(ref disp) = rule.display {
+        if rule.target_path.ends_with(".code") {
+            let disp_path = format!("{}.display", &rule.target_path[..rule.target_path.len() - 5]);
+            let _ = set_json_path(target_json, &disp_path, json!(disp));
         }
     }
 

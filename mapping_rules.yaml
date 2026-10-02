@@ -105,16 +105,26 @@ resources:
       - source_column: "fecha_registro"
         target_path: "effectiveDateTime"
         transform: "datetime_iso8601"
+      # Componente Sistólica (LOINC 8480-6)
+      - constant_value: "8480-6"
+        target_path: "component[0].code.coding[0].code"
+        display: "Systolic blood pressure"
+        system: "http://loinc.org"
       - source_column: "presion_sistolica"
         target_path: "component[0].valueQuantity.value"
-        unit: "mm[Hg]"
-        code: "8480-6"
+        unit: "mmHg"
+        code: "mm[Hg]"
+        system: "http://unitsofmeasure.org"
+      # Componente Diastólica (LOINC 8462-4)
+      - constant_value: "8462-4"
+        target_path: "component[1].code.coding[0].code"
+        display: "Diastolic blood pressure"
         system: "http://loinc.org"
       - source_column: "presion_diastolica"
         target_path: "component[1].valueQuantity.value"
-        unit: "mm[Hg]"
-        code: "8462-4"
-        system: "http://loinc.org"
+        unit: "mmHg"
+        code: "mm[Hg]"
+        system: "http://unitsofmeasure.org"
 
   # ----------------------------------------------------------------------------
   # RECURSO 3B: Observation - Temperatura Corporal (LOINC 8310-5)

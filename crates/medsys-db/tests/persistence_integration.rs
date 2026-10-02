@@ -157,6 +157,8 @@ fn test_synthetic_data_persistence_mapping_to_fhir_e2e() {
     assert!(bp_json.contains("85354-9")); // Panel BP
     assert!(bp_json.contains("8480-6")); // Sistólica
     assert!(bp_json.contains("8462-4")); // Diastólica
+    assert!(bp_json.contains("http://loinc.org"));
+    assert!(bp_json.contains("http://unitsofmeasure.org"));
     assert!(bp_json.contains("130"));
     assert!(bp_json.contains("85"));
     assert!(bp_json.contains("mm[Hg]"));

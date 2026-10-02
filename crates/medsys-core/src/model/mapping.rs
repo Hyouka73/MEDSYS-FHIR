@@ -52,14 +52,29 @@ impl MappingRules {
         let name = resource.to_string();
         self.resources.iter().find(|r| r.resource_type == name)
     }
+
+    /// Obtiene las reglas de mapeo correspondientes a una observación específica según su subtipo (ej. 'blood_pressure_panel').
+    pub fn get_observation_mapping(&self, obs_type: &str) -> Option<&ResourceMapping> {
+        self.resources.iter().find(|r| {
+            r.resource_type == "Observation" && r.observation_type.as_deref() == Some(obs_type)
+        })
+    }
 }
 
 /// Configuración de mapeo declarativo para un recurso FHIR individual.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ResourceMapping {
     pub resource_type: String,
+
+    #[serde(default)]
+    pub profile: Option<String>,
+
     pub source_table: String,
     pub primary_key: String,
+
+    #[serde(default)]
+    pub observation_type: Option<String>,
+
     pub mappings: Vec<FieldMapping>,
 }
 
@@ -71,7 +86,7 @@ impl ResourceMapping {
 }
 
 /// Regla individual de mapeo campo a campo o valor constante a FHIR target.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub struct FieldMapping {
     #[serde(default)]
     pub source_column: Option<String>,
@@ -83,6 +98,9 @@ pub struct FieldMapping {
 
     #[serde(default)]
     pub system: Option<String>,
+
+    #[serde(default)]
+    pub display: Option<String>,
 
     #[serde(default)]
     pub use_type: Option<String>,

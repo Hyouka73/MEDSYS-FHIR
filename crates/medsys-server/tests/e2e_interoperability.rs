@@ -189,6 +189,8 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
         assert!(body_bp.contains("85354-9")); // Panel BP LOINC
         assert!(body_bp.contains("8480-6")); // Presión sistólica
         assert!(body_bp.contains("8462-4")); // Presión diastólica
+        assert!(body_bp.contains("http://loinc.org"));
+        assert!(body_bp.contains("http://unitsofmeasure.org"));
         assert!(body_bp.contains("mm[Hg]"));
     } else {
         assert!(body_bp.contains("\"resourceType\": \"OperationOutcome\""));

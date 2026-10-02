@@ -387,33 +387,109 @@ pub fn transform_encounter(
 /// Implementa la Tarea 2.3 del Sprint 2.
 pub fn transform_observation_blood_pressure(
     signo: &LegacySignoVital,
-    _rules: Option<&MappingRules>,
+    rules: Option<&MappingRules>,
 ) -> Result<Observation> {
     let effective_dt = fhir_datetime(signo.fecha_registro)?;
 
+    let bp_mapping = rules.and_then(|r| {
+        r.resources
+            .iter()
+            .find(|res| {
+                res.resource_type == "Observation"
+                    && res.observation_type.as_deref() == Some("blood_pressure_panel")
+            })
+            .or_else(|| {
+                r.resources.iter().find(|res| {
+                    res.resource_type == "Observation"
+                        && res
+                            .mappings
+                            .iter()
+                            .any(|m| m.source_column.as_deref() == Some("presion_sistolica"))
+                })
+            })
+    });
+
+    let cat_rule = bp_mapping.and_then(|rm| {
+        rm.mappings
+            .iter()
+            .find(|m| m.target_path == "category[0].coding[0].code")
+    });
+    let cat_code = cat_rule
+        .and_then(|r| r.constant_value.as_deref())
+        .unwrap_or("vital-signs");
+    let cat_system = cat_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://terminology.hl7.org/CodeSystem/observation-category");
+
     let category = vec![fhir_concept(
-        Some("http://terminology.hl7.org/CodeSystem/observation-category"),
-        Some("vital-signs"),
+        Some(cat_system),
+        Some(cat_code),
         Some("Vital Signs"),
         None,
     )];
 
+    let panel_code_rule = bp_mapping.and_then(|rm| {
+        rm.mappings
+            .iter()
+            .find(|m| m.target_path == "code.coding[0].code")
+    });
+    let panel_code = panel_code_rule
+        .and_then(|r| r.constant_value.as_deref())
+        .unwrap_or("85354-9");
+    let panel_system = panel_code_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://loinc.org");
+    let panel_display = panel_code_rule
+        .and_then(|r| r.display.as_deref())
+        .unwrap_or("Blood pressure panel with all children optional");
+
     let code = fhir_concept(
-        Some("http://loinc.org"),
-        Some("85354-9"),
-        Some("Blood pressure panel with all children optional"),
+        Some(panel_system),
+        Some(panel_code),
+        Some(panel_display),
         Some("Presión arterial"),
     );
 
     // Componente Presión Sistólica (LOINC 8480-6)
+    let sist_code_rule = bp_mapping.and_then(|rm| {
+        rm.mappings
+            .iter()
+            .find(|m| m.target_path == "component[0].code.coding[0].code")
+    });
+    let sist_code = sist_code_rule
+        .and_then(|r| r.constant_value.as_deref())
+        .unwrap_or("8480-6");
+    let sist_code_system = sist_code_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://loinc.org");
+    let sist_code_display = sist_code_rule
+        .and_then(|r| r.display.as_deref())
+        .unwrap_or("Systolic blood pressure");
+
+    let sist_qty_rule = bp_mapping.and_then(|rm| {
+        rm.mappings.iter().find(|m| {
+            m.target_path == "component[0].valueQuantity.value"
+                || m.source_column.as_deref() == Some("presion_sistolica")
+        })
+    });
+    let sist_unit = sist_qty_rule
+        .and_then(|r| r.unit.as_deref())
+        .unwrap_or("mmHg");
+    let sist_ucum_code = sist_qty_rule
+        .and_then(|r| r.code.as_deref())
+        .unwrap_or("mm[Hg]");
+    let sist_ucum_system = sist_qty_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://unitsofmeasure.org");
+
     let comp_sistolica = ObservationComponent {
         id: None,
         extension: None,
         modifier_extension: None,
         code: fhir_concept(
-            Some("http://loinc.org"),
-            Some("8480-6"),
-            Some("Systolic blood pressure"),
+            Some(sist_code_system),
+            Some(sist_code),
+            Some(sist_code_display),
             None,
         ),
         value: Some(ObservationComponentValue::Quantity(Quantity {
@@ -421,9 +497,9 @@ pub fn transform_observation_blood_pressure(
             extension: None,
             value: Some(fhir_decimal(RustDecimal::from(signo.presion_sistolica))),
             comparator: None,
-            unit: Some(fhir_string("mmHg")),
-            system: Some(fhir_uri("http://unitsofmeasure.org")),
-            code: Some(fhir_code("mm[Hg]")),
+            unit: Some(fhir_string(sist_unit)),
+            system: Some(fhir_uri(sist_ucum_system)),
+            code: Some(fhir_code(sist_ucum_code)),
         })),
         data_absent_reason: None,
         interpretation: None,
@@ -431,14 +507,45 @@ pub fn transform_observation_blood_pressure(
     };
 
     // Componente Presión Diastólica (LOINC 8462-4)
+    let diast_code_rule = bp_mapping.and_then(|rm| {
+        rm.mappings
+            .iter()
+            .find(|m| m.target_path == "component[1].code.coding[0].code")
+    });
+    let diast_code = diast_code_rule
+        .and_then(|r| r.constant_value.as_deref())
+        .unwrap_or("8462-4");
+    let diast_code_system = diast_code_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://loinc.org");
+    let diast_code_display = diast_code_rule
+        .and_then(|r| r.display.as_deref())
+        .unwrap_or("Diastolic blood pressure");
+
+    let diast_qty_rule = bp_mapping.and_then(|rm| {
+        rm.mappings.iter().find(|m| {
+            m.target_path == "component[1].valueQuantity.value"
+                || m.source_column.as_deref() == Some("presion_diastolica")
+        })
+    });
+    let diast_unit = diast_qty_rule
+        .and_then(|r| r.unit.as_deref())
+        .unwrap_or("mmHg");
+    let diast_ucum_code = diast_qty_rule
+        .and_then(|r| r.code.as_deref())
+        .unwrap_or("mm[Hg]");
+    let diast_ucum_system = diast_qty_rule
+        .and_then(|r| r.system.as_deref())
+        .unwrap_or("http://unitsofmeasure.org");
+
     let comp_diastolica = ObservationComponent {
         id: None,
         extension: None,
         modifier_extension: None,
         code: fhir_concept(
-            Some("http://loinc.org"),
-            Some("8462-4"),
-            Some("Diastolic blood pressure"),
+            Some(diast_code_system),
+            Some(diast_code),
+            Some(diast_code_display),
             None,
         ),
         value: Some(ObservationComponentValue::Quantity(Quantity {
@@ -446,9 +553,9 @@ pub fn transform_observation_blood_pressure(
             extension: None,
             value: Some(fhir_decimal(RustDecimal::from(signo.presion_diastolica))),
             comparator: None,
-            unit: Some(fhir_string("mmHg")),
-            system: Some(fhir_uri("http://unitsofmeasure.org")),
-            code: Some(fhir_code("mm[Hg]")),
+            unit: Some(fhir_string(diast_unit)),
+            system: Some(fhir_uri(diast_ucum_system)),
+            code: Some(fhir_code(diast_ucum_code)),
         })),
         data_absent_reason: None,
         interpretation: None,

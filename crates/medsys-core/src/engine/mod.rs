@@ -174,12 +174,59 @@ mod tests {
         let bp_obs = observations
             .iter()
             .find(|o| {
-                o.mappings
-                    .iter()
-                    .any(|m| m.source_column.as_deref() == Some("presion_sistolica"))
+                o.observation_type.as_deref() == Some("blood_pressure_panel")
+                    || o.mappings
+                        .iter()
+                        .any(|m| m.source_column.as_deref() == Some("presion_sistolica"))
             })
             .expect("Observation BP debe existir");
         assert_eq!(bp_obs.source_table, "tbl_signos_vitales");
+
+        // Sistólica LOINC y UCUM
+        let sist_code = bp_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "component[0].code.coding[0].code")
+            .expect("Debe existir mapeo para código LOINC de sistólica");
+        assert_eq!(sist_code.constant_value.as_deref(), Some("8480-6"));
+        assert_eq!(sist_code.system.as_deref(), Some("http://loinc.org"));
+        assert_eq!(
+            sist_code.display.as_deref(),
+            Some("Systolic blood pressure")
+        );
+
+        let sist_val = bp_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "component[0].valueQuantity.value")
+            .expect("Debe existir mapeo para valor de sistólica");
+        assert_eq!(sist_val.source_column.as_deref(), Some("presion_sistolica"));
+        assert_eq!(sist_val.unit.as_deref(), Some("mmHg"));
+        assert_eq!(sist_val.code.as_deref(), Some("mm[Hg]"));
+        assert_eq!(sist_val.system.as_deref(), Some("http://unitsofmeasure.org"));
+
+        // Diastólica LOINC y UCUM
+        let diast_code = bp_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "component[1].code.coding[0].code")
+            .expect("Debe existir mapeo para código LOINC de diastólica");
+        assert_eq!(diast_code.constant_value.as_deref(), Some("8462-4"));
+        assert_eq!(diast_code.system.as_deref(), Some("http://loinc.org"));
+        assert_eq!(
+            diast_code.display.as_deref(),
+            Some("Diastolic blood pressure")
+        );
+
+        let diast_val = bp_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "component[1].valueQuantity.value")
+            .expect("Debe existir mapeo para valor de diastólica");
+        assert_eq!(diast_val.source_column.as_deref(), Some("presion_diastolica"));
+        assert_eq!(diast_val.unit.as_deref(), Some("mmHg"));
+        assert_eq!(diast_val.code.as_deref(), Some("mm[Hg]"));
+        assert_eq!(diast_val.system.as_deref(), Some("http://unitsofmeasure.org"));
 
         // 3B: Temperatura Corporal
         let temp_obs = observations
@@ -455,6 +502,34 @@ mod tests {
             sist_code[0].code.as_ref().and_then(|c| c.value.as_deref()),
             Some("8480-6")
         );
+        assert_eq!(
+            sist_code[0].system.as_ref().and_then(|s| s.value.as_deref()),
+            Some("http://loinc.org")
+        );
+        assert_eq!(
+            sist_code[0].display.as_ref().and_then(|d| d.value.as_deref()),
+            Some("Systolic blood pressure")
+        );
+        match &comp_sist.value {
+            Some(helios_fhir::r4::ObservationComponentValue::Quantity(q)) => {
+                assert!(q.value.is_some());
+                assert!(format!("{:?}", q.value).contains("130"));
+                assert_eq!(
+                    q.unit.as_ref().and_then(|u| u.value.as_deref()),
+                    Some("mmHg")
+                );
+                assert_eq!(
+                    q.system.as_ref().and_then(|s| s.value.as_deref()),
+                    Some("http://unitsofmeasure.org")
+                );
+                assert_eq!(
+                    q.code.as_ref().and_then(|c| c.value.as_deref()),
+                    Some("mm[Hg]")
+                );
+            }
+            other => panic!("Esperaba Quantity para Sistólica, pero se obtuvo {:?}", other),
+        }
+
         // Diastólica
         let comp_diast = &components[1];
         let diast_code = comp_diast.code.coding.as_ref().unwrap();
@@ -462,6 +537,33 @@ mod tests {
             diast_code[0].code.as_ref().and_then(|c| c.value.as_deref()),
             Some("8462-4")
         );
+        assert_eq!(
+            diast_code[0].system.as_ref().and_then(|s| s.value.as_deref()),
+            Some("http://loinc.org")
+        );
+        assert_eq!(
+            diast_code[0].display.as_ref().and_then(|d| d.value.as_deref()),
+            Some("Diastolic blood pressure")
+        );
+        match &comp_diast.value {
+            Some(helios_fhir::r4::ObservationComponentValue::Quantity(q)) => {
+                assert!(q.value.is_some());
+                assert!(format!("{:?}", q.value).contains("85"));
+                assert_eq!(
+                    q.unit.as_ref().and_then(|u| u.value.as_deref()),
+                    Some("mmHg")
+                );
+                assert_eq!(
+                    q.system.as_ref().and_then(|s| s.value.as_deref()),
+                    Some("http://unitsofmeasure.org")
+                );
+                assert_eq!(
+                    q.code.as_ref().and_then(|c| c.value.as_deref()),
+                    Some("mm[Hg]")
+                );
+            }
+            other => panic!("Esperaba Quantity para Diastólica, pero se obtuvo {:?}", other),
+        }
 
         // 2. Temperatura Corporal
         let fhir_temp = transform_observation_temperature(&signo_legado, Some(&rules))
@@ -495,6 +597,47 @@ mod tests {
         let json_bp = serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_bp))).unwrap();
         assert!(json_bp.contains("\"resourceType\": \"Observation\""));
         assert!(json_bp.contains("8480-6"));
+        assert!(json_bp.contains("8462-4"));
+        assert!(json_bp.contains("Systolic blood pressure"));
+        assert!(json_bp.contains("Diastolic blood pressure"));
+        assert!(json_bp.contains("http://loinc.org"));
+        assert!(json_bp.contains("http://unitsofmeasure.org"));
+        assert!(json_bp.contains("mm[Hg]"));
+
+        let v: serde_json::Value = serde_json::from_str(&json_bp).unwrap();
+        assert_eq!(
+            v["component"][0]["code"]["coding"][0]["system"],
+            "http://loinc.org"
+        );
+        assert_eq!(v["component"][0]["code"]["coding"][0]["code"], "8480-6");
+        assert_eq!(
+            v["component"][0]["code"]["coding"][0]["display"],
+            "Systolic blood pressure"
+        );
+        assert_eq!(
+            v["component"][0]["valueQuantity"]["system"],
+            "http://unitsofmeasure.org"
+        );
+        assert_eq!(v["component"][0]["valueQuantity"]["code"], "mm[Hg]");
+        assert_eq!(v["component"][0]["valueQuantity"]["unit"], "mmHg");
+        assert_eq!(v["component"][0]["valueQuantity"]["value"], 130);
+
+        assert_eq!(
+            v["component"][1]["code"]["coding"][0]["system"],
+            "http://loinc.org"
+        );
+        assert_eq!(v["component"][1]["code"]["coding"][0]["code"], "8462-4");
+        assert_eq!(
+            v["component"][1]["code"]["coding"][0]["display"],
+            "Diastolic blood pressure"
+        );
+        assert_eq!(
+            v["component"][1]["valueQuantity"]["system"],
+            "http://unitsofmeasure.org"
+        );
+        assert_eq!(v["component"][1]["valueQuantity"]["code"], "mm[Hg]");
+        assert_eq!(v["component"][1]["valueQuantity"]["unit"], "mmHg");
+        assert_eq!(v["component"][1]["valueQuantity"]["value"], 85);
 
         let json_temp =
             serialize_to_fhir_json(&Resource::Observation(Box::new(fhir_temp))).unwrap();
@@ -506,6 +649,84 @@ mod tests {
         assert!(json_hr.contains("\"resourceType\": \"Observation\""));
         assert!(json_hr.contains("8867-4"));
         assert!(json_hr.contains("/min"));
+    }
+
+    #[test]
+    fn test_evaluator_observation_blood_pressure_declarative() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        let bp_mapping = rules
+            .get_observation_mapping("blood_pressure_panel")
+            .expect("Mapping de Observation BP debe existir");
+
+        let mut row = serde_json::Map::new();
+        row.insert("id_signo".to_string(), serde_json::json!(10));
+        row.insert("id_paciente".to_string(), serde_json::json!(5));
+        row.insert("id_consulta".to_string(), serde_json::json!(20));
+        row.insert(
+            "fecha_registro".to_string(),
+            serde_json::json!("2026-09-18 10:30:00"),
+        );
+        row.insert("presion_sistolica".to_string(), serde_json::json!(125));
+        row.insert("presion_diastolica".to_string(), serde_json::json!(82));
+
+        let evaluated = evaluate_resource_mapping(bp_mapping, &row)
+            .expect("Evaluación declarativa de BP debe ser exitosa");
+
+        assert_eq!(evaluated["resourceType"], "Observation");
+        assert_eq!(evaluated["status"], "final");
+        assert_eq!(evaluated["subject"]["reference"], "Patient/5");
+        assert_eq!(evaluated["encounter"]["reference"], "Encounter/20");
+        assert_eq!(evaluated["code"]["coding"][0]["code"], "85354-9");
+        assert_eq!(
+            evaluated["code"]["coding"][0]["system"],
+            "http://loinc.org"
+        );
+        assert_eq!(
+            evaluated["code"]["coding"][0]["display"],
+            "Blood pressure panel with all children optional"
+        );
+
+        // Componente Sistólica
+        assert_eq!(
+            evaluated["component"][0]["code"]["coding"][0]["system"],
+            "http://loinc.org"
+        );
+        assert_eq!(
+            evaluated["component"][0]["code"]["coding"][0]["code"],
+            "8480-6"
+        );
+        assert_eq!(
+            evaluated["component"][0]["code"]["coding"][0]["display"],
+            "Systolic blood pressure"
+        );
+        assert_eq!(
+            evaluated["component"][0]["valueQuantity"]["system"],
+            "http://unitsofmeasure.org"
+        );
+        assert_eq!(evaluated["component"][0]["valueQuantity"]["code"], "mm[Hg]");
+        assert_eq!(evaluated["component"][0]["valueQuantity"]["unit"], "mmHg");
+        assert_eq!(evaluated["component"][0]["valueQuantity"]["value"], 125);
+
+        // Componente Diastólica
+        assert_eq!(
+            evaluated["component"][1]["code"]["coding"][0]["system"],
+            "http://loinc.org"
+        );
+        assert_eq!(
+            evaluated["component"][1]["code"]["coding"][0]["code"],
+            "8462-4"
+        );
+        assert_eq!(
+            evaluated["component"][1]["code"]["coding"][0]["display"],
+            "Diastolic blood pressure"
+        );
+        assert_eq!(
+            evaluated["component"][1]["valueQuantity"]["system"],
+            "http://unitsofmeasure.org"
+        );
+        assert_eq!(evaluated["component"][1]["valueQuantity"]["code"], "mm[Hg]");
+        assert_eq!(evaluated["component"][1]["valueQuantity"]["unit"], "mmHg");
+        assert_eq!(evaluated["component"][1]["valueQuantity"]["value"], 82);
     }
 
     #[test]
@@ -688,6 +909,7 @@ mod tests {
             constant_value: None,
             target_path: "recordedDate".to_string(),
             system: None,
+            display: None,
             use_type: None,
             use_field: None,
             optional: None,
@@ -727,6 +949,7 @@ mod tests {
             constant_value: None,
             target_path: "recordedDate".to_string(),
             system: None,
+            display: None,
             use_type: None,
             use_field: None,
             optional: None,
@@ -771,6 +994,7 @@ mod tests {
             constant_value: None,
             target_path: "gender".to_string(),
             system: None,
+            display: None,
             use_type: None,
             use_field: None,
             optional: None,
@@ -807,6 +1031,7 @@ mod tests {
             constant_value: None,
             target_path: "identifier[0].value".to_string(),
             system: None,
+            display: None,
             use_type: None,
             use_field: None,
             optional: Some(false),

@@ -81,15 +81,17 @@
 - `Cargo.toml`: Configuración de perfil release con LTO, strip y optimizaciones de compilador.
 - `BACKLOG.md`: Tarea 4.4 completada `[x]`, 16/16 tareas (100.0%).
 - `.agents/backlog/sprint_4_axum_dashboard.md`: Tarea 4.4 completada `[x]`.
-- `mapping_rules.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`.
-- `crates/medsys-core/src/engine/transform.rs`: Remoción del cálculo de `telecom`, fijación de `telecom: None` y eliminación de la importación no utilizada `ContactPoint`.
-- `crates/medsys-core/src/engine/mod.rs`: Actualización de aserciones en pruebas unitarias para comprobar que `telecom` es `None`, que el JSON serializado no contiene `"telecom"` y que las reglas YAML no contienen mapeo para `telefono_contacto`.
-- `crates/medsys-server/tests/e2e_interoperability.rs`: Aserción de exclusión de `"telecom"` en respuesta HTTP de `GET /fhir/r4/Patient/1`.
-- `crates/medsys-server/tests/server_integration.rs`: Aserción de exclusión de `"telecom"` en la respuesta JSON canónica de `Patient`.
-- `dashboard/src/services/mockData.js`: Remoción del campo `telecom` en los datos mock de `fhir_patients` para reflejar la política de privacidad.
+- `mapping_rules.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`. Desacoplamiento normativo FHIR R4 de conceptos clínicos LOINC (`8480-6`, `8462-4` bajo `component[i].code.coding[0]`) y magnitudes métricas UCUM (`mm[Hg]` bajo `component[i].valueQuantity`) para el panel de Presión Arterial (AUD-001 / CON-004).
+- `crates/medsys-core/src/model/mapping.rs`: Incorporación de campos `display` en `FieldMapping`, `profile` y `observation_type` en `ResourceMapping`, helper `get_observation_mapping` en `MappingRules`, y derive `Default`.
+- `crates/medsys-core/src/engine/evaluator.rs`: Soporte para valores numéricos enteros/decimales en `valueQuantity` e inyección de `display` en codings de FHIR.
+- `crates/medsys-core/src/engine/transform.rs`: Transformación de `Observation` (Presión Arterial) adaptada para leer dinámicamente reglas declarativas desacopladas o aplicar valores normativos HL7 FHIR R4 por defecto.
+- `crates/medsys-core/src/engine/mod.rs`: Pruebas ampliadas `test_observation_resource_mappings`, `test_tarea_2_3_transform_observation_vital_signs` y nueva prueba `test_evaluator_observation_blood_pressure_declarative`.
+- `crates/medsys-db/tests/persistence_integration.rs`: Aserciones normativas de sistemas `http://loinc.org` y `http://unitsofmeasure.org` en serialización de `Observation`.
+- `crates/medsys-server/tests/e2e_interoperability.rs`: Aserciones de conformidad HL7 FHIR R4 para LOINC y UCUM en endpoint `/fhir/r4/Observation/bp-1`.
 
 ---
 
 ## 3. Estado de Entrega y Cierre
 El proyecto **MedSys-FHIR** ha culminado el 100% de su cronograma de desarrollo e investigación para la titulación de licenciatura en la UNACH.
 Todos los artefactos de código, suites de pruebas unitarias/integración/E2E, suite de benchmarking con k6, panel analítico en React 19 y manuales de despliegue se encuentran probados, compilados y verificados bajo cero errores y cero advertencias.
+Con la resolución de AUD-001 / CON-004, los componentes de Presión Arterial cumplen estrictamente con la especificación normativa de HL7 FHIR R4 ante validadores sintácticos oficiales.
