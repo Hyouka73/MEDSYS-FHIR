@@ -16,7 +16,7 @@ use medsys_db::{init_pool_lazy, DbConfig, MedsysRepositories};
 use medsys_server::{create_router, AppState, FHIR_JSON_CONTENT_TYPE};
 use tower::ServiceExt;
 
-const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules_specification.yaml");
+const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules.yaml");
 
 /// Construye la aplicación Axum en memoria para pruebas E2E determinísticas.
 fn setup_e2e_app() -> axum::Router {

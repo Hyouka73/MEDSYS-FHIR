@@ -31,7 +31,7 @@ Cada sesión de desarrollo sigue un ciclo estricto de 6 fases:
 - El Desarrollador implementa exclusivamente lo necesario para resolver la subtarea activa.
 - Regla de oro: No tocar archivos ajenos a la tarea en curso.
 - Sigue las convenciones de Rust: fuertemente tipado, sin unwrap(), con manejo de errores vía MedSysError.
-- En caso de tocar mapeos, verifica el archivo mapping_rules_specification.yaml.
+- En caso de tocar mapeos, verifica el archivo mapping_rules.yaml.
 - En caso de base de datos, valida contra schema_legado_simulado_nom004.sql.
 
 ### Fase 4: Auditoría y Verificación de Calidad (Rol: Validador)

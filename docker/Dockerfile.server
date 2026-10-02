@@ -36,12 +36,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copiar el binario compilado y la especificación de reglas de mapeo YAML
 COPY --from=builder /usr/src/app/target/release/medsys-server /app/medsys-server
-COPY mapping_rules_specification.yaml /app/mapping_rules_specification.yaml
+COPY mapping_rules.yaml /app/mapping_rules.yaml
 
 # Configuración de variables de entorno canónicas
 ENV SERVER_HOST=0.0.0.0 \
     SERVER_PORT=3000 \
-    MAPPING_RULES_PATH=/app/mapping_rules_specification.yaml \
+    MAPPING_RULES_PATH=/app/mapping_rules.yaml \
     RUST_LOG=info,medsys_server=debug,medsys_db=debug
 
 # Exponer el puerto HTTP del middleware

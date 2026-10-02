@@ -83,7 +83,7 @@ mod tests {
     };
     use crate::model::mapping::FieldMapping;
 
-    const SPECIFICATION_YAML: &str = include_str!("../../../../mapping_rules_specification.yaml");
+    const SPECIFICATION_YAML: &str = include_str!("../../../../mapping_rules.yaml");
 
     // =========================================================================
     // PRUEBAS DE SPRINT 1: MOTOR DE MAPEO YAML
@@ -92,7 +92,7 @@ mod tests {
     #[test]
     fn test_parse_embedded_specification_yaml() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML)
-            .expect("El archivo mapping_rules_specification.yaml debe deserializar sin errores");
+            .expect("El archivo mapping_rules.yaml debe deserializar sin errores");
         assert_eq!(rules.version, "1.1.0");
         assert_eq!(rules.resources.len(), 5);
     }
@@ -652,7 +652,7 @@ mod tests {
     #[test]
     fn test_yaml_data_absent_reason_specification() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML)
-            .expect("El archivo mapping_rules_specification.yaml debe deserializar sin errores");
+            .expect("El archivo mapping_rules.yaml debe deserializar sin errores");
 
         // Verificación de use_data_absent_reason en Patient (sexo_biologico)
         let patient = rules

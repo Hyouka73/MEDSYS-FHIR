@@ -16,7 +16,7 @@
 2. **Entorno de Compilación:** Toolchain Rust GNU `stable-x86_64-pc-windows-gnu` con MinGW-w64 (`C:\msys64\mingw64\bin`) configurado en el entorno de usuario.
 3. **Estándar:** HL7 FHIR R4 oficial vía crate `helios-fhir` v0.2 (`R4`).
 4. **Reglas Declarativas de Mapeo (v1.1.0):**
-   - El archivo `mapping_rules_specification.yaml` opera bajo la versión `1.1.0`, completamente homologado con `crates/medsys-core/src/engine/transform.rs`, la NOM-004-SSA3-2012 y HL7 FHIR R4.
+   - El archivo `mapping_rules.yaml` opera bajo la versión `1.1.0`, completamente homologado con `crates/medsys-core/src/engine/transform.rs`, la NOM-004-SSA3-2012 y HL7 FHIR R4.
    - `Patient`: CURP oficial (`urn:oid:2.16.840.1.113883.4.629`, use "official"), desglose de nombres de pila y combinación declarativa de apellidos (`combine_with: "apellido_materno"`).
    - `Encounter`: Clasificación ambulatoria obligatoria `AMB` (`http://terminology.hl7.org/CodeSystem/v3-ActCode`), periodo de atención `start`/`end`, participante médico con Cédula SEP (`http://cedulaprofesional.sep.gob.mx`).
    - `Observation`: Desacoplado formalmente en 2 perfiles/recursos canónicos independientes:
@@ -81,7 +81,7 @@
 - `Cargo.toml`: Configuración de perfil release con LTO, strip y optimizaciones de compilador.
 - `BACKLOG.md`: Tarea 4.4 completada `[x]`, 16/16 tareas (100.0%).
 - `.agents/backlog/sprint_4_axum_dashboard.md`: Tarea 4.4 completada `[x]`.
-- `mapping_rules_specification.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`.
+- `mapping_rules.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`.
 - `crates/medsys-core/src/engine/transform.rs`: Remoción del cálculo de `telecom`, fijación de `telecom: None` y eliminación de la importación no utilizada `ContactPoint`.
 - `crates/medsys-core/src/engine/mod.rs`: Actualización de aserciones en pruebas unitarias para comprobar que `telecom` es `None`, que el JSON serializado no contiene `"telecom"` y que las reglas YAML no contienen mapeo para `telefono_contacto`.
 - `crates/medsys-server/tests/e2e_interoperability.rs`: Aserción de exclusión de `"telecom"` en respuesta HTTP de `GET /fhir/r4/Patient/1`.

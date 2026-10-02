@@ -1,7 +1,7 @@
 # SPRINT 1: Motor de Mapeo Declarativo YAML y Workspace — MedSys-FHIR
 
 ## Objetivo del Sprint
-Establecer la estructura monorepo Cargo Workspace, el crate de dominio puro `medsys-core`, el sistema centralizado de errores (`MedSysError`), y la deserialización tipada y validación de las reglas declarativas definidas en `mapping_rules_specification.yaml`.
+Establecer la estructura monorepo Cargo Workspace, el crate de dominio puro `medsys-core`, el sistema centralizado de errores (`MedSysError`), y la deserialización tipada y validación de las reglas declarativas definidas en `mapping_rules.yaml`.
 
 ---
 
@@ -23,6 +23,6 @@ Establecer la estructura monorepo Cargo Workspace, el crate de dominio puro `med
   - Finalizado: 2026-09-20T13:21:00-06:00.
 
 - [x] **Tarea 1.4: Pruebas Unitarias del Motor de Reglas en Memoria**
-  - Creada suite de pruebas unitarias en `crates/medsys-core/src/engine/mod.rs` empleando `include_str!("../../../../mapping_rules_specification.yaml")`.
+  - Creada suite de pruebas unitarias en `crates/medsys-core/src/engine/mod.rs` empleando `include_str!("../../../../mapping_rules.yaml")`.
   - Cobertura de validación para `Patient`, `Encounter`, `Observation` y `Condition`.
   - Finalizado: 2026-09-20T13:21:00-06:00. Verificado con `cargo test --workspace` (5 de 5 tests aprobados).

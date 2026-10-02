@@ -27,7 +27,7 @@ impl Default for ServerConfig {
                     .to_string()
             }),
             rules_path: env::var("MAPPING_RULES_PATH")
-                .unwrap_or_else(|_| "mapping_rules_specification.yaml".to_string()),
+                .unwrap_or_else(|_| "mapping_rules.yaml".to_string()),
         }
     }
 }

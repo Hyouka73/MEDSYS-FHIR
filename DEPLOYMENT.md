@@ -59,7 +59,7 @@ MEDSYS-FHIR/
 ├── Cargo.toml                              # Workspace raíz y perfil release (opt-level 3, LTO)
 ├── docker-compose.yml                      # Contenedor PostgreSQL 16 con volumen persistente
 ├── schema_legado_simulado_nom004.sql       # Esquema DDL y datos sintéticos clínicos
-├── mapping_rules_specification.yaml        # Reglas declarativas YAML (v1.1.0)
+├── mapping_rules.yaml                      # Reglas declarativas YAML (v1.1.0)
 │
 ├── crates/
 │   ├── medsys-core/                        # Núcleo de dominio puro (sin dependencias web/BD)

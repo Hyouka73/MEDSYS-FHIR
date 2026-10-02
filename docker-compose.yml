@@ -42,6 +42,9 @@ services:
       SERVER_PORT: "3000"
       DATABASE_URL: "postgres://postgres:medsys_secure_pass_2026@postgres:5432/medsys_legado"
       RUST_LOG: "info,medsys_server=debug,medsys_db=debug"
+      MAPPING_RULES_PATH: "/app/mapping_rules.yaml"
+    volumes:
+      - ./mapping_rules.yaml:/app/mapping_rules.yaml:ro
     deploy:
       resources:
         limits:

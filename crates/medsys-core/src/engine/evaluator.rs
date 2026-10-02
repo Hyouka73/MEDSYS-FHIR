@@ -273,7 +273,11 @@ pub fn evaluate_field_mapping(
             Some(Value::Null) | None | Some(Value::String(_)) => {
                 // Extracción fallida (columna ausente, nula o cadena vacía)
                 if rule.use_data_absent_reason() {
-                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    set_json_path(
+                        target_json,
+                        &rule.target_path,
+                        fhir_data_absent_reason_json(),
+                    )?;
                     return Ok(());
                 } else if rule.is_optional() {
                     None
@@ -308,7 +312,11 @@ pub fn evaluate_field_mapping(
             Ok(v) => v,
             Err(e) => {
                 if rule.use_data_absent_reason() {
-                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    set_json_path(
+                        target_json,
+                        &rule.target_path,
+                        fhir_data_absent_reason_json(),
+                    )?;
                     return Ok(());
                 } else if rule.is_optional() {
                     return Ok(());
@@ -330,7 +338,11 @@ pub fn evaluate_field_mapping(
             Ok(v) => v,
             Err(e) => {
                 if rule.use_data_absent_reason() {
-                    set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                    set_json_path(
+                        target_json,
+                        &rule.target_path,
+                        fhir_data_absent_reason_json(),
+                    )?;
                     return Ok(());
                 } else if rule.is_optional() {
                     return Ok(());
@@ -353,7 +365,11 @@ pub fn evaluate_field_mapping(
             if let Ok(num) = final_val.parse::<f64>() {
                 json!(num)
             } else if rule.use_data_absent_reason() {
-                set_json_path(target_json, &rule.target_path, fhir_data_absent_reason_json())?;
+                set_json_path(
+                    target_json,
+                    &rule.target_path,
+                    fhir_data_absent_reason_json(),
+                )?;
                 return Ok(());
             } else if rule.is_optional() {
                 return Ok(());

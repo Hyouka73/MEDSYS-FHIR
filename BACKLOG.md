@@ -5,7 +5,7 @@
 ### Sprint 1: Motor de Mapeo Declarativo YAML y Monorepo Workspace (COMPLETADO)
 - [x] **Tarea 1.1:** Inicialización del Monorepo Cargo Workspace (`Cargo.toml`) y estructura de crates (`medsys-core`, `medsys-db`, `medsys-server`).
 - [x] **Tarea 1.2:** Definición del sistema centralizado de errores `MedSysError` y modelos de mapeo en `medsys-core`.
-- [x] **Tarea 1.3:** Parser y deserialización de reglas YAML (`mapping_rules_specification.yaml`).
+- [x] **Tarea 1.3:** Parser y deserialización de reglas YAML (`mapping_rules.yaml`).
 - [x] **Tarea 1.4:** Pruebas unitarias del motor de mapeo con macro `include_str!` en memoria (5/5 tests PASS).
 
 ### Sprint 2: Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) (COMPLETADO)

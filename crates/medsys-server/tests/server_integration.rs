@@ -10,7 +10,7 @@ use medsys_db::{init_pool_lazy, DbConfig, MedsysRepositories};
 use medsys_server::{create_router, AppState, ServerError, FHIR_JSON_CONTENT_TYPE};
 use tower::ServiceExt;
 
-const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules_specification.yaml");
+const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules.yaml");
 
 /// Construye una instancia del enrutador Axum para pruebas en memoria (sin sockets TCP).
 fn setup_test_app() -> axum::Router {
