@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS tbl_diagnosticos (
     id_paciente INT REFERENCES tbl_pacientes(id_paciente) ON DELETE RESTRICT,
     codigo_cie10 VARCHAR(10) NOT NULL,
     descripcion_diagnostico VARCHAR(255) NOT NULL,
-    tipo_diagnostico VARCHAR(20) DEFAULT 'CONFIRMADO' CHECK (tipo_diagnostico IN ('PRESUNTIVO', 'CONFIRMADO')),
+    tipo_diagnostico VARCHAR(20) CHECK (tipo_diagnostico IN ('PRESUNTIVO', 'CONFIRMADO')),
     fecha_diagnostico DATE NOT NULL
 );
 
