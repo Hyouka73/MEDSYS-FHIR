@@ -1,9 +1,8 @@
 use chrono::NaiveTime;
 use helios_fhir::r4::{
-    Bundle, BundleEntry, Condition, ContactPoint, Encounter, EncounterParticipant, HumanName,
-    Observation, ObservationComponent, ObservationComponentValue, ObservationEffective,
-    ObservationValue, OperationOutcome, OperationOutcomeIssue, Patient, Period, Quantity,
-    Reference, Resource,
+    Bundle, BundleEntry, Condition, Encounter, EncounterParticipant, HumanName, Observation,
+    ObservationComponent, ObservationComponentValue, ObservationEffective, ObservationValue,
+    OperationOutcome, OperationOutcomeIssue, Patient, Period, Quantity, Reference, Resource,
 };
 use helios_fhir::Element;
 use rust_decimal::Decimal as RustDecimal;
@@ -96,7 +95,10 @@ pub fn transform_patient(
         .map(|r| r.use_data_absent_reason())
         .unwrap_or(true);
 
-    let gender: Option<helios_fhir::r4::Code> = match (gender_rule, paciente.sexo_biologico.as_deref()) {
+    let gender: Option<helios_fhir::r4::Code> = match (
+        gender_rule,
+        paciente.sexo_biologico.as_deref(),
+    ) {
         (Some(rule), Some(raw)) => {
             if let Some(ref dict) = rule.dictionary {
                 if let Some(val) = dict.get(raw) {
@@ -162,19 +164,6 @@ pub fn transform_patient(
         }
     };
 
-    // Medios de contacto (teléfono opcional)
-    let telecom = paciente.telefono_contacto.as_ref().map(|tel| {
-        vec![ContactPoint {
-            id: None,
-            extension: None,
-            system: Some(fhir_code("phone")),
-            value: Some(fhir_string(tel.clone())),
-            r#use: Some(fhir_code("mobile")),
-            rank: None,
-            period: None,
-        }]
-    });
-
     let birth_date = fhir_date(paciente.fecha_nacimiento)?;
 
     Ok(Patient {
@@ -193,7 +182,7 @@ pub fn transform_patient(
             value: Some(true),
         }),
         name: Some(vec![human_name]),
-        telecom,
+        telecom: None,
         gender,
         birth_date: Some(birth_date),
         deceased: None,
@@ -269,14 +258,20 @@ pub fn transform_encounter(
             if let Some(dict) = status_rule.and_then(|r| r.dictionary.as_ref()) {
                 if let Some(val) = dict.get(other) {
                     fhir_code(val.as_str())
-                } else if status_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                } else if status_rule
+                    .map(|r| r.use_data_absent_reason())
+                    .unwrap_or(false)
+                {
                     fhir_absent_element()
                 } else {
                     return Err(MedSysError::ProcessingError(format!(
                         "Data corruption: Estado de consulta desconocido '{other}'"
                     )));
                 }
-            } else if status_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+            } else if status_rule
+                .map(|r| r.use_data_absent_reason())
+                .unwrap_or(false)
+            {
                 fhir_absent_element()
             } else {
                 return Err(MedSysError::ProcessingError(format!(
@@ -689,14 +684,20 @@ pub fn transform_condition(
             if let Some(dict) = ver_rule.and_then(|r| r.dictionary.as_ref()) {
                 if let Some(val) = dict.get(other) {
                     (val.as_str(), val.as_str())
-                } else if ver_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+                } else if ver_rule
+                    .map(|r| r.use_data_absent_reason())
+                    .unwrap_or(false)
+                {
                     ("unknown", "Unknown")
                 } else {
                     return Err(MedSysError::ProcessingError(format!(
                         "Data corruption: Tipo de diagnóstico desconocido '{other}'"
                     )));
                 }
-            } else if ver_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+            } else if ver_rule
+                .map(|r| r.use_data_absent_reason())
+                .unwrap_or(false)
+            {
                 ("unknown", "Unknown")
             } else {
                 return Err(MedSysError::ProcessingError(format!(
@@ -728,7 +729,10 @@ pub fn transform_condition(
     ) {
         Ok(dt) => dt,
         Err(err) => {
-            if date_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false) {
+            if date_rule
+                .map(|r| r.use_data_absent_reason())
+                .unwrap_or(false)
+            {
                 fhir_absent_element()
             } else {
                 return Err(MedSysError::ProcessingError(format!(
@@ -796,7 +800,9 @@ pub fn transform_condition_raw(
         })
     });
 
-    let use_absent = date_rule.map(|r| r.use_data_absent_reason()).unwrap_or(false);
+    let use_absent = date_rule
+        .map(|r| r.use_data_absent_reason())
+        .unwrap_or(false);
 
     match parse_date_iso8601(fecha_diagnostico_raw) {
         Ok(parsed_date_str) => {

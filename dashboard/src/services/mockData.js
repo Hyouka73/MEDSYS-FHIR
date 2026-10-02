@@ -124,13 +124,6 @@ export const MOCK_FULL_COMPARISONS = {
           given: ["Alberto", "Manuel"]
         }
       ],
-      telecom: [
-        {
-          system: "phone",
-          value: "9611234567",
-          use: "mobile"
-        }
-      ],
       gender: "male",
       birthDate: "1990-01-01"
     },

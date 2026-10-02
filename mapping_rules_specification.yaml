@@ -40,10 +40,7 @@ resources:
         # Razón de ausencia clínica (data-absent-reason): Si el dato original está corrupto, nulo o no existe en el diccionario,
         # el motor inyecta la extensión canónica FHIR data-absent-reason con valueCode: error.
         use_data_absent_reason: true
-      - source_column: "telefono_contacto"
-        target_path: "telecom[0].value"
-        system: "phone"
-        optional: true
+
 
   # ----------------------------------------------------------------------------
   # RECURSO 2: Encounter (Acto médico o consulta ambulatoria en CESSA)

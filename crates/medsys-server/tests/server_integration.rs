@@ -129,7 +129,9 @@ async fn test_server_error_into_response_conformity() {
     assert!(body_field.contains("\"code\": \"required\""));
 
     // 4. ProcessingError -> 422
-    let err_proc = ServerError::Domain(MedSysError::ProcessingError("Data corruption in critical field".into()));
+    let err_proc = ServerError::Domain(MedSysError::ProcessingError(
+        "Data corruption in critical field".into(),
+    ));
     let res_proc = err_proc.into_response();
     assert_eq!(res_proc.status(), StatusCode::UNPROCESSABLE_ENTITY);
     let body_proc = response_body_to_string(res_proc).await;
@@ -192,6 +194,7 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
     if status == StatusCode::OK {
         assert!(body_patient.contains("\"resourceType\": \"Patient\""));
         assert!(body_patient.contains("ROMA900101HCSNN01"));
+        assert!(!body_patient.contains("\"telecom\""));
     } else {
         // En caso de que el pool esté offline o id no exista
         assert!(body_patient.contains("\"resourceType\": \"OperationOutcome\""));

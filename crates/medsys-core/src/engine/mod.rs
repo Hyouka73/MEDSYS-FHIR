@@ -129,6 +129,15 @@ mod tests {
             .expect("Debe tener diccionario de mapeo");
         assert_eq!(dict.get("M").map(|s| s.as_str()), Some("male"));
         assert_eq!(dict.get("F").map(|s| s.as_str()), Some("female"));
+
+        let telecom_mapping = patient.mappings.iter().find(|m| {
+            m.source_column.as_deref() == Some("telefono_contacto")
+                || m.target_path.starts_with("telecom")
+        });
+        assert!(
+            telecom_mapping.is_none(),
+            "telefono_contacto no debe estar mapeado por LGPDPPSO"
+        );
     }
 
     #[test]
@@ -288,21 +297,15 @@ mod tests {
         );
         assert!(fhir_patient.birth_date.is_some());
 
-        // Verificación de contacto telefónico
-        let telecoms = fhir_patient
-            .telecom
-            .as_ref()
-            .expect("Debe contener telecom");
-        assert_eq!(
-            telecoms[0].value.as_ref().and_then(|v| v.value.as_deref()),
-            Some("9611234567")
-        );
+        // Verificación de minimización de datos personales (LGPDPPSO): telecom debe ser None
+        assert!(fhir_patient.telecom.is_none());
 
         // Serialización canónica a JSON
         let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
             .expect("Debe serializar a application/fhir+json");
         assert!(json_str.contains("\"resourceType\": \"Patient\""));
         assert!(json_str.contains("ROMA900101HCSNN01"));
+        assert!(!json_str.contains("\"telecom\""));
     }
 
     #[test]
@@ -747,7 +750,10 @@ mod tests {
             MedSysError::ProcessingError(msg) => {
                 assert!(msg.contains("Data corruption"));
             }
-            other => panic!("Esperaba MedSysError::ProcessingError pero obtuvo {:?}", other),
+            other => panic!(
+                "Esperaba MedSysError::ProcessingError pero obtuvo {:?}",
+                other
+            ),
         }
     }
 
@@ -789,10 +795,7 @@ mod tests {
             target_json["gender"]["extension"][0]["url"],
             "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
         );
-        assert_eq!(
-            target_json["gender"]["extension"][0]["valueCode"],
-            "error"
-        );
+        assert_eq!(target_json["gender"]["extension"][0]["valueCode"], "error");
     }
 
     #[test]
@@ -915,9 +918,18 @@ mod tests {
         let fhir_patient = transform_patient(&paciente_legado, Some(&rules))
             .expect("La transformación debe ser exitosa mediante data-absent-reason");
 
-        let gender_elem = fhir_patient.gender.as_ref().expect("Gender debe estar presente");
-        assert!(gender_elem.value.is_none(), "No debe inventar valor sintético");
-        assert!(gender_elem.extension.is_some(), "Debe contener extensión data-absent-reason");
+        let gender_elem = fhir_patient
+            .gender
+            .as_ref()
+            .expect("Gender debe estar presente");
+        assert!(
+            gender_elem.value.is_none(),
+            "No debe inventar valor sintético"
+        );
+        assert!(
+            gender_elem.extension.is_some(),
+            "Debe contener extensión data-absent-reason"
+        );
 
         let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
             .expect("Debe serializar Patient a JSON");
@@ -981,4 +993,3 @@ mod tests {
         assert!(fhir_enc.status.extension.is_some());
     }
 }
-

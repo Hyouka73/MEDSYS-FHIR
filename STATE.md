@@ -1,13 +1,13 @@
 # ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-09-24T18:00:00-06:00
-- **Sprint Activo:** Todos los 4 Sprints COMPLETADOS (Sprint 1, Sprint 2, Sprint 3, Sprint 4).
-- **Estado General:** 16 / 16 tareas completadas (100.0%) — PROYECTO DE TESIS COMPLETADO
-- **Tarea en Curso:** Ninguna (Proyecto y entregables finalizados).
-- **Última Tarea Cerrada:** Tarea 4.4: Pruebas E2E, auditoría Clippy, validación con k6 y release final.
+- **Última Actualización:** 2026-10-02T09:45:00-06:00
+- **Sprint Activo:** Mantenimiento y cumplimiento normativo de privacidad LGPDPPSO (2025).
+- **Estado General:** 16 / 16 tareas completadas (100.0%) — Conformidad estricta LGPDPPSO.
+- **Tarea en Curso:** Ninguna (Corrección de privacidad completada).
+- **Última Tarea Cerrada:** Eliminación de directiva telefono_contacto en reglas YAML y telecom en recurso Patient por LGPDPPSO (2025).
 - **Siguiente Tarea Inmediata:** Despliegue en producción / Defensa de Tesis UNACH 2026.
-- **Estado del Build:** PASS (Backend Rust GNU/MinGW: 46/46 tests PASS, Clippy 0 warnings con `-D warnings`, rustfmt PASS, binario release LTO 6.55 MB; Frontend Dashboard React 19 + Vite: build PASS, oxlint 0 warnings/0 errors; k6 Benchmarking: latencia p95=1.14ms, 100% conformidad OperationOutcome).
+- **Estado del Build:** PASS (Backend Rust GNU/MinGW: 55/55 tests PASS, Clippy 0 warnings con `-D warnings`, rustfmt PASS; Frontend Dashboard React 19 + Vite: build PASS, oxlint 0 warnings/0 errors).
 
 ---
 
@@ -81,7 +81,12 @@
 - `Cargo.toml`: Configuración de perfil release con LTO, strip y optimizaciones de compilador.
 - `BACKLOG.md`: Tarea 4.4 completada `[x]`, 16/16 tareas (100.0%).
 - `.agents/backlog/sprint_4_axum_dashboard.md`: Tarea 4.4 completada `[x]`.
-- `.agents/backlog/overview.md`: 100.0% de avance en todos los sprints.
+- `mapping_rules_specification.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`.
+- `crates/medsys-core/src/engine/transform.rs`: Remoción del cálculo de `telecom`, fijación de `telecom: None` y eliminación de la importación no utilizada `ContactPoint`.
+- `crates/medsys-core/src/engine/mod.rs`: Actualización de aserciones en pruebas unitarias para comprobar que `telecom` es `None`, que el JSON serializado no contiene `"telecom"` y que las reglas YAML no contienen mapeo para `telefono_contacto`.
+- `crates/medsys-server/tests/e2e_interoperability.rs`: Aserción de exclusión de `"telecom"` en respuesta HTTP de `GET /fhir/r4/Patient/1`.
+- `crates/medsys-server/tests/server_integration.rs`: Aserción de exclusión de `"telecom"` en la respuesta JSON canónica de `Patient`.
+- `dashboard/src/services/mockData.js`: Remoción del campo `telecom` en los datos mock de `fhir_patients` para reflejar la política de privacidad.
 
 ---
 

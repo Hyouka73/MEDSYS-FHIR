@@ -131,6 +131,7 @@ async fn test_e2e_fhir_patient_mapping_and_headers() {
         assert!(body.contains("\"resourceType\": \"Patient\""));
         assert!(body.contains("urn:oid:2.16.840.1.113883.4.629"));
         assert!(body.contains("\"use\": \"official\""));
+        assert!(!body.contains("\"telecom\""));
     } else {
         assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
         assert!(body.contains("\"severity\": \"error\""));
