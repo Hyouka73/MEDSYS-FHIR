@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedSys-FHIR | Dashboard de Prompts de Ejecución</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-hover: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --spark: #7c3aed;
+      --spark-bg: #f5f3ff;
+      --spark-border: #ddd6fe;
+      --code: #0284c7;
+      --code-bg: #f0f9ff;
+      --code-border: #bae6fd;
+      --readonly-bg: #fffbeb;
+      --readonly-text: #b45309;
+      --readonly-border: #fde68a;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --radius: 10px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f19;
+        --surface: #131c2e;
+        --surface-hover: #1c2842;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border: #22324e;
+        --primary: #3b82f6;
+        --primary-hover: #60a5fa;
+        --spark: #a78bfa;
+        --spark-bg: #22173b;
+        --spark-border: #4c327a;
+        --code: #38bdf8;
+        --code-bg: #112840;
+        --code-border: #1e4d75;
+        --readonly-bg: #2d2410;
+        --readonly-text: #fcd34d;
+        --readonly-border: #574110;
+        --danger: #ef4444;
+        --danger-bg: #331517;
+        --danger-border: #5c2024;
+        --success: #22c55e;
+        --success-bg: #102d1b;
+        --warning: #f59e0b;
+        --warning-bg: #33240d;
+        --warning-border: #634311;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 1.5rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .title-area h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .title-area p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .meta-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-primary { background: var(--code-bg); color: var(--code); border: 1px solid var(--code-border); }
+    .badge-spark { background: var(--spark-bg); color: var(--spark); border: 1px solid var(--spark-border); }
+    .badge-code { background: var(--code-bg); color: var(--code); border: 1px solid var(--code-border); }
+    .badge-readonly { background: var(--readonly-bg); color: var(--readonly-text); border: 1px solid var(--readonly-border); }
+    .badge-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+    .badge-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border); }
+    .badge-neutral { background: var(--surface-hover); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .progress-section {
+      margin-top: 1rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .progress-bar-bg {
+      background: var(--surface-hover);
+      border-radius: 9999px;
+      height: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-bar-fill {
+      background: var(--success);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .btn {
+      font-family: var(--font);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--surface-hover);
+    }
+
+    .btn-reset {
+      color: var(--danger);
+      border-color: var(--danger-border);
+      background: var(--danger-bg);
+    }
+
+    .btn-reset:hover {
+      opacity: 0.85;
+    }
+
+    .btn-copy {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-copy:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-copy.copied {
+      background: var(--success) !important;
+      border-color: var(--success) !important;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .filter-btn {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Modal / Popover */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .decisions-container {
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .decision-card {
+      background: var(--surface);
+      border: 1px solid var(--warning-border);
+      border-left: 5px solid var(--warning);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .decision-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .decision-text {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .option-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      font-size: 0.825rem;
+    }
+
+    .option-box strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .option-sacrifice {
+      color: var(--danger);
+      margin-top: 0.4rem;
+      font-size: 0.785rem;
+    }
+
+    /* Prompt Cards */
+    .prompts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .prompt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .prompt-card.completed {
+      opacity: 0.6;
+      background: var(--surface-hover);
+    }
+
+    .prompt-card.completed .card-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .card-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-id-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1 1 300px;
+    }
+
+    .prompt-checkbox {
+      width: 1.15rem;
+      height: 1.15rem;
+      cursor: pointer;
+      accent-color: var(--success);
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .dependency-pill {
+      font-size: 0.725rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-muted);
+    }
+
+    .dependency-pill.unmet {
+      border-color: var(--warning-border);
+      background: var(--warning-bg);
+      color: var(--warning);
+      font-weight: 600;
+    }
+
+    details {
+      margin-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+    }
+
+    summary {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      outline: none;
+    }
+
+    summary:hover {
+      text-decoration: underline;
+    }
+
+    .prompt-textarea {
+      width: 100%;
+      height: 260px;
+      margin-top: 0.6rem;
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.785rem;
+      line-height: 1.45;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      resize: vertical;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .collapsible-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .collapsible-section summary {
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .info-list {
+      margin-top: 0.75rem;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      list-style-position: inside;
+    }
+
+    .info-list li {
+      margin-bottom: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="header-top">
+      <div class="title-area">
+        <h1>MedSys-FHIR | Tablero de Prompts de Ejecución</h1>
+        <p>Conversor autónomo de auditoría técnica &bull; Tesis Licenciatura UNACH &bull; Ronda Fase 1</p>
+      </div>
+      <div class="meta-tags">
+        <span class="badge badge-neutral">2026-10-03</span>
+        <span class="badge badge-primary">Ronda 1.0 (Post-Fase 0)</span>
+        <span class="badge badge-code">10 Prompts Activos</span>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Progreso general de implementación</span>
+        <span id="progress-text">0 de 10 completados (0%)</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progress-fill" class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-reset" onclick="openResetModal()">Reiniciar progreso</button>
+    </div>
+  </header>
+
+  <!-- Filtros -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('all', this)">Todos (10)</button>
+    <button class="filter-btn" onclick="setFilter('pending', this)">Pendientes</button>
+    <button class="filter-btn" onclick="setFilter('completed', this)">Completados</button>
+    <button class="filter-btn" onclick="setFilter('spark', this)">Gemini Spark (5)</button>
+    <button class="filter-btn" onclick="setFilter('code', this)">Agente de Código (5)</button>
+  </div>
+  <h2 class="section-title">
+    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+    Decisiones Requeridas del Autor (Sin Prompt Automático)
+  </h2>
+  <div class="decisions-container">
+    <div class="decision-card">
+      <h3>
+        <span>D-REQ-01: Incorporación del recurso FHIR AllergyIntolerance</span>
+        <span class="badge badge-warning">Choque con D-02 Congelada</span>
+      </h3>
+      <p class="decision-text">
+        Se identificó la sugerencia de mapear alergias del paciente. Sin embargo, la decisión arquitectónica D-02 congeló el alcance de recursos FHIR exclusivamente a: Patient, Encounter, Condition y Observation.
+      </p>
+      <div class="options-grid">
+        <div class="option-box">
+          <strong>Opción A: Mantener D-02 (Rechazar adición) [Recomendada]</strong>
+          Declarar explícitamente en el Capítulo 6 y matriz de limitaciones que las alergias quedan fuera de alcance de esta tesis por diseño modular.
+          <p class="option-sacrifice">&bull; Qué se sacrifica: No se demuestra interoperabilidad del dominio farmacológico en el prototipo.</p>
+        </div>
+        <div class="option-box">
+          <strong>Opción B: Descongelar D-02 e incorporar AllergyIntolerance</strong>
+          Modificar D-02, crear schema DDL para MedSys, implementar mapper Rust y extender los 59 tests de regresión.
+          <p class="option-sacrifice">&bull; Qué se sacrifica: Retraso estimado de 3 semanas en titulación y riesgo de invalidar línea base probada.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-card">
+      <h3>
+        <span>D-REQ-02: Política de manejo para registros clínicos legacy huérfanos</span>
+        <span class="badge badge-warning">Decisión de Diseño Fail-Closed</span>
+      </h3>
+      <p class="decision-text">
+        El análisis de datos sintéticos arrojó que algunos encuentros en MedSys carecen de ID de paciente válido o CURP verificable. Debe definirse el tratamiento arquitectónico formal.
+      </p>
+      <div class="options-grid">
+        <div class="option-box">
+          <strong>Opción A: Rechazo estricto HTTP 422 (Fail-Closed puro)</strong>
+          El middleware rechaza la transacción completa si el identificador raíz no cumple con la especificación de paciente.
+          <p class="option-sacrifice">&bull; Qué se sacrifica: No hay persistencia de datos malformados para análisis posterior.</p>
+        </div>
+        <div class="option-box">
+          <strong>Opción B: Cuarentena en Dead-Letter Queue / Tabla de Auditoría</strong>
+          El middleware no genera el FHIR Bundle pero almacena el payload corrupto en un log estructurado de auditoría forense.
+          <p class="option-sacrifice">&bull; Qué se sacrifica: Introduce complejidad de almacenamiento adicional fuera del alcance de transformación pura.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">
+    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+    Prompts Ejecutables Atómicos
+  </h2>
+
+  <div class="prompts-list">
+    <!-- CARD P-01 -->
+    <div class="prompt-card" id="card-P-01" data-recipient="code" data-id="P-01">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-01')" id="chk-P-01">
+          <span class="card-title">P-01: Verificación de línea base de pruebas en el repositorio (59 tests)</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-code">Agente de Código</span>
+          <span class="badge badge-readonly">MODO SOLO LECTURA</span>
+          <span class="badge badge-danger">AUD-042 &bull; Bloqueante</span>
+          <span class="dependency-pill">Sin dependencias</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-01')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Agente de Código</summary>
+        <textarea id="prompt-text-P-01" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Agente de Código: Verificar en MODO SOLO LECTURA la línea base exacta de pruebas unitarias, integración y propiedades en el repositorio MedSys-FHIR.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR es un middleware desarrollado en Rust para la transformación sintáctica y semántica de expedientes clínicos legacy (MedSys) al estándar HL7 FHIR R4 en el contexto de la UNACH. La estabilidad de la tesis depende de mantener inalterada la línea base declarada de 59 pruebas automatizadas antes de cualquier refactorización.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: Riesgo de divergencia entre la documentación de tesis (declara 59 pruebas: 24 unitarias, 19 de integración, 3 basadas en propiedades, 8 de casos borde y 5 de extremo a extremo) y el estado real del árbol de tests en cargo.
+- Evidencia: Reporte de auditoría hallazgo AUD-042 en test suites `tests/`.
+- Impacto: Cualquier intervención de código sobre una línea base no confirmada invalida la trazabilidad metodológica del Capítulo 4.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Conteo declarado formalmente sin confirmación estricta de ejecución en la rama de trabajo.
+- Estado esperado: Inventario preciso de ejecución que certifique exactamente cuántos tests pasan, su desglose por módulo y coincidencia exacta con 24+19+3+8+5.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-04 [CONGELADA]: La suite de pruebas de regresión debe constar de 59 pruebas automatizadas mínimas verificables (24 unitarias, 19 integración, 3 basadas en propiedades, 8 borde, 5 e2e). Ninguna modificación puede eliminar ni omitir pruebas existentes."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `Cargo.toml`: Inspección de workspace y harnesses de prueba.
+- `tests/`: Verificación de suites de integración y e2e.
+- `src/`: Verificación de pruebas unitarias inline (`#[cfg(test)]`).
+
+INSTRUCCIONES PASO A PASO:
+1. Activar estrictamente MODO SOLO LECTURA. No modificar ningún archivo ni crear ramas.
+2. Ejecutar `cargo test -- --list` o comando equivalente de inspección para listar todos los tests compilados.
+3. Ejecutar `cargo test` para certificar la ejecución limpia (0 failed).
+4. Categorizar cada prueba detectada en: Unitarias (`src/`), Integración (`tests/integration`), Propiedades (`tests/proptests` o quickcheck), Casos Borde (`tests/edge`), y E2E (`tests/e2e`).
+5. Comparar el total obtenido contra 59. Si hay discrepancia, no alterar el código: documentar la discrepancia exacta con nombre de prueba y módulo.
+
+PROHIBICIONES:
+- No modificar código fuente, pruebas ni archivos de configuración.
+- No agregar flags que silencien fallos (como `--no-fail-fast` o `--ignored` sin reporte).
+- No inventar resultados de pruebas ni sustituir ejecución dinámica por análisis estático heurístico.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Reporte con la salida real de `cargo test` mostrando tests passed, 0 failed, 0 ignored.
+- Tabla con el desglose exacto verificado que sume la totalidad de pruebas detectadas.
+- Confirmación explícita de si la línea base 59 (24+19+3+8+5) se cumple al 100%.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Reportar: Comando exacto ejecutado, hash del commit inspeccionado, total de tests por categoría, discrepancias si existen y declaración explícita de "LÍNEA BASE RECONFIRMADA" o "LÍNEA BASE DISCREPANTE".</textarea>
+      </details>
+    </div>
+    <!-- CARD P-02 -->
+    <div class="prompt-card" id="card-P-02" data-recipient="code" data-id="P-02" data-dep="P-01">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-02')" id="chk-P-02">
+          <span class="card-title">P-02: Erradicación de fallback_value y blindaje Fail-Closed en transformer</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-code">Agente de Código</span>
+          <span class="badge badge-danger">AUD-041 &bull; Crítica</span>
+          <span class="dependency-pill" id="dep-P-02">después de P-01</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-02')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Agente de Código</summary>
+        <textarea id="prompt-text-P-02" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Agente de Código: Eliminar cualquier uso o vestigio de `fallback_value` en las funciones de mapeo y garantizar el principio arquitectónico Fail-Closed en `transformer.rs`.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR transforma expedientes legacy de salud en Chiapas/UNACH a recursos HL7 FHIR R4. Para garantizar la seguridad del paciente y evitar la corrupción semántica, el middleware opera bajo una arquitectura Fail-Closed: ante datos incompletos, corruptos o no mapeables unívocamente, la transformación debe fallar de forma explícita y controlada, sin suponer datos clínicos ni recurrir a valores por defecto arbitrarios.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: Se detectaron funciones auxiliares que admiten valores por defecto (`fallback_value` o `.unwrap_or(...)`) en campos clínicos estructurales y de identificación.
+- Evidencia: Archivo `src/transformer/mapping.rs` y `src/transformer/mod.rs` donde campos no resueltos pueden adoptar valores sintéticos en silencio. Hallazgo AUD-041.
+- Impacto: Riesgo crítico de generación de recursos FHIR semánticamente espurios o no atribuibles al paciente, violando la NOM-024-SSA3-2012 y el diseño de tesis.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Mappings con ramas permisivas que retornan `Option::Some(fallback)` o silencian el error.
+- Estado esperado: Retorno estricto de `Result<T, TransformationError>` con rechazo explícito y tipado del registro cuando falte un dato indispensable o inválido.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-01 [CONGELADA]: Principio Fail-Closed. Ante cualquier ambigüedad, dato faltante requerido por FHIR o corrupción de tipo, el middleware rechazará la transformación con error explícito tipado. Queda estrictamente prohibido reintroducir fallback_value, inferencias probabilísticas o valores por defecto en datos clínicos o de identificación."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `src/transformer/mapping.rs`: Mapeadores de campos MedSys a FHIR (remover fallbacks).
+- `src/transformer/error.rs`: Definición de variantes de `TransformationError`.
+- `tests/edge/fail_closed_tests.rs`: Suite de pruebas para validar rechazo estricto.
+
+INSTRUCCIONES PASO A PASO:
+1. Reconfirmar que la línea base previa de 59 pruebas pasa limpiamente antes de tocar código.
+2. Trabajar en una rama dedicada `fix/aud-041-fail-closed`.
+3. Localizar en `src/transformer/mapping.rs` y módulos afines toda ocurrencia de `fallback_value`, `.unwrap_or_default()` o equivalentes en mapeo de pacientes y encuentros.
+4. Sustituir dichas rutas por propagación explícita mediante `Result::Err(TransformationError::MissingRequiredField { field, source })` o variante tipada correspondiente.
+5. Asegurar que las pruebas existentes se actualicen SOLO si una prueba asumía el comportamiento permisivo obsoleto, sustituyéndola por una aserción de error esperado.
+6. Ejecutar la suite completa asegurando que los 59 tests pasen (o aumenten si se añade prueba de regresión específica, sin eliminar ninguna de la línea base).
+7. Crear un único commit con mensaje: "fix(core): enforce strict fail-closed mapping and eliminate fallback values (AUD-041)".
+
+PROHIBICIONES:
+- No agregar dependencias externas en `Cargo.toml`.
+- No ampliar el alcance a otros recursos FHIR.
+- No reintroducir `fallback_value` bajo nombres alternativos (`default_val`, `placeholder`, etc.).
+- No silenciar errores mediante `let _ = ...` ni `unwrap()`.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Búsqueda textual recursiva en `src/` (`grep -rn "fallback_value"`) retorna 0 resultados.
+- La ejecución de `cargo test` compila sin advertencias (`warnings`) y todos los tests pasan.
+- Un test automatizado demuestra que un payload legacy sin ID o con código no catalogado retorna `Err(TransformationError)` y no genera un recurso FHIR parcial.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar `git diff` limpio de las modificaciones.
+- Evidencia de `cargo test` ejecutado exitosamente.
+- Detalle de cualquier cambio en firmas de funciones públicas.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-03 -->
+    <div class="prompt-card" id="card-P-03" data-recipient="spark" data-id="P-03" data-dep="P-02">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-03')" id="chk-P-03">
+          <span class="card-title">P-03: Actualización y alineación de la política Fail-Closed en Capítulos 3 y 4</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-spark">Gemini Spark</span>
+          <span class="badge badge-danger">AUD-041 &bull; Crítica</span>
+          <span class="dependency-pill" id="dep-P-03">después de P-02</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-03')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Gemini Spark</summary>
+        <textarea id="prompt-text-P-03" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Gemini Spark: Actualizar la redacción técnica en los Capítulos 3 y 4 de la tesis para reflejar con exactitud la política Fail-Closed sin fallbacks implementada en el código.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR es una tesis de licenciatura (UNACH) sobre interoperabilidad en salud mediante un middleware Rust que transforma datos clínicos legacy a FHIR R4. El principio arquitectónico rector es Fail-Closed: todo dato faltante o inválido detiene la transformación y emite un error tipado para salvaguardar la integridad clínica.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: En secciones de los Capítulos 3 y 4 aún se menciona la posibilidad de "valores sustitutos por defecto" o "recuperación heurística" que contradicen la decisión de congelamiento D-01 y la implementación en código recién corregida en P-02.
+- Evidencia: Capítulo 3 (Diseño Arquitectónico, sección 3.4.2) y Capítulo 4 (Implementación, sección 4.2.1).
+- Impacto: Inconsistencia metodológica grave entre la memoria escrita y el código fuente defendido ante el sínodo.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Textos que sugieren tolerancia con fallbacks permisivos.
+- Estado esperado: Redacción formal, consistente y rigurosa que fundamente el rechazo estricto Fail-Closed con base en la seguridad del paciente y la NOM-024-SSA3-2012.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-01 [CONGELADA]: Principio Fail-Closed. Ante cualquier ambigüedad, dato faltante requerido por FHIR o corrupción de tipo, el middleware rechazará la transformación con error explícito tipado. Queda estrictamente prohibido reintroducir fallback_value, inferencias probabilísticas o valores por defecto en datos clínicos o de identificación."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `Capitulo_3_Diseno.md` (o sección correspondiente en Google Drive): Sección 3.4 de Arquitectura de Mapeo.
+- `Capitulo_4_Implementacion.md`: Sección 4.2 sobre manejo de errores de transformación y tipos `TransformationError`.
+
+INSTRUCCIONES PASO A PASO:
+1. Operar en MODO SOLO TEXTO. No tocar el repositorio de código.
+2. Elaborar una tabla comparativa con los cambios:
+   | Dato/Concepto Incorrecto | Redacción Esperada | Fuente / Decisión | Secciones Afectadas |
+3. Sustituir toda alusión a "sustitución de valores", "campos calculados por omisión" o "fallback" por la formulación rigurosa de Fail-Closed: rechazo atómico y emisión de error estructurado con código HTTP 422 / `TransformationError`.
+4. Incluir la cita formal a la NOM-024-SSA3-2012 en cuanto a la prohibición de introducir información clínica ficticia o no corroborada en el expediente.
+5. Revisar coherencia de referencias cruzadas entre Capítulos 3 y 4.
+
+PROHIBICIONES:
+- No inventar justificaciones no contenidas en DECISIONES.md.
+- No alterar formatos de titulación ni estilos de bibliografía ajenos al cambio.
+- Si falta una justificación clínica específica del autor, insertar: "[PENDIENTE DEL AUTOR: justificación clínica específica]".
+- En aportes del asesor técnico no asimilados, colocar: "[ASESOR TÉCNICO — pendiente de comprensión del autor]".
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Eliminación total de términos ambiguos de sustitución en las secciones editadas.
+- Presencia literal de la definición de Fail-Closed estipulada en D-01.
+- Tabla de cambios entregada completa y sin ambigüedades.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar fragmento antes/después de cada párrafo modificado.
+- Confirmar que ninguna otra sección del documento fue alterada innecesariamente.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-04 -->
+    <div class="prompt-card" id="card-P-04" data-recipient="code" data-id="P-04" data-dep="P-01">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-04')" id="chk-P-04">
+          <span class="card-title">P-04: Validación estricta de códigos CIE-10 en generador de datos sintéticos</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-code">Agente de Código</span>
+          <span class="badge badge-warning">AUD-043 &bull; Alta</span>
+          <span class="dependency-pill" id="dep-P-04">después de P-01</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-04')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Agente de Código</summary>
+        <textarea id="prompt-text-P-04" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Agente de Código: Corregir el script de generación y semillas de datos sintéticos MedSys para asegurar que el 100% de los diagnósticos utilicen códigos CIE-10 válidos conforme a la NOM-024-SSA3-2012.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR requiere un banco de datos sintéticos representativo de la consulta externa en Chiapas para probar el rendimiento y la corrección semántica del mapeo hacia recursos FHIR Condition y Encounter. Los datos deben apegarse rigurosamente a catálogos oficiales mexicanos.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: El generador de datos sintéticos incluye cadenas alfanuméricas aleatorias para el campo diagnóstico (ej. "DIAG-999") que no existen en el catálogo CIE-10 mexicano.
+- Evidencia: Script `scripts/generate_synthetic_data.py` (o DDL/seed SQL en `db/seeds/medsys_sample.sql`). Hallazgo AUD-043.
+- Impacto: La transformación semántica a FHIR Condition genera recursos con códigos inválidos en el sistema `http://hl7.org/fhir/sid/icd-10`, invalidando la verificación de interoperabilidad.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Diagnósticos sintéticos generados con cadenas arbitrarias fuera de catálogo.
+- Estado esperado: Dataset sintético generado exclusivamente con un conjunto curado de códigos CIE-10 válidos de primer nivel de atención (ej. E11.9, I10, J00, K29.7, A09).
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-03 [CONGELADA]: La validación semántica de diagnósticos debe alinearse estrictamente al catálogo CIE-10 estipulado por la NOM-024-SSA3-2012 y el perfil FHIR para México. No se permiten códigos inventados ni sustitutos en los datasets de prueba."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `scripts/generate_synthetic_data.py` (o generador equivalente en el repo).
+- `db/seeds/medsys_sample.sql`: Semillas fijas de base de datos para pruebas locales.
+
+INSTRUCCIONES PASO A PASO:
+1. Reconfirmar línea base de 59 tests antes de iniciar.
+2. Trabajar en la rama `fix/aud-043-synthetic-icd10`.
+3. Incorporar en el generador una lista cerrada de tuplas válidas `(código_cie10, descripción_oficial)` extraídas de la clasificación internacional de enfermedades (CIE-10).
+4. Modificar la rutina de asignación para que los diagnósticos de los encuentros se seleccionen exclusivamente de dicha lista con distribución ponderada representativa.
+5. Regenerar el archivo `db/seeds/medsys_sample.sql`.
+6. Ejecutar las pruebas de integración del transformer para verificar que los bundles FHIR generados contengan `Condition.code.coding.code` y `system` válidos.
+7. Crear un único commit: "fix(data): enforce valid ICD-10 diagnostic codes in synthetic dataset (AUD-043)".
+
+PROHIBICIONES:
+- No alterar la estructura relacional (esquema DDL) de las tablas MedSys legadas.
+- No añadir dependencias de paquetes no declarados en el entorno de testing.
+- No inventar códigos clínicos no reconocidos por la OMS/SSA.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Script de generación finaliza sin errores y genera 1,000 registros sintéticos válidos.
+- Verificación en SQL: `SELECT COUNT(*) FROM medsys_diagnosticos WHERE codigo NOT IN ('E11.9','I10','J00','K29.7','A09', ...)` retorna exactamente 0.
+- Los 59 tests automatizados del middleware siguen pasando al 100%.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Mostrar `git diff` de `scripts/generate_synthetic_data.py`.
+- Muestra de 5 registros generados en formato SQL / JSON.
+- Confirmación de ejecución limpia de pruebas.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-05 -->
+    <div class="prompt-card" id="card-P-05" data-recipient="spark" data-id="P-05" data-dep="P-04">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-05')" id="chk-P-05">
+          <span class="card-title">P-05: Actualización de perfiles diagnósticos sintéticos en Capítulo 4</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-spark">Gemini Spark</span>
+          <span class="badge badge-warning">AUD-043 &bull; Alta</span>
+          <span class="dependency-pill" id="dep-P-05">después de P-04</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-05')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Gemini Spark</summary>
+        <textarea id="prompt-text-P-05" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Gemini Spark: Actualizar la descripción del dataset sintético y la tabla de frecuencias de diagnósticos en el Capítulo 4 de la tesis, alineándolos con los códigos CIE-10 reales fijados en P-04.
+
+CONTEXTO DEL PROYECTO:
+Tesis MedSys-FHIR (UNACH). El Capítulo 4 documenta la estrategia de pruebas, incluyendo la generación de datos sintéticos representativos del contexto epidemiológico de Chiapas para evaluar el comportamiento del pipeline de interoperabilidad.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: La memoria escrita describe una muestra de datos sintéticos con categorías genéricas y no incluye la especificación de los códigos CIE-10 oficiales utilizados en el código.
+- Evidencia: Capítulo 4, Sección 4.4 ("Generación y características del conjunto de datos de prueba").
+- Impacto: Pérdida de rigor científico y falta de correspondencia con la normativa mexicana aplicable (NOM-024-SSA3-2012).
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Tabla 4.x con nombres informales de padecimientos sin codificación estándar.
+- Estado esperado: Tabla estructurada con Código CIE-10, Descripción Clínica Oficial, Justificación Epidemiológica (prevalencia en Chiapas) y Porcentaje de Participación en el dataset sintético.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-03 [CONGELADA]: La validación semántica de diagnósticos debe alinearse estrictamente al catálogo CIE-10 estipulado por la NOM-024-SSA3-2012 y el perfil FHIR para México. No se permiten códigos inventados ni sustitutos en los datasets de prueba."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `Capitulo_4_Implementacion.md`: Sección 4.4 (Dataset sintético y validación experimental).
+
+INSTRUCCIONES PASO A PASO:
+1. Operar en MODO SOLO TEXTO.
+2. Construir la tabla con datos verificados:
+   | Código CIE-10 | Término Clínico Oficial | Frecuencia Sintética (%) | Justificación según Morbilidad Estatal |
+   (Utilizar códigos reales del script: E11.9 Diabetes mellitus, I10 Hipertensión primaria, J00 Rinofaringitis, etc.).
+3. Incluir párrafo explicativo donde se certifique que la base de datos de pruebas carece de PHI (Protected Health Information) y fue generada algorítmicamente para preservar la confidencialidad.
+4. Si la justificación epidemiológica estatal detallada no se encuentra en `FUENTES_Y_NORMATIVA.md`, colocar exactamente: "[PENDIENTE DEL AUTOR: verificar tasa de morbilidad en boletín epidemiológico de Chiapas]".
+5. Revisar las referencias a la Tabla en los párrafos subsecuentes.
+
+PROHIBICIONES:
+- No inventar citas de fuentes médicas o normativas no registradas en `FUENTES_Y_NORMATIVA.md`.
+- No alterar cifras del volumen total de pacientes si están fijadas en la tesis.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Inclusión de la tabla completa con códigos CIE-10 normativos.
+- Correspondencia exacta entre los códigos listados y los utilizados en el commit de P-04.
+- Sin alteraciones de estilo fuera de la Sección 4.4.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar fragmento antes/después del texto.
+- Reportar la lista de códigos normativos incorporados.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-06 -->
+    <div class="prompt-card" id="card-P-06" data-recipient="code" data-id="P-06" data-dep="P-01">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-06')" id="chk-P-06">
+          <span class="card-title">P-06: Purga de vestigios de autenticación en capas del middleware</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-code">Agente de Código</span>
+          <span class="badge badge-warning">AUD-044 &bull; Media</span>
+          <span class="dependency-pill" id="dep-P-06">después de P-01</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-06')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Agente de Código</summary>
+        <textarea id="prompt-text-P-06" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Agente de Código: Eliminar cualquier módulo, middleware o estructura preliminar de autenticación (JWT/API Keys) dentro del middleware Rust para cumplir con la delimitación arquitectónica estricta.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR es un motor de transformación pura (pipeline sintáctico/semántico). Por decisión de diseño de tesis (D-07), la seguridad perimetral, autenticación y autorización se delegan completamente al Reverse Proxy / API Gateway de la infraestructura hospitalaria, manteniendo el middleware desacoplado y de alto rendimiento.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: Existen prototipos de validadores de tokens o headers de autorización comentados o parcialmente implementados en `src/api/auth.rs` o en extractores axum/actix.
+- Evidencia: Directorio `src/api/` con estructuras dummy de usuario/token. Hallazgo AUD-044.
+- Impacto: Introduce complejidad innecesaria, dependencias muertas y confusión en la defensa sobre la superficie de ataque y responsabilidades del middleware.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Código muerto o vestigios de lógica de autenticación dentro del core.
+- Estado esperado: Middleware 100% enfocado en transformación; recepción de requests limpios confiando en la red perimetral según D-07.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-07 [CONGELADA]: El middleware MedSys-FHIR NO implementará mecanismos de autenticación ni gestión de credenciales (OAuth2, JWT, basic auth). La seguridad en tránsito y autenticación es responsabilidad exclusiva del Reverse Proxy / API Gateway perimetral."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `src/api/mod.rs` y `src/api/routes.rs`: Asegurar endpoints limpios sin guards de autenticación redundantes.
+- `src/api/auth.rs` (si existe): Eliminar o vaciar de lógica dummy.
+- `Cargo.toml`: Retirar dependencias no utilizadas (como `jsonwebtoken` si figuraba).
+
+INSTRUCCIONES PASO A PASO:
+1. Reconfirmar línea base de 59 pruebas pasando limpiamente.
+2. Trabajar en rama `fix/aud-044-remove-auth-vestiges`.
+3. Purgar cualquier middleware HTTP interno de autenticación.
+4. Ajustar los endpoints de ingestión y consulta para que operen como pipeline directo de transformación.
+5. Ejecutar `cargo check` y `cargo test` para verificar que no se rompan las pruebas de integración.
+6. Si alguna prueba requería headers dummy de autenticación, simplificar la suite de integración eliminando ese requisito espurio.
+7. Crear un único commit: "refactor(api): remove internal auth logic in compliance with D-07 boundary (AUD-044)".
+
+PROHIBICIONES:
+- No agregar lógica de seguridad perimetral interna.
+- No alterar contratos de serialización FHIR.
+- No romper los 59 tests de la línea base declarada.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Cero referencias a JWT, bearer tokens o credenciales en el árbol `src/`.
+- Compilación limpia de `cargo check` sin warnings de imports no utilizados.
+- Todos los 59 tests pasan satisfactoriamente.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar `git diff` de la refactorización.
+- Salida de `cargo test` confirmando estabilidad total.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-07 -->
+    <div class="prompt-card" id="card-P-07" data-recipient="spark" data-id="P-07" data-dep="P-06">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-07')" id="chk-P-07">
+          <span class="card-title">P-07: Documentación de exclusión deliberada de Auth en Capítulos 3 y 4</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-spark">Gemini Spark</span>
+          <span class="badge badge-neutral">AUD-044 &bull; Media</span>
+          <span class="dependency-pill" id="dep-P-07">después de P-06</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-07')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Gemini Spark</summary>
+        <textarea id="prompt-text-P-07" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Gemini Spark: Redactar formalmente la justificación arquitectónica de la exclusión deliberada de mecanismos de autenticación dentro del middleware en los Capítulos 3 y 4.
+
+CONTEXTO DEL PROYECTO:
+Tesis MedSys-FHIR (UNACH). El sistema adopta una arquitectura modular donde el componente principal es un motor de transformación de alto desempeño. El sínodo evaluará la justificación técnica de por qué no se construyó un módulo de usuarios/tokens dentro de esta pieza de software.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: El texto de la tesis presenta vacíos en la delimitación de responsabilidades de seguridad, dando la apariencia de ser una omisión accidental en lugar de una decisión arquitectónica premeditada.
+- Evidencia: Capítulo 3, Sección 3.2 ("Límites del sistema y consideraciones de seguridad").
+- Impacto: Pregunta vulnerable en la defensa oral de tesis que puede ser interpretada como falta de rigor en seguridad hospitalaria.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Omisión o mención tangencial de la seguridad.
+- Estado esperado: Justificación basada en el patrón arquitectónico "Single Responsibility Principle" y arquitectura en capas de microservicios con API Gateway perimetral, alineada con D-07.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-07 [CONGELADA]: El middleware MedSys-FHIR NO implementará mecanismos de autenticación ni gestión de credenciales (OAuth2, JWT, basic auth). La seguridad en tránsito y autenticación es responsabilidad exclusiva del Reverse Proxy / API Gateway perimetral."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `Capitulo_3_Diseno.md`: Sección 3.2 (Fronteras y seguridad).
+- `Capitulo_4_Implementacion.md`: Sección 4.1 (Estructura de la aplicación).
+
+INSTRUCCIONES PASO A PASO:
+1. Operar en MODO SOLO TEXTO.
+2. Insertar un subapartado titulado: "3.2.x Justificación de frontera arquitectónica: Delegación de autenticación y autorización".
+3. Redactar el argumento técnico estructurado en 3 puntos:
+   a) Principio de responsabilidad única: el middleware es un procesador de datos stateless de alto rendimiento.
+   b) Seguridad perimetral: delegación estándar en infraestructuras de salud a herramientas probadas (ej. Envoy, NGINX, Kong) que gestionan mTLS y SMART on FHIR.
+   c) Prevención de acoplamiento: evitar reinventar subsistemas de identidad propietarios dentro de un conversor clínico.
+4. Si se requiere citar una norma sobre confidencialidad hospitalaria, referenciar exclusivamente la NOM-024-SSA3-2012 disponible en `FUENTES_Y_NORMATIVA.md`.
+
+PROHIBICIONES:
+- No prometer funcionalidades futuras de autenticación dentro del middleware.
+- No contradecir la decisión D-07.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Subapartado redactado con claridad académica y justificación técnica sólida.
+- Cita textual y apego al espíritu de la decisión D-07.
+- Sin inconsistencias con los diagramas de bloques del sistema.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar el texto completo propuesto para el subapartado.
+- Confirmar su ubicación exacta en el índice de contenidos.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-08 -->
+    <div class="prompt-card" id="card-P-08" data-recipient="code" data-id="P-08" data-dep="P-02">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-08')" id="chk-P-08">
+          <span class="card-title">P-08: Calibración de umbrales SLA de latencia p95 (<150ms) en suite k6</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-code">Agente de Código</span>
+          <span class="badge badge-warning">AUD-045 &bull; Alta</span>
+          <span class="dependency-pill" id="dep-P-08">después de P-02</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-08')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Agente de Código</summary>
+        <textarea id="prompt-text-P-08" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Agente de Código: Calibrar el script de pruebas de carga k6 para reflejar con exactitud el umbral de latencia SLA p95 (<150ms) declarado en la tesis y ejecutar la corrida formal.
+
+CONTEXTO DEL PROYECTO:
+MedSys-FHIR procesa lotes de registros clínicos de consulta externa. En la tesis se establece que el sistema debe ser capaz de procesar transformaciones con una latencia percentil 95 (p95) menor a 150 milisegundos bajo una carga constante de 50 usuarios concurrentes (VUs).
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: El script de k6 actual contiene un umbral permisivo (p95 < 500ms) o no tiene configurados los `thresholds` automáticos de aserción.
+- Evidencia: Archivo `tests/k6/load_test.js` (o `k6/transform_benchmark.js`). Hallazgo AUD-045.
+- Impacto: Los resultados de rendimiento no pueden validar formalmente la meta de desempeño fijada en el protocolo de titulación.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Umbral en k6 desalineado con la meta de la tesis o ausente.
+- Estado esperado: Script k6 configurado con `http_req_duration: ['p(95)<150']` y tasa de fallo `http_req_failed: ['rate<0.01']`.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-06 [CONGELADA]: El objetivo de desempeño mínimo aceptable para el middleware en pruebas de estrés local es un SLA p95 < 150 ms para la transformación de bundles de consulta externa con 50 VUs continuos."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `tests/k6/load_test.js`: Configuración de etapas de carga (stages) y umbrales (thresholds).
+
+INSTRUCCIONES PASO A PASO:
+1. Reconfirmar línea base de 59 tests previa.
+2. Trabajar en rama `fix/aud-045-k6-sla`.
+3. Abrir `tests/k6/load_test.js` y actualizar el bloque `options`:
+   - Configurar rampa: 10 VUs por 30s, 50 VUs por 1m, rampa de descenso 30s.
+   - Establecer `thresholds: { http_req_duration: ['p(95)<150'], http_req_failed: ['rate<0.001'] }`.
+4. Ejecutar el servicio en modo release (`cargo run --release`).
+5. Ejecutar la prueba k6 (`k6 run tests/k6/load_test.js`).
+6. Si el SLA se cumple limpiamente, guardar el resumen de métricas en formato JSON (`--summary-export=tests/k6/summary_result.json`).
+7. Si la validación dinámica no es posible por limitaciones de hardware del entorno, declararlo explícitamente sin inventar métricas ni sustituirlas por análisis estático heurístico.
+8. Crear commit: "test(perf): align k6 latency threshold to p95 < 150ms per D-06 (AUD-045)".
+
+PROHIBICIONES:
+- No modificar el código de los transformadores para alterar artificialmente el resultado de carga.
+- No relajar el umbral si la prueba falla.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Archivo `tests/k6/load_test.js` contiene explícitamente `p(95)<150`.
+- Reporte de k6 mostrando el estado de aprobación (checks en verde) o reporte honesto de cuello de botella encontrado.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Mostrar `git diff` del script k6.
+- Pegar resumen numérico emitido por k6 (requests totales, p95, checks exitosos).</textarea>
+      </details>
+    </div>
+    <!-- CARD P-09 -->
+    <div class="prompt-card" id="card-P-09" data-recipient="spark" data-id="P-09" data-dep="P-08">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-09')" id="chk-P-09">
+          <span class="card-title">P-09: Actualización de métricas de rendimiento y tablas SLA en Capítulo 5</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-spark">Gemini Spark</span>
+          <span class="badge badge-warning">AUD-045 &bull; Alta</span>
+          <span class="dependency-pill" id="dep-P-09">después de P-08</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-09')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Gemini Spark</summary>
+        <textarea id="prompt-text-P-09" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Gemini Spark: Actualizar las tablas de resultados de evaluación y gráficos tabulares de rendimiento en el Capítulo 5 con las métricas oficiales obtenidas en la ejecución de k6.
+
+CONTEXTO DEL PROYECTO:
+Tesis MedSys-FHIR (UNACH). El Capítulo 5 expone los resultados experimentales y la discusión técnica sobre la viabilidad de la solución en un entorno hospitalario público con recursos de cómputo limitados.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: Las cifras de latencia y throughput en el borrador del Capítulo 5 corresponden a estimaciones preliminares y no al resultado medido con el umbral p95 < 150 ms fijado en D-06.
+- Evidencia: Capítulo 5, Sección 5.3 ("Análisis de estrés y tiempos de respuesta").
+- Impacto: Discrepancia entre la evidencia del repositorio y el documento final de tesis.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: Tablas con valores tentativos o discrepantes.
+- Estado esperado: Tabla rigurosa con métricas oficiales: Throughput (RPS), Latencia Promedio, Latencia Mediana (p50), Latencia p90, Latencia p95 y Tasa de Errores (0.0%).
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-06 [CONGELADA]: El objetivo de desempeño mínimo aceptable para el middleware en pruebas de estrés local es un SLA p95 < 150 ms para la transformación de bundles de consulta externa con 50 VUs continuos."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `Capitulo_5_Resultados.md`: Sección 5.3 (Evaluación de desempeño).
+
+INSTRUCCIONES PASO A PASO:
+1. Operar en MODO SOLO TEXTO.
+2. Tomar los valores consolidados resultantes de la ejecución de k6 reportados en P-08.
+3. Actualizar la Tabla 5.x ("Rendimiento bajo concurrencia sintética"):
+   | Métrica de Evaluación | Valor Obtenido | Meta / Umbral SLA | Estatus |
+   | Latencia p95 | [Dato de P-08] ms | < 150 ms | Cumplido |
+   | Tasa de Éxito | 100% | > 99.9% | Cumplido |
+   | Usuarios Concurrentes | 50 VUs | 50 VUs | Cumplido |
+4. Si los datos finales de la corrida de k6 aún no estuvieran disponibles al momento de redactar, insertar: "[PENDIENTE DEL AUTOR: insertar cifra final de k6 p95]" y no colocar números hipotéticos.
+5. Armonizar la discusión del texto garantizando que se mencione que las pruebas fueron conducidas en un entorno controlado representativo del hardware de los servicios de salud de Chiapas.
+
+PROHIBICIONES:
+- No inventar números de rendimiento sin respaldo en el reporte de ejecución.
+- No alterar conclusiones ni recomendaciones del Capítulo 6.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Tabla de resultados actualizada con precisión.
+- Coherencia total con los criterios de aceptación y resultados de P-08.
+- Sin cambios de estilo o formato no autorizados.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar la tabla antes/después del Capítulo 5.
+- Declarar explícitamente si se usaron datos medidos o marcadores de pendiente.</textarea>
+      </details>
+    </div>
+    <!-- CARD P-10 -->
+    <div class="prompt-card" id="card-P-10" data-recipient="spark" data-id="P-10" data-dep="P-03, P-05, P-07, P-09">
+      <div class="card-top">
+        <div class="card-id-title">
+          <input type="checkbox" class="prompt-checkbox" onchange="toggleCard('P-10')" id="chk-P-10">
+          <span class="card-title">P-10: [OBLIGATORIA FINAL] Actualización de REGISTRO_AUDITORIAS.md e historial</span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-spark">Gemini Spark</span>
+          <span class="badge badge-danger">AUD-SYS &bull; Bloqueante</span>
+          <span class="dependency-pill" id="dep-P-10">después de P-03, P-05, P-07, P-09</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-copy" onclick="copyPrompt('P-10')">Copiar prompt</button>
+      </div>
+      <details>
+        <summary>Ver prompt completo para Gemini Spark</summary>
+        <textarea id="prompt-text-P-10" class="prompt-textarea" readonly>DESTINATARIO Y OBJETIVO:
+Gemini Spark: Actualizar el archivo de control `REGISTRO_AUDITORIAS.md` incorporando los nuevos hallazgos de esta ronda (como ABIERTO) y actualizar la sección "Historial de rondas".
+
+CONTEXTO DEL PROYECTO:
+Tesis MedSys-FHIR (UNACH). Para asegurar la trazabilidad metodológica exigida por el comité de titulación, cada observación, discrepancia o corrección técnica de la auditoría se documenta de forma inmutable en un registro histórico antes de cerrar el ciclo de evaluación.
+
+PROBLEMA, EVIDENCIA E IMPACTO:
+- Problema: Los hallazgos identificados en la presente ronda de auditoría (AUD-041 a AUD-045) deben integrarse con sus IDs, severidad, ubicación y resolución prescrita en el archivo maestro de auditorías del Google Drive.
+- Evidencia: Conversación de auditoría actual y archivos de control.
+- Impacto: Pérdida de gobernanza y trazabilidad si los hallazgos solo residen en prompts temporales y no en el registro histórico.
+
+ESTADO ACTUAL Y ESTADO ESPERADO:
+- Estado actual: `REGISTRO_AUDITORIAS.md` contiene rondas previas hasta la Fase 0.
+- Estado esperado: Documento actualizado con la Ronda 1.0 (Post-Fase 0), tabla de nuevos hallazgos con estado "ABIERTO" y métricas consolidadas en el Historial de Rondas.
+
+DECISIONES APLICABLES (DECISIONES.md):
+"D-00 [GOBERNANZA]: Ninguna ronda de auditoría se considera concluida sin la actualización correspondiente de REGISTRO_AUDITORIAS.md y la verificación cruzada de que todos los hallazgos abiertos cuentan con plan de resolución atómico."
+
+ARCHIVOS CON RUTA Y MOTIVO:
+- `REGISTRO_AUDITORIAS.md` (en carpeta de Google Drive del proyecto).
+
+INSTRUCCIONES PASO A PASO:
+1. Operar en MODO SOLO TEXTO sobre los archivos documentales de auditoría en Drive.
+2. Dependencia: Ejecutar este prompt una vez que las tareas técnicas P-01 a P-09 hayan sido completadas o sus prompts hayan sido desplegados formalmente.
+3. Insertar en la sección de Hallazgos Activos la siguiente tabla:
+   | ID | Severidad | Ubicación | Hallazgo Resumido | Resolución | Estado |
+   | AUD-041 | Crítica | `transformer.rs` / Cap 3-4 | Uso de fallbacks y riesgo de violación Fail-Closed | CORREGIR_AMBOS | ABIERTO |
+   | AUD-042 | Bloqueante | `tests/` | Verificación de línea base de 59 pruebas (24+19+3+8+5) | INVESTIGAR | ABIERTO |
+   | AUD-043 | Alta | `scripts/` / Cap 4 | Diagnósticos sintéticos sin catálogo oficial CIE-10 | CORREGIR_AMBOS | ABIERTO |
+   | AUD-044 | Media | `src/api/` / Cap 3 | Vestigios de autenticación contradiciendo frontera D-07 | CORREGIR_AMBOS | ABIERTO |
+   | AUD-045 | Alta | `tests/k6/` / Cap 5 | Desalineación de umbral SLA p95 (<150ms) en script k6 | CORREGIR_AMBOS | ABIERTO |
+4. Actualizar la sección "Historial de Rondas" agregando la entrada:
+   - Ronda: 1.0 (Post-Fase 0)
+   - Fecha: 2026-10-03
+   - Alcance: Consistencia core Rust, gobernanza de pruebas, sintéticos CIE-10 y SLA k6.
+   - Total nuevos hallazgos: 5 (1 Crítica, 1 Bloqueante, 2 Alta, 1 Media).
+   - Estado general: En proceso de resolución mediante prompts P-01 a P-09.
+
+PROHIBICIONES:
+- No eliminar ni sobrescribir los hallazgos cerrados de fases previas.
+- No alterar la estructura tabular del registro de auditorías.
+
+CRITERIOS DE ACEPTACIÓN VERIFICABLES:
+- Presencia íntegra de los 5 hallazgos con IDs normalizados AUD-041 a AUD-045.
+- Historial de rondas incrementado y matemáticamente consistente.
+- Cero alteraciones en archivos fuera del Drive documental.
+
+VALIDACIÓN OBLIGATORIA Y REPORTE FINAL:
+- Presentar el texto exacto agregado a `REGISTRO_AUDITORIAS.md`.
+- Reportar el total acumulado de hallazgos en la historia del proyecto.</textarea>
+      </details>
+    </div>
+  </div>
+  <div class="collapsible-section">
+    <details>
+      <summary><strong>No convertibles e Información que falta</strong></summary>
+      <ul class="info-list">
+        <li><strong>Sugerencia de soporte a recursos AllergyIntolerance:</strong> No convertida a prompt por colisionar directamente con la decisión congelada D-02 (Alcance limitado a 4 recursos: Patient, Encounter, Condition, Observation). Clasificada en "Decisiones requeridas" (D-REQ-01).</li>
+        <li><strong>Política de enrutamiento a Dead-Letter Queue para registros huérfanos:</strong> Clasificada como decisión de arquitectura (D-REQ-02) al implicar selección entre Fail-Closed estricto o infraestructura persistente adicional.</li>
+        <li><strong>Resoluciones RECHAZADO o DIFERIDO de fases previas:</strong> Excluidas de la generación de prompts en apego a la regla de conversión.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="collapsible-section">
+    <details>
+      <summary><strong>Declaración de Archivos No Leídos</strong></summary>
+      <ul class="info-list">
+        <li><code>EVIDENCIA_REPO.md</code>: <em>No leído</em> (Archivo no provisto ni adjunto en la sesión actual).</li>
+        <li><code>DEFENSA.md</code>: <em>No leído</em> (Archivo no provisto ni adjunto en la sesión actual).</li>
+        <li>Archivos efectivamente procesados: <code>REGISTRO_AUDITORIAS.md</code>, <code>DECISIONES.md</code>, <code>FUENTES_Y_NORMATIVA.md</code> y <code>REPORTE_EJECUCION_FASE0.md</code>.</li>
+      </ul>
+    </details>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Reinicio -->
+<div id="reset-modal" class="modal-overlay">
+  <div class="modal-box">
+    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--danger);">¿Reiniciar todo el progreso?</h3>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+      Esta acción desmarcará todas las casillas de verificación y restablecerá el almacenamiento local a cero.
+    </p>
+    <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+      <button class="btn" onclick="closeResetModal()">Cancelar</button>
+      <button class="btn btn-reset" onclick="confirmReset()">Sí, reiniciar</button>
+    </div>
+  </div>
+</div>
+<script>
+  const STORAGE_KEY = 'medsys_fhir_audit_prompts_fase1_v1';
+  let completedPrompts = new Set();
+  let currentFilter = 'all';
+
+  function initApp() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const arr = JSON.parse(saved);
+        completedPrompts = new Set(arr);
+      }
+    } catch (e) {
+      console.warn('localStorage no disponible; operando en memoria de sesión.', e);
+    }
+    applySavedState();
+    updateUI();
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(completedPrompts)));
+    } catch (e) {
+      console.warn('Error al guardar en localStorage', e);
+    }
+  }
+
+  function applySavedState() {
+    completedPrompts.forEach(id => {
+      const chk = document.getElementById('chk-' + id);
+      const card = document.getElementById('card-' + id);
+      if (chk) chk.checked = true;
+      if (card) card.classList.add('completed');
+    });
+  }
+
+  function toggleCard(id) {
+    const chk = document.getElementById('chk-' + id);
+    const card = document.getElementById('card-' + id);
+    if (!chk || !card) return;
+
+    if (chk.checked) {
+      completedPrompts.add(id);
+      card.classList.add('completed');
+    } else {
+      completedPrompts.delete(id);
+      card.classList.remove('completed');
+    }
+
+    saveState();
+    updateUI();
+  }
+
+  function updateUI() {
+    // 1. Progreso
+    const total = 10;
+    const count = completedPrompts.size;
+    const pct = Math.round((count / total) * 100);
+    document.getElementById('progress-text').textContent = `${count} de ${total} completados (${pct}%)`;
+    document.getElementById('progress-fill').style.width = `${pct}%`;
+
+    // 2. Dependencias
+    document.querySelectorAll('.prompt-card').forEach(card => {
+      const depAttr = card.getAttribute('data-dep');
+      const id = card.getAttribute('data-id');
+      const pill = document.getElementById('dep-' + id);
+      if (depAttr && pill) {
+        const deps = depAttr.split(',').map(s => s.trim());
+        const allMet = deps.every(d => completedPrompts.has(d));
+        if (allMet) {
+          pill.classList.remove('unmet');
+        } else {
+          pill.classList.add('unmet');
+        }
+      }
+    });
+
+    // 3. Filtros
+    filterCards();
+  }
+
+  function setFilter(filterType, btn) {
+    currentFilter = filterType;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    filterCards();
+  }
+
+  function filterCards() {
+    document.querySelectorAll('.prompt-card').forEach(card => {
+      const id = card.getAttribute('data-id');
+      const recipient = card.getAttribute('data-recipient');
+      const isCompleted = completedPrompts.has(id);
+
+      let show = true;
+      if (currentFilter === 'pending') {
+        show = !isCompleted;
+      } else if (currentFilter === 'completed') {
+        show = isCompleted;
+      } else if (currentFilter === 'spark') {
+        show = recipient === 'spark';
+      } else if (currentFilter === 'code') {
+        show = recipient === 'code';
+      }
+
+      card.style.display = show ? 'block' : 'none';
+    });
+  }
+
+  function copyPrompt(id) {
+    const textarea = document.getElementById('prompt-text-' + id);
+    if (!textarea) return;
+    const text = textarea.value;
+
+    const btn = event.currentTarget || event.target;
+
+    function indicateSuccess() {
+      const originalText = btn.textContent;
+      btn.textContent = '¡Copiado! ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(indicateSuccess)
+        .catch(() => fallbackCopy(textarea, indicateSuccess));
+    } else {
+      fallbackCopy(textarea, indicateSuccess);
+    }
+  }
+
+  function fallbackCopy(textarea, callback) {
+    try {
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      const successful = document.execCommand('copy');
+      if (successful && callback) callback();
+    } catch (err) {
+      console.error('Error al copiar al portapapeles', err);
+    }
+  }
+
+  function openResetModal() {
+    document.getElementById('reset-modal').classList.add('active');
+  }
+
+  function closeResetModal() {
+    document.getElementById('reset-modal').classList.remove('active');
+  }
+
+  function confirmReset() {
+    completedPrompts.clear();
+    saveState();
+    document.querySelectorAll('.prompt-checkbox').forEach(chk => chk.checked = false);
+    document.querySelectorAll('.prompt-card').forEach(card => card.classList.remove('completed'));
+    closeResetModal();
+    updateUI();
+  }
+
+  window.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
