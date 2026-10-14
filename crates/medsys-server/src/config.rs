@@ -23,8 +23,7 @@ impl Default for ServerConfig {
                 .and_then(|p| p.parse().ok())
                 .unwrap_or(3000),
             database_url: env::var("DATABASE_URL").unwrap_or_else(|_| {
-                "postgres://medsys_user:medsys_secure_pass_2026@localhost:5432/medsys_legacy"
-                    .to_string()
+                "postgres://medsys_ro:medsys_ro_pass_2026@localhost:5432/medsys_legado".to_string()
             }),
             rules_path: env::var("MAPPING_RULES_PATH")
                 .unwrap_or_else(|_| "mapping_rules.yaml".to_string()),

@@ -24,9 +24,8 @@ pub struct DbConfig {
 impl Default for DbConfig {
     fn default() -> Self {
         Self {
-            database_url:
-                "postgres://medsys_user:medsys_secure_pass_2026@localhost:5432/medsys_legacy"
-                    .to_string(),
+            database_url: "postgres://medsys_ro:medsys_ro_pass_2026@localhost:5432/medsys_legado"
+                .to_string(),
             max_connections: 10,
             min_connections: 2,
             acquire_timeout_secs: 5,
@@ -55,10 +54,10 @@ impl DbConfig {
         } else {
             let host = env::var("POSTGRES_HOST").unwrap_or_else(|_| "localhost".to_string());
             let port = env::var("POSTGRES_PORT").unwrap_or_else(|_| "5432".to_string());
-            let db = env::var("POSTGRES_DB").unwrap_or_else(|_| "medsys_legacy".to_string());
-            let user = env::var("POSTGRES_USER").unwrap_or_else(|_| "medsys_user".to_string());
-            let password = env::var("POSTGRES_PASSWORD")
-                .unwrap_or_else(|_| "medsys_secure_pass_2026".to_string());
+            let db = env::var("POSTGRES_DB").unwrap_or_else(|_| "medsys_legado".to_string());
+            let user = env::var("POSTGRES_USER").unwrap_or_else(|_| "medsys_ro".to_string());
+            let password =
+                env::var("POSTGRES_PASSWORD").unwrap_or_else(|_| "medsys_ro_pass_2026".to_string());
             format!("postgres://{user}:{password}@{host}:{port}/{db}")
         };
 
@@ -147,7 +146,8 @@ mod tests {
         assert_eq!(config.acquire_timeout_secs, 5);
         assert_eq!(config.idle_timeout_secs, 300);
         assert_eq!(config.max_lifetime_secs, 1800);
-        assert!(config.database_url.contains("medsys_legacy"));
+        assert!(config.database_url.contains("medsys_ro"));
+        assert!(config.database_url.contains("medsys_legado"));
     }
 
     #[test]

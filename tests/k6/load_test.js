@@ -107,7 +107,7 @@ function randomId(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const OBSERVATION_SUBTYPES = ['bp', 'temp', 'hr'];
+const OBSERVATION_SUBTYPES = ['bp', 'temp', 'hr', 'resp'];
 
 export default function () {
   const isPlateau = scenario.name === 'plateau' || scenario.name === 'steady_load';
@@ -171,13 +171,17 @@ export default function () {
     });
 
     // ------------------------------------------------------------------------
-    // 3. Consulta de Recurso Observation desacoplado: bp, temp, hr (1 a 2,500)
+    // 3. Consulta de Recurso Observation desacoplado: bp, temp, hr, resp (1 a 2,500)
     // ------------------------------------------------------------------------
     const t2 = new Date();
     const resObs = http.get(`${BASE_URL}/fhir/r4/Observation/${obsType}-${obsId}`, fhirHeaders);
     const durObs = new Date() - t2;
 
-    const isObsOk = resObs.status === 200;
+    // Para resp, 200 (si tiene valor) o 404 OperationOutcome (si frecuencia_respiratoria es NULL en BD) son nominales
+    const isObsOk = (obsType === 'resp')
+      ? (resObs.status === 200 || (resObs.status === 404 && resObs.body.includes('OperationOutcome')))
+      : (resObs.status === 200);
+
     fhirLatencyTrend.add(durObs);
     successRate.add(isObsOk);
     transactionCounter.add(1);
@@ -188,7 +192,7 @@ export default function () {
     }
 
     check(resObs, {
-      'Observation: Status 200 OK': (r) => r.status === 200,
+      'Observation: Status nominal 200 o 404 controlado': () => isObsOk,
       'Observation: Content-Type application/fhir+json': (r) => {
         const ct = r.headers['Content-Type'] || r.headers['content-type'];
         return ct !== undefined && ct.includes('application/fhir+json');

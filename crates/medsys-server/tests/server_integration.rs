@@ -354,4 +354,3 @@ async fn test_t4_referential_integrity_error_maps_to_422_processing() {
     assert!(body.contains("\"code\": \"processing\""));
     assert!(body.contains("T4 Violación de integridad referencial"));
 }
-

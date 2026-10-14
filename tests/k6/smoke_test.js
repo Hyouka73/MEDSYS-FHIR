@@ -85,7 +85,23 @@ export default function () {
         r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
     });
 
-    // 2.5 Condition (CIE-10)
+    // 2.5 Observation (Frecuencia Cardíaca)
+    const resObsHr = http.get(`${BASE_URL}/fhir/r4/Observation/hr-1`, fhirHeaders);
+    check(resObsHr, {
+      'Observation HR responde 200 o 404 controlado': (r) => r.status === 200 || r.status === 404,
+      'Observation HR tiene Content-Type application/fhir+json': (r) =>
+        r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
+    });
+
+    // 2.6 Observation (Frecuencia Respiratoria)
+    const resObsResp = http.get(`${BASE_URL}/fhir/r4/Observation/resp-1`, fhirHeaders);
+    check(resObsResp, {
+      'Observation Resp responde 200 o 404 controlado': (r) => r.status === 200 || r.status === 404,
+      'Observation Resp tiene Content-Type application/fhir+json': (r) =>
+        r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
+    });
+
+    // 2.7 Condition (CIE-10)
     const resCond = http.get(`${BASE_URL}/fhir/r4/Condition/cond-1`, fhirHeaders);
     check(resCond, {
       'Condition responde 200 o 404 controlado': (r) => r.status === 200 || r.status === 404,

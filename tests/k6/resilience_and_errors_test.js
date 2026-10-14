@@ -4,11 +4,8 @@
 // ============================================================================
 // Inyecta fallos y peticiones anómalas concurrentes para certificar que el 100%
 // de las excepciones del middleware se traduzcan invariablemente a OperationOutcome
-// bajo Content-Type: application/fhir+json; charset=utf-8.
-//
-// Refactorización: Se elimina el anti-patrón de inventar datos falsos (fallback_value).
-// Ahora ante datos críticos corruptos el middleware emite OperationOutcome HTTP 422,
-// y ante datos ausentes o no casteables se valida la presencia de data-absent-reason.
+// bajo Content-Type: application/fhir+json; charset=utf-8 con códigos de issue-type
+// canónicos: 400 -> invalid, 404 -> not-found, 422 -> processing (Fail-Closed).
 // ============================================================================
 
 import http from 'k6/http';
@@ -37,7 +34,7 @@ const fhirHeaders = {
 
 export default function () {
   group('Inyección de Fallos Controlados y Resiliencia FHIR R4', function () {
-    // 1. Error 400: Parámetro de ruta con formato inválido
+    // 1. Error 400: Parámetro de ruta con formato inválido ("code": "invalid")
     const resBadParam = http.get(
       `${BASE_URL}/fhir/r4/Condition/id_texto_invalido_alfa`,
       fhirHeaders
@@ -47,14 +44,14 @@ export default function () {
       resBadParam.headers['Content-Type'] &&
       resBadParam.headers['Content-Type'].includes('application/fhir+json') &&
       resBadParam.body.includes('"resourceType": "OperationOutcome"') &&
-      resBadParam.body.includes('"code": "value"');
+      resBadParam.body.includes('"code": "invalid"');
 
     operationOutcomeConformityRate.add(isBadParamConformant);
     check(resBadParam, {
       'BadParam: Status 400': (r) => r.status === 400,
       'BadParam: Content-Type FHIR': (r) =>
         r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
-      'BadParam: OperationOutcome emitido': () => isBadParamConformant,
+      'BadParam: OperationOutcome emitido con code invalid': () => isBadParamConformant,
     });
 
     // 2. Error 404: Ruta inexistente fuera de catálogo (Fallback Universal Axum)
@@ -96,9 +93,8 @@ export default function () {
       'NegativeId: OperationOutcome emitido': () => isNegativeIdConformant,
     });
 
-    // 4. Error 422 o 404: ID inexistente fuera de rango devuelve OperationOutcome
-    // El motor elimina el anti-patrón de inventar datos falseados; ante datos obligatorios ausentes
-    // debe emitirse estrictamente un OperationOutcome con status HTTP 422 o 404 según corresponda.
+    // 4. Error 422 o 404: ID inexistente o corrupción devuelve OperationOutcome
+    // Si es 404 devuelve "not-found", si es 422 devuelve "processing"
     const resCorruptEntity = http.get(
       `${BASE_URL}/fhir/r4/Patient/999999`,
       fhirHeaders
@@ -107,7 +103,8 @@ export default function () {
       (resCorruptEntity.status === 422 || resCorruptEntity.status === 404) &&
       resCorruptEntity.headers['Content-Type'] &&
       resCorruptEntity.headers['Content-Type'].includes('application/fhir+json') &&
-      resCorruptEntity.body.includes('"resourceType": "OperationOutcome"');
+      resCorruptEntity.body.includes('"resourceType": "OperationOutcome"') &&
+      (resCorruptEntity.body.includes('"code": "not-found"') || resCorruptEntity.body.includes('"code": "processing"'));
 
     operationOutcomeConformityRate.add(isErrorOrOutcome);
     check(resCorruptEntity, {
@@ -115,43 +112,31 @@ export default function () {
         r.status === 422 || r.status === 404,
       'Corrupt/Missing: Content-Type FHIR': (r) =>
         r.headers['Content-Type'] && r.headers['Content-Type'].includes('application/fhir+json'),
-      'Corrupt/Missing: OperationOutcome emitido sin datos falseados': () => isErrorOrOutcome,
+      'Corrupt/Missing: OperationOutcome emitido con code not-found o processing': () => isErrorOrOutcome,
     });
 
-    // 5. Validación de la extensión data-absent-reason (HL7 FHIR R4):
+    // 5. Validación de Fidelidad Clínica Fail-Closed (HL7 FHIR R4):
     // Se certifica que las respuestas exitosas NO contengan datos clínicos falseados arbitrarios
-    // (como '1970-01-01' o valores de rescate inventados). En caso de existir degradación por datos
-    // ausentes o no conformes, se valida la presencia de la extensión canónica data-absent-reason.
+    // (como '1970-01-01' o valores de rescate inventados). Ante datos no conformes, el middleware
+    // rechaza con HTTP 422 OperationOutcome ("code": "processing").
     const resPatient = http.get(`${BASE_URL}/fhir/r4/Patient/1`, fhirHeaders);
     if (resPatient.status === 200) {
       check(resPatient, {
         'No contiene fechas falseadas 1970-01-01': (r) => !r.body.includes('1970-01-01'),
         'No contiene valores de rescate inventados': (r) =>
           !r.body.includes('VALOR_RESCATE_DEFAULT'),
-        'Estructura FHIR R4 conforme (Patient o data-absent-reason)': (r) => {
-          try {
-            const body = r.body;
-            if (body.includes('data-absent-reason')) {
-              return (
-                body.includes('http://hl7.org/fhir/StructureDefinition/data-absent-reason') &&
-                body.includes('"valueCode": "error"')
-              );
-            }
-            return body.includes('"resourceType": "Patient"');
-          } catch (_) {
-            return false;
-          }
-        },
+        'Estructura FHIR R4 conforme Patient': (r) => r.body.includes('"resourceType": "Patient"'),
       });
     } else {
       const isCriticalOutcome =
         resPatient.status === 422 &&
         resPatient.headers['Content-Type'] &&
         resPatient.headers['Content-Type'].includes('application/fhir+json') &&
-        resPatient.body.includes('"resourceType": "OperationOutcome"');
+        resPatient.body.includes('"resourceType": "OperationOutcome"') &&
+        resPatient.body.includes('"code": "processing"');
       operationOutcomeConformityRate.add(isCriticalOutcome);
       check(resPatient, {
-        'Patient corrupto: Status 422 con OperationOutcome': () => isCriticalOutcome,
+        'Patient corrupto: Status 422 con OperationOutcome code processing': () => isCriticalOutcome,
       });
     }
   });

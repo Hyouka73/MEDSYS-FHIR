@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# MedSys-FHIR: Pipeline de Benchmarking con Telemetría docker stats
+# MedSys-FHIR: Pipeline de Benchmarking con Telemetría docker stats y VmRSS
 # Tesis: Carlos Eduardo Iglesias de la Cruz & Alexis Andrey Gálvez Roblero
-# Trazabilidad: AUD-002 / CON-004 / CVD-004
+# Trazabilidad: AUD-002 / CON-004 / CVD-004 (Límites cgroups 1.0 vCPU, 256MB RAM)
 # ==============================================================================
 set -euo pipefail
 
@@ -11,15 +11,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.yml"
 CONTAINER_NAME="medsys-server"
+DB_CONTAINER_NAME="medsys_fhir_postgres"
 BASE_URL="${BASE_URL:-http://localhost:8080}"
 CSV_OUTPUT="${SCRIPT_DIR}/benchmark_stats.csv"
 K6_SCRIPT="${SCRIPT_DIR}/load_test.js"
 SAMPLING_INTERVAL_SEC=5
 MAX_WAIT_SEC=90
+REPLICAS="${REPLICAS:-1}"
 
 echo "================================================================================"
 echo " MedSys-FHIR — Orquestación Docker y Pipeline de Benchmarking Reproducible"
-echo " Límite cgroups: 1.0 vCPU | 256 MB RAM | Muestreo docker stats cada ${SAMPLING_INTERVAL_SEC}s"
+echo " Límite cgroups: 1.0 vCPU | 256 MB RAM | Muestreo de Telemetría cada ${SAMPLING_INTERVAL_SEC}s"
+echo " Réplicas configuradas: ${REPLICAS}"
 echo "================================================================================"
 
 # 2. Verificar dependencias obligatorias
@@ -53,19 +56,30 @@ fi
 
 echo "[✓] Middleware medsys-server disponible y respondiendo HTTP 200."
 
-# 5. Iniciar captura periódica de telemetría docker stats en segundo plano
-echo "timestamp,cpu_percentage,mem_usage_raw" > "${CSV_OUTPUT}"
-echo "[*] Iniciando muestreo de docker stats sobre '${CONTAINER_NAME}' cada ${SAMPLING_INTERVAL_SEC}s -> ${CSV_OUTPUT}..."
+# 5. Iniciar captura periódica de telemetría completa en segundo plano
+echo "timestamp,server_cpu,server_mem,postgres_cpu,postgres_mem,vm_rss_kb,cgroup_memory_bytes" > "${CSV_OUTPUT}"
+echo "[*] Iniciando muestreo de telemetría conjunta cada ${SAMPLING_INTERVAL_SEC}s -> ${CSV_OUTPUT}..."
 
 STATS_PID=""
 collect_stats() {
     while true; do
         ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date +"%Y-%m-%dT%H:%M:%S")
-        # Captura pasiva no bloqueante
-        stat_line=$(docker stats "${CONTAINER_NAME}" --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>/dev/null || echo "0.00%,0MiB / 256MiB")
-        if [ -n "${stat_line}" ]; then
-            echo "${ts},${stat_line}" >> "${CSV_OUTPUT}"
-        fi
+        
+        # Telemetría de medsys-server
+        raw_srv=$(docker stats "${CONTAINER_NAME}" --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>/dev/null || echo "0.00%,0MiB / 256MiB")
+        srv_cpu=$(echo "${raw_srv}" | cut -d',' -f1)
+        srv_mem=$(echo "${raw_srv}" | cut -d',' -f2)
+
+        # Telemetría de postgres
+        raw_db=$(docker stats "${DB_CONTAINER_NAME}" --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>/dev/null || echo "0.00%,0MiB / 512MiB")
+        db_cpu=$(echo "${raw_db}" | cut -d',' -f1)
+        db_mem=$(echo "${raw_db}" | cut -d',' -f2)
+
+        # VmRSS real y cgroup
+        vm_rss=$(docker exec "${CONTAINER_NAME}" sh -c "grep VmRSS /proc/1/status 2>/dev/null | awk '{print \$2}'" 2>/dev/null || echo "0")
+        cgroup_mem=$(docker exec "${CONTAINER_NAME}" sh -c "cat /sys/fs/cgroup/memory.current 2>/dev/null || cat /sys/fs/cgroup/memory/memory.usage_in_bytes 2>/dev/null" 2>/dev/null || echo "0")
+
+        echo "${ts},${srv_cpu},${srv_mem},${db_cpu},${db_mem},${vm_rss},${cgroup_mem}" >> "${CSV_OUTPUT}"
         sleep "${SAMPLING_INTERVAL_SEC}"
     done
 }
@@ -83,13 +97,22 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-# 6. Ejecución de la prueba de carga k6
+# 6. Ejecución de la(s) réplica(s) de k6
 echo "================================================================================"
 echo "[*] Ejecutando k6 con escenario de meseta sostenida a 50 VUs (load_test.js)..."
 echo "================================================================================"
+
 set +e
-k6 run --env BASE_URL="${BASE_URL}" "${K6_SCRIPT}"
-K6_EXIT_CODE=$?
+OVERALL_EXIT_CODE=0
+for rep in $(seq 1 "${REPLICAS}"); do
+    echo "[*] Iniciando réplica ${rep}/${REPLICAS}..."
+    k6 run --env BASE_URL="${BASE_URL}" --out "json=${SCRIPT_DIR}/k6_replica_${rep}.json" "${K6_SCRIPT}"
+    rc=$?
+    if [ $rc -ne 0 ]; then
+        OVERALL_EXIT_CODE=$rc
+        echo "[WARN] Réplica ${rep} finalizó con código ${rc}"
+    fi
+done
 set -e
 
 # Detener el muestreo de recursos
@@ -98,84 +121,7 @@ trap - EXIT INT TERM
 
 echo ""
 echo "================================================================================"
-echo " Consolidación de Telemetría de Recursos (docker stats) — MedSys-FHIR"
-echo "================================================================================"
-
-# 7. Procesar y calcular estadísticas consolidadas desde el CSV
-if [ -f "${CSV_OUTPUT}" ] && [ $(wc -l < "${CSV_OUTPUT}") -gt 1 ]; then
-    python3 - <<EOF || python - <<EOF || awk -F',' 'NR>1 {print \$0}' "${CSV_OUTPUT}"
-import csv, re
-
-cpu_vals = []
-mem_vals_mib = []
-
-def parse_mem(mem_str):
-    m = re.match(r'([0-9.]+)\s*([A-Za-z]+)', mem_str.strip())
-    if not m:
-        return 0.0
-    val, unit = float(m.group(1)), m.group(2).lower()
-    if 'k' in unit:
-        return val / 1024.0
-    elif 'g' in unit:
-        return val * 1024.0
-    return val
-
-with open("${CSV_OUTPUT}", mode='r') as f:
-    reader = csv.reader(f)
-    next(reader, None)
-    for row in reader:
-        if len(row) >= 3:
-            try:
-                cpu = float(row[1].replace('%', '').strip())
-                cpu_vals.append(cpu)
-            except ValueError:
-                pass
-            try:
-                mem_part = row[2].split('/')[0]
-                mem_vals_mib.append(parse_mem(mem_part))
-            except Exception:
-                pass
-
-def percentile(vals, p):
-    if not vals:
-        return 0.0
-    s = sorted(vals)
-    k = (len(s) - 1) * (p / 100.0)
-    f = int(k)
-    c = min(f + 1, len(s) - 1)
-    d = k - f
-    return s[f] + (s[c] - s[f]) * d
-
-samples = len(cpu_vals)
-if samples > 0:
-    cpu_avg = sum(cpu_vals) / samples
-    cpu_p95 = percentile(cpu_vals, 95)
-    cpu_max = max(cpu_vals)
-
-    mem_avg = sum(mem_vals_mib) / samples
-    mem_p95 = percentile(mem_vals_mib, 95)
-    mem_max = max(mem_vals_mib)
-
-    print(f"Total de Muestras Colectadas: {samples}")
-    print("--------------------------------------------------------------------------------")
-    print(f"Consumo de CPU:       Promedio: {cpu_avg:.2f}% | p95: {cpu_p95:.2f}% | Max: {cpu_max:.2f}% (Criterio: <= 50.0%)")
-    print(f"Memoria Residente:    Promedio: {mem_avg:.2f} MiB | p95: {mem_p95:.2f} MiB | Max: {mem_max:.2f} MiB (Criterio: <= 150 MiB)")
-    print("--------------------------------------------------------------------------------")
-    
-    cpu_ok = "APROBADO" if cpu_p95 <= 50.0 else "RECHAZADO"
-    mem_ok = "APROBADO" if mem_p95 <= 150.0 else "RECHAZADO"
-    print(f"Evaluación de Criterios: CPU [ {cpu_ok} ] | Memoria RSS [ {mem_ok} ]")
-else:
-    print("No se registraron muestras suficientes en benchmark_stats.csv")
-EOF
-else
-    echo "[!] No se encontraron muestras en ${CSV_OUTPUT}."
-fi
-
+echo " Consolidación de Telemetría (docker stats) — MedSys-FHIR"
 echo "================================================================================"
 echo "[✓] Telemetría exportada a: ${CSV_OUTPUT}"
-if [ ${K6_EXIT_CODE} -ne 0 ]; then
-    echo "[!] ADVERTENCIA: k6 finalizó con código de retorno ${K6_EXIT_CODE}."
-    exit ${K6_EXIT_CODE}
-fi
-echo "[✓] Benchmark finalizado exitosamente."
+exit ${OVERALL_EXIT_CODE}

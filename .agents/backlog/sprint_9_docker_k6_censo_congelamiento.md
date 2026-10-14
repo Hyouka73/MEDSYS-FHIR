@@ -7,7 +7,7 @@ Cerrar todos los hallazgos de infraestructura, exportación censal y scripts de 
 
 ## Lista de Tareas Atómicas
 
-- [ ] **Tarea 9.1: Homologación de Límites `cgroups v2` y Usuario `medsys_ro` en `docker-compose.yml` y `docker/docker-compose.yml`**
+- [x] **Tarea 9.1: Homologación de Límites `cgroups v2` y Usuario `medsys_ro` en `docker-compose.yml` y `docker/docker-compose.yml`**
   - **Archivos a modificar:**
     - `docker-compose.yml`
     - `docker/docker-compose.yml`
@@ -39,7 +39,7 @@ Cerrar todos los hallazgos de infraestructura, exportación censal y scripts de 
        - Permitir seleccionar el esquema y archivo YAML mediante variables de entorno (`MAPPING_RULES_PATH: ${MAPPING_RULES_PATH:-/app/mapping_rules.yaml}`).
   - **Criterio de Aceptación:** Ambos archivos `docker-compose.yml` declaran los límites exactos de CPU y RAM para `medsys-server` (1 vCPU, 256 MB) y `postgres` (1 vCPU, 512 MB) y conectan mediante `medsys_ro`.
 
-- [ ] **Tarea 9.2: Actualización de `scripts/export_fhir_samples.py` y `scripts/validate_fhir.ps1` para el Censo de 16,250 Recursos**
+- [x] **Tarea 9.2: Actualización de `scripts/export_fhir_samples.py` y `scripts/validate_fhir.ps1` para el Censo de 16,250 Recursos**
   - **Archivos a modificar:**
     - `scripts/export_fhir_samples.py`
     - `scripts/validate_fhir.ps1`
@@ -59,7 +59,7 @@ Cerrar todos los hallazgos de infraestructura, exportación censal y scripts de 
        - Invocar `validator_cli.jar` en lotes para evitar exceder la longitud máxima de línea de comandos en Windows al validar los 16,250 archivos JSON (`-version 4.0.1 -tx n/a`).
   - **Criterio de Aceptación:** `python3 scripts/export_fhir_samples.py --help` funciona sin errores y documenta el universo censal de 16,250 recursos.
 
-- [ ] **Tarea 9.3: Reparación de Scripts PowerShell/Bash de Benchmarking y Telemetría Conjunta (`k6` + `docker stats` + `VmRSS`)**
+- [x] **Tarea 9.3: Reparación de Scripts PowerShell/Bash de Benchmarking y Telemetría Conjunta (`k6` + `docker stats` + `VmRSS`)**
   - **Archivos a modificar:**
     - `tests/k6/load_test.js`
     - `tests/k6/smoke_test.js`
@@ -78,7 +78,7 @@ Cerrar todos los hallazgos de infraestructura, exportación censal y scripts de 
        - Soportar el parámetro `-Replicas 10` (por defecto 1 corrida rápida o 10 réplicas oficiales para calcular media, desviación estándar e intervalo de confianza al 95 %).
   - **Criterio de Aceptación:** `bash -n tests/k6/run_benchmark_with_stats.sh` pasa con 0 errores de sintaxis y los scripts PowerShell tienen todas sus cadenas limpias y balanceadas.
 
-- [ ] **Tarea 9.4: Auditoría Final de Calidad, Actualización de Versiones a `1.2.0` y Cierre del Backlog**
+- [x] **Tarea 9.4: Auditoría Final de Calidad, Actualización de Versiones a `1.2.0` y Cierre del Backlog**
   - **Archivos a modificar:**
     - `Cargo.toml`, `crates/medsys-core/Cargo.toml`, `crates/medsys-db/Cargo.toml`, `crates/medsys-server/Cargo.toml` (actualizar `version = "1.2.0"`)
     - `crates/medsys-server/tests/e2e_interoperability.rs` (actualizar aserción de `server_version` a `"1.2.0"`)

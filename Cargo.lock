@@ -1321,7 +1321,7 @@ dependencies = [
 
 [[package]]
 name = "medsys-core"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "chrono",
  "chrono-tz",
@@ -1337,7 +1337,7 @@ dependencies = [
 
 [[package]]
 name = "medsys-db"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "chrono",
  "dotenvy",
@@ -1354,7 +1354,7 @@ dependencies = [
 
 [[package]]
 name = "medsys-server"
-version = "0.1.0"
+version = "1.2.0"
 dependencies = [
  "axum",
  "chrono",

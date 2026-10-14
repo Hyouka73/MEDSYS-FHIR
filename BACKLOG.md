@@ -51,16 +51,16 @@
 - [x] **Tarea 7.3:** Refactorización determinista de `scripts/generate_data.py` (`--seed 20260930 --schema {s0,s1,s2,s3,all}`) con 10 % exacto de `NULL` en `frecuencia_respiratoria` (250 nulos $\rightarrow$ 9,750 `Observation` y 16,250 recursos FHIR totales) y 10 % de `NULL` en `tipo_diagnostico`.
 - [x] **Tarea 7.4:** Pruebas automatizadas de equivalencia semántica en Rust verificando que `S0`, `S1`, `S2` y `S3` generan idénticos recursos FHIR R4 sin recompilar el binario.
 
-### Sprint 8: Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)
+### Sprint 8: Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`) (COMPLETADO)
 *Detalle técnico en: `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`*
 - [x] **Tarea 8.1:** Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py` para verificar campo por campo los 16,250 recursos FHIR R4.
 - [x] **Tarea 8.2:** Implementación de `--run-mutations` en `scripts/oracle_verifier.py` (20 mutaciones artificiales con 100 % de sensibilidad de detección).
-- [ ] **Tarea 8.3:** Creación del corpus determinista de 100 fallas clínicas `tests/fault_corpus/fault_corpus_100.json` y `.sql` (20 casos por categoría: `T1`, `T2`, `T3`, `T4`, `T5`).
-- [ ] **Tarea 8.4:** Implementación de `scripts/run_fault_corpus.py`, suite de integración `crates/medsys-core/tests/fault_corpus_integration.rs` y actualización de `tests/k6/resilience_and_errors_test.js` (100 % de rechazo HTTP 422 `OperationOutcome`).
+- [x] **Tarea 8.3:** Creación del corpus determinista de 100 fallas clínicas `tests/fault_corpus/fault_corpus_100.json` y `.sql` (20 casos por categoría: `T1`, `T2`, `T3`, `T4`, `T5`).
+- [x] **Tarea 8.4:** Implementación de `scripts/run_fault_corpus.py`, suite de integración `crates/medsys-core/tests/fault_corpus_integration.rs` y actualización de `tests/k6/resilience_and_errors_test.js` (100 % de rechazo HTTP 422 `OperationOutcome`).
 
-### Sprint 9: Contenedores con Límites Estrictos, Exportación Censal (16,250 JSON), Benchmark `k6` (50 VUs) y Congelamiento `v1.2.0-eval`
+### Sprint 9: Contenedores con Límites Estrictos, Exportación Censal (16,250 JSON), Benchmark `k6` (50 VUs) y Congelamiento `v1.2.0-eval` (COMPLETADO)
 *Detalle técnico en: `.agents/backlog/sprint_9_docker_k6_censo_congelamiento.md`*
-- [ ] **Tarea 9.1:** Homologación de límites `cgroups v2` en `docker-compose.yml` y `docker/docker-compose.yml` (`medsys-server`: 1 vCPU / 256 MB RAM; `postgres`: 1 vCPU / 512 MB RAM) y conexión por defecto con `medsys_ro`.
-- [ ] **Tarea 9.2:** Actualización de `scripts/export_fhir_samples.py` y `scripts/validate_fhir.ps1` para exportar y validar por lotes el censo completo de 16,250 recursos JSON con `validator_cli.jar -version 4.0.1 -tx n/a`.
-- [ ] **Tarea 9.3:** Reparación de sintaxis en `tests/k6/run_benchmark_with_stats.ps1` y `run_all_benchmarks.ps1`, actualización de `load_test.js` (`bp`, `temp`, `hr`, `resp`) y captura conjunta de `docker stats` + `VmRSS`.
-- [ ] **Tarea 9.4:** Actualización de versión de crates a `1.2.0`, auditoría final (`cargo fmt`, `cargo clippy`, `cargo test`, oráculo y corpus) y cierre de `STATE.md` / `BACKLOG.md` para `v1.2.0-eval`.
+- [x] **Tarea 9.1:** Homologación de límites `cgroups v2` en `docker-compose.yml` y `docker/docker-compose.yml` (`medsys-server`: 1 vCPU / 256 MB RAM; `postgres`: 1 vCPU / 512 MB RAM) y conexión por defecto con `medsys_ro`.
+- [x] **Tarea 9.2:** Actualización de `scripts/export_fhir_samples.py` y `scripts/validate_fhir.ps1` para exportar y validar por lotes el censo completo de 16,250 recursos JSON con `validator_cli.jar -version 4.0.1 -tx n/a`.
+- [x] **Tarea 9.3:** Reparación de sintaxis en `tests/k6/run_benchmark_with_stats.ps1` y `run_all_benchmarks.ps1`, actualización de `load_test.js` (`bp`, `temp`, `hr`, `resp`) y captura conjunta de `docker stats` + `VmRSS`.
+- [x] **Tarea 9.4:** Actualización de versión de crates a `1.2.0`, auditoría final (`cargo fmt`, `cargo clippy`, `cargo test`, oráculo y corpus) y cierre de `STATE.md` / `BACKLOG.md` para `v1.2.0-eval`.

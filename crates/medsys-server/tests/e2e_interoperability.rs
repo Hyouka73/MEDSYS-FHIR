@@ -61,7 +61,7 @@ async fn test_e2e_healthcheck_and_fhir_metadata() {
     assert!(body.contains("fhir_version"));
     assert!(body.contains("R4 (4.0.1)"));
     assert!(body.contains("server_version"));
-    assert!(body.contains("0.1.0"));
+    assert!(body.contains("1.2.0"));
     assert!(body.contains("status"));
 }
 

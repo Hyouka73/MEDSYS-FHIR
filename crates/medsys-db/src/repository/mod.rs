@@ -46,7 +46,12 @@ impl MedsysRepositories {
 
     /// Inicia una transacción asíncrona de solo lectura con nivel de aislamiento REPEATABLE READ.
     pub async fn begin_readonly_tx(&self) -> Result<sqlx::Transaction<'_, sqlx::Postgres>> {
-        let mut tx = self.pacientes.pool().begin().await.map_err(map_sqlx_error)?;
+        let mut tx = self
+            .pacientes
+            .pool()
+            .begin()
+            .await
+            .map_err(map_sqlx_error)?;
         sqlx::query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
             .execute(&mut *tx)
             .await

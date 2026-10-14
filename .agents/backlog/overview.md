@@ -11,13 +11,13 @@ El desarrollo de **MedSys-FHIR** consta de:
 | **Sprint 2** | Recursos HL7 FHIR R4 Canónicos (`helios-fhir`) | COMPLETADO | 4 | 4 |
 | **Sprint 3** | Persistencia Asíncrona SQLx y Entorno Docker PostgreSQL 16 | COMPLETADO | 4 | 4 |
 | **Sprint 4** | API Axum Facade, `OperationOutcome` y Dashboard React 19 | COMPLETADO | 4 | 4 |
-| **Sprint 5** | Saneamiento `S0`: Fin de `fallback_value`, `Observation` 1:4, CURP Regex y `OperationOutcome` | PENDIENTE | 0 | 4 |
-| **Sprint 6** | Motor DSL YAML v1.2, SQL Dinámico con *Allowlist* y Verificación Referencial (`T4`) | PENDIENTE | 0 | 4 |
-| **Sprint 7** | Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Semilla Determinista (`16,250` recursos) | PENDIENTE | 0 | 4 |
-| **Sprint 8** | Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`) | PENDIENTE | 0 | 4 |
-| **Sprint 9** | Límites Docker `cgroups v2`, Exportación Censal HL7, Benchmark `k6` (50 VUs) y Tag `v1.2.0-eval` | PENDIENTE | 0 | 4 |
+| **Sprint 5** | Saneamiento `S0`: Fin de `fallback_value`, `Observation` 1:4, CURP Regex y `OperationOutcome` | COMPLETADO | 4 | 4 |
+| **Sprint 6** | Motor DSL YAML v1.2, SQL Dinámico con *Allowlist* y Verificación Referencial (`T4`) | COMPLETADO | 4 | 4 |
+| **Sprint 7** | Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Semilla Determinista (`16,250` recursos) | COMPLETADO | 4 | 4 |
+| **Sprint 8** | Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`) | COMPLETADO | 4 | 4 |
+| **Sprint 9** | Límites Docker `cgroups v2`, Exportación Censal HL7, Benchmark `k6` (50 VUs) y Tag `v1.2.0-eval` | COMPLETADO | 4 | 4 |
 
-**Progreso Total:** 16 / 36 tareas completadas (44.4%) — **Siguiente paso: Sprint 5 (Tarea 5.1)**.
+**Progreso Total:** 36 / 36 tareas completadas (100.0%) — **FASE `v1.2.0-eval` CULMINADA AL 100%**.
 
 ---
 
@@ -26,8 +26,8 @@ El desarrollo de **MedSys-FHIR** consta de:
 - [x] `sprint_2_helios_fhir.md` (100%)
 - [x] `sprint_3_sqlx_docker.md` (100%)
 - [x] `sprint_4_axum_dashboard.md` (100%)
-- [ ] `sprint_5_alineacion_base_s0.md` (0% — **SPRINT ACTIVO**)
-- [ ] `sprint_6_dsl_v1_2_sql_dinamico.md` (0%)
-- [ ] `sprint_7_arquetipos_s1_s3_semilla.md` (0%)
-- [ ] `sprint_8_oraculo_y_corpus_t1_t5.md` (0%)
-- [ ] `sprint_9_docker_k6_censo_congelamiento.md` (0%)
+- [x] `sprint_5_alineacion_base_s0.md` (100%)
+- [x] `sprint_6_dsl_v1_2_sql_dinamico.md` (100%)
+- [x] `sprint_7_arquetipos_s1_s3_semilla.md` (100%)
+- [x] `sprint_8_oraculo_y_corpus_t1_t5.md` (100%)
+- [x] `sprint_9_docker_k6_censo_congelamiento.md` (100%)

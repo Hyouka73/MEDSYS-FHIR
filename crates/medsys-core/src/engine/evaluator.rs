@@ -274,7 +274,10 @@ pub fn parse_datetime_with_formats(
     let tz_name = default_tz.unwrap_or("America/Mexico_City");
     let tz: chrono_tz::Tz = tz_name.parse().unwrap_or(Mexico_City);
 
-    let formats = formats_spec.split('|').map(|s| s.trim()).filter(|s| !s.is_empty());
+    let formats = formats_spec
+        .split('|')
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty());
 
     for fmt in formats {
         // 1. Si el formato incluye zona horaria / offset explícito
@@ -294,7 +297,13 @@ pub fn parse_datetime_with_formats(
 
         // 3. Formato fecha y hora sin segundos (ej. "%d/%m/%Y %H:%M")
         let mut parsed = chrono::format::Parsed::new();
-        if chrono::format::parse(&mut parsed, trimmed, chrono::format::StrftimeItems::new(fmt)).is_ok() {
+        if chrono::format::parse(
+            &mut parsed,
+            trimmed,
+            chrono::format::StrftimeItems::new(fmt),
+        )
+        .is_ok()
+        {
             if let Ok(naive_date) = parsed.to_naive_date() {
                 if let Ok(naive_time) = parsed.to_naive_time() {
                     let naive_dt = NaiveDateTime::new(naive_date, naive_time);
@@ -365,7 +374,9 @@ pub fn evaluate_field_mapping(
             Some(val) => {
                 if let Some(ref combine_col) = rule.combine_with {
                     let combine_val = match row.get(combine_col) {
-                        Some(Value::String(s)) if !s.trim().is_empty() => Some(s.trim().to_string()),
+                        Some(Value::String(s)) if !s.trim().is_empty() => {
+                            Some(s.trim().to_string())
+                        }
                         Some(Value::Number(n)) => Some(n.to_string()),
                         Some(Value::Bool(b)) => Some(b.to_string()),
                         _ => None,
@@ -493,26 +504,27 @@ pub fn evaluate_field_mapping(
 
     // 7. Inyección en target_path
     // Determinar si el valor debe ser numérico según target_path
-    let json_val =
-        if rule.target_path.ends_with(".value") && rule.target_path.contains("valueQuantity") {
-            if let Ok(int_val) = final_val.parse::<i64>() {
-                json!(int_val)
-            } else if let Ok(num) = final_val.parse::<f64>() {
-                json!(num)
-            } else if rule.split_part.is_some() {
-                return Err(MedSysError::ProcessingError(format!(
+    let json_val = if rule.target_path.ends_with(".value")
+        && rule.target_path.contains("valueQuantity")
+    {
+        if let Ok(int_val) = final_val.parse::<i64>() {
+            json!(int_val)
+        } else if let Ok(num) = final_val.parse::<f64>() {
+            json!(num)
+        } else if rule.split_part.is_some() {
+            return Err(MedSysError::ProcessingError(format!(
                     "T2 Error de formato en split_part: No se pudo parsear como numérico el campo '{}' con valor '{final_val}'",
                     rule.target_path
                 )));
-            } else {
-                return Err(MedSysError::ProcessingError(format!(
-                    "Data corruption: No se pudo parsear como numérico el campo '{}'",
-                    rule.target_path
-                )));
-            }
         } else {
-            json!(final_val)
-        };
+            return Err(MedSysError::ProcessingError(format!(
+                "Data corruption: No se pudo parsear como numérico el campo '{}'",
+                rule.target_path
+            )));
+        }
+    } else {
+        json!(final_val)
+    };
 
     set_json_path(target_json, &rule.target_path, json_val)?;
 
@@ -662,7 +674,8 @@ mod tests {
         // Caso de error: fragmento no numérico en valueQuantity => T2 Error
         let mut row_corrupt = Map::new();
         row_corrupt.insert("presion_arterial_txt".to_string(), json!("130/INVALID"));
-        let res_corrupt = evaluate_field_mapping(&rule_dia, "Observation", &row_corrupt, &mut target);
+        let res_corrupt =
+            evaluate_field_mapping(&rule_dia, "Observation", &row_corrupt, &mut target);
         match res_corrupt {
             Err(MedSysError::ProcessingError(msg)) => {
                 assert!(msg.contains("T2 Error de formato en split_part"));
@@ -684,10 +697,7 @@ mod tests {
         row.insert("fech_ini_txt".to_string(), json!("18/09/2026 09:15"));
         let mut target = json!({});
         evaluate_field_mapping(&rule, "Encounter", &row, &mut target).unwrap();
-        assert_eq!(
-            target["effectiveDateTime"],
-            "2026-09-18T09:15:00-06:00"
-        );
+        assert_eq!(target["effectiveDateTime"], "2026-09-18T09:15:00-06:00");
 
         // Caso de fecha pura sin hora
         let rule_date = FieldMapping {

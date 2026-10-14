@@ -151,11 +151,7 @@ impl DynamicFhirRepository {
     }
 
     /// Busca un registro por su clave primaria y lo transforma directamente al recurso FHIR canónico.
-    pub async fn find_by_id_fhir(
-        &self,
-        mapping: &ResourceMapping,
-        id: i32,
-    ) -> Result<Value> {
+    pub async fn find_by_id_fhir(&self, mapping: &ResourceMapping, id: i32) -> Result<Value> {
         let row = self.find_by_id(mapping, id).await?;
         evaluate_resource_mapping(mapping, &row)
     }
@@ -505,10 +501,7 @@ fn parse_flexible_datetime(s: &str) -> Option<NaiveDateTime> {
     None
 }
 
-fn extract_naive_datetime(
-    row: &Map<String, Value>,
-    candidates: &[&str],
-) -> Option<NaiveDateTime> {
+fn extract_naive_datetime(row: &Map<String, Value>, candidates: &[&str]) -> Option<NaiveDateTime> {
     for &key in candidates {
         if let Some(Value::String(s)) = row.get(key) {
             if let Some(dt) = parse_flexible_datetime(s) {
@@ -603,27 +596,28 @@ pub fn row_to_legacy_paciente(row: &Map<String, Value>) -> Result<LegacyPaciente
         }
     })?;
 
-    let curp = extract_string(row, &["curp", "pac_curp"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let curp =
+        extract_string(row, &["curp", "pac_curp"]).ok_or_else(|| MedSysError::MissingField {
             field: "curp".into(),
             resource: "LegacyPaciente".into(),
-        }
-    })?;
+        })?;
 
-    let primer_nombre = extract_string(row, &["primer_nombre", "pac_nom1", "nombre"]).ok_or_else(
-        || MedSysError::MissingField {
-            field: "primer_nombre".into(),
-            resource: "LegacyPaciente".into(),
-        },
-    )?;
+    let primer_nombre =
+        extract_string(row, &["primer_nombre", "pac_nom1", "nombre"]).ok_or_else(|| {
+            MedSysError::MissingField {
+                field: "primer_nombre".into(),
+                resource: "LegacyPaciente".into(),
+            }
+        })?;
 
     let segundo_nombre = extract_opt_string(row, &["segundo_nombre", "pac_nom2"]);
-    let apellido_paterno = extract_string(row, &["apellido_paterno", "pac_ap_pat"]).ok_or_else(
-        || MedSysError::MissingField {
-            field: "apellido_paterno".into(),
-            resource: "LegacyPaciente".into(),
-        },
-    )?;
+    let apellido_paterno =
+        extract_string(row, &["apellido_paterno", "pac_ap_pat"]).ok_or_else(|| {
+            MedSysError::MissingField {
+                field: "apellido_paterno".into(),
+                resource: "LegacyPaciente".into(),
+            }
+        })?;
 
     let apellido_materno = extract_opt_string(row, &["apellido_materno", "pac_ap_mat"]);
     let fecha_nacimiento =
@@ -634,9 +628,12 @@ pub fn row_to_legacy_paciente(row: &Map<String, Value>) -> Result<LegacyPaciente
             },
         )?;
 
-    let sexo_biologico = extract_opt_string(row, &["sexo_biologico", "des_sexo", "sexo", "sexo_cod"]);
-    let telefono_contacto = extract_opt_string(row, &["telefono_contacto", "tel_contacto", "telefono"]);
-    let fecha_registro = extract_opt_naive_datetime(row, &["fecha_registro", "fech_reg_txt", "fech_reg"]);
+    let sexo_biologico =
+        extract_opt_string(row, &["sexo_biologico", "des_sexo", "sexo", "sexo_cod"]);
+    let telefono_contacto =
+        extract_opt_string(row, &["telefono_contacto", "tel_contacto", "telefono"]);
+    let fecha_registro =
+        extract_opt_naive_datetime(row, &["fecha_registro", "fech_reg_txt", "fech_reg"]);
 
     Ok(LegacyPaciente {
         id_paciente,
@@ -661,12 +658,11 @@ pub fn row_to_legacy_consulta(row: &Map<String, Value>) -> Result<LegacyConsulta
         }
     })?;
 
-    let id_paciente = extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let id_paciente =
+        extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| MedSysError::MissingField {
             field: "id_paciente".into(),
             resource: "LegacyConsulta".into(),
-        }
-    })?;
+        })?;
 
     let cedula_medico_tratante = extract_string(
         row,
@@ -677,40 +673,46 @@ pub fn row_to_legacy_consulta(row: &Map<String, Value>) -> Result<LegacyConsulta
         resource: "LegacyConsulta".into(),
     })?;
 
-    let nombre_medico = extract_string(row, &["nombre_medico", "nom_medico", "medico"]).ok_or_else(
-        || MedSysError::MissingField {
+    let nombre_medico = extract_string(row, &["nombre_medico", "nom_medico", "medico"])
+        .ok_or_else(|| MedSysError::MissingField {
             field: "nombre_medico".into(),
             resource: "LegacyConsulta".into(),
-        },
-    )?;
+        })?;
 
     let estado_consulta = extract_string(
         row,
-        &["estado_consulta", "des_estado_consulta", "estado", "est_con"],
+        &[
+            "estado_consulta",
+            "des_estado_consulta",
+            "estado",
+            "est_con",
+        ],
     )
     .unwrap_or_else(|| "FINALIZADA".to_string());
 
-    let motivo_consulta = extract_string(row, &["motivo_consulta", "motivo", "mot_con"]).ok_or_else(
-        || MedSysError::MissingField {
+    let motivo_consulta = extract_string(row, &["motivo_consulta", "motivo", "mot_con"])
+        .ok_or_else(|| MedSysError::MissingField {
             field: "motivo_consulta".into(),
             resource: "LegacyConsulta".into(),
-        },
-    )?;
+        })?;
 
     let fecha_hora_inicio = extract_naive_datetime(
         row,
-        &["fecha_hora_inicio", "fech_ini_txt", "fecha_inicio", "inicio"],
+        &[
+            "fecha_hora_inicio",
+            "fech_ini_txt",
+            "fecha_inicio",
+            "inicio",
+        ],
     )
     .ok_or_else(|| MedSysError::MissingField {
         field: "fecha_hora_inicio".into(),
         resource: "LegacyConsulta".into(),
     })?;
 
-    let fecha_hora_fin = extract_naive_datetime(
-        row,
-        &["fecha_hora_fin", "fech_fin_txt", "fecha_fin", "fin"],
-    )
-    .unwrap_or(fecha_hora_inicio);
+    let fecha_hora_fin =
+        extract_naive_datetime(row, &["fecha_hora_fin", "fech_fin_txt", "fecha_fin", "fin"])
+            .unwrap_or(fecha_hora_inicio);
 
     let unidad_medica = extract_opt_string(row, &["unidad_medica", "unidad", "clinica"]);
 
@@ -737,79 +739,77 @@ pub fn row_to_legacy_signo_vital(row: &Map<String, Value>) -> Result<LegacySigno
         }
     })?;
 
-    let id_consulta = extract_i32(row, &["id_consulta", "con_id"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let id_consulta =
+        extract_i32(row, &["id_consulta", "con_id"]).ok_or_else(|| MedSysError::MissingField {
             field: "id_consulta".into(),
             resource: "LegacySignoVital".into(),
-        }
-    })?;
+        })?;
 
-    let id_paciente = extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let id_paciente =
+        extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| MedSysError::MissingField {
             field: "id_paciente".into(),
             resource: "LegacySignoVital".into(),
-        }
-    })?;
+        })?;
 
     // Presión arterial: soportar campos directos o fragmentación de "sistolica/diastolica" (S3)
-    let (presion_sistolica, presion_diastolica) =
-        if let (Some(sys), Some(dia)) = (
-            extract_i32(row, &["presion_sistolica", "pas"]),
-            extract_i32(row, &["presion_diastolica", "pad"]),
-        ) {
-            (sys, dia)
-        } else if let Some(bp_txt) = extract_string(row, &["presion_arterial_txt", "ta_txt", "presion"]) {
-            let parts: Vec<&str> = bp_txt.split('/').collect();
-            if parts.len() != 2 {
-                return Err(MedSysError::ProcessingError(format!(
-                    "T2 Formato de presión arterial inválido: '{bp_txt}'"
-                )));
-            }
-            let sys = parts[0].trim().parse::<i32>().map_err(|_| {
-                MedSysError::ProcessingError(format!(
-                    "T2 Presión sistólica no numérica: '{}'",
-                    parts[0]
-                ))
-            })?;
-            let dia = parts[1].trim().parse::<i32>().map_err(|_| {
-                MedSysError::ProcessingError(format!(
-                    "T2 Presión diastólica no numérica: '{}'",
-                    parts[1]
-                ))
-            })?;
-            (sys, dia)
-        } else {
-            return Err(MedSysError::MissingField {
-                field: "presion_sistolica".into(),
-                resource: "LegacySignoVital".into(),
-            });
-        };
+    let (presion_sistolica, presion_diastolica) = if let (Some(sys), Some(dia)) = (
+        extract_i32(row, &["presion_sistolica", "pas"]),
+        extract_i32(row, &["presion_diastolica", "pad"]),
+    ) {
+        (sys, dia)
+    } else if let Some(bp_txt) = extract_string(row, &["presion_arterial_txt", "ta_txt", "presion"])
+    {
+        let parts: Vec<&str> = bp_txt.split('/').collect();
+        if parts.len() != 2 {
+            return Err(MedSysError::ProcessingError(format!(
+                "T2 Formato de presión arterial inválido: '{bp_txt}'"
+            )));
+        }
+        let sys = parts[0].trim().parse::<i32>().map_err(|_| {
+            MedSysError::ProcessingError(format!(
+                "T2 Presión sistólica no numérica: '{}'",
+                parts[0]
+            ))
+        })?;
+        let dia = parts[1].trim().parse::<i32>().map_err(|_| {
+            MedSysError::ProcessingError(format!(
+                "T2 Presión diastólica no numérica: '{}'",
+                parts[1]
+            ))
+        })?;
+        (sys, dia)
+    } else {
+        return Err(MedSysError::MissingField {
+            field: "presion_sistolica".into(),
+            resource: "LegacySignoVital".into(),
+        });
+    };
 
-    let frecuencia_cardiaca = extract_i32(row, &["frecuencia_cardiaca", "fc", "pulso"]).ok_or_else(
-        || MedSysError::MissingField {
+    let frecuencia_cardiaca = extract_i32(row, &["frecuencia_cardiaca", "fc", "pulso"])
+        .ok_or_else(|| MedSysError::MissingField {
             field: "frecuencia_cardiaca".into(),
             resource: "LegacySignoVital".into(),
-        },
-    )?;
+        })?;
 
     let frecuencia_respiratoria = extract_opt_i32(row, &["frecuencia_respiratoria", "fr"]);
 
     // Temperatura: directa o conversión de Fahrenheit a Celsius
-    let temperatura_celsius = if let Some(temp) = extract_decimal(row, &["temperatura_celsius", "temp_c", "temp"]) {
-        temp
-    } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
-        use rust_decimal::prelude::ToPrimitive;
-        let f = temp_f.to_f64().unwrap_or(98.6);
-        let c = (f - 32.0) * 5.0 / 9.0;
-        Decimal::from_f64(c)
-            .map(|d| d.round_dp(1))
-            .unwrap_or_else(|| Decimal::from_str("37.0").unwrap())
-    } else {
-        return Err(MedSysError::MissingField {
-            field: "temperatura_celsius".into(),
-            resource: "LegacySignoVital".into(),
-        });
-    };
+    let temperatura_celsius =
+        if let Some(temp) = extract_decimal(row, &["temperatura_celsius", "temp_c", "temp"]) {
+            temp
+        } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
+            use rust_decimal::prelude::ToPrimitive;
+            let f = temp_f.to_f64().unwrap_or(98.6);
+            let c = (f - 32.0) * 5.0 / 9.0;
+            Decimal::from_f64(c)
+                .map(|d| d.round_dp(1))
+                .unwrap_or_else(|| Decimal::from_str("37.0").unwrap())
+        } else {
+            return Err(MedSysError::MissingField {
+                field: "temperatura_celsius".into(),
+                resource: "LegacySignoVital".into(),
+            });
+        };
 
     // Peso: directo o conversión de libras a kilogramos (factor 0.45359237)
     let peso_kg = if let Some(peso) = extract_opt_decimal(row, &["peso_kg", "peso"]) {
@@ -851,33 +851,31 @@ pub fn row_to_legacy_signo_vital(row: &Map<String, Value>) -> Result<LegacySigno
 
 /// Convierte una fila de datos de cualquier arquetipo relacional hacia `LegacyDiagnostico`.
 pub fn row_to_legacy_diagnostico(row: &Map<String, Value>) -> Result<LegacyDiagnostico> {
-    let id_diagnostico = extract_i32(row, &["id_diagnostico", "diag_id", "id"]).ok_or_else(|| {
-        MedSysError::MissingField {
-            field: "id_diagnostico".into(),
-            resource: "LegacyDiagnostico".into(),
-        }
-    })?;
+    let id_diagnostico =
+        extract_i32(row, &["id_diagnostico", "diag_id", "id"]).ok_or_else(|| {
+            MedSysError::MissingField {
+                field: "id_diagnostico".into(),
+                resource: "LegacyDiagnostico".into(),
+            }
+        })?;
 
-    let id_consulta = extract_i32(row, &["id_consulta", "con_id"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let id_consulta =
+        extract_i32(row, &["id_consulta", "con_id"]).ok_or_else(|| MedSysError::MissingField {
             field: "id_consulta".into(),
             resource: "LegacyDiagnostico".into(),
-        }
-    })?;
+        })?;
 
-    let id_paciente = extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| {
-        MedSysError::MissingField {
+    let id_paciente =
+        extract_i32(row, &["id_paciente", "pac_id"]).ok_or_else(|| MedSysError::MissingField {
             field: "id_paciente".into(),
             resource: "LegacyDiagnostico".into(),
-        }
-    })?;
+        })?;
 
-    let codigo_cie10 = extract_string(row, &["codigo_cie10", "cie10", "diag_cod", "codigo"]).ok_or_else(
-        || MedSysError::MissingField {
+    let codigo_cie10 = extract_string(row, &["codigo_cie10", "cie10", "diag_cod", "codigo"])
+        .ok_or_else(|| MedSysError::MissingField {
             field: "codigo_cie10".into(),
             resource: "LegacyDiagnostico".into(),
-        },
-    )?;
+        })?;
 
     let descripcion_diagnostico = extract_string(
         row,
@@ -943,7 +941,10 @@ mod tests {
         assert_eq!(pac.id_paciente, 1);
         assert_eq!(pac.curp, "ROMA900101HCSMNL09");
         assert_eq!(pac.primer_nombre, "Alberto");
-        assert_eq!(pac.fecha_nacimiento, NaiveDate::from_ymd_opt(1990, 1, 1).unwrap());
+        assert_eq!(
+            pac.fecha_nacimiento,
+            NaiveDate::from_ymd_opt(1990, 1, 1).unwrap()
+        );
         assert_eq!(pac.sexo_biologico.as_deref(), Some("M"));
     }
 
@@ -965,7 +966,10 @@ mod tests {
         assert_eq!(pac.curp, "LOPE950512MCSPRN07");
         assert_eq!(pac.primer_nombre, "Mariana");
         assert_eq!(pac.segundo_nombre, None);
-        assert_eq!(pac.fecha_nacimiento, NaiveDate::from_ymd_opt(1995, 5, 12).unwrap());
+        assert_eq!(
+            pac.fecha_nacimiento,
+            NaiveDate::from_ymd_opt(1995, 5, 12).unwrap()
+        );
         assert_eq!(pac.sexo_biologico.as_deref(), Some("Femenino"));
     }
 

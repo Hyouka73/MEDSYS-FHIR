@@ -1,18 +1,20 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T13:40:00-06:00
-- **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
-- **Sprint Activo:** **Sprint 8 — Oráculo Diferencial en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)** (`.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
-- **Estado General:** 30 / 36 tareas completadas (83.3% — Sprints 1 al 7 completados al 100%; Tareas 8.1 y 8.2 completadas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 8.3**).
-- **Última Tarea Cerrada:** **Tarea 8.2** (Modo de Pruebas de Mutación en `scripts/oracle_verifier.py` con 20/20 mutaciones detectadas y 100.0% de sensibilidad; y Tarea 8.1 Oráculo diferencial con 16,250 / 16,250 recursos verificados al 100.0%).
-- **Siguiente Tarea Inmediata:** **Tarea 8.3** (Construcción del Corpus de 100 Fallas Clínicas `T1`–`T5` en `tests/fault_corpus/`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+- **Última Actualización:** 2026-10-14T14:15:00-06:00
+- **Versión Objetivo:** `1.2.0-eval` (CONGELADA — Alineación total con Capítulos I, II y III de la Tesis UNACH 2026)
+- **Sprint Activo:** Ninguno (**TODOS LOS SPRINTS 1 AL 9 COMPLETADOS AL 100%**).
+- **Estado General:** 36 / 36 tareas completadas (100.0% — Sprints 1 al 9 cerrados).
+- **Tarea en Curso:** Ninguna (Fase de Implementación y Evaluación Metodológica Culminada).
+- **Última Tarea Cerrada:** **Tarea 9.4** (Auditoría Final de Calidad, Actualización de Versiones a `1.2.0` en crates Cargo y Cierre del Backlog).
+- **Siguiente Tarea Inmediata:** Ninguna (Pipeline listo para toma de métricas del Capítulo IV).
 - **Estado Actual del Build:**
-  - `medsys-core`: 35/35 tests PASS.
+  - `medsys-core`: 35 tests unitarios + 1 suite de integración (100 fallas T1-T5) PASS.
   - `medsys-db`: 30/30 tests PASS.
   - `medsys-server` y tests E2E/integración: 24/24 tests PASS (10 E2E, 9 integración, 5 persistencia).
-  - Workspace total: 89/89 tests PASS (100 %). Clippy: 0 warnings.
+  - Workspace total: 90/90 tests PASS (100 %). Clippy: 0 warnings.
+  - Oráculo Diferencial: 16,250/16,250 recursos (100.0% exactitud), 20/20 mutaciones detectadas (100.0% sensibilidad).
+  - Corpus de 100 Fallas Clínicas (T1-T5): 100/100 casos rechazados con HTTP 422 OperationOutcome (100.0% sensibilidad).
 
 ---
 
@@ -195,5 +197,55 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 89/89 tests PASS (100 %).
-- **Siguiente paso:** Sprint 8 — Tarea 8.3 (Construcción del Corpus de 100 Fallas Clínicas `T1`–`T5` en `tests/fault_corpus/`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+- **Siguiente paso:** Sprint 8 — Tarea 8.3 completada.
+
+---
+
+## 13. Registro de Cierre del Sprint 8: Corpus de 100 Fallas Clínicas (`T1`–`T5`) y Resiliencia Certificada
+- **Archivos Creados/Modificados:**
+  - `tests/fault_corpus/fault_corpus_100.json` (nuevo): catálogo determinista de 100 casos anómalos etiquetados (`T1-01`..`T1-20`, `T2-01`..`T2-20`, `T3-01`..`T3-20`, `T4-01`..`T4-20`, `T5-01`..`T5-20`).
+  - `tests/fault_corpus/fault_corpus_100.sql` (nuevo): script DDL y DML para inyección aislada en esquema `fault_corpus`.
+  - `tests/fault_corpus/README.md` (nuevo): documentación metodológica y correspondencia con Capítulos III y IV de la tesis.
+  - `scripts/run_fault_corpus.py` (nuevo): ejecutor automatizado con generación de tabla cuantitativa por categoría y reporte en `output/fault_corpus_report.json`.
+  - `crates/medsys-core/tests/fault_corpus_integration.rs` (nuevo): suite de integración en Rust que evalúa los 100 casos contra el motor de mapeo y valida que el 100 % emite `OperationOutcome` con `severity="error"` e `issue[0].code="processing"` (mapeado a HTTP 422).
+  - `tests/k6/resilience_and_errors_test.js`: actualizado para certificar `"code": "invalid"` en HTTP 400, `"code": "not-found"` en HTTP 404, `"code": "processing"` en HTTP 422 y eliminación de referencias obsoletas a `data-absent-reason`.
+- **Validación Automatizada del Cierre de Sprint 8:**
+  - `python scripts/run_fault_corpus.py`: **100 / 100 casos anómalos rechazados con HTTP 422 OperationOutcome (100.0% de sensibilidad)**.
+  - `cargo test --test fault_corpus_integration`: PASS (100/100 casos).
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 90/90 tests PASS (100 %).
+
+---
+
+## 14. Registro de Cierre del Sprint 9: Contenedores con Límites Estrictos, Censo 16,250 HL7, Benchmark k6 y Congelamiento `v1.2.0-eval`
+- **Archivos Creados/Modificados:**
+  - `docker-compose.yml` y `docker/docker-compose.yml`:
+    - Homologación de límites `cgroups v2` estrictos: `medsys-server` (1 vCPU, 256 MB RAM) y `postgres` (1 vCPU, 512 MB RAM).
+    - Conexión por defecto mediante rol de solo lectura `medsys_ro` (`postgres://medsys_ro:medsys_ro_pass_2026@postgres:5432/medsys_legado`).
+    - Exposición de variable `MAPPING_RULES_PATH: ${MAPPING_RULES_PATH:-/app/mapping_rules.yaml}`.
+  - `crates/medsys-db/src/config.rs` y `crates/medsys-server/src/config.rs`: credenciales por defecto actualizadas a `medsys_ro`.
+  - `scripts/export_fhir_samples.py` y `scripts/validate_fhir.ps1`:
+    - Incorporación de `Observation_resp` (`LOINC 9279-1`) en el censo universal.
+    - Soporte nominal de 250 omisiones por `NULL` en frecuencia respiratoria.
+    - Procesamiento por lotes (`VALIDATOR_BATCH_SIZE = 200` y `$BatchSize = 200`) para la validación con `validator_cli.jar -version 4.0.1 -tx n/a`, previniendo desbordamientos de longitud de línea de comandos en Windows.
+    - Universo censal exportable: 1,000 Patient, 2,500 Encounter, 9,750 Observation (2,500 bp, 2,500 temp, 2,500 hr, 2,250 resp) y 3,000 Condition = **16,250 recursos FHIR R4 exactos**.
+  - `tests/k6/load_test.js` y `smoke_test.js`:
+    - Inclusión del 4º subtipo de `Observation` (`resp`), aceptando HTTP 200 o HTTP 404 nominal con `OperationOutcome` (`application/fhir+json`).
+  - `tests/k6/run_benchmark_with_stats.ps1`, `run_all_benchmarks.ps1` y `run_benchmark_with_stats.sh`:
+    - Corrección integral de sintaxis PowerShell (subexpresiones, caracteres ASCII limpios, piping y quoting seguros validados con AST).
+    - Recolección simultánea cada 5 segundos de telemetría: `docker stats` para `medsys-server` y `postgres`, `VmRSS` del proceso y `memory.current` del cgroup v2.
+    - Soporte para réplicas experimentales (`-Replicas 10`).
+  - `crates/medsys-core/Cargo.toml`, `crates/medsys-db/Cargo.toml`, `crates/medsys-server/Cargo.toml`:
+    - Versión actualizada y congelada a `"1.2.0"`.
+  - `crates/medsys-server/tests/e2e_interoperability.rs`:
+    - Aserción de `server_version` actualizada a `"1.2.0"`.
+- **Validación Automatizada del Cierre de Sprint 9 y de la Versión `v1.2.0-eval`:**
+  - `cargo fmt --all -- --check`: PASS (0 discrepancias de estilo).
+  - `cargo clippy --workspace --all-targets -- -D warnings`: PASS (0 warnings).
+  - `cargo test --workspace`: **90 / 90 tests PASS (100.0%)**.
+  - `python scripts/oracle_verifier.py --self-test`: **16,250 / 16,250 recursos certificados con 100.0% de exactitud**.
+  - `python scripts/oracle_verifier.py --run-mutations`: **20 / 20 mutaciones detectadas (100.0% de sensibilidad)**.
+  - `python scripts/run_fault_corpus.py`: **100 / 100 casos anómalos rechazados con HTTP 422 OperationOutcome (100.0% de resiliencia)**.
+- **Estado Final:** **36 de 36 tareas completadas (100.0%)**. El proyecto MedSys-FHIR queda formalmente congelado bajo el tag **`v1.2.0-eval`**.
 

@@ -1444,21 +1444,33 @@ mod tests {
         row_pat_s3.insert("tel_contacto".into(), json!("9611234567"));
 
         let json_pat_s0 = evaluate_resource_mapping(
-            rules_s0.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            rules_s0
+                .get_resource_mapping(SupportedResource::Patient)
+                .unwrap(),
             &row_pat_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_pat_s1 = evaluate_resource_mapping(
-            rules_s1.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            rules_s1
+                .get_resource_mapping(SupportedResource::Patient)
+                .unwrap(),
             &row_pat_s1,
-        ).unwrap();
+        )
+        .unwrap();
         let json_pat_s2 = evaluate_resource_mapping(
-            rules_s2.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            rules_s2
+                .get_resource_mapping(SupportedResource::Patient)
+                .unwrap(),
             &row_pat_s2,
-        ).unwrap();
+        )
+        .unwrap();
         let json_pat_s3 = evaluate_resource_mapping(
-            rules_s3.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            rules_s3
+                .get_resource_mapping(SupportedResource::Patient)
+                .unwrap(),
             &row_pat_s3,
-        ).unwrap();
+        )
+        .unwrap();
 
         assert_eq!(json_pat_s0, json_pat_s1, "Patient S0 != S1");
         assert_eq!(json_pat_s0, json_pat_s2, "Patient S0 != S2");
@@ -1471,11 +1483,17 @@ mod tests {
         row_enc_s0.insert("id_consulta".into(), json!(1));
         row_enc_s0.insert("id_paciente".into(), json!(1));
         row_enc_s0.insert("estado_consulta".into(), json!("FINALIZADA"));
-        row_enc_s0.insert("motivo_consulta".into(), json!("Control trimestral de hipertensión arterial"));
+        row_enc_s0.insert(
+            "motivo_consulta".into(),
+            json!("Control trimestral de hipertensión arterial"),
+        );
         row_enc_s0.insert("fecha_hora_inicio".into(), json!("2026-09-18 09:15:00"));
         row_enc_s0.insert("fecha_hora_fin".into(), json!("2026-09-18 09:40:00"));
         row_enc_s0.insert("cedula_medico_tratante".into(), json!("8472910"));
-        row_enc_s0.insert("nombre_medico".into(), json!("Dra. María Elena Cruz Martínez"));
+        row_enc_s0.insert(
+            "nombre_medico".into(),
+            json!("Dra. María Elena Cruz Martínez"),
+        );
 
         let row_enc_s1 = row_enc_s0.clone();
 
@@ -1489,28 +1507,43 @@ mod tests {
         row_enc_s3.insert("con_id".into(), json!(1));
         row_enc_s3.insert("pac_id".into(), json!(1));
         row_enc_s3.insert("est_consulta".into(), json!("FINALIZADA"));
-        row_enc_s3.insert("motivo".into(), json!("Control trimestral de hipertensión arterial"));
+        row_enc_s3.insert(
+            "motivo".into(),
+            json!("Control trimestral de hipertensión arterial"),
+        );
         row_enc_s3.insert("fech_ini_txt".into(), json!("18/09/2026 09:15:00"));
         row_enc_s3.insert("fech_fin_txt".into(), json!("18/09/2026 09:40:00"));
         row_enc_s3.insert("ced_medico".into(), json!("8472910"));
         row_enc_s3.insert("nom_medico".into(), json!("Dra. María Elena Cruz Martínez"));
 
         let json_enc_s0 = evaluate_resource_mapping(
-            rules_s0.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            rules_s0
+                .get_resource_mapping(SupportedResource::Encounter)
+                .unwrap(),
             &row_enc_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_enc_s1 = evaluate_resource_mapping(
-            rules_s1.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            rules_s1
+                .get_resource_mapping(SupportedResource::Encounter)
+                .unwrap(),
             &row_enc_s1,
-        ).unwrap();
+        )
+        .unwrap();
         let json_enc_s2 = evaluate_resource_mapping(
-            rules_s2.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            rules_s2
+                .get_resource_mapping(SupportedResource::Encounter)
+                .unwrap(),
             &row_enc_s2,
-        ).unwrap();
+        )
+        .unwrap();
         let json_enc_s3 = evaluate_resource_mapping(
-            rules_s3.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            rules_s3
+                .get_resource_mapping(SupportedResource::Encounter)
+                .unwrap(),
             &row_enc_s3,
-        ).unwrap();
+        )
+        .unwrap();
 
         assert_eq!(json_enc_s0, json_enc_s1, "Encounter S0 != S1");
         assert_eq!(json_enc_s0, json_enc_s2, "Encounter S0 != S2");
@@ -1539,21 +1572,33 @@ mod tests {
         row_bp_s3.insert("presion_arterial_txt".into(), json!("130/85"));
 
         let json_bp_s0 = evaluate_resource_mapping(
-            rules_s0.get_observation_mapping("blood_pressure_panel").unwrap(),
+            rules_s0
+                .get_observation_mapping("blood_pressure_panel")
+                .unwrap(),
             &row_bp_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_bp_s1 = evaluate_resource_mapping(
-            rules_s1.get_observation_mapping("blood_pressure_panel").unwrap(),
+            rules_s1
+                .get_observation_mapping("blood_pressure_panel")
+                .unwrap(),
             &row_bp_s1,
-        ).unwrap();
+        )
+        .unwrap();
         let json_bp_s2 = evaluate_resource_mapping(
-            rules_s2.get_observation_mapping("blood_pressure_panel").unwrap(),
+            rules_s2
+                .get_observation_mapping("blood_pressure_panel")
+                .unwrap(),
             &row_bp_s2,
-        ).unwrap();
+        )
+        .unwrap();
         let json_bp_s3 = evaluate_resource_mapping(
-            rules_s3.get_observation_mapping("blood_pressure_panel").unwrap(),
+            rules_s3
+                .get_observation_mapping("blood_pressure_panel")
+                .unwrap(),
             &row_bp_s3,
-        ).unwrap();
+        )
+        .unwrap();
 
         assert_eq!(json_bp_s0, json_bp_s1, "Observation BP S0 != S1");
         assert_eq!(json_bp_s0, json_bp_s2, "Observation BP S0 != S2");
@@ -1567,7 +1612,10 @@ mod tests {
         row_cond_s0.insert("id_paciente".into(), json!(1));
         row_cond_s0.insert("id_consulta".into(), json!(1));
         row_cond_s0.insert("codigo_cie10".into(), json!("I10"));
-        row_cond_s0.insert("descripcion_diagnostico".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s0.insert(
+            "descripcion_diagnostico".into(),
+            json!("Hipertensión esencial (primaria)"),
+        );
         row_cond_s0.insert("tipo_diagnostico".into(), json!("CONFIRMADO"));
         row_cond_s0.insert("fecha_diagnostico".into(), json!("2026-09-18"));
 
@@ -1579,7 +1627,10 @@ mod tests {
         row_cond_s2.insert("id_paciente".into(), json!(1));
         row_cond_s2.insert("id_consulta".into(), json!(1));
         row_cond_s2.insert("id_cie10".into(), json!("I10"));
-        row_cond_s2.insert("descripcion_diagnostico".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s2.insert(
+            "descripcion_diagnostico".into(),
+            json!("Hipertensión esencial (primaria)"),
+        );
         row_cond_s2.insert("id_tipo_diag".into(), json!("CONFIRMADO"));
         row_cond_s2.insert("fecha_diagnostico".into(), json!("2026-09-18"));
 
@@ -1589,26 +1640,41 @@ mod tests {
         row_cond_s3.insert("pac_id".into(), json!(1));
         row_cond_s3.insert("con_id".into(), json!(1));
         row_cond_s3.insert("cie10".into(), json!("I10"));
-        row_cond_s3.insert("desc_diag".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s3.insert(
+            "desc_diag".into(),
+            json!("Hipertensión esencial (primaria)"),
+        );
         row_cond_s3.insert("tipo_diag".into(), json!("CONFIRMADO"));
         row_cond_s3.insert("fech_diag_txt".into(), json!("18/09/2026"));
 
         let json_cond_s0 = evaluate_resource_mapping(
-            rules_s0.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            rules_s0
+                .get_resource_mapping(SupportedResource::Condition)
+                .unwrap(),
             &row_cond_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_cond_s1 = evaluate_resource_mapping(
-            rules_s1.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            rules_s1
+                .get_resource_mapping(SupportedResource::Condition)
+                .unwrap(),
             &row_cond_s1,
-        ).unwrap();
+        )
+        .unwrap();
         let json_cond_s2 = evaluate_resource_mapping(
-            rules_s2.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            rules_s2
+                .get_resource_mapping(SupportedResource::Condition)
+                .unwrap(),
             &row_cond_s2,
-        ).unwrap();
+        )
+        .unwrap();
         let json_cond_s3 = evaluate_resource_mapping(
-            rules_s3.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            rules_s3
+                .get_resource_mapping(SupportedResource::Condition)
+                .unwrap(),
             &row_cond_s3,
-        ).unwrap();
+        )
+        .unwrap();
 
         assert_eq!(json_cond_s0, json_cond_s1, "Condition S0 != S1");
         assert_eq!(json_cond_s0, json_cond_s2, "Condition S0 != S2");
@@ -1624,13 +1690,19 @@ mod tests {
         row_temp_s3.insert("temp_celsius".into(), json!(36.6));
 
         let json_temp_s0 = evaluate_resource_mapping(
-            rules_s0.get_observation_mapping("body_temperature").unwrap(),
+            rules_s0
+                .get_observation_mapping("body_temperature")
+                .unwrap(),
             &row_temp_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_temp_s3 = evaluate_resource_mapping(
-            rules_s3.get_observation_mapping("body_temperature").unwrap(),
+            rules_s3
+                .get_observation_mapping("body_temperature")
+                .unwrap(),
             &row_temp_s3,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(json_temp_s0, json_temp_s3, "Observation Temp S0 != S3");
 
         // Frecuencia Cardíaca
@@ -1642,11 +1714,13 @@ mod tests {
         let json_hr_s0 = evaluate_resource_mapping(
             rules_s0.get_observation_mapping("heart_rate").unwrap(),
             &row_hr_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_hr_s3 = evaluate_resource_mapping(
             rules_s3.get_observation_mapping("heart_rate").unwrap(),
             &row_hr_s3,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(json_hr_s0, json_hr_s3, "Observation HR S0 != S3");
 
         // Frecuencia Respiratoria
@@ -1656,13 +1730,19 @@ mod tests {
         row_rr_s3.insert("fr".into(), json!(18));
 
         let json_rr_s0 = evaluate_resource_mapping(
-            rules_s0.get_observation_mapping("respiratory_rate").unwrap(),
+            rules_s0
+                .get_observation_mapping("respiratory_rate")
+                .unwrap(),
             &row_rr_s0,
-        ).unwrap();
+        )
+        .unwrap();
         let json_rr_s3 = evaluate_resource_mapping(
-            rules_s3.get_observation_mapping("respiratory_rate").unwrap(),
+            rules_s3
+                .get_observation_mapping("respiratory_rate")
+                .unwrap(),
             &row_rr_s3,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(json_rr_s0, json_rr_s3, "Observation RR S0 != S3");
 
         // Peso corporal en S3: 173.06 libras convertidas con unit_conversion: "lb_to_kg"
@@ -1671,7 +1751,8 @@ mod tests {
         let json_weight_s3 = evaluate_resource_mapping(
             rules_s3.get_observation_mapping("body_weight").unwrap(),
             &row_weight_s3,
-        ).unwrap();
+        )
+        .unwrap();
         assert_eq!(json_weight_s3["resourceType"], "Observation");
         assert_eq!(json_weight_s3["code"]["coding"][0]["code"], "29463-7");
         assert_eq!(json_weight_s3["valueQuantity"]["unit"], "kg");

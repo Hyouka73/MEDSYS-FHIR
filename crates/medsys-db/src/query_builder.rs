@@ -267,7 +267,8 @@ impl<'a> DynamicSqlBuilder<'a> {
                         lk.table, join_alias, src_col, join_alias, lk.key
                     ));
                     if !seen_aliases.contains(src_col) {
-                        select_items.push(format!("{}.{} AS {}", join_alias, lk.value_column, src_col));
+                        select_items
+                            .push(format!("{}.{} AS {}", join_alias, lk.value_column, src_col));
                         seen_aliases.insert(src_col.clone());
                     }
                 }
@@ -384,7 +385,6 @@ impl<'a> DynamicSqlBuilder<'a> {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -469,7 +469,8 @@ mod tests {
 
         // Reglas con columna inyectada
         let mut malicious_col_rules = valid_rules.clone();
-        malicious_col_rules.resources[0].mappings[0].source_column = Some("curp' OR '1'='1".to_string());
+        malicious_col_rules.resources[0].mappings[0].source_column =
+            Some("curp' OR '1'='1".to_string());
         assert!(validate_rules_identifiers_allowlist(&malicious_col_rules).is_err());
     }
 

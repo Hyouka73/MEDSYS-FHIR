@@ -32,7 +32,7 @@ Implementar los dos instrumentos de verificación experimental prometidos en el 
       - Verifica que el comparador del oráculo detecta y rechaza las **20 de 20 mutaciones (sensibilidad del 100 %)**.
   - **Criterio de Aceptación:** `python3 scripts/oracle_verifier.py --run-mutations` detecta `20/20` mutaciones (`100.0%` sensibilidad) y retorna código de salida `0`.
 
-- [ ] **Tarea 8.3: Construcción del Corpus de 100 Fallas Clínicas (`T1`–`T5`) en `tests/fault_corpus/`**
+- [x] **Tarea 8.3: Construcción del Corpus de 100 Fallas Clínicas (`T1`–`T5`) en `tests/fault_corpus/`**
   - **Archivos a crear:**
     - `tests/fault_corpus/fault_corpus_100.json`
     - `tests/fault_corpus/fault_corpus_100.sql`
@@ -46,7 +46,7 @@ Implementar los dos instrumentos de verificación experimental prometidos en el 
       - **Categoría `T5` (20 casos — Sintaxis de identificadores y regex CURP inválida):** ej. CURP de 17 caracteres, CURP con caracteres especiales, CURP con entidad federativa inexistente `"XX"`, CURP con mes `13`, CURP con sexo `"Z"`, IDs de ruta malformados.
   - **Criterio de Aceptación:** El archivo `tests/fault_corpus/fault_corpus_100.json` contiene exactamente 100 casos etiquetados (`T1-01`..`T1-20`, `T2-01`..`T2-20`, `T3-01`..`T3-20`, `T4-01`..`T4-20`, `T5-01`..`T5-20`).
 
-- [ ] **Tarea 8.4: Corredor Automatizado del Corpus de Fallas (`scripts/run_fault_corpus.py`) y Suite Rust de Integración `T1`–`T5`**
+- [x] **Tarea 8.4: Corredor Automatizado del Corpus de Fallas (`scripts/run_fault_corpus.py`) y Suite Rust de Integración `T1`–`T5`**
   - **Archivos a crear/modificar:**
     - `scripts/run_fault_corpus.py`
     - `crates/medsys-core/tests/fault_corpus_integration.rs` (nueva suite de integración en Rust que lee `tests/fault_corpus/fault_corpus_100.json`)

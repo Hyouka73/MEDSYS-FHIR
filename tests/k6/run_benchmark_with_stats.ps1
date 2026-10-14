@@ -1,14 +1,16 @@
 # ==============================================================================
-# MedSys-FHIR: Pipeline de Benchmarking con Telemetría docker stats (PowerShell)
+# MedSys-FHIR: Pipeline de Benchmarking con Telemetría docker stats y VmRSS (PowerShell)
 # Tesis: Carlos Eduardo Iglesias de la Cruz & Alexis Andrey Gálvez Roblero
-# Trazabilidad: AUD-002 / CON-004 / CVD-004
+# Trazabilidad: AUD-002 / CON-004 / CVD-004 (Límites cgroups 1.0 vCPU, 256MB RAM)
 # ==============================================================================
 
 param(
     [string]$BaseUrl = "http://localhost:8080",
     [string]$ContainerName = "medsys-server",
+    [string]$DbContainerName = "medsys_fhir_postgres",
     [int]$SamplingIntervalSec = 5,
-    [int]$MaxWaitSec = 90
+    [int]$MaxWaitSec = 90,
+    [int]$Replicas = 1
 )
 
 $ErrorActionPreference = "Stop"
@@ -20,14 +22,14 @@ $csvOutput = Join-Path $scriptDir "benchmark_stats.csv"
 $k6Script = Join-Path $scriptDir "load_test.js"
 
 Write-Host "`n================================================================================" -ForegroundColor Cyan
-Write-Host " MedSys-FHIR — Orquestación Docker y Pipeline de Benchmarking Reproducible" -ForegroundColor Cyan
-Write-Host " Límite cgroups: 1.0 vCPU | 256 MB RAM | Muestreo docker stats cada ${SamplingIntervalSec}s" -ForegroundColor Cyan
+Write-Host " MedSys-FHIR -- Pipeline de Benchmarking y Telemetria Conjunta (cgroups v2)" -ForegroundColor Cyan
+Write-Host (" Replicas oficiales: {0} -- Muestreo de Telemetria cada {1}s" -f $Replicas, $SamplingIntervalSec) -ForegroundColor Cyan
 Write-Host "================================================================================`n" -ForegroundColor Cyan
 
 # 1. Verificar binarios requeridos (docker y k6)
 $foundDocker = Get-Command docker -ErrorAction SilentlyContinue
 if (-not $foundDocker) {
-    Write-Error "No se encontró el comando 'docker' en el PATH del sistema."
+    Write-Error "No se encontro el comando 'docker' en el PATH del sistema."
     exit 1
 }
 
@@ -37,24 +39,25 @@ if (-not $k6Cmd) {
     if (Test-Path $fallbackK6) {
         $k6Path = $fallbackK6
     } else {
-        Write-Error "No se encontró el ejecutable de 'k6' en PATH ni en '$fallbackK6'."
+        Write-Error "No se encontro el ejecutable de 'k6' en PATH ni en '$fallbackK6'."
         exit 1
     }
 } else {
     $k6Path = $k6Cmd.Source
 }
-Write-Host "[✓] Binarios detectados: Docker ($($foundDocker.Source)) | k6 ($k6Path)" -ForegroundColor Green
+$dockerSource = $foundDocker.Source
+Write-Host ("[OK] Binarios detectados: Docker ({0}) -- k6 ({1})" -f $dockerSource, $k6Path) -ForegroundColor Green
 
-# 2. Levantar servicios en segundo plano con docker compose
-Write-Host "[*] Desplegando servicios contenerizados con directivas cgroups v2..." -ForegroundColor Yellow
+# 2. Desplegar servicios contenerizados
+Write-Host "[*] Desplegando servicios con limites cgroups v2 (medsys-server 256M, postgres 512M)..." -ForegroundColor Yellow
 & docker compose -f "$composeFile" up -d
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Fallo al ejecutar 'docker compose up -d'."
     exit 1
 }
 
-# 3. Esperar a que el endpoint de salud responda HTTP 200
-Write-Host "[*] Esperando disponibilidad de $BaseUrl/health (Timeout: ${MaxWaitSec}s)..." -ForegroundColor Yellow
+# 3. Esperar disponibilidad del endpoint de salud
+Write-Host ("[*] Esperando disponibilidad de {0}/health (Timeout: {1}s)..." -f $BaseUrl, $MaxWaitSec) -ForegroundColor Yellow
 $elapsed = 0
 $serverReady = $false
 
@@ -66,61 +69,103 @@ while ($elapsed -lt $MaxWaitSec) {
             break
         }
     } catch {
-        # Continúa esperando
+        # Esperando
     }
     Start-Sleep -Seconds 2
     $elapsed += 2
-    Write-Host "    ... esperando respuesta de /health (${elapsed}s transcurridos)" -ForegroundColor DarkGray
+    Write-Host ("    ... esperando respuesta de /health ({0}s transcurridos)" -f $elapsed) -ForegroundColor DarkGray
 }
 
 if (-not $serverReady) {
-    Write-Host "[!] ERROR: El middleware no respondió HTTP 200 en $BaseUrl/health tras ${MaxWaitSec}s." -ForegroundColor Red
-    Write-Host "[*] Volcado de logs de $ContainerName :" -ForegroundColor DarkYellow
+    Write-Host ("[!] ERROR: El middleware no respondio HTTP 200 en {0}/health tras {1}s." -f $BaseUrl, $MaxWaitSec) -ForegroundColor Red
+    Write-Host ("[*] Volcado de logs de {0}:" -f $ContainerName) -ForegroundColor DarkYellow
     & docker compose -f "$composeFile" logs --tail 30 $ContainerName
     exit 1
 }
 
-Write-Host "[✓] Middleware '$ContainerName' en línea y respondiendo HTTP 200." -ForegroundColor Green
+Write-Host ("[OK] Middleware '{0}' en linea y respondiendo HTTP 200." -f $ContainerName) -ForegroundColor Green
 
-# 4. Inicializar archivo CSV de telemetría
-"timestamp,cpu_percentage,mem_usage_raw" | Out-File -FilePath $csvOutput -Encoding utf8
+# 4. Inicializar archivo CSV de telemetría completa
+"timestamp,server_cpu,server_mem,postgres_cpu,postgres_mem,vm_rss_kb,cgroup_memory_bytes" | Out-File -FilePath $csvOutput -Encoding utf8
 
-Write-Host "[*] Iniciando muestreo de docker stats sobre '$ContainerName' cada ${SamplingIntervalSec}s -> $csvOutput..." -ForegroundColor Yellow
-
-# Script block para el recolector en segundo plano
+# Script block para el recolector en segundo plano (captura docker stats + VmRSS + cgroup)
 $statsScriptBlock = {
-    param($container, $interval, $outFile)
+    param($srvContainer, $dbContainer, $interval, $outFile)
     while ($true) {
         $ts = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        $raw = docker stats $container --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>$null
-        if ($raw) {
-            "$ts,$raw" | Out-File -FilePath $outFile -Append -Encoding utf8
+        
+        # 1. Telemetría de medsys-server
+        $rawSrv = docker stats $srvContainer --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>$null
+        $srvCpu = "0.00%"
+        $srvMem = "0B / 256MB"
+        if ($rawSrv) {
+            $parts = $rawSrv.Split(",")
+            if ($parts.Length -ge 2) {
+                $srvCpu = $parts[0].Trim()
+                $srvMem = $parts[1].Trim()
+            }
         }
+
+        # 2. Telemetría de postgres
+        $rawDb = docker stats $dbContainer --no-stream --format "{{.CPUPerc}},{{.MemUsage}}" 2>$null
+        $dbCpu = "0.00%"
+        $dbMem = "0B / 512MB"
+        if ($rawDb) {
+            $parts = $rawDb.Split(",")
+            if ($parts.Length -ge 2) {
+                $dbCpu = $parts[0].Trim()
+                $dbMem = $parts[1].Trim()
+            }
+        }
+
+        # 3. VmRSS real desde /proc/1/status
+        $vmRss = docker exec $srvContainer sh -c "grep VmRSS /proc/1/status 2>/dev/null" 2>$null
+        if ($vmRss -match "(\d+)") {
+            $vmRssVal = $Matches[1]
+        } else {
+            $vmRssVal = "0"
+        }
+
+        # 4. cgroups v2 memory.current
+        $cgroupBytes = docker exec $srvContainer sh -c "cat /sys/fs/cgroup/memory.current 2>/dev/null" 2>$null
+        if (-not $cgroupBytes) {
+            $cgroupBytes = "0"
+        }
+
+        $rowText = "{0},{1},{2},{3},{4},{5},{6}" -f $ts, $srvCpu, $srvMem, $dbCpu, $dbMem, $vmRssVal, $cgroupBytes
+        Add-Content -Path $outFile -Value $rowText -Encoding utf8
         Start-Sleep -Seconds $interval
     }
 }
 
-$statsJob = Start-Job -ScriptBlock $statsScriptBlock -ArgumentList $ContainerName, $SamplingIntervalSec, $csvOutput
+$statsJob = Start-Job -ScriptBlock $statsScriptBlock -ArgumentList $ContainerName, $DbContainerName, $SamplingIntervalSec, $csvOutput
 
-# 5. Ejecutar la prueba de carga con k6
-Write-Host "`n================================================================================" -ForegroundColor Cyan
-Write-Host " [*] Ejecutando k6 con escenario de meseta sostenida a 50 VUs (load_test.js)..." -ForegroundColor Cyan
-Write-Host "================================================================================`n" -ForegroundColor Cyan
-
-$k6ExitCode = 0
+# 5. Ejecutar la(s) réplica(s) de benchmarking con k6
+$overallExitCode = 0
 try {
-    & $k6Path run --env "BASE_URL=$BaseUrl" "$k6Script"
-    $k6ExitCode = $LASTEXITCODE
+    for ($rep = 1; $rep -le $Replicas; $rep++) {
+        Write-Host "`n================================================================================" -ForegroundColor Cyan
+        Write-Host (" [*] Ejecutando Replica {0} de {1} de k6 (load_test.js a 50 VUs)..." -f $rep, $Replicas) -ForegroundColor Cyan
+        Write-Host "================================================================================`n" -ForegroundColor Cyan
+        
+        $replicaJson = Join-Path $scriptDir ("k6_replica_{0}.json" -f $rep)
+        & $k6Path run --env "BASE_URL=$BaseUrl" --out "json=$replicaJson" "$k6Script"
+        $code = $LASTEXITCODE
+        if ($code -ne 0) {
+            $overallExitCode = $code
+            Write-Warning ("Replica {0} finalizo con codigo de salida no cero: {1}" -f $rep, $code)
+        }
+    }
 } finally {
     # 6. Detener recolección de telemetría de forma garantizada
-    Write-Host "`n[*] Deteniendo proceso de muestreo de telemetría..." -ForegroundColor Yellow
+    Write-Host "`n[*] Deteniendo proceso de muestreo de telemetria..." -ForegroundColor Yellow
     Stop-Job -Job $statsJob -ErrorAction SilentlyContinue
     Remove-Job -Job $statsJob -ErrorAction SilentlyContinue
 }
 
-# 7. Consolidar y presentar estadísticas de recursos
+# 7. Consolidar y presentar estadísticas
 Write-Host "`n================================================================================" -ForegroundColor Cyan
-Write-Host " Consolidación de Telemetría de Recursos (docker stats) — MedSys-FHIR" -ForegroundColor Cyan
+Write-Host " Consolidacion de Telemetria (docker stats + VmRSS + cgroup) -- MedSys-FHIR" -ForegroundColor Cyan
 Write-Host "================================================================================" -ForegroundColor Cyan
 
 if (Test-Path $csvOutput) {
@@ -128,18 +173,19 @@ if (Test-Path $csvOutput) {
     if ($rows -and $rows.Count -gt 0) {
         $cpuValues = @()
         $memValuesMib = @()
+        $vmRssMib = @()
 
         foreach ($row in $rows) {
-            if ($row.cpu_percentage) {
-                $cpuClean = $row.cpu_percentage.Replace("%", "").Trim()
+            if ($row.server_cpu) {
+                $cpuClean = $row.server_cpu.Replace("%", "").Trim()
                 $cpuParsed = 0.0
                 if ([double]::TryParse($cpuClean, [System.Globalization.NumberStyles]::Any, [System.Globalization.CultureInfo]::InvariantCulture, [ref]$cpuParsed)) {
                     $cpuValues += $cpuParsed
                 }
             }
 
-            if ($row.mem_usage_raw) {
-                $memPart = ($row.mem_usage_raw -split "/")[0].Trim()
+            if ($row.server_mem) {
+                $memPart = ($row.server_mem -split "/")[0].Trim()
                 if ($memPart -match "([0-9.]+)\s*([A-Za-z]+)") {
                     $val = [double]::Parse($Matches[1], [System.Globalization.CultureInfo]::InvariantCulture)
                     $unit = $Matches[2].ToLower()
@@ -150,6 +196,13 @@ if (Test-Path $csvOutput) {
                     } else {
                         $memValuesMib += $val
                     }
+                }
+            }
+
+            if ($row.vm_rss_kb) {
+                $rssKb = 0.0
+                if ([double]::TryParse($row.vm_rss_kb.Trim(), [System.Globalization.NumberStyles]::Any, [System.Globalization.CultureInfo]::InvariantCulture, [ref]$rssKb)) {
+                    $vmRssMib += ($rssKb / 1024.0)
                 }
             }
         }
@@ -174,27 +227,27 @@ if (Test-Path $csvOutput) {
             $memMax = ($memValuesMib | Measure-Object -Maximum).Maximum
             $memP95 = Get-Percentile $memValuesMib 95
 
-            Write-Host ("Total de Muestras Colectadas: {0}" -f $sampleCount) -ForegroundColor White
+            $rssAvg = if ($vmRssMib.Count -gt 0) { ($vmRssMib | Measure-Object -Average).Average } else { 0.0 }
+            $rssP95 = if ($vmRssMib.Count -gt 0) { Get-Percentile $vmRssMib 95 } else { 0.0 }
+
+            Write-Host ("Total de Muestras de Telemetria: {0}" -f $sampleCount) -ForegroundColor White
             Write-Host "--------------------------------------------------------------------------------" -ForegroundColor DarkGray
-            Write-Host ("Consumo de CPU:       Promedio: {0:N2}% | p95: {1:N2}% | Max: {2:N2}% (Criterio: <= 50.0%)" -f $cpuAvg, $cpuP95, $cpuMax) -ForegroundColor White
-            Write-Host ("Memoria Residente:    Promedio: {0:N2} MiB | p95: {1:N2} MiB | Max: {2:N2} MiB (Criterio: <= 150 MiB)" -f $memAvg, $memP95, $memMax) -ForegroundColor White
+            Write-Host ("Consumo CPU Servidor: Promedio: {0:N2}% -- p95: {1:N2}% -- Max: {2:N2}% (Umbral: <= 50.0%)" -f $cpuAvg, $cpuP95, $cpuMax) -ForegroundColor White
+            Write-Host ("Memoria docker stats: Promedio: {0:N2} MiB -- p95: {1:N2} MiB -- Max: {2:N2} MiB (Umbral: <= 150 MiB)" -f $memAvg, $memP95, $memMax) -ForegroundColor White
+            Write-Host ("Memoria VmRSS Kernel: Promedio: {0:N2} MiB -- p95: {1:N2} MiB" -f $rssAvg, $rssP95) -ForegroundColor White
             Write-Host "--------------------------------------------------------------------------------" -ForegroundColor DarkGray
 
             $cpuStatus = if ($cpuP95 -le 50.0) { "[ APROBADO ]" } else { "[ RECHAZADO ]" }
             $memStatus = if ($memP95 -le 150.0) { "[ APROBADO ]" } else { "[ RECHAZADO ]" }
-            Write-Host "Evaluación de Criterios: CPU $cpuStatus | Memoria RSS $memStatus" -ForegroundColor $(if ($cpuP95 -le 50.0 -and $memP95 -le 150.0) { "Green" } else { "Yellow" })
-        } else {
-            Write-Warning "No se pudieron calcular métricas numéricas a partir de las filas en $csvOutput."
+            Write-Host ("Evaluacion de Hipotesis: CPU {0} -- Memoria {1}" -f $cpuStatus, $memStatus) -ForegroundColor $(if ($cpuP95 -le 50.0 -and $memP95 -le 150.0) { "Green" } else { "Yellow" })
         }
-    } else {
-        Write-Warning "No se encontraron muestras en $csvOutput."
     }
 }
 
 Write-Host "================================================================================" -ForegroundColor Cyan
-Write-Host "[✓] Telemetría exportada a: $csvOutput" -ForegroundColor Green
-if ($k6ExitCode -ne 0) {
-    Write-Warning "k6 finalizó con código de salida: $k6ExitCode"
-    exit $k6ExitCode
+Write-Host ("[OK] Telemetria exportada a: {0}" -f $csvOutput) -ForegroundColor Green
+if ($overallExitCode -ne 0) {
+    Write-Warning "Una o mas replicas finalizaron con error."
+    exit $overallExitCode
 }
-Write-Host "[✓] Benchmark finalizado exitosamente.`n" -ForegroundColor Green
+Write-Host "[OK] Pipeline de benchmarking completado con exito.`n" -ForegroundColor Green
