@@ -50,8 +50,8 @@ fn test_schema_sql_contract_integrity() {
     assert!(SCHEMA_SQL.contains("codigo_cie10 VARCHAR(10) NOT NULL"));
 
     // Validar que los datos sintéticos de prueba estén presentes
-    assert!(SCHEMA_SQL.contains("ROMA900101HCSNN01"));
-    assert!(SCHEMA_SQL.contains("LOPE950512MCSNN02"));
+    assert!(SCHEMA_SQL.contains("ROMA900101HCSMNL09"));
+    assert!(SCHEMA_SQL.contains("LOPE950512MCSPRN07"));
     assert!(SCHEMA_SQL.contains("8472910"));
     assert!(SCHEMA_SQL.contains("I10"));
     assert!(SCHEMA_SQL.contains("G43.9"));
@@ -64,7 +64,7 @@ fn test_synthetic_data_persistence_mapping_to_fhir_e2e() {
     // 1. Paciente 1 (Alberto Manuel Ramos Gómez)
     let paciente_entity = PacienteEntity {
         id_paciente: 1,
-        curp: "ROMA900101HCSNN01".to_string(),
+        curp: "ROMA900101HCSMNL09".to_string(),
         primer_nombre: "Alberto".to_string(),
         segundo_nombre: Some("Manuel".to_string()),
         apellido_paterno: "Ramos".to_string(),
@@ -86,7 +86,7 @@ fn test_synthetic_data_persistence_mapping_to_fhir_e2e() {
         .expect("Fallo serialize Patient");
 
     assert!(patient_json.contains("\"resourceType\": \"Patient\""));
-    assert!(patient_json.contains("ROMA900101HCSNN01"));
+    assert!(patient_json.contains("ROMA900101HCSMNL09"));
     assert!(patient_json.contains("Ramos Gómez"));
     assert!(patient_json.contains("Alberto"));
     assert!(patient_json.contains("1990-01-01"));
@@ -229,13 +229,13 @@ async fn test_live_postgresql_persistence_when_available() {
                 .await
                 .expect("Fallo al buscar paciente 1");
             assert_eq!(paciente_1.id_paciente, 1);
-            assert_eq!(paciente_1.curp, "ROMA900101HCSNN01");
+            assert_eq!(paciente_1.curp, "ROMA900101HCSMNL09");
             assert_eq!(paciente_1.primer_nombre, "Alberto");
             assert_eq!(paciente_1.apellido_paterno, "Ramos");
 
             let paciente_curp = repos
                 .pacientes
-                .find_by_curp("LOPE950512MCSNN02")
+                .find_by_curp("LOPE950512MCSPRN07")
                 .await
                 .expect("Fallo al buscar paciente por CURP");
             assert_eq!(paciente_curp.primer_nombre, "Mariana");

@@ -31,6 +31,8 @@ pub enum ServerError {
 
 impl IntoResponse for ServerError {
     fn into_response(self) -> Response {
+        // Catálogo oficial http://hl7.org/fhir/issue-type:
+        // 400 -> invalid, 404 -> not-found, 422 -> processing, 500/503 -> exception/transient.
         let (status, issue_code, diagnostics) = match &self {
             ServerError::Domain(MedSysError::NotFound(msg)) => {
                 (StatusCode::NOT_FOUND, "not-found", msg.clone())
@@ -38,11 +40,11 @@ impl IntoResponse for ServerError {
             ServerError::NotFound(msg) => (StatusCode::NOT_FOUND, "not-found", msg.clone()),
             ServerError::Domain(MedSysError::ValidationError(msg))
             | ServerError::Domain(MedSysError::InvalidRule(msg)) => {
-                (StatusCode::UNPROCESSABLE_ENTITY, "invalid", msg.clone())
+                (StatusCode::UNPROCESSABLE_ENTITY, "processing", msg.clone())
             }
             ServerError::Domain(MedSysError::MissingField { field, resource }) => (
                 StatusCode::UNPROCESSABLE_ENTITY,
-                "required",
+                "processing",
                 format!("Campo requerido '{field}' faltante para el recurso '{resource}'"),
             ),
             ServerError::Domain(MedSysError::ProcessingError(msg)) => (
@@ -50,19 +52,19 @@ impl IntoResponse for ServerError {
                 "processing",
                 format!("Error de procesamiento o corrupción de datos clínicos: {msg}"),
             ),
-            ServerError::InvalidPath(msg) => (StatusCode::BAD_REQUEST, "value", msg.clone()),
+            ServerError::InvalidPath(msg) => (StatusCode::BAD_REQUEST, "invalid", msg.clone()),
             ServerError::Domain(MedSysError::DatabaseError(msg)) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
+                StatusCode::SERVICE_UNAVAILABLE,
                 "transient",
                 format!("Error de persistencia: {msg}"),
             ),
             ServerError::Database(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
+                StatusCode::SERVICE_UNAVAILABLE,
                 "transient",
                 format!("Error de persistencia relacional: {err}"),
             ),
             ServerError::Domain(MedSysError::TransformationError(msg)) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
+                StatusCode::UNPROCESSABLE_ENTITY,
                 "processing",
                 format!("Fallo durante la transformación FHIR: {msg}"),
             ),

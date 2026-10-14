@@ -1,97 +1,43 @@
-# ESTADO ACTIVO DEL PROYECTO (STATE.md) — MedSys-FHIR
+# ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-02T09:45:00-06:00
-- **Sprint Activo:** Mantenimiento y cumplimiento normativo de privacidad LGPDPPSO (2025).
-- **Estado General:** 16 / 16 tareas completadas (100.0%) — Conformidad estricta LGPDPPSO.
-- **Tarea en Curso:** Ninguna (Corrección de privacidad completada).
-- **Última Tarea Cerrada:** Eliminación de directiva telefono_contacto en reglas YAML y telecom en recurso Patient por LGPDPPSO (2025).
-- **Siguiente Tarea Inmediata:** Despliegue en producción / Defensa de Tesis UNACH 2026.
-- **Estado del Build:** PASS (Backend Rust GNU/MinGW: 55/55 tests PASS, Clippy 0 warnings con `-D warnings`, rustfmt PASS; Frontend Dashboard React 19 + Vite: build PASS, oxlint 0 warnings/0 errors).
+- **Última Actualización:** 2026-10-14T11:05:00-06:00
+- **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
+- **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`). Sprint 5 COMPLETADO: **Sprint 5 — Saneamiento del Esquema Base (`S0`), Fin de `fallback_value`, `Observation` 1:4 y `OperationOutcome` Canónico** (`.agents/backlog/sprint_5_alineacion_base_s0.md`)
+- **Estado General:** 20 / 36 tareas completadas (55.6% — Sprints 1 al 5 completados; Sprints 6 al 9 listos).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.1**).
+- **Última Tarea Cerrada:** **Tarea 5.4** (Sprint 5 completo). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (100 % PASS).
+- **Siguiente Tarea Inmediata:** **Tarea 6.1** (ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Estado Actual del Build Antes de Iniciar Sprint 5:**
+  - `medsys-db` y `medsys-server`: PASS (35/35 tests).
+  - `medsys-core`: 22/24 tests PASS, **2 tests fallando** (`test_parse_embedded_specification_yaml` y `test_observation_resource_mappings`) debido a que en `fase0-sync` se añadió `respiratory_rate` (`9279-1`) en `mapping_rules.yaml` pero faltó incluir `heart_rate` (`8867-4`), actualizar `observation.rs` y remover `fallback_value`. Esto se corrige en el **Sprint 5**.
 
 ---
 
-## 1. Decisiones Arquitectónicas Establecidas
-1. **Lenguaje y Stack:** Rust 2021, runtime Tokio, framework Axum 0.8, Tower / Tower-HTTP 0.6, SQLx 0.8 para persistencia de solo lectura en PostgreSQL 16.
-2. **Entorno de Compilación:** Toolchain Rust GNU `stable-x86_64-pc-windows-gnu` con MinGW-w64 (`C:\msys64\mingw64\bin`) configurado en el entorno de usuario.
-3. **Estándar:** HL7 FHIR R4 oficial vía crate `helios-fhir` v0.2 (`R4`).
-4. **Reglas Declarativas de Mapeo (v1.1.0):**
-   - El archivo `mapping_rules.yaml` opera bajo la versión `1.1.0`, completamente homologado con `crates/medsys-core/src/engine/transform.rs`, la NOM-004-SSA3-2012 y HL7 FHIR R4.
-   - `Patient`: CURP oficial (`urn:oid:2.16.840.1.113883.4.629`, use "official"), desglose de nombres de pila y combinación declarativa de apellidos (`combine_with: "apellido_materno"`).
-   - `Encounter`: Clasificación ambulatoria obligatoria `AMB` (`http://terminology.hl7.org/CodeSystem/v3-ActCode`), periodo de atención `start`/`end`, participante médico con Cédula SEP (`http://cedulaprofesional.sep.gob.mx`).
-   - `Observation`: Desacoplado formalmente en 2 perfiles/recursos canónicos independientes:
-     - *Recurso 3A:* Panel de Presión Arterial (`http://hl7.org/fhir/StructureDefinition/bp`, LOINC `85354-9`) con subcomponentes sistólica (LOINC `8480-6`) y diastólica (LOINC `8462-4`) en `mmHg`.
-     - *Recurso 3B:* Temperatura Corporal (`http://hl7.org/fhir/StructureDefinition/bodytemp`, LOINC `8310-5`) en unidad UCUM `Cel`.
-   - `Condition`: Catálogo internacional CIE-10 (`http://hl7.org/fhir/sid/icd-10`), estado clínico `active` y estado de verificación tipado desde `tipo_diagnostico` (`confirmed` / `provisional`).
-5. **Servidor Axum y Endpoints REST FHIR Canónicos (Tarea 4.1):**
-   - Servidor montado en `crates/medsys-server` exponiendo los recursos FHIR bajo el prefijo canónico `/fhir/r4/`:
-     - `GET /fhir/r4/Patient/{id}` y `GET /fhir/r4/Patient` (Bundle searchset).
-     - `GET /fhir/r4/Encounter/{id}` y `GET /fhir/r4/Encounter` (Bundle searchset, filtro opcional `?patient={id}`).
-     - `GET /fhir/r4/Observation/{id}` (soporte para prefijos `bp-{id}`, `temp-{id}` o id puro) y `GET /fhir/r4/Observation` (Bundle searchset que emite las 2 observaciones desacopladas por cada signo vital).
-     - `GET /fhir/r4/Condition/{id}` (soporte para prefijo `cond-{id}` o id puro) y `GET /fhir/r4/Condition` (Bundle searchset, filtros por paciente, consulta o código CIE-10).
-   - Negociación estricta de contenido con cabecera `Content-Type: application/fhir+json; charset=utf-8` mediante struct `FhirResponse`.
-   - Middlewares de telemetría con `tracing` (`TraceLayer::new_for_http()`) y CORS permisivo (`CorsLayer`) para el Dashboard React.
-6. **Manejo Global de Excepciones Clínicas con OperationOutcome (Tarea 4.2):**
-   - Implementado el trait `IntoResponse` en `ServerError` mapeando todas las excepciones de dominio (`MedSysError`), persistencia (`sqlx::Error`), errores de ruta y fallos JSON.
-   - Todo error 404 (`not-found`), 422 (`invalid` / `required`), 500 (`transient` / `processing` / `exception`) y 400 (`value`) emite invariablemente el recurso canónico `OperationOutcome` con cabecera `Content-Type: application/fhir+json; charset=utf-8` y diagnósticos en español técnico. Cero respuestas de error con JSON genérico.
-   - Implementado fallback universal de enrutador `not_found_fallback` que captura cualquier URI inexistente y devuelve `OperationOutcome` 404.
-   - Endpoints auxiliares de salud y monitoreo (`/health`, `/api/health`) e inspección relacional/comparativa para el frontend (`/api/legacy/patients`, `/api/legacy/patients/{id}/full`).
-7. **Infraestructura de Persistencia Relacional y Pool SQLx:**
-   - PostgreSQL 16 contenerizado con esquema `schema_legado_simulado_nom004.sql`.
-   - Pool asíncrono con `sqlx::PgPool` gestionado por `medsys_db::DbManager` y `MedsysRepositories`. Invariantes de seguridad: Cero mutaciones, consultas 100% parametrizadas con placeholders `$1`, `$2`... previniendo inyección SQL.
+## 1. Resumen de Brechas Detectadas que Resuelven los Sprints 5 al 9
+1. **Sprint 5 (Saneamiento Base `S0`):**
+   - Elimina `fallback_value: "provisional"` y `use_data_absent_reason` de `mapping_rules.yaml` y de `medsys-core` (cumpliendo la política *Fail-Closed* D-006/D-029).
+   - Completa los 4 bloques de `Observation` en `mapping_rules.yaml` (`85354-9` PA, `8310-5` Temp, `8867-4` FC y `9279-1` FR con `optional: true`) y restituye `telefono_contacto` (`optional: true`) en `Patient.telecom[0]`.
+   - Implementa `transform_observation_respiratory_rate`, validación regex de 18 caracteres de RENAPO para `curp` (`T5`), exposición de `resp-{id}` / `{id}-resp` en `medsys-server`, y homologa los códigos `IssueType` de `OperationOutcome` (`400 -> invalid`, `404 -> not-found`, `422 -> processing`, `500/503 -> exception/transient`).
+2. **Sprint 6 (Motor DSL YAML v1.2 y SQL Dinámico):**
+   - Añade soporte declarativo para `lookup`, `parse_datetime`, `split_part`, `unit_conversion`, `distinct_on`, `parent_checks` y zona horaria `America/Mexico_City` (`chrono-tz`).
+   - Implementa el validador de lista blanca (*allowlist*) al arranque (*Fail-Fast*), el constructor `DynamicSqlBuilder`, transacciones `REPEATABLE READ READ ONLY` y verificación activa de existencia de llaves foráneas padres (`T4`).
+3. **Sprint 7 (Banco Multi-Esquema `S0`–`S3` y Semilla `SEED=20260930`):**
+   - Crea los 4 esquemas DDL (`schema_s0_base.sql`, `schema_s1_flat.sql`, `schema_s2_lookup.sql`, `schema_s3_legacy.sql`) con el rol de solo lectura `medsys_ro` y los 4 archivos `config/mapping_rules_s{0..3}.yaml`.
+   - Actualiza `scripts/generate_data.py` (`SEED=20260930`) para inyectar exactamente 10 % de `NULL` en `frecuencia_respiratoria` (250 nulos $\rightarrow$ **9,750 recursos `Observation`** y **16,250 recursos FHIR R4 en total**) y 10 % de `NULL` en `tipo_diagnostico`.
+4. **Sprint 8 (Oráculo Diferencial en Python y Corpus `T1`–`T5`):**
+   - Crea `scripts/oracle_verifier.py` (con modo `--run-mutations` para 20 mutaciones) y el corpus de 100 fallas clínicas `tests/fault_corpus/fault_corpus_100.json` (`T1` a `T5`, 20 casos por categoría) junto con `scripts/run_fault_corpus.py`.
+5. **Sprint 9 (Docker `cgroups v2`, Censo HL7 16,250 JSON, `k6` 50 VUs y Tag `v1.2.0-eval`):**
+   - Homologa límites `cgroups v2` en `docker-compose.yml` y `docker/docker-compose.yml` (`medsys-server`: 1 vCPU / 256 MB; `postgres`: 1 vCPU / 512 MB), repara la sintaxis de los scripts PowerShell de `k6`, actualiza `export_fhir_samples.py` para los 16,250 recursos y congela `v1.2.0-eval`.
 
 ---
 
-## 2. Archivos Creados / Modificados en este Turno
-- `Cargo.toml`: Adición de `axum`, `tower` y `tower-http` a dependencias del workspace.
-- `crates/medsys-core/src/engine/transform.rs`: Funciones constructoras canónicas `create_operation_outcome` y `create_searchset_bundle`.
-- `crates/medsys-core/src/engine/mod.rs`: Pruebas unitarias de serialización canónica para `OperationOutcome` y `Bundle`.
-- `crates/medsys-core/src/lib.rs`: Exportación pública de `create_operation_outcome` y `create_searchset_bundle`.
-- `crates/medsys-server/Cargo.toml`: Configuración de dependencias (`axum`, `tower`, `tower-http`, `helios-fhir`, `sqlx`, `chrono`, `http-body-util`).
-- `crates/medsys-server/src/error.rs`: Manejador centralizado de errores `ServerError` implementando `IntoResponse` hacia `OperationOutcome`, constante `FHIR_JSON_CONTENT_TYPE` y `not_found_fallback`.
-- `crates/medsys-server/src/response.rs`: Wrapper `FhirResponse` que garantiza emisión de cabecera `application/fhir+json`.
-- `crates/medsys-server/src/state.rs`: `AppState` thread-safe conteniendo repositorios, reglas de mapeo, pool y temporizador de uptime.
-- `crates/medsys-server/src/config.rs`: `ServerConfig` para lectura de host, puerto, URL de BD y ruta de especificación YAML.
-- `crates/medsys-server/src/handlers/patient.rs`: Endpoints `GET /fhir/r4/Patient/{id}` y `GET /fhir/r4/Patient`.
-- `crates/medsys-server/src/handlers/encounter.rs`: Endpoints `GET /fhir/r4/Encounter/{id}` y `GET /fhir/r4/Encounter`.
-- `crates/medsys-server/src/handlers/observation.rs`: Endpoints `GET /fhir/r4/Observation/{id}` y `GET /fhir/r4/Observation`.
-- `crates/medsys-server/src/handlers/condition.rs`: Endpoints `GET /fhir/r4/Condition/{id}` y `GET /fhir/r4/Condition`.
-- `crates/medsys-server/src/handlers/health.rs`: Endpoints `/health` y `/api/health`.
-- `crates/medsys-server/src/handlers/legacy.rs`: Endpoints `/api/legacy/patients` y `/api/legacy/patients/{id}/full` para el Dashboard.
-- `crates/medsys-server/src/config.rs`: Soporte dual para variables `SERVER_PORT`/`SERVER_HOST` con fallback a 3000.
-- `dashboard/package.json`: Configuración de dependencias React 19 (`^19.2.8`), Vite 8, Tailwind CSS y Lucide Icons.
-- `dashboard/vite.config.js`: Configuración de proxy HTTP hacia `http://localhost:3000` (`/fhir`, `/health`, `/api`).
-- `dashboard/src/services/api.js`: Cliente API con medición de latencia en ms, emisor de eventos y fallback automático a datos sintéticos.
-- `dashboard/src/services/mockData.js`: Datos sintéticos de `tbl_pacientes`, `tbl_consultas`, `tbl_signos_vitales`, `tbl_diagnosticos` y sus recursos FHIR correspondientes.
-- `dashboard/src/components/Header.jsx`: Encabezado sticky con badges de arquitectura, estado en vivo y pestañas de navegación.
-- `dashboard/src/components/MetricsPanel.jsx`: 4 tarjetas de métricas en tiempo real (salud, latencia, base de datos, total transacciones).
-- `dashboard/src/components/FhirViewer.jsx`: Navegador interactivo de recursos FHIR R4 (`Patient`, `Encounter`, `Observation`, `Condition`) con soporte para instancias individuales y Bundles searchset.
-- `dashboard/src/components/InteroperabilityComparator.jsx`: Demostración visual trifásica lado a lado (Fila relacional NOM-004 ⇄ Reglas YAML ⇄ Recurso FHIR R4).
-- `dashboard/src/components/EventConsole.jsx`: Stream de peticiones HTTP, códigos de estado, disparador de fallos diagnósticos e inspección de `OperationOutcome`.
-- `dashboard/src/components/JsonSyntaxHighlighter.jsx`: Resaltador sintáctico para JSON FHIR con botones de copia y descarga.
-- `dashboard/src/App.jsx`: Ensamblado de componentes, polling periódico y footer académico UNACH 2026.
-- `dashboard/README.md`: Documentación completa de arquitectura y ejecución del Dashboard.
-- `crates/medsys-server/tests/e2e_interoperability.rs`: Suite de pruebas E2E con 8 casos validando el flujo completo HTTP ➔ FHIR R4.
-- `tests/k6/smoke_test.js`: Prueba de humo de disponibilidad y esquemas FHIR R4 en k6.
-- `tests/k6/load_test.js`: Prueba de carga y concurrencia clínica en k6 (20 VUs sostenidas).
-- `tests/k6/resilience_and_errors_test.js`: Prueba de estrés de errores OperationOutcome (100% conformidad, p95=1.14ms).
-- `tests/k6/run_all_benchmarks.ps1`: Automatizador de ejecución de benchmarks en PowerShell.
-- `tests/k6/README.md`: Documentación de la suite k6 para la tesis.
-- `DEPLOYMENT.md`: Manual integral de arquitectura, despliegue y entrega de tesis.
-- `Cargo.toml`: Configuración de perfil release con LTO, strip y optimizaciones de compilador.
-- `BACKLOG.md`: Tarea 4.4 completada `[x]`, 16/16 tareas (100.0%).
-- `.agents/backlog/sprint_4_axum_dashboard.md`: Tarea 4.4 completada `[x]`.
-- `mapping_rules.yaml`: Supresión completa del mapeo de `telefono_contacto` hacia `telecom[0].value` en el recurso `Patient`. Desacoplamiento normativo FHIR R4 de conceptos clínicos LOINC (`8480-6`, `8462-4` bajo `component[i].code.coding[0]`) y magnitudes métricas UCUM (`mm[Hg]` bajo `component[i].valueQuantity`) para el panel de Presión Arterial (AUD-001 / CON-004).
-- `crates/medsys-core/src/model/mapping.rs`: Incorporación de campos `display` en `FieldMapping`, `profile` y `observation_type` en `ResourceMapping`, helper `get_observation_mapping` en `MappingRules`, y derive `Default`.
-- `crates/medsys-core/src/engine/evaluator.rs`: Soporte para valores numéricos enteros/decimales en `valueQuantity` e inyección de `display` en codings de FHIR.
-- `crates/medsys-core/src/engine/transform.rs`: Transformación de `Observation` (Presión Arterial) adaptada para leer dinámicamente reglas declarativas desacopladas o aplicar valores normativos HL7 FHIR R4 por defecto.
-- `crates/medsys-core/src/engine/mod.rs`: Pruebas ampliadas `test_observation_resource_mappings`, `test_tarea_2_3_transform_observation_vital_signs` y nueva prueba `test_evaluator_observation_blood_pressure_declarative`.
-- `crates/medsys-db/tests/persistence_integration.rs`: Aserciones normativas de sistemas `http://loinc.org` y `http://unitsofmeasure.org` en serialización de `Observation`.
-- `crates/medsys-server/tests/e2e_interoperability.rs`: Aserciones de conformidad HL7 FHIR R4 para LOINC y UCUM en endpoint `/fhir/r4/Observation/bp-1`.
+## 2. Instrucción de Arranque para el Agente
+Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"`, abre inmediatamente `.agents/backlog/sprint_5_alineacion_base_s0.md` y ejecuta la **Tarea 5.1**.
 
 ---
 
-## 3. Estado de Entrega y Cierre
-El proyecto **MedSys-FHIR** ha culminado el 100% de su cronograma de desarrollo e investigación para la titulación de licenciatura en la UNACH.
-Todos los artefactos de código, suites de pruebas unitarias/integración/E2E, suite de benchmarking con k6, panel analítico en React 19 y manuales de despliegue se encuentran probados, compilados y verificados bajo cero errores y cero advertencias.
-Con la resolución de AUD-001 / CON-004, los componentes de Presión Arterial cumplen estrictamente con la especificación normativa de HL7 FHIR R4 ante validadores sintácticos oficiales.
+## 3. Registro de Cierre del Sprint 5
+**Modificados:** `mapping_rules.yaml` (v1.2.0, 7 bloques, sin fallback/absent-reason, `telefono_contacto` opcional, `heart_rate` y `respiratory_rate` opcional); `medsys-core`: `model/mapping.rs` (removidos `fallback_value`/`use_data_absent_reason`), `engine/evaluator.rs` (política Fail-Closed, eliminados helpers `*_with_fallback`), `engine/transform.rs` (`is_valid_curp` T5, telecom opcional, sexo obligatorio, Condition `verificationStatus` opcional/T3, `transform_observation_respiratory_rate`), `engine/mod.rs` (tests), `lib.rs`; `medsys-server`: `handlers/observation.rs` (prefijo/sufijo bp/temp/hr/resp/rr, 404 si resp NULL, lista 1:4), `handlers/legacy.rs` (4 Observations), `error.rs` (invalid/not-found/processing/transient, 503 en BD); tests `e2e_interoperability.rs` y `server_integration.rs`.
+**CURPs sintéticas corregidas a formato RENAPO válido** (antes tenían 17 caracteres): `ROMA900101HCSMNL09` y `LOPE950512MCSPRN07` en `schema_legado_simulado_nom004.sql`, `scripts/generate_data.py` (fallback de unicidad ahora termina en dígito), `dashboard/src/services/mockData.js` y tests de `medsys-db`.
+**Pendiente:** regenerar datos con `generate_data.py` y verificar CURPs en BD viva (Sprint 7).

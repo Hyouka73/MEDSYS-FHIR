@@ -4,7 +4,7 @@
 # Estándar destino: HL7 FHIR Release 4 (R4)
 # ==============================================================================
 
-version: "1.1.0"
+version: "1.2.0"
 description: "Reglas de transformación entre esquema relacional legado simulado (NOM-004/NOM-024) y HL7 FHIR R4"
 
 resources:
@@ -37,9 +37,12 @@ resources:
           "M": "male"
           "F": "female"
           "I": "other"
-        # Razón de ausencia clínica (data-absent-reason): Si el dato original está corrupto, nulo o no existe en el diccionario,
-        # el motor inyecta la extensión canónica FHIR data-absent-reason con valueCode: error.
-        use_data_absent_reason: true
+        # Fail-Closed: sexo_biologico es obligatorio; nulo o fuera de catalogo => HTTP 422.
+      - source_column: "telefono_contacto"
+        target_path: "telecom[0].value"
+        system: "phone"
+        use: "mobile"
+        optional: true
 
 
   # ----------------------------------------------------------------------------
@@ -160,7 +163,40 @@ resources:
         system: "http://unitsofmeasure.org"
 
   # ----------------------------------------------------------------------------
-  # RECURSO 3C: Observation - Frecuencia Respiratoria (LOINC 9279-1)
+  # RECURSO 3C: Observation - Frecuencia Cardiaca (LOINC 8867-4)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/heartrate"
+    source_table: "tbl_signos_vitales"
+    primary_key: "id_signo"
+    observation_type: "heart_rate"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "8867-4"
+        target_path: "code.coding[0].code"
+        display: "Heart rate"
+        system: "http://loinc.org"
+      - source_column: "id_paciente"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "id_consulta"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fecha_registro"
+        target_path: "effectiveDateTime"
+        transform: "datetime_iso8601"
+      - source_column: "frecuencia_cardiaca"
+        target_path: "valueQuantity.value"
+        unit: "/min"
+        code: "/min"
+        system: "http://unitsofmeasure.org"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3D: Observation - Frecuencia Respiratoria (LOINC 9279-1, opcional)
   # ----------------------------------------------------------------------------
   - resource_type: "Observation"
     profile: "http://hl7.org/fhir/StructureDefinition/resprate"
@@ -177,7 +213,6 @@ resources:
         target_path: "code.coding[0].code"
         display: "Respiratory rate"
         system: "http://loinc.org"
-        # VERIFICAR código en loinc.org
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"
@@ -192,6 +227,7 @@ resources:
         unit: "/min"
         code: "/min"
         system: "http://unitsofmeasure.org"
+        optional: true
 
   # ----------------------------------------------------------------------------
   # RECURSO 4: Condition (Diagnósticos clínicos codificados bajo CIE-10)
@@ -209,7 +245,7 @@ resources:
         dictionary:
           "CONFIRMADO": "confirmed"
           "PRESUNTIVO": "provisional"
-        fallback_value: "provisional"
+        optional: true
       - source_column: "id_paciente"
         target_path: "subject.reference"
         transform: "reference:Patient/{value}"
@@ -224,6 +260,3 @@ resources:
       - source_column: "fecha_diagnostico"
         target_path: "recordedDate"
         transform: "date_iso8601"
-        # Razón de ausencia clínica (data-absent-reason): Se usará si el dato original de fecha está corrupto, malformado o no parseable,
-        # inyectando la extensión canónica FHIR data-absent-reason con valueCode: error en lugar de falsear datos.
-        use_data_absent_reason: true

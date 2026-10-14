@@ -132,18 +132,6 @@ pub fn set_json_path(root: &mut Value, path: &str, new_value: Value) -> Result<(
     Ok(())
 }
 
-/// Construye la estructura JSON canónica de la extensión FHIR data-absent-reason.
-pub fn fhir_data_absent_reason_json() -> Value {
-    json!({
-        "extension": [
-            {
-                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                "valueCode": "error"
-            }
-        ]
-    })
-}
-
 /// Parsea una fecha hacia el formato canónico ISO 8601 (`YYYY-MM-DD`).
 pub fn parse_date_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
@@ -168,20 +156,6 @@ pub fn parse_date_iso8601(raw: &str) -> Result<String> {
     }
 }
 
-/// Helper para compatibilidad hacia atrás en caso de requerir un valor de contingencia opcional.
-pub fn parse_date_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
-    match parse_date_iso8601(raw) {
-        Ok(val) => Ok(val),
-        Err(err) => {
-            if let Some(fb) = fallback {
-                Ok(fb.to_string())
-            } else {
-                Err(err)
-            }
-        }
-    }
-}
-
 /// Parsea fecha y hora hacia el formato canónico ISO 8601 (`YYYY-MM-DDTHH:MM:SS`).
 pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
@@ -200,20 +174,6 @@ pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
         Err(err) => Err(MedSysError::TransformationError(format!(
             "Fallo al parsear fecha y hora '{raw}' con transformación datetime_iso8601: {err}"
         ))),
-    }
-}
-
-/// Helper para compatibilidad hacia atrás en caso de requerir un valor de contingencia opcional.
-pub fn parse_datetime_iso8601_with_fallback(raw: &str, fallback: Option<&str>) -> Result<String> {
-    match parse_datetime_iso8601(raw) {
-        Ok(val) => Ok(val),
-        Err(err) => {
-            if let Some(fb) = fallback {
-                Ok(fb.to_string())
-            } else {
-                Err(err)
-            }
-        }
     }
 }
 
@@ -256,8 +216,12 @@ pub fn apply_dictionary(
 }
 
 /// Evalúa una regla individual `FieldMapping` contra una fila de datos origen y escribe el resultado en `target_json`.
-/// Si el casteo o extracción falla y `use_data_absent_reason` es true, inyecta la extensión canónica FHIR
-/// `data-absent-reason` en el nodo de destino. Si falla en un campo crítico obligatorio, retorna `ProcessingError`.
+///
+/// Política de Fidelidad Clínica (*Fail-Closed*): el motor nunca inventa ni sustituye datos.
+/// - Columna `optional: true` con `NULL`/cadena vacía/ausente: se omite la propiedad (`Ok(())`).
+/// - Columna obligatoria con `NULL`/vacío: `ProcessingError` (HTTP 422).
+/// - Cualquier valor presente pero corrupto (fuera de diccionario, transformación fallida o no numérico),
+///   incluso en campos opcionales: `ProcessingError` (HTTP 422).
 pub fn evaluate_field_mapping(
     rule: &FieldMapping,
     resource_type: &str,
@@ -265,25 +229,13 @@ pub fn evaluate_field_mapping(
     target_json: &mut Value,
 ) -> Result<()> {
     // 1. Extracción del valor de origen o constante
-    let mut is_fallback = false;
     let extracted: Option<String> = if let Some(ref col) = rule.source_column {
         match row.get(col) {
             Some(Value::String(s)) if !s.trim().is_empty() => Some(s.clone()),
             Some(Value::Number(n)) => Some(n.to_string()),
             Some(Value::Bool(b)) => Some(b.to_string()),
             Some(Value::Null) | None | Some(Value::String(_)) => {
-                // Extracción fallida (columna ausente, nula o cadena vacía)
-                if let Some(ref fb) = rule.fallback_value {
-                    is_fallback = true;
-                    Some(fb.clone())
-                } else if rule.use_data_absent_reason() {
-                    set_json_path(
-                        target_json,
-                        &rule.target_path,
-                        fhir_data_absent_reason_json(),
-                    )?;
-                    return Ok(());
-                } else if rule.is_optional() {
+                if rule.is_optional() {
                     None
                 } else if let Some(ref cv) = rule.constant_value {
                     Some(cv.clone())
@@ -304,96 +256,47 @@ pub fn evaluate_field_mapping(
         )));
     };
 
-    // Si no se extrajo nada y es opcional, terminamos sin inyectar
+    // Omisión controlada: opcional sin dato => no se inyecta nada
     let raw_val = match extracted {
         Some(v) => v,
         None => return Ok(()),
     };
 
-    // 2. Aplicación de diccionario si existe
+    // 2. Aplicación de diccionario si existe (Fail-Closed ante valores fuera de catálogo)
     let processed_val = if let Some(ref dict) = rule.dictionary {
-        if is_fallback {
-            raw_val
-        } else {
-            match apply_dictionary(dict, &raw_val, &rule.target_path) {
-                Ok(v) => v,
-                Err(e) => {
-                    if let Some(ref fb) = rule.fallback_value {
-                        fb.clone()
-                    } else if rule.use_data_absent_reason() {
-                        set_json_path(
-                            target_json,
-                            &rule.target_path,
-                            fhir_data_absent_reason_json(),
-                        )?;
-                        return Ok(());
-                    } else if rule.is_optional() {
-                        return Ok(());
-                    } else {
-                        return Err(MedSysError::ProcessingError(format!(
-                            "Data corruption: Fallo de casteo en diccionario para campo crítico '{}': {}",
-                            rule.target_path, e
-                        )));
-                    }
-                }
-            }
-        }
+        apply_dictionary(dict, &raw_val, &rule.target_path).map_err(|e| {
+            MedSysError::ProcessingError(format!(
+                "Data corruption: Fallo de casteo en diccionario para campo '{}': {}",
+                rule.target_path, e
+            ))
+        })?
     } else {
         raw_val
     };
 
-    // 3. Aplicación de transformación si existe
+    // 3. Aplicación de transformación si existe (Fail-Closed ante datos malformados)
     let final_val = if let Some(ref trans) = rule.transform {
-        if is_fallback {
-            processed_val
-        } else {
-            match apply_transform(trans, &processed_val) {
-                Ok(v) => v,
-                Err(e) => {
-                    if let Some(ref fb) = rule.fallback_value {
-                        fb.clone()
-                    } else if rule.use_data_absent_reason() {
-                        set_json_path(
-                            target_json,
-                            &rule.target_path,
-                            fhir_data_absent_reason_json(),
-                        )?;
-                        return Ok(());
-                    } else if rule.is_optional() {
-                        return Ok(());
-                    } else {
-                        return Err(MedSysError::ProcessingError(format!(
-                            "Data corruption: Fallo de casteo en transformación '{}' para campo crítico '{}': {}",
-                            trans, rule.target_path, e
-                        )));
-                    }
-                }
-            }
-        }
+        apply_transform(trans, &processed_val).map_err(|e| {
+            MedSysError::ProcessingError(format!(
+                "Data corruption: Fallo de casteo en transformación '{}' para campo '{}': {}",
+                trans, rule.target_path, e
+            ))
+        })?
     } else {
         processed_val
     };
 
     // 4. Inyección en target_path
-    // Determinar si el valor debe ser numérico o booleano según target_path
+    // Determinar si el valor debe ser numérico según target_path
     let json_val =
         if rule.target_path.ends_with(".value") && rule.target_path.contains("valueQuantity") {
             if let Ok(int_val) = final_val.parse::<i64>() {
                 json!(int_val)
             } else if let Ok(num) = final_val.parse::<f64>() {
                 json!(num)
-            } else if rule.use_data_absent_reason() {
-                set_json_path(
-                    target_json,
-                    &rule.target_path,
-                    fhir_data_absent_reason_json(),
-                )?;
-                return Ok(());
-            } else if rule.is_optional() {
-                return Ok(());
             } else {
                 return Err(MedSysError::ProcessingError(format!(
-                    "Data corruption: No se pudo parsear como numérico el campo crítico '{}'",
+                    "Data corruption: No se pudo parsear como numérico el campo '{}'",
                     rule.target_path
                 )));
             }
@@ -416,7 +319,10 @@ pub fn evaluate_field_mapping(
 
     if let Some(ref disp) = rule.display {
         if rule.target_path.ends_with(".code") {
-            let disp_path = format!("{}.display", &rule.target_path[..rule.target_path.len() - 5]);
+            let disp_path = format!(
+                "{}.display",
+                &rule.target_path[..rule.target_path.len() - 5]
+            );
             let _ = set_json_path(target_json, &disp_path, json!(disp));
         }
     }

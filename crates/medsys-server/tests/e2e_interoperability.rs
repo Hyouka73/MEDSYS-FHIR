@@ -131,7 +131,6 @@ async fn test_e2e_fhir_patient_mapping_and_headers() {
         assert!(body.contains("\"resourceType\": \"Patient\""));
         assert!(body.contains("urn:oid:2.16.840.1.113883.4.629"));
         assert!(body.contains("\"use\": \"official\""));
-        assert!(!body.contains("\"telecom\""));
     } else {
         assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
         assert!(body.contains("\"severity\": \"error\""));
@@ -331,7 +330,7 @@ async fn test_e2e_operation_outcome_resilience_and_status_codes() {
     );
     let body_bad_id = body_to_string(res_bad_id).await;
     assert!(body_bad_id.contains("\"resourceType\": \"OperationOutcome\""));
-    assert!(body_bad_id.contains("\"code\": \"value\""));
+    assert!(body_bad_id.contains("\"code\": \"invalid\""));
 
     // 2. Error 404 por ruta inexistente (Fallback universal Axum)
     let req_fallback = Request::builder()
@@ -349,4 +348,42 @@ async fn test_e2e_operation_outcome_resilience_and_status_codes() {
     assert!(body_fallback.contains("\"resourceType\": \"OperationOutcome\""));
     assert!(body_fallback.contains("\"code\": \"not-found\""));
     assert!(body_fallback.contains("\"severity\": \"error\""));
+}
+
+#[tokio::test]
+async fn test_e2e_fhir_observation_respiratory_rate_prefix_and_suffix() {
+    for uri in ["/fhir/r4/Observation/resp-1", "/fhir/r4/Observation/1-resp"] {
+        let app = setup_e2e_app();
+        let req = Request::builder().uri(uri).body(Body::empty()).unwrap();
+        let res = app.oneshot(req).await.unwrap();
+        assert_eq!(
+            res.headers().get("content-type").unwrap(),
+            FHIR_JSON_CONTENT_TYPE
+        );
+        let status = res.status();
+        assert_ne!(status, StatusCode::BAD_REQUEST, "uri: {uri}");
+        let body = body_to_string(res).await;
+
+        if status == StatusCode::OK {
+            assert!(body.contains("\"resourceType\": \"Observation\""));
+            assert!(body.contains("9279-1")); // Respiratory rate LOINC
+            assert!(body.contains("/min"));
+        } else {
+            // 404 (frecuencia_respiratoria NULL) o 503 (sin BD): siempre OperationOutcome canónico
+            assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
+        }
+    }
+}
+
+#[tokio::test]
+async fn test_e2e_operation_outcome_bad_request_is_invalid() {
+    let app = setup_e2e_app();
+    let req = Request::builder()
+        .uri("/fhir/r4/Observation/resp-no-numerico")
+        .body(Body::empty())
+        .unwrap();
+    let res = app.oneshot(req).await.unwrap();
+    assert_eq!(res.status(), StatusCode::BAD_REQUEST);
+    let body = body_to_string(res).await;
+    assert!(body.contains("\"code\": \"invalid\""));
 }

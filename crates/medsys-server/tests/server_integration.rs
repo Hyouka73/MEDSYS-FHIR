@@ -115,7 +115,7 @@ async fn test_server_error_into_response_conformity() {
     );
     let body_422 = response_body_to_string(res_422).await;
     assert!(body_422.contains("\"resourceType\": \"OperationOutcome\""));
-    assert!(body_422.contains("\"code\": \"invalid\""));
+    assert!(body_422.contains("\"code\": \"processing\""));
     assert!(body_422.contains("CURP mal formada"));
 
     // 3. MissingField -> 422
@@ -126,7 +126,7 @@ async fn test_server_error_into_response_conformity() {
     let res_field = err_field.into_response();
     assert_eq!(res_field.status(), StatusCode::UNPROCESSABLE_ENTITY);
     let body_field = response_body_to_string(res_field).await;
-    assert!(body_field.contains("\"code\": \"required\""));
+    assert!(body_field.contains("\"code\": \"processing\""));
 
     // 4. ProcessingError -> 422
     let err_proc = ServerError::Domain(MedSysError::ProcessingError(
@@ -139,10 +139,10 @@ async fn test_server_error_into_response_conformity() {
     assert!(body_proc.contains("\"code\": \"processing\""));
     assert!(body_proc.contains("Data corruption in critical field"));
 
-    // 5. DatabaseError -> 500
+    // 5. DatabaseError -> 503
     let err_db = ServerError::Domain(MedSysError::DatabaseError("Conexión rechazada".into()));
     let res_500 = err_db.into_response();
-    assert_eq!(res_500.status(), StatusCode::INTERNAL_SERVER_ERROR);
+    assert_eq!(res_500.status(), StatusCode::SERVICE_UNAVAILABLE);
     let body_500 = response_body_to_string(res_500).await;
     assert!(body_500.contains("\"code\": \"transient\""));
 }
@@ -167,7 +167,7 @@ async fn test_invalid_path_parameter_emits_operation_outcome() {
     );
     let body = response_body_to_string(res).await;
     assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
-    assert!(body.contains("\"code\": \"value\""));
+    assert!(body.contains("\"code\": \"invalid\""));
 }
 
 #[tokio::test]
@@ -193,7 +193,7 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
     let body_patient = response_body_to_string(res_patient).await;
     if status == StatusCode::OK {
         assert!(body_patient.contains("\"resourceType\": \"Patient\""));
-        assert!(body_patient.contains("ROMA900101HCSNN01"));
+        assert!(body_patient.contains("ROMA900101HCSMNL09"));
         assert!(!body_patient.contains("\"telecom\""));
     } else {
         // En caso de que el pool esté offline o id no exista
@@ -258,5 +258,83 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
         assert!(body_cond.contains("I10"));
     } else {
         assert!(body_cond.contains("\"resourceType\": \"OperationOutcome\""));
+    }
+}
+
+#[tokio::test]
+async fn test_observation_respiratory_rate_routes_prefix_and_suffix() {
+    for uri in [
+        "/fhir/r4/Observation/resp-1",
+        "/fhir/r4/Observation/1-resp",
+        "/fhir/r4/Observation/rr-1",
+        "/fhir/r4/Observation/1-rr",
+    ] {
+        let app = setup_test_app();
+        let req = Request::builder().uri(uri).body(Body::empty()).unwrap();
+        let res = app.oneshot(req).await.unwrap();
+
+        // Siempre FHIR JSON; nunca 400 (los identificadores son válidos). Sin BD levantada: 503 transient.
+        assert_eq!(
+            res.headers().get("content-type").unwrap(),
+            FHIR_JSON_CONTENT_TYPE
+        );
+        assert_ne!(res.status(), StatusCode::BAD_REQUEST, "uri: {uri}");
+        let status = res.status();
+        let body = response_body_to_string(res).await;
+        if status == StatusCode::OK {
+            assert!(body.contains("9279-1"));
+        } else {
+            assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
+        }
+    }
+}
+
+#[tokio::test]
+async fn test_observation_malformed_ids_return_400_invalid() {
+    for uri in [
+        "/fhir/r4/Observation/resp-abc",
+        "/fhir/r4/Observation/abc-resp",
+        "/fhir/r4/Observation/xyz",
+    ] {
+        let app = setup_test_app();
+        let req = Request::builder().uri(uri).body(Body::empty()).unwrap();
+        let res = app.oneshot(req).await.unwrap();
+        assert_eq!(res.status(), StatusCode::BAD_REQUEST, "uri: {uri}");
+        let body = response_body_to_string(res).await;
+        assert!(body.contains("\"code\": \"invalid\""));
+    }
+}
+
+#[tokio::test]
+async fn test_server_error_issue_code_catalog() {
+    use axum::response::IntoResponse;
+
+    let cases: Vec<(ServerError, StatusCode, &str)> = vec![
+        (
+            ServerError::InvalidPath("id malformado".into()),
+            StatusCode::BAD_REQUEST,
+            "invalid",
+        ),
+        (
+            ServerError::NotFound("sin frecuencia respiratoria".into()),
+            StatusCode::NOT_FOUND,
+            "not-found",
+        ),
+        (
+            ServerError::Domain(MedSysError::TransformationError("fecha corrupta".into())),
+            StatusCode::UNPROCESSABLE_ENTITY,
+            "processing",
+        ),
+        (
+            ServerError::Domain(MedSysError::Internal("fallo".into())),
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "exception",
+        ),
+    ];
+    for (err, status, code) in cases {
+        let res = err.into_response();
+        assert_eq!(res.status(), status);
+        let body = response_body_to_string(res).await;
+        assert!(body.contains(&format!("\"code\": \"{code}\"")), "{code}");
     }
 }

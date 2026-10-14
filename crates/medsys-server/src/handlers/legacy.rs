@@ -6,7 +6,8 @@ use axum::Json;
 use helios_fhir::r4::Resource;
 use medsys_core::{
     serialize_to_fhir_json, transform_condition, transform_encounter,
-    transform_observation_blood_pressure, transform_observation_temperature, transform_patient,
+    transform_observation_blood_pressure, transform_observation_heart_rate,
+    transform_observation_respiratory_rate, transform_observation_temperature, transform_patient,
     LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital,
 };
 use serde::Serialize;
@@ -69,7 +70,7 @@ pub async fn get_legacy_patient_full(
         fhir_encounters.push(enc_val);
     }
 
-    let mut fhir_observations = Vec::with_capacity(signos.len() * 2);
+    let mut fhir_observations = Vec::with_capacity(signos.len() * 4);
     for s in &signos {
         let bp = transform_observation_blood_pressure(s, Some(&state.mapping_rules))?;
         let bp_str = serialize_to_fhir_json(&Resource::Observation(Box::new(bp)))?;
@@ -78,6 +79,15 @@ pub async fn get_legacy_patient_full(
         let temp = transform_observation_temperature(s, Some(&state.mapping_rules))?;
         let temp_str = serialize_to_fhir_json(&Resource::Observation(Box::new(temp)))?;
         fhir_observations.push(serde_json::from_str(&temp_str)?);
+
+        let hr = transform_observation_heart_rate(s, Some(&state.mapping_rules))?;
+        let hr_str = serialize_to_fhir_json(&Resource::Observation(Box::new(hr)))?;
+        fhir_observations.push(serde_json::from_str(&hr_str)?);
+
+        if let Some(resp) = transform_observation_respiratory_rate(s, Some(&state.mapping_rules))? {
+            let resp_str = serialize_to_fhir_json(&Resource::Observation(Box::new(resp)))?;
+            fhir_observations.push(serde_json::from_str(&resp_str)?);
+        }
     }
 
     let mut fhir_conditions = Vec::with_capacity(diagnosticos.len());

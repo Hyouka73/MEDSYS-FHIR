@@ -118,16 +118,10 @@ pub struct FieldMapping {
     pub dictionary: Option<BTreeMap<String, String>>,
 
     #[serde(default)]
-    pub fallback_value: Option<String>,
-
-    #[serde(default)]
     pub unit: Option<String>,
 
     #[serde(default)]
     pub code: Option<String>,
-
-    #[serde(default)]
-    pub use_data_absent_reason: Option<bool>,
 }
 
 impl FieldMapping {
@@ -139,10 +133,5 @@ impl FieldMapping {
     /// Retorna el atributo de uso ('use' o 'use_type') si está presente.
     pub fn effective_use(&self) -> Option<&str> {
         self.use_field.as_deref().or(self.use_type.as_deref())
-    }
-
-    /// Determina si la regla especifica el uso de la extensión FHIR `data-absent-reason`.
-    pub fn use_data_absent_reason(&self) -> bool {
-        self.use_data_absent_reason.unwrap_or(false)
     }
 }

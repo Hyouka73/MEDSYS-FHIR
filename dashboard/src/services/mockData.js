@@ -2,7 +2,7 @@
 export const MOCK_PATIENTS_LEGACY = [
   {
     id_paciente: 1,
-    curp: "ROMA900101HCSNN01",
+    curp: "ROMA900101HCSMNL09",
     primer_nombre: "Alberto",
     segundo_nombre: "Manuel",
     apellido_paterno: "Ramos",
@@ -14,7 +14,7 @@ export const MOCK_PATIENTS_LEGACY = [
   },
   {
     id_paciente: 2,
-    curp: "LOPE950512MCSNN02",
+    curp: "LOPE950512MCSPRN07",
     primer_nombre: "Sofía",
     segundo_nombre: null,
     apellido_paterno: "López",
@@ -114,7 +114,7 @@ export const MOCK_FULL_COMPARISONS = {
         {
           use: "official",
           system: "urn:oid:2.16.840.1.113883.4.629",
-          value: "ROMA900101HCSNN01"
+          value: "ROMA900101HCSMNL09"
         }
       ],
       name: [

@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS tbl_diagnosticos (
 
 INSERT INTO tbl_pacientes (curp, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, fecha_nacimiento, sexo_biologico, telefono_contacto)
 VALUES 
-('ROMA900101HCSNN01', 'Alberto', 'Manuel', 'Ramos', 'Gómez', '1990-01-01', 'M', '9611234567'),
-('LOPE950512MCSNN02', 'Mariana', NULL, 'López', 'Hernández', '1995-05-12', 'F', '9619876543');
+('ROMA900101HCSMNL09', 'Alberto', 'Manuel', 'Ramos', 'Gómez', '1990-01-01', 'M', '9611234567'),
+('LOPE950512MCSPRN07', 'Mariana', NULL, 'López', 'Hernández', '1995-05-12', 'F', '9619876543');
 
 INSERT INTO tbl_consultas (id_paciente, cedula_medico_tratante, nombre_medico, estado_consulta, motivo_consulta, fecha_hora_inicio, fecha_hora_fin)
 VALUES 

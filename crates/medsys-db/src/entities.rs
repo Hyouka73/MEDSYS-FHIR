@@ -206,7 +206,7 @@ mod tests {
     fn test_paciente_entity_conversion_roundtrip() {
         let original = LegacyPaciente {
             id_paciente: 1,
-            curp: "ROMA900101HCSNN01".to_string(),
+            curp: "ROMA900101HCSMNL09".to_string(),
             primer_nombre: "Alberto".to_string(),
             segundo_nombre: Some("Manuel".to_string()),
             apellido_paterno: "Ramos".to_string(),

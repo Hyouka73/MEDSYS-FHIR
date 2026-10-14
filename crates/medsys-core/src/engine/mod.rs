@@ -93,8 +93,8 @@ mod tests {
     fn test_parse_embedded_specification_yaml() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML)
             .expect("El archivo mapping_rules.yaml debe deserializar sin errores");
-        assert_eq!(rules.version, "1.1.0");
-        assert_eq!(rules.resources.len(), 5);
+        assert_eq!(rules.version, "1.2.0");
+        assert_eq!(rules.resources.len(), 7);
     }
 
     #[test]
@@ -130,14 +130,16 @@ mod tests {
         assert_eq!(dict.get("M").map(|s| s.as_str()), Some("male"));
         assert_eq!(dict.get("F").map(|s| s.as_str()), Some("female"));
 
-        let telecom_mapping = patient.mappings.iter().find(|m| {
-            m.source_column.as_deref() == Some("telefono_contacto")
-                || m.target_path.starts_with("telecom")
-        });
-        assert!(
-            telecom_mapping.is_none(),
-            "telefono_contacto no debe estar mapeado por LGPDPPSO"
-        );
+        let telecom_mapping = patient
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("telefono_contacto"))
+            .expect("telefono_contacto debe mapearse como opcional");
+        assert_eq!(telecom_mapping.target_path, "telecom[0].value");
+        assert_eq!(telecom_mapping.system.as_deref(), Some("phone"));
+        assert_eq!(telecom_mapping.effective_use(), Some("mobile"));
+        assert!(telecom_mapping.is_optional());
+        assert!(!gender.is_optional());
     }
 
     #[test]
@@ -168,7 +170,7 @@ mod tests {
             .iter()
             .filter(|r| r.resource_type == "Observation")
             .collect();
-        assert_eq!(observations.len(), 2);
+        assert_eq!(observations.len(), 4);
 
         // 3A: Panel de Presión Arterial
         let bp_obs = observations
@@ -203,7 +205,10 @@ mod tests {
         assert_eq!(sist_val.source_column.as_deref(), Some("presion_sistolica"));
         assert_eq!(sist_val.unit.as_deref(), Some("mmHg"));
         assert_eq!(sist_val.code.as_deref(), Some("mm[Hg]"));
-        assert_eq!(sist_val.system.as_deref(), Some("http://unitsofmeasure.org"));
+        assert_eq!(
+            sist_val.system.as_deref(),
+            Some("http://unitsofmeasure.org")
+        );
 
         // Diastólica LOINC y UCUM
         let diast_code = bp_obs
@@ -223,10 +228,16 @@ mod tests {
             .iter()
             .find(|m| m.target_path == "component[1].valueQuantity.value")
             .expect("Debe existir mapeo para valor de diastólica");
-        assert_eq!(diast_val.source_column.as_deref(), Some("presion_diastolica"));
+        assert_eq!(
+            diast_val.source_column.as_deref(),
+            Some("presion_diastolica")
+        );
         assert_eq!(diast_val.unit.as_deref(), Some("mmHg"));
         assert_eq!(diast_val.code.as_deref(), Some("mm[Hg]"));
-        assert_eq!(diast_val.system.as_deref(), Some("http://unitsofmeasure.org"));
+        assert_eq!(
+            diast_val.system.as_deref(),
+            Some("http://unitsofmeasure.org")
+        );
 
         // 3B: Temperatura Corporal
         let temp_obs = observations
@@ -247,6 +258,44 @@ mod tests {
         assert_eq!(temp.unit.as_deref(), Some("Cel"));
         assert_eq!(temp.code.as_deref(), Some("Cel"));
         assert_eq!(temp.system.as_deref(), Some("http://unitsofmeasure.org"));
+
+        // 3C: Frecuencia Cardiaca (8867-4, obligatoria)
+        let hr_obs = observations
+            .iter()
+            .find(|o| o.observation_type.as_deref() == Some("heart_rate"))
+            .expect("Observation heart_rate debe existir");
+        let hr_code = hr_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "code.coding[0].code")
+            .unwrap();
+        assert_eq!(hr_code.constant_value.as_deref(), Some("8867-4"));
+        let hr_val = hr_obs
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("frecuencia_cardiaca"))
+            .expect("Debe mapear frecuencia_cardiaca");
+        assert_eq!(hr_val.unit.as_deref(), Some("/min"));
+        assert!(!hr_val.is_optional());
+
+        // 3D: Frecuencia Respiratoria (9279-1, optional: true)
+        let rr_obs = observations
+            .iter()
+            .find(|o| o.observation_type.as_deref() == Some("respiratory_rate"))
+            .expect("Observation respiratory_rate debe existir");
+        let rr_code = rr_obs
+            .mappings
+            .iter()
+            .find(|m| m.target_path == "code.coding[0].code")
+            .unwrap();
+        assert_eq!(rr_code.constant_value.as_deref(), Some("9279-1"));
+        let rr_val = rr_obs
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("frecuencia_respiratoria"))
+            .expect("Debe mapear frecuencia_respiratoria");
+        assert_eq!(rr_val.unit.as_deref(), Some("/min"));
+        assert!(rr_val.is_optional());
     }
 
     #[test]
@@ -273,14 +322,9 @@ mod tests {
             .iter()
             .find(|m| m.source_column.as_deref() == Some("tipo_diagnostico"))
             .expect("Debe existir mapeo de tipo_diagnostico");
-        assert_eq!(
-            tipo_diag.fallback_value.as_deref(),
-            Some("provisional")
-        );
-        assert_eq!(
-            tipo_diag.target_path,
-            "verificationStatus.coding[0].code"
-        );
+        assert!(tipo_diag.is_optional());
+        assert!(tipo_diag.dictionary.is_some());
+        assert_eq!(tipo_diag.target_path, "verificationStatus.coding[0].code");
     }
 
     // =========================================================================
@@ -293,7 +337,7 @@ mod tests {
 
         let paciente_legado = LegacyPaciente {
             id_paciente: 1,
-            curp: "ROMA900101HCSNN01".to_string(),
+            curp: "ROMA900101HCSMNL09".to_string(),
             primer_nombre: "Alberto".to_string(),
             segundo_nombre: Some("Manuel".to_string()),
             apellido_paterno: "Ramos".to_string(),
@@ -320,7 +364,7 @@ mod tests {
         let curp_id = &identifiers[0];
         assert_eq!(
             curp_id.value.as_ref().and_then(|v| v.value.as_deref()),
-            Some("ROMA900101HCSNN01")
+            Some("ROMA900101HCSMNL09")
         );
         assert_eq!(
             curp_id.system.as_ref().and_then(|s| s.value.as_deref()),
@@ -358,15 +402,19 @@ mod tests {
         );
         assert!(fhir_patient.birth_date.is_some());
 
-        // Verificación de minimización de datos personales (LGPDPPSO): telecom debe ser None
-        assert!(fhir_patient.telecom.is_none());
+        // telefono_contacto opcional: presente en origen => telecom[0] con phone/mobile
+        let telecom = fhir_patient.telecom.as_ref().expect("Debe incluir telecom");
+        assert_eq!(
+            telecom[0].value.as_ref().and_then(|v| v.value.as_deref()),
+            Some("9611234567")
+        );
 
         // Serialización canónica a JSON
         let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
             .expect("Debe serializar a application/fhir+json");
         assert!(json_str.contains("\"resourceType\": \"Patient\""));
-        assert!(json_str.contains("ROMA900101HCSNN01"));
-        assert!(!json_str.contains("\"telecom\""));
+        assert!(json_str.contains("ROMA900101HCSMNL09"));
+        assert!(json_str.contains("\"telecom\""));
     }
 
     #[test]
@@ -517,11 +565,17 @@ mod tests {
             Some("8480-6")
         );
         assert_eq!(
-            sist_code[0].system.as_ref().and_then(|s| s.value.as_deref()),
+            sist_code[0]
+                .system
+                .as_ref()
+                .and_then(|s| s.value.as_deref()),
             Some("http://loinc.org")
         );
         assert_eq!(
-            sist_code[0].display.as_ref().and_then(|d| d.value.as_deref()),
+            sist_code[0]
+                .display
+                .as_ref()
+                .and_then(|d| d.value.as_deref()),
             Some("Systolic blood pressure")
         );
         match &comp_sist.value {
@@ -541,7 +595,10 @@ mod tests {
                     Some("mm[Hg]")
                 );
             }
-            other => panic!("Esperaba Quantity para Sistólica, pero se obtuvo {:?}", other),
+            other => panic!(
+                "Esperaba Quantity para Sistólica, pero se obtuvo {:?}",
+                other
+            ),
         }
 
         // Diastólica
@@ -552,11 +609,17 @@ mod tests {
             Some("8462-4")
         );
         assert_eq!(
-            diast_code[0].system.as_ref().and_then(|s| s.value.as_deref()),
+            diast_code[0]
+                .system
+                .as_ref()
+                .and_then(|s| s.value.as_deref()),
             Some("http://loinc.org")
         );
         assert_eq!(
-            diast_code[0].display.as_ref().and_then(|d| d.value.as_deref()),
+            diast_code[0]
+                .display
+                .as_ref()
+                .and_then(|d| d.value.as_deref()),
             Some("Diastolic blood pressure")
         );
         match &comp_diast.value {
@@ -576,7 +639,10 @@ mod tests {
                     Some("mm[Hg]")
                 );
             }
-            other => panic!("Esperaba Quantity para Diastólica, pero se obtuvo {:?}", other),
+            other => panic!(
+                "Esperaba Quantity para Diastólica, pero se obtuvo {:?}",
+                other
+            ),
         }
 
         // 2. Temperatura Corporal
@@ -691,10 +757,7 @@ mod tests {
         assert_eq!(evaluated["subject"]["reference"], "Patient/5");
         assert_eq!(evaluated["encounter"]["reference"], "Encounter/20");
         assert_eq!(evaluated["code"]["coding"][0]["code"], "85354-9");
-        assert_eq!(
-            evaluated["code"]["coding"][0]["system"],
-            "http://loinc.org"
-        );
+        assert_eq!(evaluated["code"]["coding"][0]["system"], "http://loinc.org");
         assert_eq!(
             evaluated["code"]["coding"][0]["display"],
             "Blood pressure panel with all children optional"
@@ -885,194 +948,99 @@ mod tests {
     // =========================================================================
 
     #[test]
-    fn test_yaml_data_absent_reason_specification() {
-        let rules = parse_mapping_rules(SPECIFICATION_YAML)
-            .expect("El archivo mapping_rules.yaml debe deserializar sin errores");
-
-        // Verificación de use_data_absent_reason en Patient (sexo_biologico)
-        let patient = rules
-            .get_resource_mapping(SupportedResource::Patient)
-            .expect("Patient debe existir");
-        let gender = patient
-            .mappings
-            .iter()
-            .find(|m| m.source_column.as_deref() == Some("sexo_biologico"))
-            .expect("Mapeo de sexo_biologico debe existir");
-        assert_eq!(gender.use_data_absent_reason, Some(true));
-        assert!(gender.use_data_absent_reason());
-
-        // Verificación de use_data_absent_reason en Condition (fecha_diagnostico)
-        let condition = rules
-            .get_resource_mapping(SupportedResource::Condition)
-            .expect("Condition debe existir");
-        let fecha = condition
-            .mappings
-            .iter()
-            .find(|m| m.source_column.as_deref() == Some("fecha_diagnostico"))
-            .expect("Mapeo de fecha_diagnostico debe existir");
-        assert_eq!(fecha.use_data_absent_reason, Some(true));
-        assert!(fecha.use_data_absent_reason());
+    fn test_yaml_has_no_fallback_or_data_absent_reason() {
+        assert!(!SPECIFICATION_YAML.contains("fallback_value"));
+        assert!(!SPECIFICATION_YAML.contains("use_data_absent_reason"));
     }
 
     #[test]
-    fn test_evaluator_corrupted_date_data_absent_reason() {
+    fn test_evaluator_corrupted_date_fails_closed() {
         use serde_json::json;
 
         let rule = FieldMapping {
             source_column: Some("fecha_diagnostico".to_string()),
-            constant_value: None,
             target_path: "recordedDate".to_string(),
-            system: None,
-            display: None,
-            use_type: None,
-            use_field: None,
-            optional: None,
             transform: Some("date_iso8601".to_string()),
-            dictionary: None,
-            fallback_value: None,
-            unit: None,
-            code: None,
-            use_data_absent_reason: Some(true),
+            ..Default::default()
         };
-
-        let mut row = serde_json::Map::new();
-        row.insert(
-            "fecha_diagnostico".to_string(),
-            json!("FECHA_CORRUPTA_2026/99/99"),
-        );
-
-        let mut target_json = json!({});
-        evaluate_field_mapping(&rule, "Condition", &row, &mut target_json)
-            .expect("Debe manejar el error de casteo e inyectar data-absent-reason sin panic");
-
-        assert_eq!(
-            target_json["recordedDate"]["extension"][0]["url"],
-            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-        );
-        assert_eq!(
-            target_json["recordedDate"]["extension"][0]["valueCode"],
-            "error"
-        );
-    }
-
-    #[test]
-    fn test_evaluator_corrupted_date_without_data_absent_reason_fails() {
-        use serde_json::json;
-
-        let rule = FieldMapping {
-            source_column: Some("fecha_diagnostico".to_string()),
-            constant_value: None,
-            target_path: "recordedDate".to_string(),
-            system: None,
-            display: None,
-            use_type: None,
-            use_field: None,
-            optional: None,
-            transform: Some("date_iso8601".to_string()),
-            dictionary: None,
-            fallback_value: None,
-            unit: None,
-            code: None,
-            use_data_absent_reason: None,
-        };
-
         let mut row = serde_json::Map::new();
         row.insert("fecha_diagnostico".to_string(), json!("FECHA_INVALIDA"));
 
         let mut target_json = json!({});
-        let result = evaluate_field_mapping(&rule, "Condition", &row, &mut target_json);
-        assert!(
-            result.is_err(),
-            "Debe retornar error ProcessingError cuando el casteo falla en campo obligatorio sin data_absent_reason"
-        );
-        match result.unwrap_err() {
-            MedSysError::ProcessingError(msg) => {
-                assert!(msg.contains("Data corruption"));
-            }
-            other => panic!(
-                "Esperaba MedSysError::ProcessingError pero obtuvo {:?}",
-                other
-            ),
+        match evaluate_field_mapping(&rule, "Condition", &row, &mut target_json) {
+            Err(MedSysError::ProcessingError(msg)) => assert!(msg.contains("Data corruption")),
+            other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
         }
     }
 
     #[test]
-    fn test_evaluator_dictionary_miss_data_absent_reason() {
+    fn test_evaluator_optional_corrupt_value_still_fails_closed() {
         use serde_json::json;
-        use std::collections::BTreeMap;
-
-        let mut dict = BTreeMap::new();
-        dict.insert("M".to_string(), "male".to_string());
-        dict.insert("F".to_string(), "female".to_string());
 
         let rule = FieldMapping {
-            source_column: Some("sexo_biologico".to_string()),
-            constant_value: None,
-            target_path: "gender".to_string(),
-            system: None,
-            display: None,
-            use_type: None,
-            use_field: None,
-            optional: None,
-            transform: None,
-            dictionary: Some(dict),
-            fallback_value: None,
-            unit: None,
-            code: None,
-            use_data_absent_reason: Some(true),
+            source_column: Some("tipo_diagnostico".to_string()),
+            target_path: "verificationStatus.coding[0].code".to_string(),
+            optional: Some(true),
+            dictionary: Some(
+                [("CONFIRMADO".to_string(), "confirmed".to_string())]
+                    .into_iter()
+                    .collect(),
+            ),
+            ..Default::default()
         };
-
         let mut row = serde_json::Map::new();
-        row.insert(
-            "sexo_biologico".to_string(),
-            json!("VALOR_ENTROPIA_CLINICA_XXX"),
-        );
+        row.insert("tipo_diagnostico".to_string(), json!("DUDOSO"));
 
         let mut target_json = json!({});
-        evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
-            .expect("Debe atrapar el fallo del diccionario e inyectar data-absent-reason");
-
-        assert_eq!(
-            target_json["gender"]["extension"][0]["url"],
-            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-        );
-        assert_eq!(target_json["gender"]["extension"][0]["valueCode"], "error");
+        let res = evaluate_field_mapping(&rule, "Condition", &row, &mut target_json);
+        assert!(matches!(res, Err(MedSysError::ProcessingError(_))));
     }
 
     #[test]
-    fn test_evaluator_missing_source_column_with_data_absent_reason() {
+    fn test_evaluator_optional_null_or_empty_is_omitted() {
         use serde_json::json;
 
         let rule = FieldMapping {
-            source_column: Some("columna_inexistente".to_string()),
-            constant_value: None,
-            target_path: "identifier[0].value".to_string(),
-            system: None,
-            display: None,
-            use_type: None,
-            use_field: None,
-            optional: Some(false),
-            transform: None,
-            dictionary: None,
-            fallback_value: None,
-            unit: None,
-            code: None,
-            use_data_absent_reason: Some(true),
+            source_column: Some("telefono_contacto".to_string()),
+            target_path: "telecom[0].value".to_string(),
+            system: Some("phone".to_string()),
+            use_field: Some("mobile".to_string()),
+            optional: Some(true),
+            ..Default::default()
         };
 
-        let row = serde_json::Map::new(); // Fila vacía
-        let mut target_json = json!({});
-        evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
-            .expect("Debe inyectar data-absent-reason si la extracción del source_column falla");
+        for val in [json!(null), json!("")] {
+            let mut row = serde_json::Map::new();
+            row.insert("telefono_contacto".to_string(), val);
+            let mut target_json = json!({});
+            evaluate_field_mapping(&rule, "Patient", &row, &mut target_json)
+                .expect("Opcional nulo debe omitirse sin error");
+            assert!(target_json.get("telecom").is_none());
+        }
 
-        assert_eq!(
-            target_json["identifier"][0]["value"]["extension"][0]["url"],
-            "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
-        );
-        assert_eq!(
-            target_json["identifier"][0]["value"]["extension"][0]["valueCode"],
-            "error"
-        );
+        let mut row = serde_json::Map::new();
+        row.insert("telefono_contacto".to_string(), json!("9611234567"));
+        let mut target_json = json!({});
+        evaluate_field_mapping(&rule, "Patient", &row, &mut target_json).unwrap();
+        assert_eq!(target_json["telecom"][0]["value"], "9611234567");
+        assert_eq!(target_json["telecom"][0]["system"], "phone");
+        assert_eq!(target_json["telecom"][0]["use"], "mobile");
+    }
+
+    #[test]
+    fn test_evaluator_mandatory_null_column_fails_closed() {
+        use serde_json::json;
+
+        let rule = FieldMapping {
+            source_column: Some("sexo_biologico".to_string()),
+            target_path: "gender".to_string(),
+            ..Default::default()
+        };
+        let mut row = serde_json::Map::new();
+        row.insert("sexo_biologico".to_string(), json!(null));
+        let mut target_json = json!({});
+        let res = evaluate_field_mapping(&rule, "Patient", &row, &mut target_json);
+        assert!(matches!(res, Err(MedSysError::ProcessingError(_))));
     }
 
     #[test]
@@ -1097,11 +1065,108 @@ mod tests {
     }
 
     #[test]
-    fn test_transform_condition_raw_corrupted_date_with_data_absent_reason() {
+    fn test_is_valid_curp() {
+        assert!(is_valid_curp("ROMA900101HCSMNL09"));
+        assert!(!is_valid_curp(""));
+        assert!(!is_valid_curp("ROMA900101HCSMNL0")); // 17 caracteres
+        assert!(!is_valid_curp("roma900101HCSMNL09")); // minúsculas
+        assert!(!is_valid_curp("ROMA901301HCSMNL09")); // mes 13
+        assert!(!is_valid_curp("ROMA900101ZCSMNL09")); // sexo inválido
+        assert!(!is_valid_curp("ROMA900101HXXMNL09")); // entidad inválida
+        assert!(!is_valid_curp("ROMA900101HCSANL09")); // vocal donde va consonante
+        assert!(!is_valid_curp("ROMA900101HCSMNL0A")); // verificador no numérico
+        assert!(!is_valid_curp("ROMA900101HCSMNL0é")); // no ASCII sin pánico
+    }
+
+    #[test]
+    fn test_patient_invalid_curp_fails_closed() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        let paciente = LegacyPaciente {
+            id_paciente: 9,
+            curp: "CURP_MALFORMADA".to_string(),
+            primer_nombre: "Ana".to_string(),
+            segundo_nombre: None,
+            apellido_paterno: "Pérez".to_string(),
+            apellido_materno: None,
+            fecha_nacimiento: NaiveDate::from_ymd_opt(1995, 5, 20).unwrap(),
+            sexo_biologico: Some("F".to_string()),
+            telefono_contacto: None,
+            fecha_registro: None,
+        };
+        match transform_patient(&paciente, Some(&rules)) {
+            Err(MedSysError::ValidationError(msg)) => assert!(msg.contains("T5")),
+            other => panic!("Esperaba ValidationError T5 pero obtuvo {:?}", other),
+        }
+    }
+
+    fn paciente_base() -> LegacyPaciente {
+        LegacyPaciente {
+            id_paciente: 99,
+            curp: "ROMA900101HCSMNL09".to_string(),
+            primer_nombre: "María".to_string(),
+            segundo_nombre: None,
+            apellido_paterno: "Pérez".to_string(),
+            apellido_materno: None,
+            fecha_nacimiento: NaiveDate::from_ymd_opt(1995, 5, 20).unwrap(),
+            sexo_biologico: Some("F".to_string()),
+            telefono_contacto: None,
+            fecha_registro: None,
+        }
+    }
+
+    #[test]
+    fn test_transform_patient_corrupt_or_null_gender_fails_closed() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
 
-        // Se envía una fecha clínica corrupta/malformada
-        let fhir_cond = transform_condition_raw(
+        let mut corrupto = paciente_base();
+        corrupto.sexo_biologico = Some("ENTROPIA_CLINICA_DESCONOCIDA".to_string());
+        assert!(matches!(
+            transform_patient(&corrupto, Some(&rules)),
+            Err(MedSysError::ProcessingError(_))
+        ));
+
+        let mut nulo = paciente_base();
+        nulo.sexo_biologico = None;
+        assert!(matches!(
+            transform_patient(&nulo, Some(&rules)),
+            Err(MedSysError::ProcessingError(_))
+        ));
+    }
+
+    #[test]
+    fn test_transform_patient_telecom_optional() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+
+        let mut con_tel = paciente_base();
+        con_tel.telefono_contacto = Some(" 9611234567 ".to_string());
+        let p = transform_patient(&con_tel, Some(&rules)).unwrap();
+        let telecom = p.telecom.expect("Debe incluir telecom");
+        assert_eq!(telecom.len(), 1);
+        assert_eq!(
+            telecom[0].value.as_ref().and_then(|v| v.value.as_deref()),
+            Some("9611234567")
+        );
+        assert_eq!(
+            telecom[0].system.as_ref().and_then(|v| v.value.as_deref()),
+            Some("phone")
+        );
+        assert_eq!(
+            telecom[0].r#use.as_ref().and_then(|v| v.value.as_deref()),
+            Some("mobile")
+        );
+
+        for tel in [None, Some("   ".to_string())] {
+            let mut sin_tel = paciente_base();
+            sin_tel.telefono_contacto = tel;
+            let p = transform_patient(&sin_tel, Some(&rules)).unwrap();
+            assert!(p.telecom.is_none());
+        }
+    }
+
+    #[test]
+    fn test_transform_condition_raw_corrupted_date_fails_closed() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        let res = transform_condition_raw(
             101,
             202,
             303,
@@ -1110,82 +1175,16 @@ mod tests {
             "CONFIRMADO",
             "FECHA_CORRUPTA_MALFORMADA",
             Some(&rules),
-        )
-        .expect("Debe aplicar data-absent-reason sin hacer panic");
-
-        assert_eq!(fhir_cond.id.as_ref().unwrap().value.as_deref(), Some("101"));
-        let recorded = fhir_cond
-            .recorded_date
-            .as_ref()
-            .expect("Debe tener recorded_date como elemento");
-        assert!(
-            recorded.value.is_none(),
-            "El valor de fecha NO debe contener fecha inventada (anti-patrón clínico)"
         );
-        let exts = recorded
-            .extension
-            .as_ref()
-            .expect("Debe incluir extensión data-absent-reason");
-        assert_eq!(exts.len(), 1);
-        assert_eq!(
-            exts[0].url.value.as_deref(),
-            Some("http://hl7.org/fhir/StructureDefinition/data-absent-reason")
-        );
-
-        // Verificamos que serialice a JSON FHIR válido conteniendo la extensión
-        let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(fhir_cond)))
-            .expect("Debe serializar Condition a JSON");
-        assert!(json_str.contains("\"resourceType\": \"Condition\""));
-        assert!(json_str.contains("data-absent-reason"));
-        assert!(json_str.contains("\"valueCode\": \"error\""));
-        assert!(!json_str.contains("1970-01-01"));
+        match res {
+            Err(MedSysError::ProcessingError(msg)) => assert!(msg.contains("Data corruption")),
+            other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
+        }
     }
 
     #[test]
-    fn test_transform_patient_corrupt_gender_with_data_absent_reason() {
+    fn test_transform_encounter_corrupt_status_fails_closed() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
-
-        let paciente_legado = LegacyPaciente {
-            id_paciente: 99,
-            curp: "ROMA900101HCSNN01".to_string(),
-            primer_nombre: "María".to_string(),
-            segundo_nombre: None,
-            apellido_paterno: "Pérez".to_string(),
-            apellido_materno: None,
-            fecha_nacimiento: NaiveDate::from_ymd_opt(1995, 5, 20).unwrap(),
-            sexo_biologico: Some("ENTROPIA_CLINICA_DESCONOCIDA".to_string()),
-            telefono_contacto: None,
-            fecha_registro: None,
-        };
-
-        let fhir_patient = transform_patient(&paciente_legado, Some(&rules))
-            .expect("La transformación debe ser exitosa mediante data-absent-reason");
-
-        let gender_elem = fhir_patient
-            .gender
-            .as_ref()
-            .expect("Gender debe estar presente");
-        assert!(
-            gender_elem.value.is_none(),
-            "No debe inventar valor sintético"
-        );
-        assert!(
-            gender_elem.extension.is_some(),
-            "Debe contener extensión data-absent-reason"
-        );
-
-        let json_str = serialize_to_fhir_json(&Resource::Patient(Box::new(fhir_patient)))
-            .expect("Debe serializar Patient a JSON");
-        assert!(json_str.contains("\"resourceType\": \"Patient\""));
-        assert!(json_str.contains("data-absent-reason"));
-        assert!(json_str.contains("\"valueCode\": \"error\""));
-    }
-
-    #[test]
-    fn test_transform_encounter_corrupt_status_with_and_without_data_absent_reason() {
-        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
-
-        // 1. Consulta con estado desconocido usando especificación por defecto (sin data_absent_reason en status)
         let consulta_corrupta = LegacyConsulta {
             id_consulta: 50,
             id_paciente: 1,
@@ -1205,95 +1204,65 @@ mod tests {
             .unwrap(),
             unidad_medica: None,
         };
-
-        // Sin data_absent_reason en estado_consulta: falla con ProcessingError
-        let res_no_absent = transform_encounter(&consulta_corrupta, Some(&rules));
-        assert!(res_no_absent.is_err());
-        match res_no_absent.unwrap_err() {
-            MedSysError::ProcessingError(msg) => {
-                assert!(msg.contains("Data corruption"));
-            }
+        match transform_encounter(&consulta_corrupta, Some(&rules)) {
+            Err(MedSysError::ProcessingError(msg)) => assert!(msg.contains("Data corruption")),
             other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
         }
-
-        // 2. Consulta con especificación que sí define use_data_absent_reason
-        let mut custom_rules = rules.clone();
-        let enc_map = custom_rules
-            .resources
-            .iter_mut()
-            .find(|r| r.resource_type == "Encounter")
-            .unwrap();
-        let status_mapping = enc_map
-            .mappings
-            .iter_mut()
-            .find(|m| m.target_path == "status")
-            .unwrap();
-        status_mapping.use_data_absent_reason = Some(true);
-
-        let fhir_enc = transform_encounter(&consulta_corrupta, Some(&custom_rules))
-            .expect("Debe transformar con extensión data-absent-reason exitosamente");
-        assert!(fhir_enc.status.value.is_none());
-        assert!(fhir_enc.status.extension.is_some());
     }
 
-    #[test]
-    fn test_transform_condition_fallback_value_when_tipo_diagnostico_is_none() {
-        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
-
-        // Tupla simulada con tipo_diagnostico = None (incompletitud de datos legados)
-        let diagnostico_nulo = LegacyDiagnostico {
+    fn diagnostico_base(tipo: Option<&str>) -> LegacyDiagnostico {
+        LegacyDiagnostico {
             id_diagnostico: 10,
             id_consulta: 20,
             id_paciente: 30,
             codigo_cie10: "E11.9".to_string(),
-            descripcion_diagnostico: "Diabetes mellitus tipo 2 sin mención de complicación".to_string(),
-            tipo_diagnostico: None,
+            descripcion_diagnostico: "Diabetes mellitus tipo 2".to_string(),
+            tipo_diagnostico: tipo.map(str::to_string),
             fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
-        };
-
-        let fhir_cond = transform_condition(&diagnostico_nulo, Some(&rules))
-            .expect("Transformación de Condition con tipo_diagnostico = None debe aplicar fallback_value sin fallar");
-
-        assert_eq!(
-            fhir_cond.id.as_ref().and_then(|i| i.value.as_deref()),
-            Some("10")
-        );
-
-        // Verificación de degradación elegante: verificationStatus debe ser 'provisional'
-        let ver_stat = fhir_cond
-            .verification_status
-            .as_ref()
-            .expect("Debe incluir verificationStatus");
-        let codings = ver_stat
-            .coding
-            .as_ref()
-            .expect("Debe incluir codings de verificationStatus");
-        assert_eq!(codings.len(), 1);
-        assert_eq!(
-            codings[0].code.as_ref().and_then(|c| c.value.as_deref()),
-            Some("provisional"),
-            "Debe aplicar fallback_value: 'provisional' ante columna nula"
-        );
-        assert_eq!(
-            codings[0].display.as_ref().and_then(|d| d.value.as_deref()),
-            Some("Provisional")
-        );
-        assert_eq!(
-            codings[0].system.as_ref().and_then(|s| s.value.as_deref()),
-            Some("http://terminology.hl7.org/CodeSystem/condition-ver-status")
-        );
-
-        // Verificación de serialización JSON HL7 FHIR R4 canónica
-        let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(fhir_cond)))
-            .expect("Debe serializar recurso Condition a JSON");
-        assert!(json_str.contains("\"resourceType\": \"Condition\""));
-        assert!(json_str.contains("\"code\": \"provisional\""));
-        assert!(json_str.contains("\"display\": \"Provisional\""));
-        assert!(json_str.contains("http://terminology.hl7.org/CodeSystem/condition-ver-status"));
+        }
     }
 
     #[test]
-    fn test_evaluator_condition_declarative_fallback_value_null_column() {
+    fn test_transform_condition_omits_verification_status_when_tipo_diagnostico_is_none() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        let cond = transform_condition(&diagnostico_base(None), Some(&rules))
+            .expect("tipo_diagnostico nulo es opcional y no debe fallar");
+        assert!(cond.verification_status.is_none());
+
+        let json_str = serialize_to_fhir_json(&Resource::Condition(Box::new(cond))).unwrap();
+        assert!(!json_str.contains("verificationStatus"));
+        assert!(!json_str.contains("provisional"));
+
+        let vacio = transform_condition(&diagnostico_base(Some("")), Some(&rules)).unwrap();
+        assert!(vacio.verification_status.is_none());
+    }
+
+    #[test]
+    fn test_transform_condition_fails_closed_when_tipo_diagnostico_invalid() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        match transform_condition(&diagnostico_base(Some("DUDOSO")), Some(&rules)) {
+            Err(MedSysError::ProcessingError(msg)) => assert!(msg.contains("T3")),
+            other => panic!("Esperaba ProcessingError T3 pero obtuvo {:?}", other),
+        }
+    }
+
+    #[test]
+    fn test_transform_condition_maps_catalog_values() {
+        let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
+        for (raw, expected) in [("CONFIRMADO", "confirmed"), ("PRESUNTIVO", "provisional")] {
+            let cond = transform_condition(&diagnostico_base(Some(raw)), Some(&rules)).unwrap();
+            let code = cond
+                .verification_status
+                .and_then(|v| v.coding)
+                .and_then(|c| c.into_iter().next())
+                .and_then(|c| c.code)
+                .and_then(|c| c.value);
+            assert_eq!(code.as_deref(), Some(expected));
+        }
+    }
+
+    #[test]
+    fn test_evaluator_condition_declarative_null_tipo_diagnostico_is_omitted() {
         use serde_json::json;
 
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
@@ -1301,7 +1270,6 @@ mod tests {
             .get_resource_mapping(SupportedResource::Condition)
             .expect("Condition mapping debe existir");
 
-        // Fila relacional simulada donde la columna tipo_diagnostico es SQL NULL
         let mut row = serde_json::Map::new();
         row.insert("id_diagnostico".to_string(), json!(77));
         row.insert("id_consulta".to_string(), json!(88));
@@ -1312,64 +1280,57 @@ mod tests {
             json!("Rinofaringitis aguda (resfriado común)"),
         );
         row.insert("tipo_diagnostico".to_string(), serde_json::Value::Null);
-        row.insert(
-            "fecha_diagnostico".to_string(),
-            json!("2026-09-18"),
-        );
+        row.insert("fecha_diagnostico".to_string(), json!("2026-09-18"));
 
         let target_json = evaluate_resource_mapping(cond_mapping, &row)
-            .expect("Evaluación declarativa debe aplicar fallback_value ante columna con valor SQL NULL");
+            .expect("tipo_diagnostico NULL es opcional");
+        assert!(target_json.get("verificationStatus").is_none());
+        assert_eq!(target_json["recordedDate"], "2026-09-18");
+    }
 
-        assert_eq!(
-            target_json["verificationStatus"]["coding"][0]["code"],
-            "provisional",
-            "El evaluador declarativo debe inyectar 'provisional' como fallback ante SQL NULL"
-        );
-        assert_eq!(
-            target_json["verificationStatus"]["coding"][0]["system"],
-            "http://terminology.hl7.org/CodeSystem/condition-ver-status"
-        );
+    fn signo_base(resp: Option<i32>) -> LegacySignoVital {
+        LegacySignoVital {
+            id_signo: 5,
+            id_consulta: 2,
+            id_paciente: 1,
+            presion_sistolica: 120,
+            presion_diastolica: 80,
+            frecuencia_cardiaca: 72,
+            frecuencia_respiratoria: resp,
+            temperatura_celsius: Decimal::new(366, 1),
+            peso_kg: None,
+            talla_cm: None,
+            fecha_registro: NaiveDateTime::parse_from_str(
+                "2026-09-18 09:15:00",
+                "%Y-%m-%d %H:%M:%S",
+            )
+            .unwrap(),
+        }
     }
 
     #[test]
-    fn test_transform_condition_without_fallback_and_none_fails_closed() {
+    fn test_transform_observation_respiratory_rate_some_and_none() {
         let rules = parse_mapping_rules(SPECIFICATION_YAML).unwrap();
 
-        // Modificamos las reglas para remover fallback_value de tipo_diagnostico
-        let mut strict_rules = rules.clone();
-        let cond_map = strict_rules
-            .resources
-            .iter_mut()
-            .find(|r| r.resource_type == "Condition")
-            .unwrap();
-        let tipo_diag_map = cond_map
-            .mappings
-            .iter_mut()
-            .find(|m| m.source_column.as_deref() == Some("tipo_diagnostico"))
-            .unwrap();
-        tipo_diag_map.fallback_value = None;
-
-        let diagnostico_nulo = LegacyDiagnostico {
-            id_diagnostico: 10,
-            id_consulta: 20,
-            id_paciente: 30,
-            codigo_cie10: "E11.9".to_string(),
-            descripcion_diagnostico: "Diabetes mellitus".to_string(),
-            tipo_diagnostico: None,
-            fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 9, 20).unwrap(),
-        };
-
-        // Sin fallback_value configurado, el motor debe fallar cerrado (Fail-Closed, D-006)
-        let result = transform_condition(&diagnostico_nulo, Some(&strict_rules));
-        assert!(
-            result.is_err(),
-            "Debe emitir ProcessingError si tipo_diagnostico es nulo y no hay fallback_value"
+        let obs = transform_observation_respiratory_rate(&signo_base(Some(18)), Some(&rules))
+            .unwrap()
+            .expect("Debe emitir Observation con frecuencia respiratoria");
+        assert_eq!(
+            obs.id.as_ref().and_then(|i| i.value.as_deref()),
+            Some("resp-5")
         );
-        match result.unwrap_err() {
-            MedSysError::ProcessingError(msg) => {
-                assert!(msg.contains("Data corruption"));
-            }
-            other => panic!("Esperaba ProcessingError pero obtuvo {:?}", other),
-        }
+        let json_str = serialize_to_fhir_json(&Resource::Observation(Box::new(obs))).unwrap();
+        assert!(json_str.contains("9279-1"));
+        assert!(json_str.contains("\"/min\""));
+
+        assert!(
+            transform_observation_respiratory_rate(&signo_base(None), Some(&rules))
+                .unwrap()
+                .is_none()
+        );
+        assert!(matches!(
+            transform_observation_respiratory_rate(&signo_base(Some(0)), Some(&rules)),
+            Err(MedSysError::ProcessingError(_))
+        ));
     }
 }

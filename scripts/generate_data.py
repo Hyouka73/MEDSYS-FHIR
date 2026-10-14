@@ -92,7 +92,7 @@ REASONS = [
     "Diarrea acuosa y dolor abdominal tipo cólico"
 ]
 
-used_curps = {"ROMA900101HCSNN01", "LOPE950512MCSNN02"}
+used_curps = {"ROMA900101HCSMNL09", "LOPE950512MCSPRN07"}
 
 def get_internal_consonant(s: str) -> str:
     s_upper = s.upper()
@@ -133,7 +133,7 @@ def generate_curp(paterno: str, materno: str, nombre: str, bdate: date, sex: str
     if len(curp) != 18 or curp in used_curps:
         # Fallback safe uniqueness
         alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        curp = f"{c1}{c2}{c3}{c4}{yy}{mm}{dd}{curp_sex}{state}{c14}{c15}{c16}{alpha[(idx // 36) % 36]}{alpha[idx % 36]}"
+        curp = f"{c1}{c2}{c3}{c4}{yy}{mm}{dd}{curp_sex}{state}{c14}{c15}{c16}{alpha[(idx // 10) % 36]}{idx % 10}"
     
     used_curps.add(curp)
     return curp
@@ -141,7 +141,7 @@ def generate_curp(paterno: str, materno: str, nombre: str, bdate: date, sex: str
 def main(seed: int = DEFAULT_SEED, output_path: str = DEFAULT_OUTPUT_FILE):
     random.seed(seed)
     used_curps.clear()
-    used_curps.update({"ROMA900101HCSNN01", "LOPE950512MCSNN02"})
+    used_curps.update({"ROMA900101HCSMNL09", "LOPE950512MCSPRN07"})
     print(f"[*] Generando datos sintéticos reproducibles con SEED={seed}...")
     
     pacientes = []
