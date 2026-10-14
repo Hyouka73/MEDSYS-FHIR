@@ -31,7 +31,7 @@ Dotar a `medsys-core` y `medsys-db` de las capacidades declarativas y relacional
        - Si `split_part` no encuentra el índice solicitado o el fragmento resultante no es numérico en un `valueQuantity`, retornar `Err(MedSysError::ProcessingError("T2 Error de formato en split_part...".into()))`.
   - **Criterio de Aceptación:** Pruebas unitarias en `evaluator.rs` verificando `combine_with`, `split_part` sobre `"130/85"`, `parse_datetime` sobre `"18/09/2026 09:15"` y `unit_conversion: "lb_to_kg"`.
 
-- [ ] **Tarea 6.2: Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico en `medsys-db`**
+- [x] **Tarea 6.2: Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico en `medsys-db`**
   - **Archivos a crear/modificar:**
     - `crates/medsys-db/src/query_builder.rs` (nuevo módulo)
     - `crates/medsys-db/src/lib.rs`

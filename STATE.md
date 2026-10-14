@@ -1,17 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T11:16:00-06:00
+- **Última Actualización:** 2026-10-14T11:35:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
-- **Estado General:** 21 / 36 tareas completadas (58.3% — Sprints 1 al 5 completados; Tarea 6.1 completada).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.2**).
-- **Última Tarea Cerrada:** **Tarea 6.1** (Ampliación del DSL Declarativo YAML v1.2 en `medsys-core`: `timezone_default` con `chrono-tz`, `distinct_on`, `parent_checks`, `filter_not_null`, `combine_with`/`combine_format`, `lookup`, `parse_datetime`, `split_part`, `unit_conversion`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (73 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 6.2** (Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`, ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Estado General:** 22 / 36 tareas completadas (61.1% — Sprints 1 al 5 completados; Tareas 6.1 y 6.2 completadas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.3**).
+- **Última Tarea Cerrada:** **Tarea 6.2** (Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (79 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 6.3** (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`), ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
 - **Estado Actual del Build:**
-  - `medsys-core`: 33/33 tests PASS (incluyendo `test_evaluator_combine_with`, `test_evaluator_split_part_blood_pressure`, `test_evaluator_parse_datetime_custom_formats`, `test_evaluator_unit_conversion_lb_to_kg`).
-  - `medsys-db` y `medsys-server`: 40/40 tests PASS.
-  - Workspace total: 73/73 tests PASS (100 %).
+  - `medsys-core`: 33/33 tests PASS.
+  - `medsys-db`: 25/25 tests PASS (6 tests de allowlist, sintaxis SQL, inyección y DynamicSqlBuilder).
+  - `medsys-server` y tests E2E/integración: 21/21 tests PASS.
+  - Workspace total: 79/79 tests PASS (100 %).
 
 ---
 
@@ -55,4 +56,16 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 73/73 tests PASS (33 en `medsys-core`, 19 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 8 integración de servidor).
-- **Siguiente paso:** Tarea 6.2 (Validador *Allowlist* y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`).
+- **Siguiente paso:** Tarea 6.2 completada.
+
+---
+
+## 5. Registro de Avance Sprint 6: Tarea 6.2 Cerrada
+- **Archivos Creados/Modificados:**
+  - `crates/medsys-db/src/query_builder.rs` (nuevo): implementación de `ALLOWED_TABLES`, `ALLOWED_COLUMNS`, validador de sintaxis regex `is_valid_sql_identifier` (`^[a-z_][a-z0-9_]{0,62}$`), validadores `validate_table_identifier`, `validate_column_identifier`, validador integral `validate_rules_identifiers_allowlist` (*Fail-Fast*) y constructor `DynamicSqlBuilder` (`SELECT ... FROM t0`, `LEFT JOIN` para campos con `lookup`, `DISTINCT ON` para sábanas desnormalizadas `S1`, filtros estrictamente parametrizados con `$1`, `$2`).
+  - `crates/medsys-db/src/lib.rs`: exposición pública del módulo `query_builder` y sus utilidades.
+- **Validación Automatizada:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 79/79 tests PASS (33 en `medsys-core`, 25 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 8 integración de servidor).
+- **Siguiente paso:** Tarea 6.3 (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas `T4`).

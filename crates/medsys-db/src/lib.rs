@@ -8,12 +8,17 @@ pub mod config;
 pub mod entities;
 pub mod error;
 pub mod pool;
+pub mod query_builder;
 pub mod repository;
 
 pub use config::DbConfig;
 pub use entities::{ConsultaEntity, DiagnosticoEntity, PacienteEntity, SignoVitalEntity};
 pub use error::{map_sqlx_error, DbError};
 pub use pool::{create_pool_options, init_pool, init_pool_lazy, DbManager};
+pub use query_builder::{
+    is_valid_sql_identifier, validate_column_identifier, validate_rules_identifiers_allowlist,
+    validate_table_identifier, DynamicSqlBuilder, ALLOWED_COLUMNS, ALLOWED_TABLES,
+};
 pub use repository::{
     ConsultaRepository, DiagnosticosRepository, MedsysRepositories, PacienteRepository,
     SignosVitalesRepository,
