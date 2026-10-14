@@ -353,7 +353,37 @@ impl<'a> DynamicSqlBuilder<'a> {
 
         format!("{select_part} FROM {table} t0{joins_part} {where_clause} ORDER BY t0.{pk} ASC")
     }
+
+    /// Construye la consulta parametrizada filtrando por clave foránea con paginación ($1 = fk_val, $2 = LIMIT, $3 = OFFSET).
+    pub fn build_select_by_foreign_key_paged(&self, fk_column: &str) -> String {
+        let (select_part, joins_part) = self.prepare_select_and_joins();
+        let table = &self.mapping.source_table;
+        let pk = &self.mapping.primary_key;
+
+        let where_clause = match &self.mapping.filter_not_null {
+            Some(fnn) => format!("WHERE t0.{fk_column} = $1 AND t0.{fnn} IS NOT NULL"),
+            None => format!("WHERE t0.{fk_column} = $1"),
+        };
+
+        format!("{select_part} FROM {table} t0{joins_part} {where_clause} ORDER BY t0.{pk} ASC LIMIT $2 OFFSET $3")
+    }
+
+    /// Helper estático para construir consulta por ID.
+    pub fn select_by_id(mapping: &'a ResourceMapping) -> String {
+        Self::new(mapping).build_select_by_id()
+    }
+
+    /// Helper estático para construir consulta paginada.
+    pub fn select_all_paged(mapping: &'a ResourceMapping) -> String {
+        Self::new(mapping).build_select_all_paged()
+    }
+
+    /// Helper estático para construir consulta filtrada por clave foránea.
+    pub fn select_by_foreign_key_paged(mapping: &'a ResourceMapping, fk_column: &str) -> String {
+        Self::new(mapping).build_select_by_foreign_key_paged(fk_column)
+    }
 }
+
 
 #[cfg(test)]
 mod tests {

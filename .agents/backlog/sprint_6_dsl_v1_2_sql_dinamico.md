@@ -64,7 +64,7 @@ Dotar a `medsys-core` y `medsys-db` de las capacidades declarativas y relacional
     3. Invocar dicha verificación en los handlers `get_encounter`, `get_observation` y `get_condition`.
   - **Criterio de Aceptación:** `cargo test --workspace` verifica que un registro hijo con `id_paciente` o `id_consulta` inexistente es rechazado con HTTP 422 `OperationOutcome`.
 
-- [ ] **Tarea 6.4: Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core`**
+- [x] **Tarea 6.4: Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core`**
   - **Archivos a crear/modificar:**
     - `crates/medsys-db/src/dynamic_repo.rs` (nuevo módulo)
     - `crates/medsys-db/src/lib.rs`

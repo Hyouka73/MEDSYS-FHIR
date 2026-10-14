@@ -37,12 +37,12 @@
 - [x] **Tarea 5.3:** Exposición HTTP de los 4 subtipos de `Observation` (`bp`, `temp`, `hr`, `resp` con soporte de prefijo y sufijo) en `medsys-server` y homologación de códigos `IssueType` de `OperationOutcome` (`400 -> invalid`, `404 -> not-found`, `422 -> processing`, `500/503 -> exception/transient`).
 - [x] **Tarea 5.4:** Reparación de las 2 pruebas unitarias rotas en `medsys-core` y ampliación de la suite de pruebas (`cargo test --workspace` 100 % PASS y `cargo clippy -- -D warnings` 0 warnings).
 
-### Sprint 6: Motor Declarativo YAML v1.2, Constructor SQL Dinámico Seguro y Verificación Referencial Activa (`T4`)
+### Sprint 6: Motor Declarativo YAML v1.2, Constructor SQL Dinámico Seguro y Verificación Referencial Activa (`T4`) (COMPLETADO)
 *Detalle técnico en: `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`*
 - [x] **Tarea 6.1:** Ampliación del DSL YAML v1.2 en `medsys-core` (`lookup`, `parse_datetime`, `split_part`, `unit_conversion`, `distinct_on`, `parent_checks` y zona horaria `America/Mexico_City` con `chrono-tz`).
 - [x] **Tarea 6.2:** Validador de lista blanca (*allowlist*) de identificadores SQL al arranque (*Fail-Fast*) y constructor dinámico `DynamicSqlBuilder` (`SELECT`, `LEFT JOIN`, `DISTINCT ON`) en `medsys-db`.
 - [x] **Tarea 6.3:** Ejecución sobre transacciones `REPEATABLE READ READ ONLY` y verificación activa de existencia de llaves foráneas padres (`id_paciente`, `id_consulta`) para rechazar registros huérfanos (`T4`) con HTTP 422 `OperationOutcome`.
-- [ ] **Tarea 6.4:** Adaptador `DynamicFhirRepository` en `medsys-db` y validación *Fail-Fast* al arranque en `crates/medsys-server/src/main.rs`.
+- [x] **Tarea 6.4:** Adaptador `DynamicFhirRepository` en `medsys-db` y validación *Fail-Fast* al arranque en `crates/medsys-server/src/main.rs`.
 
 ### Sprint 7: Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)
 *Detalle técnico en: `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`*

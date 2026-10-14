@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T11:45:00-06:00
+- **Última Actualización:** 2026-10-14T11:55:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
-- **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
-- **Estado General:** 23 / 36 tareas completadas (63.9% — Sprints 1 al 5 completados; Tareas 6.1, 6.2 y 6.3 completadas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.4**).
-- **Última Tarea Cerrada:** **Tarea 6.3** (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`)). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (80 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 6.4** (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`, ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Sprint Activo:** **Sprint 7 — Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)** (`.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Estado General:** 24 / 36 tareas completadas (66.7% — Sprints 1 al 6 completados al 100%; listo para Sprint 7).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.1**).
+- **Última Tarea Cerrada:** **Tarea 6.4** (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`) — **CIERRE DE SPRINT 6**. Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (84 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 7.1** (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
 - **Estado Actual del Build:**
   - `medsys-core`: 33/33 tests PASS.
-  - `medsys-db`: 25/25 tests PASS.
+  - `medsys-db`: 29/29 tests PASS.
   - `medsys-server` y tests E2E/integración: 22/22 tests PASS (10 E2E, 9 integración, 3 persistencia).
-  - Workspace total: 80/80 tests PASS (100 %).
+  - Workspace total: 84/84 tests PASS (100 %).
 
 ---
 
@@ -84,5 +84,21 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 80/80 tests PASS (33 en `medsys-core`, 25 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
-- **Siguiente paso:** Tarea 6.4 (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`).
+- **Siguiente paso:** Tarea 6.3 completada.
+
+---
+
+## 7. Registro de Cierre del Sprint 6: Motor Declarativo YAML v1.2 y SQL Dinámico Seguro
+- **Archivos Creados/Modificados:**
+  - `crates/medsys-db/src/dynamic_repo.rs` (nuevo): implementación de `DynamicFhirRepository` capaz de ejecutar consultas dinámicas parametrizadas con `DynamicSqlBuilder`, extracción universal `pg_row_to_json_map` sobre PostgreSQL, evaluación FHIR directa con `evaluate_resource_mapping`, verificador dinámico de llaves foráneas `parent_checks` (`T4`), y conversiones de filas multi-esquema a entidades tipadas `Legacy*` (incluyendo separación de presión arterial `120/80`, conversiones de unidades y catálogos `S2`/`S3`).
+  - `crates/medsys-db/src/lib.rs`: exportación pública de `dynamic_repo`, `DynamicFhirRepository`, `pg_row_to_json_map`, y funciones `row_to_legacy_*`.
+  - `crates/medsys-db/src/repository/mod.rs`: incorporación del repositorio dinámico en `MedsysRepositories::dynamic`.
+  - `crates/medsys-db/src/query_builder.rs`: helpers estáticos y soporte de consultas filtradas por clave foránea paginadas.
+  - `crates/medsys-server/src/main.rs`: invocación preventiva de `validate_rules_identifiers_allowlist(&mapping_rules)` inmediatamente tras parsear YAML para garantizar rechazo *Fail-Fast* ante identificadores no autorizados.
+- **Validación Automatizada del Cierre de Sprint 6:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 84/84 tests PASS (33 en `medsys-core`, 29 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
+- **Siguiente paso:** Sprint 7 — Tarea 7.1 (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+
 

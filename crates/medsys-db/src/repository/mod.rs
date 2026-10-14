@@ -24,6 +24,7 @@ pub struct MedsysRepositories {
     pub consultas: ConsultaRepository,
     pub signos_vitales: SignosVitalesRepository,
     pub diagnosticos: DiagnosticosRepository,
+    pub dynamic: crate::dynamic_repo::DynamicFhirRepository,
 }
 
 impl MedsysRepositories {
@@ -33,7 +34,8 @@ impl MedsysRepositories {
             pacientes: PacienteRepository::new(pool.clone()),
             consultas: ConsultaRepository::new(pool.clone()),
             signos_vitales: SignosVitalesRepository::new(pool.clone()),
-            diagnosticos: DiagnosticosRepository::new(pool),
+            diagnosticos: DiagnosticosRepository::new(pool.clone()),
+            dynamic: crate::dynamic_repo::DynamicFhirRepository::new(pool),
         }
     }
 

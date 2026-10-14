@@ -64,6 +64,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     };
 
+    // 5.1 Validar que los identificadores de la especificación YAML pertenezcan a la allowlist (Fail-Fast)
+    if let Err(e) = medsys_db::validate_rules_identifiers_allowlist(&mapping_rules) {
+        error!("Error de validación allowlist en especificación YAML: {e}");
+        return Err(e.into());
+    }
+
     // 6. Construir estado y enrutador Axum
     let state = AppState::new(repositories, mapping_rules, pool);
     let app = create_router(state);
