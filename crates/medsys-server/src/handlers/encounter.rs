@@ -40,6 +40,10 @@ pub async fn get_encounter(
     })?;
 
     let legacy_consulta = state.repositories.consultas.find_by_id(id).await?;
+    state
+        .repositories
+        .verify_patient_exists(legacy_consulta.id_paciente)
+        .await?;
     let fhir_encounter = transform_encounter(&legacy_consulta, Some(&state.mapping_rules))?;
 
     Ok(FhirResponse(Resource::Encounter(Box::new(fhir_encounter))))

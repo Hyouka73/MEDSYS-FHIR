@@ -88,6 +88,10 @@ pub async fn get_observation(
 ) -> Result<FhirResponse, ServerError> {
     let (kind, id) = parse_observation_id(&raw_id)?;
     let signo = state.repositories.signos_vitales.find_by_id(id).await?;
+    state
+        .repositories
+        .verify_encounter_and_patient_exist(signo.id_consulta, signo.id_paciente)
+        .await?;
     let rules = Some(state.mapping_rules.as_ref());
 
     let obs = match kind {

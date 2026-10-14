@@ -70,6 +70,16 @@ impl DiagnosticosRepository {
         &self.pool
     }
 
+    /// Inicia una transacción asíncrona de solo lectura con nivel de aislamiento REPEATABLE READ.
+    pub async fn begin_readonly_tx(&self) -> Result<sqlx::Transaction<'_, sqlx::Postgres>> {
+        let mut tx = self.pool.begin().await.map_err(map_sqlx_error)?;
+        sqlx::query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
+            .execute(&mut *tx)
+            .await
+            .map_err(map_sqlx_error)?;
+        Ok(tx)
+    }
+
     /// Busca un diagnóstico por su clave primaria (`id_diagnostico`).
     /// Si no existe, retorna `MedSysError::NotFound`.
     pub async fn find_by_id(&self, id: i32) -> Result<LegacyDiagnostico> {

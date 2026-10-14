@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T11:35:00-06:00
+- **Última Actualización:** 2026-10-14T11:45:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
-- **Estado General:** 22 / 36 tareas completadas (61.1% — Sprints 1 al 5 completados; Tareas 6.1 y 6.2 completadas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.3**).
-- **Última Tarea Cerrada:** **Tarea 6.2** (Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (79 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 6.3** (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`), ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Estado General:** 23 / 36 tareas completadas (63.9% — Sprints 1 al 5 completados; Tareas 6.1, 6.2 y 6.3 completadas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.4**).
+- **Última Tarea Cerrada:** **Tarea 6.3** (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`)). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (80 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 6.4** (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`, ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
 - **Estado Actual del Build:**
   - `medsys-core`: 33/33 tests PASS.
-  - `medsys-db`: 25/25 tests PASS (6 tests de allowlist, sintaxis SQL, inyección y DynamicSqlBuilder).
-  - `medsys-server` y tests E2E/integración: 21/21 tests PASS.
-  - Workspace total: 79/79 tests PASS (100 %).
+  - `medsys-db`: 25/25 tests PASS.
+  - `medsys-server` y tests E2E/integración: 22/22 tests PASS (10 E2E, 9 integración, 3 persistencia).
+  - Workspace total: 80/80 tests PASS (100 %).
 
 ---
 
@@ -68,4 +68,21 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 79/79 tests PASS (33 en `medsys-core`, 25 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 8 integración de servidor).
-- **Siguiente paso:** Tarea 6.3 (Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas `T4`).
+- **Siguiente paso:** Tarea 6.3 completada.
+
+---
+
+## 6. Registro de Avance Sprint 6: Tarea 6.3 Cerrada
+- **Archivos Modificados:**
+  - `crates/medsys-db/src/repository/mod.rs`: implementación de `begin_readonly_tx` (`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY`) y verificadores de integridad referencial activa `verify_patient_exists(id_paciente)` y `verify_encounter_and_patient_exist(id_consulta, id_paciente)` retornando `MedSysError::ProcessingError("T4 Violación de integridad referencial: ...")`.
+  - `crates/medsys-db/src/repository/{pacientes,consultas,signos_vitales,diagnosticos}.rs`: integración de transacciones `REPEATABLE READ READ ONLY`.
+  - `crates/medsys-server/src/handlers/encounter.rs`: verificación de existencia del paciente padre antes de transformación FHIR.
+  - `crates/medsys-server/src/handlers/observation.rs`: verificación de existencia de la consulta y paciente padre antes de transformación FHIR.
+  - `crates/medsys-server/src/handlers/condition.rs`: verificación de existencia de la consulta y paciente padre antes de transformación FHIR.
+  - `crates/medsys-server/tests/server_integration.rs`: prueba unitaria de integración validando que errores T4 de integridad referencial mapean exactamente a HTTP 422 con recurso canónico `OperationOutcome` e `issue[0].code = "processing"`.
+- **Validación Automatizada:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 80/80 tests PASS (33 en `medsys-core`, 25 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
+- **Siguiente paso:** Tarea 6.4 (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`).
+

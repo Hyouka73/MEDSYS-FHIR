@@ -41,7 +41,7 @@
 *Detalle técnico en: `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`*
 - [x] **Tarea 6.1:** Ampliación del DSL YAML v1.2 en `medsys-core` (`lookup`, `parse_datetime`, `split_part`, `unit_conversion`, `distinct_on`, `parent_checks` y zona horaria `America/Mexico_City` con `chrono-tz`).
 - [x] **Tarea 6.2:** Validador de lista blanca (*allowlist*) de identificadores SQL al arranque (*Fail-Fast*) y constructor dinámico `DynamicSqlBuilder` (`SELECT`, `LEFT JOIN`, `DISTINCT ON`) en `medsys-db`.
-- [ ] **Tarea 6.3:** Ejecución sobre transacciones `REPEATABLE READ READ ONLY` y verificación activa de existencia de llaves foráneas padres (`id_paciente`, `id_consulta`) para rechazar registros huérfanos (`T4`) con HTTP 422 `OperationOutcome`.
+- [x] **Tarea 6.3:** Ejecución sobre transacciones `REPEATABLE READ READ ONLY` y verificación activa de existencia de llaves foráneas padres (`id_paciente`, `id_consulta`) para rechazar registros huérfanos (`T4`) con HTTP 422 `OperationOutcome`.
 - [ ] **Tarea 6.4:** Adaptador `DynamicFhirRepository` en `medsys-db` y validación *Fail-Fast* al arranque en `crates/medsys-server/src/main.rs`.
 
 ### Sprint 7: Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)

@@ -42,6 +42,10 @@ pub async fn get_condition(
     })?;
 
     let diagnostico = state.repositories.diagnosticos.find_by_id(id).await?;
+    state
+        .repositories
+        .verify_encounter_and_patient_exist(diagnostico.id_consulta, diagnostico.id_paciente)
+        .await?;
     let fhir_cond = transform_condition(&diagnostico, Some(&state.mapping_rules))?;
 
     Ok(FhirResponse(Resource::Condition(Box::new(fhir_cond))))

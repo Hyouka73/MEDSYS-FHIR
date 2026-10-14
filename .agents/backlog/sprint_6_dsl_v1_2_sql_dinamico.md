@@ -45,7 +45,7 @@ Dotar a `medsys-core` y `medsys-db` de las capacidades declarativas y relacional
          - Utilice exclusivamente placeholders `$1`, `$2` para los valores de filtro (`WHERE t0.{primary_key} = $1` o `LIMIT $1 OFFSET $2`).
   - **Criterio de Aceptación:** Pruebas unitarias en `crates/medsys-db/src/query_builder.rs` probando la generación de SQL para `S0`, `S1` (`DISTINCT ON`), `S2` (`LEFT JOIN`) y el rechazo inmediato de cualquier intento de inyección SQL en nombres de tablas/columnas.
 
-- [ ] **Tarea 6.3: Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`)**
+- [x] **Tarea 6.3: Transacciones `REPEATABLE READ READ ONLY` y Verificación Activa de Llaves Foráneas (`T4`)**
   - **Archivos a modificar:**
     - `crates/medsys-db/src/repository/mod.rs`
     - `crates/medsys-db/src/repository/pacientes.rs`

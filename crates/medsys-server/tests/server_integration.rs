@@ -338,3 +338,20 @@ async fn test_server_error_issue_code_catalog() {
         assert!(body.contains(&format!("\"code\": \"{code}\"")), "{code}");
     }
 }
+
+#[tokio::test]
+async fn test_t4_referential_integrity_error_maps_to_422_processing() {
+    use axum::response::IntoResponse;
+
+    let t4_err = ServerError::Domain(MedSysError::ProcessingError(
+        "T4 Violación de integridad referencial: registro padre inexistente en tbl_pacientes con id_paciente=9999".into(),
+    ));
+
+    let res = t4_err.into_response();
+    assert_eq!(res.status(), StatusCode::UNPROCESSABLE_ENTITY);
+    let body = response_body_to_string(res).await;
+    assert!(body.contains("\"resourceType\": \"OperationOutcome\""));
+    assert!(body.contains("\"code\": \"processing\""));
+    assert!(body.contains("T4 Violación de integridad referencial"));
+}
+
