@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T12:41:00-06:00
+- **Última Actualización:** 2026-10-14T12:54:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 7 — Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)** (`.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
-- **Estado General:** 25 / 36 tareas completadas (69.4% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 1/4 tareas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.2**).
-- **Última Tarea Cerrada:** **Tarea 7.1** (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (85 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 7.2** (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Estado General:** 26 / 36 tareas completadas (72.2% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 2/4 tareas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.3**).
+- **Última Tarea Cerrada:** **Tarea 7.2** (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (88 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 7.3** (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
 - **Estado Actual del Build:**
-  - `medsys-core`: 33/33 tests PASS.
-  - `medsys-db`: 29/29 tests PASS.
-  - `medsys-server` y tests E2E/integración: 23/23 tests PASS (10 E2E, 9 integración, 4 persistencia).
-  - Workspace total: 85/85 tests PASS (100 %).
+  - `medsys-core`: 34/34 tests PASS.
+  - `medsys-db`: 30/30 tests PASS.
+  - `medsys-server` y tests E2E/integración: 24/24 tests PASS (10 E2E, 9 integración, 5 persistencia).
+  - Workspace total: 88/88 tests PASS (100 %).
 
 ---
 
@@ -115,7 +115,24 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 85/85 tests PASS (33 en `medsys-core`, 29 en `medsys-db`, 4 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
-- **Siguiente paso:** Sprint 7 — Tarea 7.2 (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Siguiente paso:** Sprint 7 — Tarea 7.2 completada.
+
+---
+
+## 9. Registro de Avance Sprint 7: Tarea 7.2 Cerrada
+- **Archivos Creados/Modificados:**
+  - `config/mapping_rules_s0.yaml` (nuevo): copia canónica idéntica a `mapping_rules.yaml` v1.2.0 para el arquetipo base normalizado NOM-004.
+  - `config/mapping_rules_s1.yaml` (nuevo): reglas para el arquetipo sábana plana desnormalizada (`tbl_sabana_consulta_externa`) usando `distinct_on: "id_paciente"` para `Patient`.
+  - `config/mapping_rules_s2.yaml` (nuevo): reglas para el arquetipo normalizado con catálogos externos, incorporando directivas `lookup` hacia `cat_sexo_biologico` (con `codigo_fhir`), `cat_estado_consulta` (con `codigo_fhir`), `cat_cie10` (con `clave`) y `cat_tipo_diagnostico` (con `clave`).
+  - `config/mapping_rules_s3.yaml` (nuevo): reglas para el arquetipo legado con deuda técnica, incorporando `parse_datetime: "%d/%m/%Y|%Y-%m-%d"`, separación de presión arterial sistólica y diastólica con `split_part` (delimitador `"/"`, índices 0 y 1), conversión de unidades `unit_conversion: "lb_to_kg"` para `peso_libras`, y verificación activa de llaves foráneas `parent_checks` en `Encounter`, `Observation` y `Condition`.
+  - `crates/medsys-core/src/engine/mod.rs`: adición del test unitario `test_parse_archetype_mapping_rules_s0_to_s3` verificando que los 4 archivos YAML deserializan sin errores y cumplen con las estructuras esperadas.
+  - `crates/medsys-db/src/query_builder.rs`: adición del test unitario `test_archetypes_s0_to_s3_allowlist_validation` asegurando que el 100 % de tablas y columnas declaradas en los 4 arquetipos satisfacen la lista blanca estricta (*Fail-Fast*).
+  - `crates/medsys-db/tests/persistence_integration.rs`: adición del test de integración `test_archetype_mapping_rules_s0_to_s3_contract_and_allowlist` vinculando las reglas con el subsistema de persistencia.
+- **Validación Automatizada:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 88/88 tests PASS (34 en `medsys-core`, 30 en `medsys-db`, 5 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
+- **Siguiente paso:** Sprint 7 — Tarea 7.3 (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
 
 
 

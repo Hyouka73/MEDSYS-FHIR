@@ -1,0 +1,348 @@
+# ==============================================================================
+# ESPECIFICACIÓN DE REGLAS DE MAPEO DECLARATIVO — MedSys-FHIR
+# Formato: YAML 1.2
+# Arquetipo: S3 (Esquema Legado con Deuda Técnica: campos abreviados, fechas texto, TA concatenada y sin FK DDL)
+# Estándar destino: HL7 FHIR Release 4 (R4)
+# ==============================================================================
+
+version: "1.2.0"
+description: "Reglas de transformación entre esquema legado con deuda técnica S3 y HL7 FHIR R4"
+
+resources:
+  # ----------------------------------------------------------------------------
+  # RECURSO 1: Patient (Datos demográficos con columnas abreviadas pac_* y fech_nac_txt)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Patient"
+    source_table: "tbl_pacientes_s3"
+    primary_key: "pac_id"
+    mappings:
+      - source_column: "pac_curp"
+        target_path: "identifier[0].value"
+        system: "urn:oid:2.16.840.1.113883.4.629"
+        use: "official"
+      - source_column: "pac_nom1"
+        target_path: "name[0].given[0]"
+      - source_column: "pac_nom2"
+        target_path: "name[0].given[1]"
+        optional: true
+      - source_column: "pac_ap_pat"
+        target_path: "name[0].family"
+        combine_with: "pac_ap_mat"
+        combine_format: "{pac_ap_pat} {pac_ap_mat}"
+      - source_column: "fech_nac_txt"
+        target_path: "birthDate"
+        parse_datetime: "%d/%m/%Y|%Y-%m-%d"
+      - source_column: "sexo"
+        target_path: "gender"
+        dictionary:
+          "M": "male"
+          "F": "female"
+          "I": "other"
+      - source_column: "tel_contacto"
+        target_path: "telecom[0].value"
+        system: "phone"
+        use: "mobile"
+        optional: true
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 2: Encounter (Acto médico con parent_checks sobre pac_id)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Encounter"
+    source_table: "tbl_consultas_s3"
+    primary_key: "con_id"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+    mappings:
+      - source_column: "con_id"
+        target_path: "identifier[0].value"
+        system: "https://distritosalud1.chiapas.gob.mx/encounters"
+      - source_column: "est_consulta"
+        target_path: "status"
+        dictionary:
+          "FINALIZADA": "finished"
+          "EN_CURSO": "in-progress"
+          "CANCELADA": "cancelled"
+      - constant_value: "AMB"
+        target_path: "class.code"
+        system: "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "motivo"
+        target_path: "reasonCode[0].text"
+      - source_column: "fech_ini_txt"
+        target_path: "period.start"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "fech_fin_txt"
+        target_path: "period.end"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "ced_medico"
+        target_path: "participant[0].individual.identifier.value"
+        system: "http://cedulaprofesional.sep.gob.mx"
+      - source_column: "nom_medico"
+        target_path: "participant[0].individual.display"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3A: Observation - Panel de Presión Arterial (split_part '/')
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/bp"
+    source_table: "tbl_signos_s3"
+    primary_key: "sig_id"
+    observation_type: "blood_pressure_panel"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "85354-9"
+        target_path: "code.coding[0].code"
+        display: "Blood pressure panel with all children optional"
+        system: "http://loinc.org"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fech_reg_txt"
+        target_path: "effectiveDateTime"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      # Componente Sistólica (LOINC 8480-6) mediante split_part index 0
+      - constant_value: "8480-6"
+        target_path: "component[0].code.coding[0].code"
+        display: "Systolic blood pressure"
+        system: "http://loinc.org"
+      - source_column: "presion_arterial_txt"
+        target_path: "component[0].valueQuantity.value"
+        split_part:
+          delimiter: "/"
+          index: 0
+        unit: "mmHg"
+        code: "mm[Hg]"
+        system: "http://unitsofmeasure.org"
+      # Componente Diastólica (LOINC 8462-4) mediante split_part index 1
+      - constant_value: "8462-4"
+        target_path: "component[1].code.coding[0].code"
+        display: "Diastolic blood pressure"
+        system: "http://loinc.org"
+      - source_column: "presion_arterial_txt"
+        target_path: "component[1].valueQuantity.value"
+        split_part:
+          delimiter: "/"
+          index: 1
+        unit: "mmHg"
+        code: "mm[Hg]"
+        system: "http://unitsofmeasure.org"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3B: Observation - Temperatura Corporal (LOINC 8310-5)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/bodytemp"
+    source_table: "tbl_signos_s3"
+    primary_key: "sig_id"
+    observation_type: "body_temperature"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "8310-5"
+        target_path: "code.coding[0].code"
+        display: "Body temperature"
+        system: "http://loinc.org"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fech_reg_txt"
+        target_path: "effectiveDateTime"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "temp_celsius"
+        target_path: "valueQuantity.value"
+        unit: "Cel"
+        code: "Cel"
+        system: "http://unitsofmeasure.org"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3C: Observation - Frecuencia Cardiaca (LOINC 8867-4)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/heartrate"
+    source_table: "tbl_signos_s3"
+    primary_key: "sig_id"
+    observation_type: "heart_rate"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "8867-4"
+        target_path: "code.coding[0].code"
+        display: "Heart rate"
+        system: "http://loinc.org"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fech_reg_txt"
+        target_path: "effectiveDateTime"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "fc"
+        target_path: "valueQuantity.value"
+        unit: "/min"
+        code: "/min"
+        system: "http://unitsofmeasure.org"
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3D: Observation - Frecuencia Respiratoria (LOINC 9279-1, opcional)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/resprate"
+    source_table: "tbl_signos_s3"
+    primary_key: "sig_id"
+    observation_type: "respiratory_rate"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "9279-1"
+        target_path: "code.coding[0].code"
+        display: "Respiratory rate"
+        system: "http://loinc.org"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fech_reg_txt"
+        target_path: "effectiveDateTime"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "fr"
+        target_path: "valueQuantity.value"
+        unit: "/min"
+        code: "/min"
+        system: "http://unitsofmeasure.org"
+        optional: true
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 3E: Observation - Peso Corporal (LOINC 29463-7, conversión lb a kg)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Observation"
+    profile: "http://hl7.org/fhir/StructureDefinition/bodyweight"
+    source_table: "tbl_signos_s3"
+    primary_key: "sig_id"
+    observation_type: "body_weight"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "final"
+        target_path: "status"
+      - constant_value: "vital-signs"
+        target_path: "category[0].coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/observation-category"
+      - constant_value: "29463-7"
+        target_path: "code.coding[0].code"
+        display: "Body weight"
+        system: "http://loinc.org"
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "fech_reg_txt"
+        target_path: "effectiveDateTime"
+        parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M|%Y-%m-%d %H:%M:%S|%Y-%m-%d"
+      - source_column: "peso_libras"
+        target_path: "valueQuantity.value"
+        unit_conversion: "lb_to_kg"
+        unit: "kg"
+        code: "kg"
+        system: "http://unitsofmeasure.org"
+        optional: true
+
+  # ----------------------------------------------------------------------------
+  # RECURSO 4: Condition (Diagnósticos clínicos con parent_checks)
+  # ----------------------------------------------------------------------------
+  - resource_type: "Condition"
+    source_table: "tbl_diagnosticos_s3"
+    primary_key: "diag_id"
+    parent_checks:
+      - foreign_key_column: "pac_id"
+        parent_table: "tbl_pacientes_s3"
+        parent_pk: "pac_id"
+      - foreign_key_column: "con_id"
+        parent_table: "tbl_consultas_s3"
+        parent_pk: "con_id"
+    mappings:
+      - constant_value: "active"
+        target_path: "clinicalStatus.coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/condition-clinical"
+      - source_column: "tipo_diag"
+        target_path: "verificationStatus.coding[0].code"
+        system: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+        dictionary:
+          "CONFIRMADO": "confirmed"
+          "PRESUNTIVO": "provisional"
+        optional: true
+      - source_column: "pac_id"
+        target_path: "subject.reference"
+        transform: "reference:Patient/{value}"
+      - source_column: "con_id"
+        target_path: "encounter.reference"
+        transform: "reference:Encounter/{value}"
+      - source_column: "cie10"
+        target_path: "code.coding[0].code"
+        system: "http://hl7.org/fhir/sid/icd-10"
+      - source_column: "desc_diag"
+        target_path: "code.coding[0].display"
+      - source_column: "fech_diag_txt"
+        target_path: "recordedDate"
+        parse_datetime: "%d/%m/%Y|%Y-%m-%d"

@@ -47,7 +47,7 @@
 ### Sprint 7: Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)
 *Detalle técnico en: `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`*
 - [x] **Tarea 7.1:** Creación de los 4 esquemas DDL (`docker/sql/schema_s0_base.sql`, `schema_s1_flat.sql`, `schema_s2_lookup.sql`, `schema_s3_legacy.sql`) y configuración del rol de solo lectura `medsys_ro`.
-- [ ] **Tarea 7.2:** Creación de los 4 archivos declarativos `config/mapping_rules_s0.yaml`, `mapping_rules_s1.yaml`, `mapping_rules_s2.yaml` y `mapping_rules_s3.yaml`.
+- [x] **Tarea 7.2:** Creación de los 4 archivos declarativos `config/mapping_rules_s0.yaml`, `mapping_rules_s1.yaml`, `mapping_rules_s2.yaml` y `mapping_rules_s3.yaml`.
 - [ ] **Tarea 7.3:** Refactorización determinista de `scripts/generate_data.py` (`--seed 20260930 --schema {s0,s1,s2,s3,all}`) con 10 % exacto de `NULL` en `frecuencia_respiratoria` (250 nulos $\rightarrow$ 9,750 `Observation` y 16,250 recursos FHIR totales) y 10 % de `NULL` en `tipo_diagnostico`.
 - [ ] **Tarea 7.4:** Pruebas automatizadas de equivalencia semántica en Rust verificando que `S0`, `S1`, `S2` y `S3` generan idénticos recursos FHIR R4 sin recompilar el binario.
 

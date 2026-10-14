@@ -474,6 +474,40 @@ mod tests {
     }
 
     #[test]
+    fn test_archetypes_s0_to_s3_allowlist_validation() {
+        const RULES_S0_YAML: &str = include_str!("../../../config/mapping_rules_s0.yaml");
+        const RULES_S1_YAML: &str = include_str!("../../../config/mapping_rules_s1.yaml");
+        const RULES_S2_YAML: &str = include_str!("../../../config/mapping_rules_s2.yaml");
+        const RULES_S3_YAML: &str = include_str!("../../../config/mapping_rules_s3.yaml");
+
+        let r0 = medsys_core::parse_mapping_rules(RULES_S0_YAML)
+            .expect("Fallo al parsear config/mapping_rules_s0.yaml");
+        let r1 = medsys_core::parse_mapping_rules(RULES_S1_YAML)
+            .expect("Fallo al parsear config/mapping_rules_s1.yaml");
+        let r2 = medsys_core::parse_mapping_rules(RULES_S2_YAML)
+            .expect("Fallo al parsear config/mapping_rules_s2.yaml");
+        let r3 = medsys_core::parse_mapping_rules(RULES_S3_YAML)
+            .expect("Fallo al parsear config/mapping_rules_s3.yaml");
+
+        assert!(
+            validate_rules_identifiers_allowlist(&r0).is_ok(),
+            "Reglas S0 deben cumplir la lista blanca"
+        );
+        assert!(
+            validate_rules_identifiers_allowlist(&r1).is_ok(),
+            "Reglas S1 deben cumplir la lista blanca"
+        );
+        assert!(
+            validate_rules_identifiers_allowlist(&r2).is_ok(),
+            "Reglas S2 deben cumplir la lista blanca"
+        );
+        assert!(
+            validate_rules_identifiers_allowlist(&r3).is_ok(),
+            "Reglas S3 deben cumplir la lista blanca"
+        );
+    }
+
+    #[test]
     fn test_dynamic_sql_builder_s0_base() {
         let mapping = ResourceMapping {
             resource_type: "Patient".to_string(),

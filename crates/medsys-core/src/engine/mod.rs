@@ -1333,4 +1333,66 @@ mod tests {
             Err(MedSysError::ProcessingError(_))
         ));
     }
+
+    #[test]
+    fn test_parse_archetype_mapping_rules_s0_to_s3() {
+        const RULES_S0_YAML: &str = include_str!("../../../../config/mapping_rules_s0.yaml");
+        const RULES_S1_YAML: &str = include_str!("../../../../config/mapping_rules_s1.yaml");
+        const RULES_S2_YAML: &str = include_str!("../../../../config/mapping_rules_s2.yaml");
+        const RULES_S3_YAML: &str = include_str!("../../../../config/mapping_rules_s3.yaml");
+
+        // 1. Validar S0 (Base normalizado)
+        let rules_s0 = parse_mapping_rules(RULES_S0_YAML)
+            .expect("config/mapping_rules_s0.yaml debe parsear correctamente");
+        assert_eq!(rules_s0.version, "1.2.0");
+        assert_eq!(rules_s0.resources.len(), 7);
+
+        // 2. Validar S1 (Sábana plana desnormalizada)
+        let rules_s1 = parse_mapping_rules(RULES_S1_YAML)
+            .expect("config/mapping_rules_s1.yaml debe parsear correctamente");
+        assert_eq!(rules_s1.version, "1.2.0");
+        assert_eq!(rules_s1.resources.len(), 7);
+        let pat_s1 = rules_s1
+            .get_resource_mapping(SupportedResource::Patient)
+            .expect("Patient debe existir en S1");
+        assert_eq!(pat_s1.source_table, "tbl_sabana_consulta_externa");
+        assert_eq!(pat_s1.distinct_on.as_deref(), Some("id_paciente"));
+
+        // 3. Validar S2 (Catálogos externos)
+        let rules_s2 = parse_mapping_rules(RULES_S2_YAML)
+            .expect("config/mapping_rules_s2.yaml debe parsear correctamente");
+        assert_eq!(rules_s2.version, "1.2.0");
+        assert_eq!(rules_s2.resources.len(), 7);
+        let pat_s2 = rules_s2
+            .get_resource_mapping(SupportedResource::Patient)
+            .expect("Patient debe existir en S2");
+        assert_eq!(pat_s2.source_table, "tbl_pacientes_s2");
+        let sex_rule = pat_s2
+            .mappings
+            .iter()
+            .find(|m| m.source_column.as_deref() == Some("id_sexo"))
+            .expect("id_sexo debe existir en S2");
+        assert!(sex_rule.lookup.is_some());
+        assert_eq!(
+            sex_rule.lookup.as_ref().unwrap().table,
+            "cat_sexo_biologico"
+        );
+
+        // 4. Validar S3 (Esquema legado con deuda técnica)
+        let rules_s3 = parse_mapping_rules(RULES_S3_YAML)
+            .expect("config/mapping_rules_s3.yaml debe parsear correctamente");
+        assert_eq!(rules_s3.version, "1.2.0");
+        assert!(rules_s3.resources.len() >= 7);
+        let pat_s3 = rules_s3
+            .get_resource_mapping(SupportedResource::Patient)
+            .expect("Patient debe existir en S3");
+        assert_eq!(pat_s3.source_table, "tbl_pacientes_s3");
+        assert_eq!(pat_s3.primary_key, "pac_id");
+        let enc_s3 = rules_s3
+            .get_resource_mapping(SupportedResource::Encounter)
+            .expect("Encounter debe existir en S3");
+        assert!(!enc_s3.parent_checks.is_empty());
+        assert_eq!(enc_s3.parent_checks[0].foreign_key_column, "pac_id");
+        assert_eq!(enc_s3.parent_checks[0].parent_table, "tbl_pacientes_s3");
+    }
 }

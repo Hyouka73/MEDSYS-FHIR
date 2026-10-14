@@ -25,6 +25,11 @@ const SCHEMA_S1_SQL: &str = include_str!("../../../docker/sql/schema_s1_flat.sql
 const SCHEMA_S2_SQL: &str = include_str!("../../../docker/sql/schema_s2_lookup.sql");
 const SCHEMA_S3_SQL: &str = include_str!("../../../docker/sql/schema_s3_legacy.sql");
 
+const RULES_S0_YAML: &str = include_str!("../../../config/mapping_rules_s0.yaml");
+const RULES_S1_YAML: &str = include_str!("../../../config/mapping_rules_s1.yaml");
+const RULES_S2_YAML: &str = include_str!("../../../config/mapping_rules_s2.yaml");
+const RULES_S3_YAML: &str = include_str!("../../../config/mapping_rules_s3.yaml");
+
 /// Valida la integridad sintáctica y contractual de los 4 arquetipos relacionales (S0-S3) y el rol medsys_ro.
 #[test]
 fn test_multi_schema_ddl_archetypes_and_readonly_role_integrity() {
@@ -81,6 +86,36 @@ fn test_multi_schema_ddl_archetypes_and_readonly_role_integrity() {
     assert!(SCHEMA_S3_SQL.contains("peso_libras"));
     assert!(!SCHEMA_S3_SQL.contains("REFERENCES "));
     assert!(!SCHEMA_S3_SQL.contains("FOREIGN KEY ("));
+}
+
+/// Valida que los 4 archivos de reglas declarativas YAML (S0 a S3) sean válidos y cumplan la lista blanca.
+#[test]
+fn test_archetype_mapping_rules_s0_to_s3_contract_and_allowlist() {
+    let r0 = medsys_core::parse_mapping_rules(RULES_S0_YAML)
+        .expect("Reglas S0 deben parsear correctamente");
+    let r1 = medsys_core::parse_mapping_rules(RULES_S1_YAML)
+        .expect("Reglas S1 deben parsear correctamente");
+    let r2 = medsys_core::parse_mapping_rules(RULES_S2_YAML)
+        .expect("Reglas S2 deben parsear correctamente");
+    let r3 = medsys_core::parse_mapping_rules(RULES_S3_YAML)
+        .expect("Reglas S3 deben parsear correctamente");
+
+    assert!(
+        medsys_db::query_builder::validate_rules_identifiers_allowlist(&r0).is_ok(),
+        "Reglas S0 deben cumplir la lista blanca (Fail-Fast)"
+    );
+    assert!(
+        medsys_db::query_builder::validate_rules_identifiers_allowlist(&r1).is_ok(),
+        "Reglas S1 deben cumplir la lista blanca (Fail-Fast)"
+    );
+    assert!(
+        medsys_db::query_builder::validate_rules_identifiers_allowlist(&r2).is_ok(),
+        "Reglas S2 deben cumplir la lista blanca (Fail-Fast)"
+    );
+    assert!(
+        medsys_db::query_builder::validate_rules_identifiers_allowlist(&r3).is_ok(),
+        "Reglas S3 deben cumplir la lista blanca (Fail-Fast)"
+    );
 }
 
 /// Valida la integridad sintáctica y contractual del archivo SQL de esquema legado simulado.

@@ -22,7 +22,7 @@ Materializar en el repositorio los **4 arquetipos relacionales (`S0`, `S1`, `S2`
     5. En todos los scripts DDL, crear el rol de mínimo privilegio `medsys_ro` con contraseña `'medsys_ro_pass_2026'` y permisos exclusivos `SELECT`.
   - **Criterio de Aceptación:** Los 4 archivos SQL existen en `docker/sql/` y son sintácticamente válidos en PostgreSQL 16.
 
-- [ ] **Tarea 7.2: Creación de los 4 Archivos de Reglas Declarativas YAML (`config/mapping_rules_s0.yaml` a `s3.yaml`)**
+- [x] **Tarea 7.2: Creación de los 4 Archivos de Reglas Declarativas YAML (`config/mapping_rules_s0.yaml` a `s3.yaml`)**
   - **Archivos a crear:**
     - `config/mapping_rules_s0.yaml` (copia canónica idéntica a `mapping_rules.yaml` v1.2.0)
     - `config/mapping_rules_s1.yaml` (usando `source_table: "tbl_sabana_consulta_externa"` y `distinct_on: "id_paciente"` para `Patient`)
