@@ -36,3 +36,7 @@ ehthumbs.db
 # Exported FHIR JSON samples for validation
 output/
 
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class

@@ -9,7 +9,7 @@ Implementar los dos instrumentos de verificación experimental prometidos en el 
 
 ## Lista de Tareas Atómicas
 
-- [ ] **Tarea 8.1: Implementación del Oráculo Diferencial Independiente (`scripts/oracle_verifier.py`)**
+- [x] **Tarea 8.1: Implementación del Oráculo Diferencial Independiente (`scripts/oracle_verifier.py`)**
   - **Archivos a crear:**
     - `scripts/oracle_verifier.py`
   - **Instrucciones exactas:**
@@ -23,7 +23,7 @@ Implementar los dos instrumentos de verificación experimental prometidos en el 
     4. Exportar el reporte detallado en JSON/Markdown (`output/oracle_report.json`).
   - **Criterio de Aceptación:** `python3 scripts/oracle_verifier.py --self-test` termina con código de salida `0` y reporta `16,250 / 16,250` recursos verificados con `100.0%` de exactitud.
 
-- [ ] **Tarea 8.2: Modo de Pruebas de Mutación (*Mutation Testing*) en `scripts/oracle_verifier.py`**
+- [x] **Tarea 8.2: Modo de Pruebas de Mutación (*Mutation Testing*) en `scripts/oracle_verifier.py`**
   - **Archivos a modificar:**
     - `scripts/oracle_verifier.py`
   - **Instrucciones exactas:**

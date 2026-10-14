@@ -53,8 +53,8 @@
 
 ### Sprint 8: Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)
 *Detalle técnico en: `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`*
-- [ ] **Tarea 8.1:** Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py` para verificar campo por campo los 16,250 recursos FHIR R4.
-- [ ] **Tarea 8.2:** Implementación de `--run-mutations` en `scripts/oracle_verifier.py` (20 mutaciones artificiales con 100 % de sensibilidad de detección).
+- [x] **Tarea 8.1:** Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py` para verificar campo por campo los 16,250 recursos FHIR R4.
+- [x] **Tarea 8.2:** Implementación de `--run-mutations` en `scripts/oracle_verifier.py` (20 mutaciones artificiales con 100 % de sensibilidad de detección).
 - [ ] **Tarea 8.3:** Creación del corpus determinista de 100 fallas clínicas `tests/fault_corpus/fault_corpus_100.json` y `.sql` (20 casos por categoría: `T1`, `T2`, `T3`, `T4`, `T5`).
 - [ ] **Tarea 8.4:** Implementación de `scripts/run_fault_corpus.py`, suite de integración `crates/medsys-core/tests/fault_corpus_integration.rs` y actualización de `tests/k6/resilience_and_errors_test.js` (100 % de rechazo HTTP 422 `OperationOutcome`).
 

@@ -1,13 +1,13 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T13:21:00-06:00
+- **Última Actualización:** 2026-10-14T13:40:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 8 — Oráculo Diferencial en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)** (`.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
-- **Estado General:** 28 / 36 tareas completadas (77.8% — Sprints 1 al 7 completados al 100%; Sprint 8 listo para iniciar).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 8.1**).
-- **Última Tarea Cerrada:** **Tarea 7.4** (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`: test `test_multi_schema_s0_s1_s2_s3_semantic_equivalence` en `medsys-core`, alineación de `parse_datetime_iso8601` con zona horaria `America/Mexico_City`, validación de idéntico JSON FHIR R4 para Patient, Encounter, Observation BP y Condition, validación de signos vitales complementarios y conversión de peso en libras a kilogramos en S3).
-- **Siguiente Tarea Inmediata:** **Tarea 8.1** (Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+- **Estado General:** 30 / 36 tareas completadas (83.3% — Sprints 1 al 7 completados al 100%; Tareas 8.1 y 8.2 completadas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 8.3**).
+- **Última Tarea Cerrada:** **Tarea 8.2** (Modo de Pruebas de Mutación en `scripts/oracle_verifier.py` con 20/20 mutaciones detectadas y 100.0% de sensibilidad; y Tarea 8.1 Oráculo diferencial con 16,250 / 16,250 recursos verificados al 100.0%).
+- **Siguiente Tarea Inmediata:** **Tarea 8.3** (Construcción del Corpus de 100 Fallas Clínicas `T1`–`T5` en `tests/fault_corpus/`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
 - **Estado Actual del Build:**
   - `medsys-core`: 35/35 tests PASS.
   - `medsys-db`: 30/30 tests PASS.
@@ -177,4 +177,23 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 89/89 tests PASS (35 en `medsys-core`, 30 en `medsys-db`, 5 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor — 100 %).
-- **Siguiente paso:** Sprint 8 — Tarea 8.1 (Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+- **Siguiente paso:** Sprint 8 — Tarea 8.1 completada.
+
+---
+
+## 12. Registro de Avance Sprint 8: Tareas 8.1 y 8.2 Cerradas (Oráculo Diferencial y Mutation Testing)
+- **Archivos Creados/Modificados:**
+  - `scripts/oracle_verifier.py` (nuevo):
+    - Implementación desacoplada en Python 3 estándar del oráculo diferencial independiente para la evaluación experimental de los Objetivos Específicos 2 y 3 (Capítulo III, §3.1.2 y §3.6.3).
+    - Generador `IndependentOracleModel`: reconstruye en memoria de forma determinista (`SEED=20260930`) el censo íntegro de **16,250 recursos FHIR R4 canónicos** (1,000 `Patient`, 2,500 `Encounter`, 9,750 `Observation` [2,500 BP, 2,500 Temp, 2,500 HR, 2,250 Resp] y 3,000 `Condition`), certificando además las 250 `Observation` de frecuencia respiratoria ausentes (reemplazadas por rechazo limpio) y las 300 `Condition` con `verificationStatus` omitido por `tipo_diagnostico = NULL` (*Fail-Closed* D-006).
+    - Verificador semántico `FhirOracleVerifier`: compara campo por campo identificadores nacionales (CURP con regex oficial de RENAPO), demografía, telecom condicional, cédulas profesionales SEP, clasificaciones ambulatorias `AMB`, códigos LOINC/CIE-10, unidades UCUM y componentes clínicos.
+    - Soporte CLI multimodal: `--self-test` (autovalidación exhaustiva en memoria), `--input-dir` (validación por lotes de archivos JSON exportados), `--base-url` (sondeo sobre servidor HTTP Axum en vivo) y exportación de reporte detallado en `output/oracle_report.json`.
+    - Modo de Pruebas de Mutación `--run-mutations` (Tarea 8.2): inyección sistemática de 20 mutaciones artificiales en recursos representativos (corrupción de CURP, inversión de género, manipulación de fechas, corrupción de sistemas URI, alteración de cédula SEP, intercambio de códigos LOINC 8480-6/8462-4, alteración de valores y unidades en temperatura/presión/frecuencia cardíaca, mutación de CIE-10 e inyección indebida de `verificationStatus` sobre nulos).
+- **Validación Automatizada de Tareas 8.1 y 8.2:**
+  - `python scripts/oracle_verifier.py --self-test`: **16,250 / 16,250 recursos verificados con 100.0% de exactitud** (0 recursos fallidos, 0.44 s de ejecución).
+  - `python scripts/oracle_verifier.py --run-mutations`: **20 / 20 mutaciones detectadas y rechazadas (100.0% de sensibilidad)**.
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 89/89 tests PASS (100 %).
+- **Siguiente paso:** Sprint 8 — Tarea 8.3 (Construcción del Corpus de 100 Fallas Clínicas `T1`–`T5` en `tests/fault_corpus/`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+
