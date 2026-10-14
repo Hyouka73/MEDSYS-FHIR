@@ -51,9 +51,10 @@ Materializar en el repositorio los **4 arquetipos relacionales (`S0`, `S1`, `S2`
     3. Ejecutar `python3 scripts/generate_data.py --seed 20260930` para actualizar `docker/sql/02_bulk_data.sql` y verificar en `schema_legado_simulado_nom004.sql` que el signo vital 1 tenga `frecuencia_respiratoria = 18` y el signo vital 2 tenga `NULL`.
   - **Criterio de Aceptación:** Dos ejecuciones consecutivas de `python3 scripts/generate_data.py --seed 20260930` producen exactamente el mismo hash SHA-256, con 250 nulos en `frecuencia_respiratoria` y 300 nulos en `tipo_diagnostico`.
 
-- [ ] **Tarea 7.4: Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos (`S0` vs `S1` vs `S2` vs `S3`)**
+- [x] **Tarea 7.4: Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos (`S0` vs `S1` vs `S2` vs `S3`)**
   - **Archivos a modificar:**
     - `crates/medsys-core/src/engine/mod.rs`
   - **Instrucciones exactas:**
     - Agregar el test unitario `test_multi_schema_s0_s1_s2_s3_semantic_equivalence` que tome el mismo registro clínico representado en formato de fila de `S0`, `S1`, `S2` (con valores resueltos de lookup) y `S3` (con fecha `"01/01/1990"`, presión `"130/85"` y peso en libras), aplique sus respectivas reglas `config/mapping_rules_s{0..3}.yaml` y verifique que los 4 recursos JSON HL7 FHIR R4 resultantes son semánticamente idénticos.
   - **Criterio de Aceptación:** `cargo test --workspace` 100 % PASS.
+

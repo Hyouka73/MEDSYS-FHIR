@@ -44,12 +44,12 @@
 - [x] **Tarea 6.3:** Ejecución sobre transacciones `REPEATABLE READ READ ONLY` y verificación activa de existencia de llaves foráneas padres (`id_paciente`, `id_consulta`) para rechazar registros huérfanos (`T4`) con HTTP 422 `OperationOutcome`.
 - [x] **Tarea 6.4:** Adaptador `DynamicFhirRepository` en `medsys-db` y validación *Fail-Fast* al arranque en `crates/medsys-server/src/main.rs`.
 
-### Sprint 7: Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)
+### Sprint 7: Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`) (COMPLETADO)
 *Detalle técnico en: `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`*
 - [x] **Tarea 7.1:** Creación de los 4 esquemas DDL (`docker/sql/schema_s0_base.sql`, `schema_s1_flat.sql`, `schema_s2_lookup.sql`, `schema_s3_legacy.sql`) y configuración del rol de solo lectura `medsys_ro`.
 - [x] **Tarea 7.2:** Creación de los 4 archivos declarativos `config/mapping_rules_s0.yaml`, `mapping_rules_s1.yaml`, `mapping_rules_s2.yaml` y `mapping_rules_s3.yaml`.
 - [x] **Tarea 7.3:** Refactorización determinista de `scripts/generate_data.py` (`--seed 20260930 --schema {s0,s1,s2,s3,all}`) con 10 % exacto de `NULL` en `frecuencia_respiratoria` (250 nulos $\rightarrow$ 9,750 `Observation` y 16,250 recursos FHIR totales) y 10 % de `NULL` en `tipo_diagnostico`.
-- [ ] **Tarea 7.4:** Pruebas automatizadas de equivalencia semántica en Rust verificando que `S0`, `S1`, `S2` y `S3` generan idénticos recursos FHIR R4 sin recompilar el binario.
+- [x] **Tarea 7.4:** Pruebas automatizadas de equivalencia semántica en Rust verificando que `S0`, `S1`, `S2` y `S3` generan idénticos recursos FHIR R4 sin recompilar el binario.
 
 ### Sprint 8: Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)
 *Detalle técnico en: `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`*

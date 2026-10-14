@@ -1395,4 +1395,287 @@ mod tests {
         assert_eq!(enc_s3.parent_checks[0].foreign_key_column, "pac_id");
         assert_eq!(enc_s3.parent_checks[0].parent_table, "tbl_pacientes_s3");
     }
+
+    #[test]
+    fn test_multi_schema_s0_s1_s2_s3_semantic_equivalence() {
+        use serde_json::json;
+
+        const RULES_S0_YAML: &str = include_str!("../../../../config/mapping_rules_s0.yaml");
+        const RULES_S1_YAML: &str = include_str!("../../../../config/mapping_rules_s1.yaml");
+        const RULES_S2_YAML: &str = include_str!("../../../../config/mapping_rules_s2.yaml");
+        const RULES_S3_YAML: &str = include_str!("../../../../config/mapping_rules_s3.yaml");
+
+        let rules_s0 = parse_mapping_rules(RULES_S0_YAML).unwrap();
+        let rules_s1 = parse_mapping_rules(RULES_S1_YAML).unwrap();
+        let rules_s2 = parse_mapping_rules(RULES_S2_YAML).unwrap();
+        let rules_s3 = parse_mapping_rules(RULES_S3_YAML).unwrap();
+
+        // ---------------------------------------------------------------------
+        // 1. EQUIVALENCIA SEMÁNTICA: PATIENT
+        // ---------------------------------------------------------------------
+        let mut row_pat_s0 = serde_json::Map::new();
+        row_pat_s0.insert("id_paciente".into(), json!(1));
+        row_pat_s0.insert("curp".into(), json!("ROMA900101HCSMNL09"));
+        row_pat_s0.insert("primer_nombre".into(), json!("Alberto"));
+        row_pat_s0.insert("segundo_nombre".into(), json!("Manuel"));
+        row_pat_s0.insert("apellido_paterno".into(), json!("Ramos"));
+        row_pat_s0.insert("apellido_materno".into(), json!("Gómez"));
+        row_pat_s0.insert("fecha_nacimiento".into(), json!("1990-01-01"));
+        row_pat_s0.insert("sexo_biologico".into(), json!("M"));
+        row_pat_s0.insert("telefono_contacto".into(), json!("9611234567"));
+
+        let row_pat_s1 = row_pat_s0.clone();
+
+        // S2: id_sexo resuelto por DynamicSqlBuilder (cat_sexo_biologico.codigo_fhir AS id_sexo)
+        let mut row_pat_s2 = row_pat_s0.clone();
+        row_pat_s2.remove("sexo_biologico");
+        row_pat_s2.insert("id_sexo".into(), json!("male"));
+
+        // S3: Columnas abreviadas con deuda técnica y fecha de nacimiento en formato "01/01/1990"
+        let mut row_pat_s3 = serde_json::Map::new();
+        row_pat_s3.insert("pac_id".into(), json!(1));
+        row_pat_s3.insert("pac_curp".into(), json!("ROMA900101HCSMNL09"));
+        row_pat_s3.insert("pac_nom1".into(), json!("Alberto"));
+        row_pat_s3.insert("pac_nom2".into(), json!("Manuel"));
+        row_pat_s3.insert("pac_ap_pat".into(), json!("Ramos"));
+        row_pat_s3.insert("pac_ap_mat".into(), json!("Gómez"));
+        row_pat_s3.insert("fech_nac_txt".into(), json!("01/01/1990"));
+        row_pat_s3.insert("sexo".into(), json!("M"));
+        row_pat_s3.insert("tel_contacto".into(), json!("9611234567"));
+
+        let json_pat_s0 = evaluate_resource_mapping(
+            rules_s0.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            &row_pat_s0,
+        ).unwrap();
+        let json_pat_s1 = evaluate_resource_mapping(
+            rules_s1.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            &row_pat_s1,
+        ).unwrap();
+        let json_pat_s2 = evaluate_resource_mapping(
+            rules_s2.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            &row_pat_s2,
+        ).unwrap();
+        let json_pat_s3 = evaluate_resource_mapping(
+            rules_s3.get_resource_mapping(SupportedResource::Patient).unwrap(),
+            &row_pat_s3,
+        ).unwrap();
+
+        assert_eq!(json_pat_s0, json_pat_s1, "Patient S0 != S1");
+        assert_eq!(json_pat_s0, json_pat_s2, "Patient S0 != S2");
+        assert_eq!(json_pat_s0, json_pat_s3, "Patient S0 != S3");
+
+        // ---------------------------------------------------------------------
+        // 2. EQUIVALENCIA SEMÁNTICA: ENCOUNTER
+        // ---------------------------------------------------------------------
+        let mut row_enc_s0 = serde_json::Map::new();
+        row_enc_s0.insert("id_consulta".into(), json!(1));
+        row_enc_s0.insert("id_paciente".into(), json!(1));
+        row_enc_s0.insert("estado_consulta".into(), json!("FINALIZADA"));
+        row_enc_s0.insert("motivo_consulta".into(), json!("Control trimestral de hipertensión arterial"));
+        row_enc_s0.insert("fecha_hora_inicio".into(), json!("2026-09-18 09:15:00"));
+        row_enc_s0.insert("fecha_hora_fin".into(), json!("2026-09-18 09:40:00"));
+        row_enc_s0.insert("cedula_medico_tratante".into(), json!("8472910"));
+        row_enc_s0.insert("nombre_medico".into(), json!("Dra. María Elena Cruz Martínez"));
+
+        let row_enc_s1 = row_enc_s0.clone();
+
+        // S2: id_estado_consulta resuelto por DynamicSqlBuilder (cat_estado_consulta.codigo_fhir AS id_estado_consulta)
+        let mut row_enc_s2 = row_enc_s0.clone();
+        row_enc_s2.remove("estado_consulta");
+        row_enc_s2.insert("id_estado_consulta".into(), json!("finished"));
+
+        // S3: Columnas abreviadas y fechas texto "18/09/2026 09:15:00"
+        let mut row_enc_s3 = serde_json::Map::new();
+        row_enc_s3.insert("con_id".into(), json!(1));
+        row_enc_s3.insert("pac_id".into(), json!(1));
+        row_enc_s3.insert("est_consulta".into(), json!("FINALIZADA"));
+        row_enc_s3.insert("motivo".into(), json!("Control trimestral de hipertensión arterial"));
+        row_enc_s3.insert("fech_ini_txt".into(), json!("18/09/2026 09:15:00"));
+        row_enc_s3.insert("fech_fin_txt".into(), json!("18/09/2026 09:40:00"));
+        row_enc_s3.insert("ced_medico".into(), json!("8472910"));
+        row_enc_s3.insert("nom_medico".into(), json!("Dra. María Elena Cruz Martínez"));
+
+        let json_enc_s0 = evaluate_resource_mapping(
+            rules_s0.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            &row_enc_s0,
+        ).unwrap();
+        let json_enc_s1 = evaluate_resource_mapping(
+            rules_s1.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            &row_enc_s1,
+        ).unwrap();
+        let json_enc_s2 = evaluate_resource_mapping(
+            rules_s2.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            &row_enc_s2,
+        ).unwrap();
+        let json_enc_s3 = evaluate_resource_mapping(
+            rules_s3.get_resource_mapping(SupportedResource::Encounter).unwrap(),
+            &row_enc_s3,
+        ).unwrap();
+
+        assert_eq!(json_enc_s0, json_enc_s1, "Encounter S0 != S1");
+        assert_eq!(json_enc_s0, json_enc_s2, "Encounter S0 != S2");
+        assert_eq!(json_enc_s0, json_enc_s3, "Encounter S0 != S3");
+
+        // ---------------------------------------------------------------------
+        // 3. EQUIVALENCIA SEMÁNTICA: OBSERVATION (BLOOD PRESSURE PANEL)
+        // ---------------------------------------------------------------------
+        let mut row_bp_s0 = serde_json::Map::new();
+        row_bp_s0.insert("id_signo".into(), json!(1));
+        row_bp_s0.insert("id_paciente".into(), json!(1));
+        row_bp_s0.insert("id_consulta".into(), json!(1));
+        row_bp_s0.insert("fecha_registro".into(), json!("2026-09-18 09:18:00"));
+        row_bp_s0.insert("presion_sistolica".into(), json!(130));
+        row_bp_s0.insert("presion_diastolica".into(), json!(85));
+
+        let row_bp_s1 = row_bp_s0.clone();
+        let row_bp_s2 = row_bp_s0.clone();
+
+        // S3: Columnas abreviadas, fecha texto y presión arterial concatenada "130/85"
+        let mut row_bp_s3 = serde_json::Map::new();
+        row_bp_s3.insert("sig_id".into(), json!(1));
+        row_bp_s3.insert("pac_id".into(), json!(1));
+        row_bp_s3.insert("con_id".into(), json!(1));
+        row_bp_s3.insert("fech_reg_txt".into(), json!("18/09/2026 09:18:00"));
+        row_bp_s3.insert("presion_arterial_txt".into(), json!("130/85"));
+
+        let json_bp_s0 = evaluate_resource_mapping(
+            rules_s0.get_observation_mapping("blood_pressure_panel").unwrap(),
+            &row_bp_s0,
+        ).unwrap();
+        let json_bp_s1 = evaluate_resource_mapping(
+            rules_s1.get_observation_mapping("blood_pressure_panel").unwrap(),
+            &row_bp_s1,
+        ).unwrap();
+        let json_bp_s2 = evaluate_resource_mapping(
+            rules_s2.get_observation_mapping("blood_pressure_panel").unwrap(),
+            &row_bp_s2,
+        ).unwrap();
+        let json_bp_s3 = evaluate_resource_mapping(
+            rules_s3.get_observation_mapping("blood_pressure_panel").unwrap(),
+            &row_bp_s3,
+        ).unwrap();
+
+        assert_eq!(json_bp_s0, json_bp_s1, "Observation BP S0 != S1");
+        assert_eq!(json_bp_s0, json_bp_s2, "Observation BP S0 != S2");
+        assert_eq!(json_bp_s0, json_bp_s3, "Observation BP S0 != S3");
+
+        // ---------------------------------------------------------------------
+        // 4. EQUIVALENCIA SEMÁNTICA: CONDITION
+        // ---------------------------------------------------------------------
+        let mut row_cond_s0 = serde_json::Map::new();
+        row_cond_s0.insert("id_diagnostico".into(), json!(1));
+        row_cond_s0.insert("id_paciente".into(), json!(1));
+        row_cond_s0.insert("id_consulta".into(), json!(1));
+        row_cond_s0.insert("codigo_cie10".into(), json!("I10"));
+        row_cond_s0.insert("descripcion_diagnostico".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s0.insert("tipo_diagnostico".into(), json!("CONFIRMADO"));
+        row_cond_s0.insert("fecha_diagnostico".into(), json!("2026-09-18"));
+
+        let row_cond_s1 = row_cond_s0.clone();
+
+        // S2: id_cie10 resuelto a "I10" e id_tipo_diag resuelto a "CONFIRMADO"
+        let mut row_cond_s2 = serde_json::Map::new();
+        row_cond_s2.insert("id_diagnostico".into(), json!(1));
+        row_cond_s2.insert("id_paciente".into(), json!(1));
+        row_cond_s2.insert("id_consulta".into(), json!(1));
+        row_cond_s2.insert("id_cie10".into(), json!("I10"));
+        row_cond_s2.insert("descripcion_diagnostico".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s2.insert("id_tipo_diag".into(), json!("CONFIRMADO"));
+        row_cond_s2.insert("fecha_diagnostico".into(), json!("2026-09-18"));
+
+        // S3: Columnas abreviadas y fecha en texto "18/09/2026"
+        let mut row_cond_s3 = serde_json::Map::new();
+        row_cond_s3.insert("diag_id".into(), json!(1));
+        row_cond_s3.insert("pac_id".into(), json!(1));
+        row_cond_s3.insert("con_id".into(), json!(1));
+        row_cond_s3.insert("cie10".into(), json!("I10"));
+        row_cond_s3.insert("desc_diag".into(), json!("Hipertensión esencial (primaria)"));
+        row_cond_s3.insert("tipo_diag".into(), json!("CONFIRMADO"));
+        row_cond_s3.insert("fech_diag_txt".into(), json!("18/09/2026"));
+
+        let json_cond_s0 = evaluate_resource_mapping(
+            rules_s0.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            &row_cond_s0,
+        ).unwrap();
+        let json_cond_s1 = evaluate_resource_mapping(
+            rules_s1.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            &row_cond_s1,
+        ).unwrap();
+        let json_cond_s2 = evaluate_resource_mapping(
+            rules_s2.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            &row_cond_s2,
+        ).unwrap();
+        let json_cond_s3 = evaluate_resource_mapping(
+            rules_s3.get_resource_mapping(SupportedResource::Condition).unwrap(),
+            &row_cond_s3,
+        ).unwrap();
+
+        assert_eq!(json_cond_s0, json_cond_s1, "Condition S0 != S1");
+        assert_eq!(json_cond_s0, json_cond_s2, "Condition S0 != S2");
+        assert_eq!(json_cond_s0, json_cond_s3, "Condition S0 != S3");
+
+        // ---------------------------------------------------------------------
+        // 5. OBSERVACIONES COMPLEMENTARIAS Y CONVERSIÓN DE UNIDADES EN S3
+        // ---------------------------------------------------------------------
+        // Temperatura
+        let mut row_temp_s0 = row_bp_s0.clone();
+        row_temp_s0.insert("temperatura_celsius".into(), json!(36.6));
+        let mut row_temp_s3 = row_bp_s3.clone();
+        row_temp_s3.insert("temp_celsius".into(), json!(36.6));
+
+        let json_temp_s0 = evaluate_resource_mapping(
+            rules_s0.get_observation_mapping("body_temperature").unwrap(),
+            &row_temp_s0,
+        ).unwrap();
+        let json_temp_s3 = evaluate_resource_mapping(
+            rules_s3.get_observation_mapping("body_temperature").unwrap(),
+            &row_temp_s3,
+        ).unwrap();
+        assert_eq!(json_temp_s0, json_temp_s3, "Observation Temp S0 != S3");
+
+        // Frecuencia Cardíaca
+        let mut row_hr_s0 = row_bp_s0.clone();
+        row_hr_s0.insert("frecuencia_cardiaca".into(), json!(76));
+        let mut row_hr_s3 = row_bp_s3.clone();
+        row_hr_s3.insert("fc".into(), json!(76));
+
+        let json_hr_s0 = evaluate_resource_mapping(
+            rules_s0.get_observation_mapping("heart_rate").unwrap(),
+            &row_hr_s0,
+        ).unwrap();
+        let json_hr_s3 = evaluate_resource_mapping(
+            rules_s3.get_observation_mapping("heart_rate").unwrap(),
+            &row_hr_s3,
+        ).unwrap();
+        assert_eq!(json_hr_s0, json_hr_s3, "Observation HR S0 != S3");
+
+        // Frecuencia Respiratoria
+        let mut row_rr_s0 = row_bp_s0.clone();
+        row_rr_s0.insert("frecuencia_respiratoria".into(), json!(18));
+        let mut row_rr_s3 = row_bp_s3.clone();
+        row_rr_s3.insert("fr".into(), json!(18));
+
+        let json_rr_s0 = evaluate_resource_mapping(
+            rules_s0.get_observation_mapping("respiratory_rate").unwrap(),
+            &row_rr_s0,
+        ).unwrap();
+        let json_rr_s3 = evaluate_resource_mapping(
+            rules_s3.get_observation_mapping("respiratory_rate").unwrap(),
+            &row_rr_s3,
+        ).unwrap();
+        assert_eq!(json_rr_s0, json_rr_s3, "Observation RR S0 != S3");
+
+        // Peso corporal en S3: 173.06 libras convertidas con unit_conversion: "lb_to_kg"
+        let mut row_weight_s3 = row_bp_s3.clone();
+        row_weight_s3.insert("peso_libras".into(), json!(173.06));
+        let json_weight_s3 = evaluate_resource_mapping(
+            rules_s3.get_observation_mapping("body_weight").unwrap(),
+            &row_weight_s3,
+        ).unwrap();
+        assert_eq!(json_weight_s3["resourceType"], "Observation");
+        assert_eq!(json_weight_s3["code"]["coding"][0]["code"], "29463-7");
+        assert_eq!(json_weight_s3["valueQuantity"]["unit"], "kg");
+        assert_eq!(json_weight_s3["valueQuantity"]["code"], "kg");
+        assert_eq!(json_weight_s3["valueQuantity"]["value"], 78.5);
+    }
 }

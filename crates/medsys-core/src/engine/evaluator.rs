@@ -161,6 +161,10 @@ pub fn parse_date_iso8601(raw: &str) -> Result<String> {
 pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
 
+    if let Ok(dt_fixed) = chrono::DateTime::parse_from_rfc3339(trimmed) {
+        return Ok(dt_fixed.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
+    }
+
     let parsed_dt = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S")
         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S"))
         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%SZ"))
@@ -171,7 +175,15 @@ pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
         });
 
     match parsed_dt {
-        Ok(dt) => Ok(dt.format("%Y-%m-%dT%H:%M:%S").to_string()),
+        Ok(dt) => {
+            let tz = Mexico_City;
+            let dt_with_tz = match tz.from_local_datetime(&dt) {
+                chrono::LocalResult::Single(dt_tz) => dt_tz,
+                chrono::LocalResult::Ambiguous(dt1, _) => dt1,
+                chrono::LocalResult::None => dt.and_utc().with_timezone(&tz),
+            };
+            Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string())
+        }
         Err(err) => Err(MedSysError::TransformationError(format!(
             "Fallo al parsear fecha y hora '{raw}' con transformación datetime_iso8601: {err}"
         ))),

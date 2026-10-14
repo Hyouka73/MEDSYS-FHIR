@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T13:06:00-06:00
+- **Última Actualización:** 2026-10-14T13:21:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
-- **Sprint Activo:** **Sprint 7 — Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)** (`.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
-- **Estado General:** 27 / 36 tareas completadas (75.0% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 3/4 tareas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.4**).
-- **Última Tarea Cerrada:** **Tarea 7.3** (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, validación de 10% exacto de NULL en frecuencia_respiratoria = 250 nulos $\rightarrow$ 9,750 Observaciones y 16,250 recursos FHIR totales, 10% exacto de NULL en tipo_diagnostico = 300 nulos, y hashing SHA-256 reproducible en ejecuciones consecutivas).
-- **Siguiente Tarea Inmediata:** **Tarea 7.4** (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Sprint Activo:** **Sprint 8 — Oráculo Diferencial en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`)** (`.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
+- **Estado General:** 28 / 36 tareas completadas (77.8% — Sprints 1 al 7 completados al 100%; Sprint 8 listo para iniciar).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 8.1**).
+- **Última Tarea Cerrada:** **Tarea 7.4** (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`: test `test_multi_schema_s0_s1_s2_s3_semantic_equivalence` en `medsys-core`, alineación de `parse_datetime_iso8601` con zona horaria `America/Mexico_City`, validación de idéntico JSON FHIR R4 para Patient, Encounter, Observation BP y Condition, validación de signos vitales complementarios y conversión de peso en libras a kilogramos en S3).
+- **Siguiente Tarea Inmediata:** **Tarea 8.1** (Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
 - **Estado Actual del Build:**
-  - `medsys-core`: 34/34 tests PASS.
+  - `medsys-core`: 35/35 tests PASS.
   - `medsys-db`: 30/30 tests PASS.
   - `medsys-server` y tests E2E/integración: 24/24 tests PASS (10 E2E, 9 integración, 5 persistencia).
-  - Workspace total: 88/88 tests PASS (100 %). Clippy: 0 warnings.
+  - Workspace total: 89/89 tests PASS (100 %). Clippy: 0 warnings.
 
 ---
 
@@ -159,8 +159,22 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 88/88 tests PASS (100 %).
-- **Siguiente paso:** Sprint 7 — Tarea 7.4 (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Siguiente paso:** Sprint 7 — Tarea 7.4 completada.
 
+---
 
-
-
+## 11. Registro de Cierre del Sprint 7: Banco Multi-Esquema (`S0`–`S3`) y Equivalencia Semántica
+- **Archivos Modificados:**
+  - `crates/medsys-core/src/engine/evaluator.rs`: alineación de `parse_datetime_iso8601` para resolver zona horaria estándar `America/Mexico_City` (`%Y-%m-%dT%H:%M:%S%:z`) de manera consistente con `parse_datetime_with_formats`, garantizando uniformidad en timestamps ISO 8601 a través de todos los arquetipos.
+  - `crates/medsys-core/src/engine/mod.rs`: incorporación del test unitario de equivalencia semántica cruzada `test_multi_schema_s0_s1_s2_s3_semantic_equivalence`.
+- **Verificaciones del Test `test_multi_schema_s0_s1_s2_s3_semantic_equivalence`:**
+  - **Recurso Patient:** equivalencia estricta $S_0 \equiv S_1 \equiv S_2 \equiv S_3$ evaluando CURP oficial RENAPO, nombres compuestos (`combine_with` / `combine_format`), resolución de género (lookup `cat_sexo_biologico` y diccionario), fecha de nacimiento ISO 8601 (desde formato estándar y desde formato texto `"01/01/1990"` de $S_3$) y teléfono móvil opcional.
+  - **Recurso Encounter:** equivalencia estricta $S_0 \equiv S_1 \equiv S_2 \equiv S_3$ evaluando código de clase `AMB`, estado de consulta (lookup `cat_estado_consulta` y diccionario), motivo, períodos con timestamp y cédula profesional SEP del médico tratante.
+  - **Recurso Observation (Panel Presión Arterial):** equivalencia estricta $S_0 \equiv S_1 \equiv S_2 \equiv S_3$ evaluando panel `85354-9` con componentes sistólica `8480-6` (130 mmHg) y diastólica `8462-4` (85 mmHg), validando la extracción descompuesta vía `split_part` con delimitador `"/"` sobre el string legado `"130/85"` en $S_3$.
+  - **Recurso Condition:** equivalencia estricta $S_0 \equiv S_1 \equiv S_2 \equiv S_3$ evaluando código CIE-10 (lookup `cat_cie10` y clave directa), descripción clínica, estado clínico `active`, estado de verificación `confirmed` (lookup `cat_tipo_diagnostico` y diccionario) y fecha registrada.
+  - **Signos Vitales y Conversión de Unidades en $S_3$:** validación de equivalencia para Temperatura (`8310-5`, 36.6 Cel), Frecuencia Cardíaca (`8867-4`, 76 /min), Frecuencia Respiratoria (`9279-1`, 18 /min), y conversión física de unidades `unit_conversion: "lb_to_kg"` para peso corporal `29463-7` transformando $173.06\text{ lb} \rightarrow 78.50\text{ kg}$.
+- **Validación Automatizada del Cierre de Sprint 7:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 89/89 tests PASS (35 en `medsys-core`, 30 en `medsys-db`, 5 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor — 100 %).
+- **Siguiente paso:** Sprint 8 — Tarea 8.1 (Implementación del oráculo diferencial independiente `scripts/oracle_verifier.py`, ver `.agents/backlog/sprint_8_oraculo_y_corpus_t1_t5.md`).
