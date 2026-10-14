@@ -4,4 +4,7 @@ pub mod mapping;
 
 pub use fhir_helpers::*;
 pub use legacy::{LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital};
-pub use mapping::{FieldMapping, MappingRules, ResourceMapping, SupportedResource};
+pub use mapping::{
+    FieldMapping, LookupRule, MappingRules, ParentCheckRule, ResourceMapping, SplitPartRule,
+    SupportedResource,
+};

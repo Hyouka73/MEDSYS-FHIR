@@ -7,7 +7,7 @@ Dotar a `medsys-core` y `medsys-db` de las capacidades declarativas y relacional
 
 ## Lista de Tareas Atómicas
 
-- [ ] **Tarea 6.1: Ampliación del DSL Declarativo YAML v1.2 en `medsys-core`**
+- [x] **Tarea 6.1: Ampliación del DSL Declarativo YAML v1.2 en `medsys-core`**
   - **Archivos a modificar:**
     - `Cargo.toml` y `crates/medsys-core/Cargo.toml` (agregar `chrono-tz = "0.9"`)
     - `crates/medsys-core/src/model/mapping.rs`

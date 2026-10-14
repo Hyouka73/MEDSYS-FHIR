@@ -38,11 +38,40 @@ impl std::fmt::Display for SupportedResource {
     }
 }
 
+fn default_timezone() -> String {
+    "America/Mexico_City".to_string()
+}
+
+/// Regla para verificar activamente la existencia de una llave foránea padre (T4).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub struct ParentCheckRule {
+    pub foreign_key_column: String,
+    pub parent_table: String,
+    pub parent_pk: String,
+}
+
+/// Regla para resolver valores desde una tabla de catálogo externo (esquema S2).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub struct LookupRule {
+    pub table: String,
+    pub key: String,
+    pub value_column: String,
+}
+
+/// Regla para dividir una cadena por delimitador y extraer una posición específica (esquema S3).
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub struct SplitPartRule {
+    pub delimiter: String,
+    pub index: usize,
+}
+
 /// Especificación completa de reglas declarativas de mapeo YAML.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct MappingRules {
     pub version: String,
     pub description: Option<String>,
+    #[serde(default = "default_timezone")]
+    pub timezone_default: String,
     pub resources: Vec<ResourceMapping>,
 }
 
@@ -74,6 +103,15 @@ pub struct ResourceMapping {
 
     #[serde(default)]
     pub observation_type: Option<String>,
+
+    #[serde(default)]
+    pub distinct_on: Option<String>,
+
+    #[serde(default)]
+    pub parent_checks: Vec<ParentCheckRule>,
+
+    #[serde(default)]
+    pub filter_not_null: Option<String>,
 
     pub mappings: Vec<FieldMapping>,
 }
@@ -122,6 +160,24 @@ pub struct FieldMapping {
 
     #[serde(default)]
     pub code: Option<String>,
+
+    #[serde(default)]
+    pub combine_with: Option<String>,
+
+    #[serde(default)]
+    pub combine_format: Option<String>,
+
+    #[serde(default)]
+    pub lookup: Option<LookupRule>,
+
+    #[serde(default)]
+    pub parse_datetime: Option<String>,
+
+    #[serde(default)]
+    pub split_part: Option<SplitPartRule>,
+
+    #[serde(default)]
+    pub unit_conversion: Option<String>,
 }
 
 impl FieldMapping {

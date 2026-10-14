@@ -1,16 +1,17 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T11:05:00-06:00
+- **Última Actualización:** 2026-10-14T11:16:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
-- **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`). Sprint 5 COMPLETADO: **Sprint 5 — Saneamiento del Esquema Base (`S0`), Fin de `fallback_value`, `Observation` 1:4 y `OperationOutcome` Canónico** (`.agents/backlog/sprint_5_alineacion_base_s0.md`)
-- **Estado General:** 20 / 36 tareas completadas (55.6% — Sprints 1 al 5 completados; Sprints 6 al 9 listos).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.1**).
-- **Última Tarea Cerrada:** **Tarea 5.4** (Sprint 5 completo). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (100 % PASS).
-- **Siguiente Tarea Inmediata:** **Tarea 6.1** (ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
-- **Estado Actual del Build Antes de Iniciar Sprint 5:**
-  - `medsys-db` y `medsys-server`: PASS (35/35 tests).
-  - `medsys-core`: 22/24 tests PASS, **2 tests fallando** (`test_parse_embedded_specification_yaml` y `test_observation_resource_mappings`) debido a que en `fase0-sync` se añadió `respiratory_rate` (`9279-1`) en `mapping_rules.yaml` pero faltó incluir `heart_rate` (`8867-4`), actualizar `observation.rs` y remover `fallback_value`. Esto se corrige en el **Sprint 5**.
+- **Sprint Activo:** **Sprint 6 — Motor Declarativo YAML v1.2** (`.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Estado General:** 21 / 36 tareas completadas (58.3% — Sprints 1 al 5 completados; Tarea 6.1 completada).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 6.2**).
+- **Última Tarea Cerrada:** **Tarea 6.1** (Ampliación del DSL Declarativo YAML v1.2 en `medsys-core`: `timezone_default` con `chrono-tz`, `distinct_on`, `parent_checks`, `filter_not_null`, `combine_with`/`combine_format`, `lookup`, `parse_datetime`, `split_part`, `unit_conversion`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (73 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 6.2** (Validador *Allowlist* (*Fail-Fast*) y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`, ver `.agents/backlog/sprint_6_dsl_v1_2_sql_dinamico.md`).
+- **Estado Actual del Build:**
+  - `medsys-core`: 33/33 tests PASS (incluyendo `test_evaluator_combine_with`, `test_evaluator_split_part_blood_pressure`, `test_evaluator_parse_datetime_custom_formats`, `test_evaluator_unit_conversion_lb_to_kg`).
+  - `medsys-db` y `medsys-server`: 40/40 tests PASS.
+  - Workspace total: 73/73 tests PASS (100 %).
 
 ---
 
@@ -41,3 +42,17 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
 **Modificados:** `mapping_rules.yaml` (v1.2.0, 7 bloques, sin fallback/absent-reason, `telefono_contacto` opcional, `heart_rate` y `respiratory_rate` opcional); `medsys-core`: `model/mapping.rs` (removidos `fallback_value`/`use_data_absent_reason`), `engine/evaluator.rs` (política Fail-Closed, eliminados helpers `*_with_fallback`), `engine/transform.rs` (`is_valid_curp` T5, telecom opcional, sexo obligatorio, Condition `verificationStatus` opcional/T3, `transform_observation_respiratory_rate`), `engine/mod.rs` (tests), `lib.rs`; `medsys-server`: `handlers/observation.rs` (prefijo/sufijo bp/temp/hr/resp/rr, 404 si resp NULL, lista 1:4), `handlers/legacy.rs` (4 Observations), `error.rs` (invalid/not-found/processing/transient, 503 en BD); tests `e2e_interoperability.rs` y `server_integration.rs`.
 **CURPs sintéticas corregidas a formato RENAPO válido** (antes tenían 17 caracteres): `ROMA900101HCSMNL09` y `LOPE950512MCSPRN07` en `schema_legado_simulado_nom004.sql`, `scripts/generate_data.py` (fallback de unicidad ahora termina en dígito), `dashboard/src/services/mockData.js` y tests de `medsys-db`.
 **Pendiente:** regenerar datos con `generate_data.py` y verificar CURPs en BD viva (Sprint 7).
+
+---
+
+## 4. Registro de Avance Sprint 6: Tarea 6.1 Cerrada
+- **Archivos Modificados:**
+  - `Cargo.toml` y `crates/medsys-core/Cargo.toml`: incorporado `chrono-tz = "0.9"`.
+  - `crates/medsys-core/src/model/mapping.rs`: definidos `timezone_default: "America/Mexico_City"`, `distinct_on`, `parent_checks` (`ParentCheckRule`), `filter_not_null`, `combine_with`, `combine_format`, `lookup` (`LookupRule`), `parse_datetime`, `split_part` (`SplitPartRule`), `unit_conversion`.
+  - `crates/medsys-core/src/engine/evaluator.rs`: funciones `apply_unit_conversion` (soporta `"lb_to_kg"` con factor `0.45359237` a 2 decimales y `"f_to_c"`), `parse_datetime_with_formats` (formatos `|` y resolución `chrono_tz::America::Mexico_City`), soporte completo en `evaluate_field_mapping` con fail-closed ante errores `T2`, y suite de 4 tests unitarios dedicados.
+  - `crates/medsys-core/src/model/mod.rs` y `crates/medsys-core/src/lib.rs`: re-exportación canónica de los nuevos tipos y utilidades.
+- **Validación Automatizada:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 73/73 tests PASS (33 en `medsys-core`, 19 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 8 integración de servidor).
+- **Siguiente paso:** Tarea 6.2 (Validador *Allowlist* y Constructor SQL Dinámico `DynamicSqlBuilder` en `medsys-db`).
