@@ -7,7 +7,7 @@ Materializar en el repositorio los **4 arquetipos relacionales (`S0`, `S1`, `S2`
 
 ## Lista de Tareas Atómicas
 
-- [ ] **Tarea 7.1: Creación de los 4 Esquemas DDL (`S0`, `S1`, `S2`, `S3`) y Rol de Solo Lectura `medsys_ro`**
+- [x] **Tarea 7.1: Creación de los 4 Esquemas DDL (`S0`, `S1`, `S2`, `S3`) y Rol de Solo Lectura `medsys_ro`**
   - **Archivos a crear/modificar:**
     - `schema_legado_simulado_nom004.sql` (actualizar para incluir rol `medsys_ro` con `GRANT CONNECT`, `GRANT USAGE ON SCHEMA public`, `GRANT SELECT ON ALL TABLES IN SCHEMA public`)
     - `docker/sql/schema_s0_base.sql`

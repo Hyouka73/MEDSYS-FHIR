@@ -20,6 +20,68 @@ use medsys_db::pool::DbManager;
 use rust_decimal::Decimal;
 
 const SCHEMA_SQL: &str = include_str!("../../../schema_legado_simulado_nom004.sql");
+const SCHEMA_S0_SQL: &str = include_str!("../../../docker/sql/schema_s0_base.sql");
+const SCHEMA_S1_SQL: &str = include_str!("../../../docker/sql/schema_s1_flat.sql");
+const SCHEMA_S2_SQL: &str = include_str!("../../../docker/sql/schema_s2_lookup.sql");
+const SCHEMA_S3_SQL: &str = include_str!("../../../docker/sql/schema_s3_legacy.sql");
+
+/// Valida la integridad sintáctica y contractual de los 4 arquetipos relacionales (S0-S3) y el rol medsys_ro.
+#[test]
+fn test_multi_schema_ddl_archetypes_and_readonly_role_integrity() {
+    // 1. Verificar rol de mínimo privilegio medsys_ro en todos los esquemas
+    for (name, sql) in [
+        ("S0", SCHEMA_S0_SQL),
+        ("S1", SCHEMA_S1_SQL),
+        ("S2", SCHEMA_S2_SQL),
+        ("S3", SCHEMA_S3_SQL),
+        ("NOM-004", SCHEMA_SQL),
+    ] {
+        assert!(
+            sql.contains("rolname = 'medsys_ro'"),
+            "Esquema {name} debe verificar y crear rol medsys_ro"
+        );
+        assert!(
+            sql.contains("GRANT USAGE ON SCHEMA public TO medsys_ro;"),
+            "Esquema {name} debe otorgar USAGE en public a medsys_ro"
+        );
+        assert!(
+            sql.contains("GRANT SELECT ON ALL TABLES IN SCHEMA public TO medsys_ro;"),
+            "Esquema {name} debe otorgar SELECT en public a medsys_ro"
+        );
+    }
+
+    // 2. S0: Tablas base normalizadas sin DEFAULT 'CONFIRMADO'
+    assert!(SCHEMA_S0_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_pacientes"));
+    assert!(SCHEMA_S0_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_consultas"));
+    assert!(SCHEMA_S0_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_signos_vitales"));
+    assert!(SCHEMA_S0_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_diagnosticos"));
+    assert!(!SCHEMA_S0_SQL.contains("DEFAULT 'CONFIRMADO'"));
+
+    // 3. S1: Sábana plana desnormalizada (SINBA/SIS)
+    assert!(SCHEMA_S1_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_sabana_consulta_externa"));
+    assert!(SCHEMA_S1_SQL.contains("CREATE TABLE IF NOT EXISTS tbl_sabana_diagnosticos"));
+
+    // 4. S2: Esquema normalizado con catálogos externos
+    assert!(SCHEMA_S2_SQL.contains("CREATE TABLE IF NOT EXISTS cat_sexo_biologico"));
+    assert!(SCHEMA_S2_SQL.contains("CREATE TABLE IF NOT EXISTS cat_estado_consulta"));
+    assert!(SCHEMA_S2_SQL.contains("CREATE TABLE IF NOT EXISTS cat_cie10"));
+    assert!(SCHEMA_S2_SQL.contains("CREATE TABLE IF NOT EXISTS cat_tipo_diagnostico"));
+    assert!(SCHEMA_S2_SQL.contains("tbl_pacientes_s2"));
+    assert!(SCHEMA_S2_SQL.contains("tbl_consultas_s2"));
+    assert!(SCHEMA_S2_SQL.contains("tbl_signos_s2"));
+    assert!(SCHEMA_S2_SQL.contains("tbl_diagnosticos_s2"));
+
+    // 5. S3: Esquema legado con deuda técnica (sin FK en DDL, columnas abreviadas, formatos texto)
+    assert!(SCHEMA_S3_SQL.contains("tbl_pacientes_s3"));
+    assert!(SCHEMA_S3_SQL.contains("tbl_consultas_s3"));
+    assert!(SCHEMA_S3_SQL.contains("tbl_signos_s3"));
+    assert!(SCHEMA_S3_SQL.contains("tbl_diagnosticos_s3"));
+    assert!(SCHEMA_S3_SQL.contains("fech_nac_txt"));
+    assert!(SCHEMA_S3_SQL.contains("presion_arterial_txt"));
+    assert!(SCHEMA_S3_SQL.contains("peso_libras"));
+    assert!(!SCHEMA_S3_SQL.contains("REFERENCES "));
+    assert!(!SCHEMA_S3_SQL.contains("FOREIGN KEY ("));
+}
 
 /// Valida la integridad sintáctica y contractual del archivo SQL de esquema legado simulado.
 #[test]

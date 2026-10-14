@@ -16,6 +16,11 @@ BEGIN
   ELSE
     ALTER ROLE postgres WITH PASSWORD 'medsys_secure_pass_2026';
   END IF;
+  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'medsys_ro') THEN
+    CREATE ROLE medsys_ro WITH LOGIN PASSWORD 'medsys_ro_pass_2026';
+  ELSE
+    ALTER ROLE medsys_ro WITH LOGIN PASSWORD 'medsys_ro_pass_2026';
+  END IF;
 END $$;
 
 CREATE TABLE IF NOT EXISTS tbl_pacientes (
@@ -81,12 +86,26 @@ VALUES
 (1, '8472910', 'Dra. María Elena Cruz Martínez', 'FINALIZADA', 'Control trimestral de hipertensión arterial', '2026-09-18 09:15:00', '2026-09-18 09:40:00'),
 (2, '9182374', 'Dr. Roberto Mendoza Solís', 'FINALIZADA', 'Cefalea persistente y mareos', '2026-09-18 10:00:00', '2026-09-18 10:25:00');
 
-INSERT INTO tbl_signos_vitales (id_consulta, id_paciente, presion_sistolica, presion_diastolica, frecuencia_cardiaca, temperatura_celsius, peso_kg, talla_cm, fecha_registro)
+INSERT INTO tbl_signos_vitales (id_consulta, id_paciente, presion_sistolica, presion_diastolica, frecuencia_cardiaca, frecuencia_respiratoria, temperatura_celsius, peso_kg, talla_cm, fecha_registro)
 VALUES 
-(1, 1, 130, 85, 76, 36.6, 78.5, 172, '2026-09-18 09:18:00'),
-(2, 2, 110, 70, 80, 37.1, 62.0, 160, '2026-09-18 10:05:00');
+(1, 1, 130, 85, 76, 18, 36.6, 78.5, 172, '2026-09-18 09:18:00'),
+(2, 2, 110, 70, 80, NULL, 37.1, 62.0, 160, '2026-09-18 10:05:00');
 
 INSERT INTO tbl_diagnosticos (id_consulta, id_paciente, codigo_cie10, descripcion_diagnostico, tipo_diagnostico, fecha_diagnostico)
 VALUES 
 (1, 1, 'I10', 'Hipertensión esencial (primaria)', 'CONFIRMADO', '2026-09-18'),
 (2, 2, 'G43.9', 'Migraña, no especificada', 'CONFIRMADO', '2026-09-18');
+
+-- Concesión de permisos de solo lectura para el rol medsys_ro
+DO $$
+BEGIN
+  EXECUTE format('GRANT CONNECT ON DATABASE %I TO medsys_ro', current_database());
+EXCEPTION
+  WHEN OTHERS THEN
+    NULL;
+END $$;
+
+GRANT USAGE ON SCHEMA public TO medsys_ro;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO medsys_ro;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO medsys_ro;
+

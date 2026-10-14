@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T11:55:00-06:00
+- **Última Actualización:** 2026-10-14T12:41:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 7 — Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)** (`.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
-- **Estado General:** 24 / 36 tareas completadas (66.7% — Sprints 1 al 6 completados al 100%; listo para Sprint 7).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.1**).
-- **Última Tarea Cerrada:** **Tarea 6.4** (Ejecución Dinámica Multi-Arquetipo desde `medsys-db` hacia `medsys-core` y validación Fail-Fast en `main.rs`) — **CIERRE DE SPRINT 6**. Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (84 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 7.1** (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Estado General:** 25 / 36 tareas completadas (69.4% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 1/4 tareas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.2**).
+- **Última Tarea Cerrada:** **Tarea 7.1** (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (85 tests PASS, 100 %).
+- **Siguiente Tarea Inmediata:** **Tarea 7.2** (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
 - **Estado Actual del Build:**
   - `medsys-core`: 33/33 tests PASS.
   - `medsys-db`: 29/29 tests PASS.
-  - `medsys-server` y tests E2E/integración: 22/22 tests PASS (10 E2E, 9 integración, 3 persistencia).
-  - Workspace total: 84/84 tests PASS (100 %).
+  - `medsys-server` y tests E2E/integración: 23/23 tests PASS (10 E2E, 9 integración, 4 persistencia).
+  - Workspace total: 85/85 tests PASS (100 %).
 
 ---
 
@@ -99,6 +99,23 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 84/84 tests PASS (33 en `medsys-core`, 29 en `medsys-db`, 3 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
-- **Siguiente paso:** Sprint 7 — Tarea 7.1 (Creación de los 4 Esquemas DDL `S0`–`S3` y Rol de Solo Lectura `medsys_ro`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Siguiente paso:** Sprint 7 — Tarea 7.1 completada.
+
+---
+
+## 8. Registro de Avance Sprint 7: Tarea 7.1 Cerrada
+- **Archivos Creados/Modificados:**
+  - `schema_legado_simulado_nom004.sql`: creación e inclusión del rol de solo lectura `medsys_ro` con permisos exclusivos `SELECT`, concesión de `USAGE ON SCHEMA public`, y adición de `frecuencia_respiratoria` en la fila 1 (18) y fila 2 (`NULL`).
+  - `docker/sql/schema_s0_base.sql` (nuevo): DDL completo del arquetipo `S0` (4 tablas base normalizadas NOM-004 sin `DEFAULT 'CONFIRMADO'` en `tipo_diagnostico`, roles `medsys_user`, `postgres` y `medsys_ro` con solo lectura).
+  - `docker/sql/schema_s1_flat.sql` (nuevo): DDL completo del arquetipo `S1` (sábana plana desnormalizada `tbl_sabana_consulta_externa` concentrando paciente, consulta y signos vitales, tabla `tbl_sabana_diagnosticos`, e índices para `DISTINCT ON`).
+  - `docker/sql/schema_s2_lookup.sql` (nuevo): DDL completo del arquetipo `S2` (esquema normalizado con tablas de catálogo externo `cat_sexo_biologico`, `cat_estado_consulta`, `cat_cie10`, `cat_tipo_diagnostico`, claves foráneas enteras en `tbl_*_s2` y rol `medsys_ro`).
+  - `docker/sql/schema_s3_legacy.sql` (nuevo): DDL completo del arquetipo `S3` (esquema legado con deuda técnica: columnas abreviadas `pac_*`, `con_*`, `sig_*`, `diag_*`, fechas y presión arterial en texto `"120/80"`, peso en libras `peso_libras`, sin restricciones `FOREIGN KEY` en DDL para forzar validación activa `parent_checks` a nivel aplicación, y rol `medsys_ro`).
+  - `crates/medsys-db/tests/persistence_integration.rs`: adición del test contractual exhaustivo `test_multi_schema_ddl_archetypes_and_readonly_role_integrity` que valida la presencia del rol `medsys_ro`, concesión de `SELECT` en los 5 esquemas, y reglas estructurales específicas por arquetipo.
+- **Validación Automatizada:**
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 85/85 tests PASS (33 en `medsys-core`, 29 en `medsys-db`, 4 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
+- **Siguiente paso:** Sprint 7 — Tarea 7.2 (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+
 
 
