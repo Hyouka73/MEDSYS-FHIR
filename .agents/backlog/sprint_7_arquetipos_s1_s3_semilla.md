@@ -30,7 +30,7 @@ Materializar en el repositorio los **4 arquetipos relacionales (`S0`, `S1`, `S2`
     - `config/mapping_rules_s3.yaml` (usando `parse_datetime: "%d/%m/%Y|%Y-%m-%d"`, `split_part` con delimitador `"/"` para separar `presion_arterial_txt` en sistólica `index: 0` y diastólica `index: 1`, `unit_conversion: "lb_to_kg"` y `parent_checks` activos)
   - **Criterio de Aceptación:** Una prueba unitaria en `medsys-core` carga los 4 archivos `config/mapping_rules_s{0..3}.yaml` con `parse_mapping_rules` y valida sus identificadores con `validate_rules_identifiers_allowlist` sin ningún error.
 
-- [ ] **Tarea 7.3: Actualización Determinista de `scripts/generate_data.py` (`SEED=20260930` y 16,250 Recursos)**
+- [x] **Tarea 7.3: Actualización Determinista de `scripts/generate_data.py` (`SEED=20260930` y 16,250 Recursos)**
   - **Archivos a modificar:**
     - `scripts/generate_data.py`
     - `docker/sql/02_bulk_data.sql` (regenerado determinísticamente con `SEED=20260930`)

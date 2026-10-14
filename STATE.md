@@ -1,18 +1,18 @@
 # ESTADO ACTIVO DEL PROYECTO (`STATE.md`) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Metadatos de Control
-- **Última Actualización:** 2026-10-14T12:54:00-06:00
+- **Última Actualización:** 2026-10-14T13:06:00-06:00
 - **Versión Objetivo:** `1.2.0-eval` (Alineación total con Capítulos I, II y III reestructurados — Tesis UNACH 2026)
 - **Sprint Activo:** **Sprint 7 — Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Generador Determinista (`SEED=20260930`)** (`.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
-- **Estado General:** 26 / 36 tareas completadas (72.2% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 2/4 tareas).
-- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.3**).
-- **Última Tarea Cerrada:** **Tarea 7.2** (Creación de los 4 Archivos de Reglas Declarativas YAML `config/mapping_rules_s0.yaml` a `s3.yaml`). Validado: `cargo check`, `cargo clippy --workspace --all-targets -- -D warnings` (0 warnings) y `cargo test --workspace` (88 tests PASS, 100 %).
-- **Siguiente Tarea Inmediata:** **Tarea 7.3** (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Estado General:** 27 / 36 tareas completadas (75.0% — Sprints 1 al 6 completados al 100%; Sprint 7 en progreso: 3/4 tareas).
+- **Tarea en Curso:** Ninguna (Listo para iniciar **Tarea 7.4**).
+- **Última Tarea Cerrada:** **Tarea 7.3** (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, validación de 10% exacto de NULL en frecuencia_respiratoria = 250 nulos $\rightarrow$ 9,750 Observaciones y 16,250 recursos FHIR totales, 10% exacto de NULL en tipo_diagnostico = 300 nulos, y hashing SHA-256 reproducible en ejecuciones consecutivas).
+- **Siguiente Tarea Inmediata:** **Tarea 7.4** (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
 - **Estado Actual del Build:**
   - `medsys-core`: 34/34 tests PASS.
   - `medsys-db`: 30/30 tests PASS.
   - `medsys-server` y tests E2E/integración: 24/24 tests PASS (10 E2E, 9 integración, 5 persistencia).
-  - Workspace total: 88/88 tests PASS (100 %).
+  - Workspace total: 88/88 tests PASS (100 %). Clippy: 0 warnings.
 
 ---
 
@@ -132,7 +132,35 @@ Al recibir del usuario la orden `"Comienza"`, `"Continúa"` o `"Haz el Sprint 5"
   - `cargo check --workspace`: PASS.
   - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
   - `cargo test --workspace`: 88/88 tests PASS (34 en `medsys-core`, 30 en `medsys-db`, 5 de persistencia, 10 E2E interoperabilidad, 9 integración de servidor).
-- **Siguiente paso:** Sprint 7 — Tarea 7.3 (Refactorización determinista de `scripts/generate_data.py` con `--seed 20260930 --schema {s0,s1,s2,s3,all}`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+- **Siguiente paso:** Sprint 7 — Tarea 7.3 completada.
+
+---
+
+## 10. Registro de Avance Sprint 7: Tarea 7.3 Cerrada
+- **Archivos Creados/Modificados:**
+  - `scripts/generate_data.py`:
+    - Refactorización determinista con semilla fija `SEED = 20260930` usando generador pseudoaleatorio aislado `random.Random(seed)`.
+    - Cumplimiento estricto del censo documentado en Capítulo III (§3.2.3):
+      - 1,000 Pacientes (IDs 1..1000): 100 % con CURP válida verificada con regex de RENAPO, exactamente 150 con `segundo_nombre = NULL` (15.0 %, 1 en DDL + 149 en bulk) y exactamente 100 con `telefono_contacto = NULL` (10.0 %).
+      - 2,500 Consultas (IDs 1..2500): vinculadas a pacientes existentes `1..1000`.
+      - 2,500 Signos Vitales (IDs 1..2500): 100 % con presión sistólica, diastólica, frecuencia cardíaca y temperatura presentes; exactamente 250 con `frecuencia_respiratoria = NULL` (10.0 %, 1 en DDL con `id_signo = 2` y 249 en bulk) y 2,250 con FR entre 14 y 22 `/min` (`id_signo = 1` con 18 y 2,249 en bulk). Producción matemática exacta: $2,500\text{ (PA)} + 2,500\text{ (Temp)} + 2,500\text{ (FC)} + 2,250\text{ (FR)} = \mathbf{9,750}$ recursos `Observation`.
+      - 3,000 Diagnósticos (IDs 1..3000): exactamente 300 con `tipo_diagnostico = NULL` (10.0 %, omisión limpia de `verificationStatus` sin `fallback_value`) y 2,700 con valor ('CONFIRMADO' / 'PRESUNTIVO').
+      - Total recursos FHIR R4: $\mathbf{16,250}$ ($1,000\text{ Patient} + 2,500\text{ Encounter} + 9,750\text{ Observation} + 3,000\text{ Condition}$).
+    - Soporte CLI para argumento `--schema {s0,s1,s2,s3,all}` y `--output` generando a partir de las mismas entidades en memoria:
+      - `docker/sql/02_bulk_data.sql` (`S0` base normalizado NOM-004)
+      - `docker/sql/bulk_s1.sql` (`S1` sábana plana desnormalizada `tbl_sabana_consulta_externa`)
+      - `docker/sql/bulk_s2.sql` (`S2` catálogos externos con `cat_cie10` IDs 4..20 e IDs foráneos)
+      - `docker/sql/bulk_s3.sql` (`S3` esquema legado con fechas en texto, TA concatenada y peso en libras)
+  - `docker/sql/02_bulk_data.sql` (regenerado determinísticamente con hash SHA-256 `d3bb843f910a58074296a1c80ba25ec0ccd84204abfacf3d9112b0a5331bd324`).
+  - `docker/sql/bulk_s1.sql`, `docker/sql/bulk_s2.sql`, `docker/sql/bulk_s3.sql` (generados determinísticamente para `--schema all`).
+- **Validación Automatizada:**
+  - `python scripts/generate_data.py --seed 20260930`: PASS (ejecuciones consecutivas producen idéntico SHA-256).
+  - Conteo de nulos en BD: 250 nulos en `frecuencia_respiratoria` (10.0 %) y 300 nulos en `tipo_diagnostico` (10.0 %).
+  - `cargo check --workspace`: PASS.
+  - `cargo clippy --workspace --all-targets -- -D warnings`: 0 warnings.
+  - `cargo test --workspace`: 88/88 tests PASS (100 %).
+- **Siguiente paso:** Sprint 7 — Tarea 7.4 (Pruebas Automatizadas de Equivalencia Semántica entre Arquetipos `S0` vs `S1` vs `S2` vs `S3`, ver `.agents/backlog/sprint_7_arquetipos_s1_s3_semilla.md`).
+
 
 
 
