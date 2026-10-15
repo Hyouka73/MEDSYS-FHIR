@@ -39,11 +39,20 @@ pub async fn get_encounter(
         ServerError::InvalidPath(format!("Identificador de encuentro inválido: '{raw_id}'"))
     })?;
 
-    let legacy_consulta = state.repositories.consultas.find_by_id(id).await?;
-    state
-        .repositories
-        .verify_patient_exists(legacy_consulta.id_paciente)
-        .await?;
+    let legacy_consulta = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Encounter") {
+        Some(m) if m.source_table != "tbl_consultas" => {
+            let row = state.repositories.dynamic.find_by_id(m, id).await?;
+            medsys_db::row_to_legacy_consulta(&row)?
+        }
+        _ => {
+            let c = state.repositories.consultas.find_by_id(id).await?;
+            state
+                .repositories
+                .verify_patient_exists(c.id_paciente)
+                .await?;
+            c
+        }
+    };
     let fhir_encounter = transform_encounter(&legacy_consulta, Some(&state.mapping_rules))?;
 
     Ok(FhirResponse(Resource::Encounter(Box::new(fhir_encounter))))
@@ -56,24 +65,58 @@ pub async fn list_encounters(
     State(state): State<AppState>,
     Query(params): Query<EncounterQueryParams>,
 ) -> Result<FhirResponse, ServerError> {
-    let mut consultas = if let Some(patient_id) = params.patient {
-        state
-            .repositories
-            .consultas
-            .find_by_paciente_id(patient_id)
-            .await?
-    } else {
-        state.repositories.consultas.find_all().await?
+    let consultas = match state
+        .mapping_rules
+        .resources
+        .iter()
+        .find(|r| r.resource_type == "Encounter")
+    {
+        Some(m) if m.source_table != "tbl_consultas" => {
+            let rows = if let Some(patient_id) = params.patient {
+                state
+                    .repositories
+                    .dynamic
+                    .find_filtered_raw(
+                        m,
+                        "id_paciente",
+                        patient_id,
+                        params.limit(),
+                        params.offset(),
+                    )
+                    .await?
+            } else {
+                state
+                    .repositories
+                    .dynamic
+                    .find_all_raw(m, params.limit(), params.offset())
+                    .await?
+            };
+            let mut list = Vec::with_capacity(rows.len());
+            for r in &rows {
+                list.push(medsys_db::row_to_legacy_consulta(r)?);
+            }
+            list
+        }
+        _ => {
+            let all = if let Some(patient_id) = params.patient {
+                state
+                    .repositories
+                    .consultas
+                    .find_by_paciente_id(patient_id)
+                    .await?
+            } else {
+                state.repositories.consultas.find_all().await?
+            };
+            let total = all.len();
+            let offset = params.offset() as usize;
+            let limit = params.limit() as usize;
+            if offset < total {
+                all.into_iter().skip(offset).take(limit).collect()
+            } else {
+                Vec::new()
+            }
+        }
     };
-
-    let total = consultas.len();
-    let offset = params.offset() as usize;
-    let limit = params.limit() as usize;
-    if offset < total {
-        consultas = consultas.into_iter().skip(offset).take(limit).collect();
-    } else {
-        consultas.clear();
-    }
 
     let count = consultas.len();
     let mut resources = Vec::with_capacity(count);

@@ -87,11 +87,20 @@ pub async fn get_observation(
     Path(raw_id): Path<String>,
 ) -> Result<FhirResponse, ServerError> {
     let (kind, id) = parse_observation_id(&raw_id)?;
-    let signo = state.repositories.signos_vitales.find_by_id(id).await?;
-    state
-        .repositories
-        .verify_encounter_and_patient_exist(signo.id_consulta, signo.id_paciente)
-        .await?;
+    let signo = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Observation") {
+        Some(m) if m.source_table != "tbl_signos_vitales" => {
+            let row = state.repositories.dynamic.find_by_id(m, id).await?;
+            medsys_db::row_to_legacy_signo_vital(&row)?
+        }
+        _ => {
+            let s = state.repositories.signos_vitales.find_by_id(id).await?;
+            state
+                .repositories
+                .verify_encounter_and_patient_exist(s.id_consulta, s.id_paciente)
+                .await?;
+            s
+        }
+    };
     let rules = Some(state.mapping_rules.as_ref());
 
     let obs = match kind {
@@ -115,30 +124,72 @@ pub async fn list_observations(
     State(state): State<AppState>,
     Query(params): Query<ObservationQueryParams>,
 ) -> Result<FhirResponse, ServerError> {
-    let mut signos = if let Some(enc_id) = params.encounter {
-        state
-            .repositories
-            .signos_vitales
-            .find_by_consulta_id(enc_id)
-            .await?
-    } else if let Some(patient_id) = params.patient {
-        state
-            .repositories
-            .signos_vitales
-            .find_by_paciente_id(patient_id)
-            .await?
-    } else {
-        state.repositories.signos_vitales.find_all().await?
-    };
+    let signos = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Observation") {
+        Some(m) if m.source_table != "tbl_signos_vitales" => {
+            let rows = if let Some(enc_id) = params.encounter {
+                state
+                    .repositories
+                    .dynamic
+                    .find_filtered_raw(
+                        m,
+                        "id_consulta",
+                        enc_id,
+                        params.limit(),
+                        params.offset(),
+                    )
+                    .await?
+            } else if let Some(patient_id) = params.patient {
+                state
+                    .repositories
+                    .dynamic
+                    .find_filtered_raw(
+                        m,
+                        "id_paciente",
+                        patient_id,
+                        params.limit(),
+                        params.offset(),
+                    )
+                    .await?
+            } else {
+                state
+                    .repositories
+                    .dynamic
+                    .find_all_raw(m, params.limit(), params.offset())
+                    .await?
+            };
+            let mut list = Vec::with_capacity(rows.len());
+            for r in &rows {
+                list.push(medsys_db::row_to_legacy_signo_vital(r)?);
+            }
+            list
+        }
+        _ => {
+            let all = if let Some(enc_id) = params.encounter {
+                state
+                    .repositories
+                    .signos_vitales
+                    .find_by_consulta_id(enc_id)
+                    .await?
+            } else if let Some(patient_id) = params.patient {
+                state
+                    .repositories
+                    .signos_vitales
+                    .find_by_paciente_id(patient_id)
+                    .await?
+            } else {
+                state.repositories.signos_vitales.find_all().await?
+            };
 
-    let total_records = signos.len();
-    let offset = params.offset() as usize;
-    let limit = params.limit() as usize;
-    if offset < total_records {
-        signos = signos.into_iter().skip(offset).take(limit).collect();
-    } else {
-        signos.clear();
-    }
+            let total_records = all.len();
+            let offset = params.offset() as usize;
+            let limit = params.limit() as usize;
+            if offset < total_records {
+                all.into_iter().skip(offset).take(limit).collect()
+            } else {
+                Vec::new()
+            }
+        }
+    };
 
     let mut resources = Vec::with_capacity(signos.len() * 4);
 

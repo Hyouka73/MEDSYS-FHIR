@@ -10,11 +10,18 @@
 
 import http from 'k6/http';
 import { check, group, sleep } from 'k6';
-import { Rate } from 'k6/metrics';
+import { Counter, Rate } from 'k6/metrics';
 
 const BASE_URL = __ENV.BASE_URL || 'http://localhost:3000';
 
+// Tratamiento metodológico y contabilidad visible de respuestas 4xx (Capítulo III §3.6.2)
+http.setResponseCallback(http.expectedStatuses(200, 400, 404, 422));
+
 export const operationOutcomeConformityRate = new Rate('operation_outcome_conformity_rate');
+export const expected400Counter = new Counter('expected_400_invalid_param_total');
+export const expected404Counter = new Counter('expected_404_not_found_total');
+export const expected422Counter = new Counter('expected_422_fail_closed_total');
+export const unexpected5xxCounter = new Counter('unexpected_5xx_total');
 
 export const options = {
   vus: 10,
@@ -46,6 +53,12 @@ export default function () {
       resBadParam.body.includes('"resourceType": "OperationOutcome"') &&
       resBadParam.body.includes('"code": "invalid"');
 
+    if (resBadParam.status === 400) {
+      expected400Counter.add(1);
+    } else if (resBadParam.status >= 500) {
+      unexpected5xxCounter.add(1);
+    }
+
     operationOutcomeConformityRate.add(isBadParamConformant);
     check(resBadParam, {
       'BadParam: Status 400': (r) => r.status === 400,
@@ -66,6 +79,12 @@ export default function () {
       resFallback.body.includes('"resourceType": "OperationOutcome"') &&
       resFallback.body.includes('"code": "not-found"');
 
+    if (resFallback.status === 404) {
+      expected404Counter.add(1);
+    } else if (resFallback.status >= 500) {
+      unexpected5xxCounter.add(1);
+    }
+
     operationOutcomeConformityRate.add(isFallbackConformant);
     check(resFallback, {
       'Fallback: Status 404': (r) => r.status === 404,
@@ -84,6 +103,12 @@ export default function () {
       resNegativeId.headers['Content-Type'] &&
       resNegativeId.headers['Content-Type'].includes('application/fhir+json') &&
       resNegativeId.body.includes('"resourceType": "OperationOutcome"');
+
+    if (resNegativeId.status === 404) {
+      expected404Counter.add(1);
+    } else if (resNegativeId.status >= 500) {
+      unexpected5xxCounter.add(1);
+    }
 
     operationOutcomeConformityRate.add(isNegativeIdConformant);
     check(resNegativeId, {
@@ -105,6 +130,14 @@ export default function () {
       resCorruptEntity.headers['Content-Type'].includes('application/fhir+json') &&
       resCorruptEntity.body.includes('"resourceType": "OperationOutcome"') &&
       (resCorruptEntity.body.includes('"code": "not-found"') || resCorruptEntity.body.includes('"code": "processing"'));
+
+    if (resCorruptEntity.status === 422) {
+      expected422Counter.add(1);
+    } else if (resCorruptEntity.status === 404) {
+      expected404Counter.add(1);
+    } else if (resCorruptEntity.status >= 500) {
+      unexpected5xxCounter.add(1);
+    }
 
     operationOutcomeConformityRate.add(isErrorOrOutcome);
     check(resCorruptEntity, {
@@ -128,6 +161,11 @@ export default function () {
         'Estructura FHIR R4 conforme Patient': (r) => r.body.includes('"resourceType": "Patient"'),
       });
     } else {
+      if (resPatient.status === 422) {
+        expected422Counter.add(1);
+      } else if (resPatient.status >= 500) {
+        unexpected5xxCounter.add(1);
+      }
       const isCriticalOutcome =
         resPatient.status === 422 &&
         resPatient.headers['Content-Type'] &&

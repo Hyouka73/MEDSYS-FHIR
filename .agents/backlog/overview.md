@@ -16,8 +16,9 @@ El desarrollo de **MedSys-FHIR** consta de:
 | **Sprint 7** | Banco Multi-Esquema (`S0`–`S3`), Reglas YAML por Arquetipo y Semilla Determinista (`16,250` recursos) | COMPLETADO | 4 | 4 |
 | **Sprint 8** | Oráculo Diferencial Independiente en Python y Corpus de 100 Fallas Clínicas (`T1`–`T5`) | COMPLETADO | 4 | 4 |
 | **Sprint 9** | Límites Docker `cgroups v2`, Exportación Censal HL7, Benchmark `k6` (50 VUs) y Tag `v1.2.0-eval` | COMPLETADO | 4 | 4 |
+| **Sprint 10** | Contabilidad Visible de Respuestas `4xx` en `k6`, Enrutamiento Dinámico (`S0`–`S3`) y Resultados Cap. IV | COMPLETADO | 4 | 4 |
 
-**Progreso Total:** 36 / 36 tareas completadas (100.0%) — **FASE `v1.2.0-eval` CULMINADA AL 100%**.
+**Progreso Total:** 40 / 40 tareas completadas (100.0%) — **EVALUACIÓN Y EXPERIMENTACIÓN CULMINADA AL 100%**.
 
 ---
 
@@ -31,3 +32,5 @@ El desarrollo de **MedSys-FHIR** consta de:
 - [x] `sprint_7_arquetipos_s1_s3_semilla.md` (100%)
 - [x] `sprint_8_oraculo_y_corpus_t1_t5.md` (100%)
 - [x] `sprint_9_docker_k6_censo_congelamiento.md` (100%)
+- [x] `sprint_10_automatizacion_experimentos_cap4.md` (100%)
+

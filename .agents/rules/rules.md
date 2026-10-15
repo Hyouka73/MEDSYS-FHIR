@@ -1,3 +1,8 @@
+---
+trigger: always_on
+globs: ["**/*"]
+---
+
 # REGLAS DEL SISTEMA Y DESARROLLO — MedSys-FHIR (v1.2.0-eval)
 
 ## 1. Contexto y Objetivos del Proyecto

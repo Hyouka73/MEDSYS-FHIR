@@ -8,6 +8,7 @@
 
 import argparse
 import hashlib
+import json
 import os
 import random
 import re
@@ -733,6 +734,19 @@ def main():
     total_resources = len(all_pacientes) + len(all_consultas) + total_observations + len(all_diagnosticos)
     assert total_observations == 9750, f"Se esperaban 9750 recursos Observation, obtenidos {total_observations}"
     assert total_resources == 16250, f"Se esperaban 16250 recursos FHIR en total, obtenidos {total_resources}"
+
+    # Exportación determinista de IDs de frecuencia respiratoria para k6 (Sección 3.6.2 del Capítulo III)
+    k6_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "tests", "k6"))
+    os.makedirs(k6_dir, exist_ok=True)
+    valid_resp_ids = sorted([s["id_signo"] for s in all_signos if s["frecuencia_respiratoria"] is not None])
+    omitted_resp_ids = sorted([s["id_signo"] for s in all_signos if s["frecuencia_respiratoria"] is None])
+    assert len(valid_resp_ids) == 2250, f"Se esperaban 2250 IDs válidos de FR, obtenidos {len(valid_resp_ids)}"
+    assert len(omitted_resp_ids) == 250, f"Se esperaban 250 IDs omitidos de FR, obtenidos {len(omitted_resp_ids)}"
+    with open(os.path.join(k6_dir, "valid_resp_ids.json"), "w", encoding="utf-8") as f:
+        json.dump(valid_resp_ids, f, indent=2)
+    with open(os.path.join(k6_dir, "omitted_resp_ids.json"), "w", encoding="utf-8") as f:
+        json.dump(omitted_resp_ids, f, indent=2)
+    print(f"[OK] IDs k6 exportados: {len(valid_resp_ids)} válidos y {len(omitted_resp_ids)} omitidos en {k6_dir}")
 
     targets = []
     if args.schema == "all":

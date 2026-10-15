@@ -1,3 +1,7 @@
+---
+description: Flujo de trabajo autónomo para el desarrollo y evaluación de MedSys-FHIR.
+---
+
 # FLUJO DE TRABAJO AUTÓNOMO (WORKFLOW) — MedSys-FHIR (`v1.2.0-eval`)
 
 ## Descripción General

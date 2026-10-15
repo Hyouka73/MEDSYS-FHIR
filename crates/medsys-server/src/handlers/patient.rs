@@ -38,7 +38,13 @@ pub async fn get_patient(
         ServerError::InvalidPath(format!("Identificador de paciente inválido: '{raw_id}'"))
     })?;
 
-    let legacy_paciente = state.repositories.pacientes.find_by_id(id).await?;
+    let legacy_paciente = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Patient") {
+        Some(m) if m.source_table != "tbl_pacientes" => {
+            let row = state.repositories.dynamic.find_by_id(m, id).await?;
+            medsys_db::row_to_legacy_paciente(&row)?
+        }
+        _ => state.repositories.pacientes.find_by_id(id).await?,
+    };
     let fhir_patient = transform_patient(&legacy_paciente, Some(&state.mapping_rules))?;
 
     Ok(FhirResponse(Resource::Patient(Box::new(fhir_patient))))
@@ -50,15 +56,31 @@ pub async fn list_patients(
     State(state): State<AppState>,
     Query(params): Query<PaginationParams>,
 ) -> Result<FhirResponse, ServerError> {
-    let mut pacientes = state.repositories.pacientes.find_all().await?;
-    let total = pacientes.len();
-    let offset = params.offset() as usize;
-    let limit = params.limit() as usize;
-    if offset < total {
-        pacientes = pacientes.into_iter().skip(offset).take(limit).collect();
-    } else {
-        pacientes.clear();
-    }
+    let pacientes = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Patient") {
+        Some(m) if m.source_table != "tbl_pacientes" => {
+            let rows = state
+                .repositories
+                .dynamic
+                .find_all_raw(m, params.limit(), params.offset())
+                .await?;
+            let mut list = Vec::with_capacity(rows.len());
+            for r in &rows {
+                list.push(medsys_db::row_to_legacy_paciente(r)?);
+            }
+            list
+        }
+        _ => {
+            let all = state.repositories.pacientes.find_all().await?;
+            let total = all.len();
+            let offset = params.offset() as usize;
+            let limit = params.limit() as usize;
+            if offset < total {
+                all.into_iter().skip(offset).take(limit).collect()
+            } else {
+                Vec::new()
+            }
+        }
+    };
 
     let count = pacientes.len();
     let mut resources = Vec::with_capacity(count);

@@ -24,12 +24,22 @@ import { scenario } from 'k6/execution';
 
 const BASE_URL = __ENV.BASE_URL || 'http://localhost:3000';
 
+// Tratamiento metodológico y contabilidad visible de respuestas 4xx (Capítulo III §3.6.2)
+const OMITTED_RESP_SET = new Set(JSON.parse(open('./omitted_resp_ids.json')));
+http.setResponseCallback(http.expectedStatuses(200, 404));
+
 // ============================================================================
 // Métricas Personalizadas Globales y Aisladas para la Meseta (Plateau)
 // ============================================================================
 export const fhirLatencyTrend = new Trend('fhir_read_duration_ms');
 export const successRate = new Rate('fhir_success_rate');
 export const transactionCounter = new Counter('fhir_total_transactions');
+
+// Contadores diagnósticos visibles del Capítulo IV
+export const http200ValidResourcesCounter = new Counter('http_200_valid_resources_total');
+export const expected404OptionalNullCounter = new Counter('expected_404_optional_null_total');
+export const unexpectedErrorCounter = new Counter('unexpected_technical_errors_total');
+export const expected4xxAttributionRate = new Rate('expected_4xx_due_to_missing_data_rate');
 
 // Métricas aisladas para la fase de meseta sostenida de 5 minutos
 export const plateauLatencyTrend = new Trend('plateau_fhir_latency_ms');
@@ -128,6 +138,11 @@ export default function () {
     const durPatient = new Date() - t0;
 
     const isPatientOk = resPatient.status === 200;
+    if (isPatientOk) {
+      http200ValidResourcesCounter.add(1);
+    } else {
+      unexpectedErrorCounter.add(1);
+    }
     fhirLatencyTrend.add(durPatient);
     successRate.add(isPatientOk);
     transactionCounter.add(1);
@@ -153,6 +168,11 @@ export default function () {
     const durEnc = new Date() - t1;
 
     const isEncOk = resEnc.status === 200;
+    if (isEncOk) {
+      http200ValidResourcesCounter.add(1);
+    } else {
+      unexpectedErrorCounter.add(1);
+    }
     fhirLatencyTrend.add(durEnc);
     successRate.add(isEncOk);
     transactionCounter.add(1);
@@ -177,10 +197,33 @@ export default function () {
     const resObs = http.get(`${BASE_URL}/fhir/r4/Observation/${obsType}-${obsId}`, fhirHeaders);
     const durObs = new Date() - t2;
 
-    // Para resp, 200 (si tiene valor) o 404 OperationOutcome (si frecuencia_respiratoria es NULL en BD) son nominales
-    const isObsOk = (obsType === 'resp')
-      ? (resObs.status === 200 || (resObs.status === 404 && resObs.body.includes('OperationOutcome')))
-      : (resObs.status === 200);
+    let isObsOk = false;
+    if (obsType === 'resp') {
+      if (resObs.status === 200 && !OMITTED_RESP_SET.has(obsId)) {
+        http200ValidResourcesCounter.add(1);
+        isObsOk = true;
+      } else if (
+        resObs.status === 404 &&
+        OMITTED_RESP_SET.has(obsId) &&
+        resObs.body.includes('"resourceType": "OperationOutcome"') &&
+        resObs.body.includes('"code": "not-found"')
+      ) {
+        expected404OptionalNullCounter.add(1);
+        expected4xxAttributionRate.add(true);
+        isObsOk = true;
+      } else {
+        unexpectedErrorCounter.add(1);
+        expected4xxAttributionRate.add(false);
+        isObsOk = false;
+      }
+    } else {
+      isObsOk = resObs.status === 200;
+      if (isObsOk) {
+        http200ValidResourcesCounter.add(1);
+      } else {
+        unexpectedErrorCounter.add(1);
+      }
+    }
 
     fhirLatencyTrend.add(durObs);
     successRate.add(isObsOk);
@@ -207,6 +250,11 @@ export default function () {
     const durCond = new Date() - t3;
 
     const isCondOk = resCond.status === 200;
+    if (isCondOk) {
+      http200ValidResourcesCounter.add(1);
+    } else {
+      unexpectedErrorCounter.add(1);
+    }
     fhirLatencyTrend.add(durCond);
     successRate.add(isCondOk);
     transactionCounter.add(1);

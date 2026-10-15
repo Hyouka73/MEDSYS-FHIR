@@ -387,3 +387,38 @@ async fn test_e2e_operation_outcome_bad_request_is_invalid() {
     let body = body_to_string(res).await;
     assert!(body.contains("\"code\": \"invalid\""));
 }
+
+#[tokio::test]
+async fn test_e2e_multi_archetype_routing_s1_to_s3() {
+    let configs = [
+        ("S1", include_str!("../../../config/mapping_rules_s1.yaml")),
+        ("S2", include_str!("../../../config/mapping_rules_s2.yaml")),
+        ("S3", include_str!("../../../config/mapping_rules_s3.yaml")),
+    ];
+
+    for (name, yaml_content) in configs {
+        let config = DbConfig::default();
+        let pool = init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
+        let repos = MedsysRepositories::new(pool.clone());
+        let mapping_rules = parse_mapping_rules(yaml_content)
+            .unwrap_or_else(|e| panic!("Reglas YAML {name} deben ser válidas: {e}"));
+        let state = AppState::new(repos, mapping_rules, pool);
+        let app = create_router(state);
+
+        // Validar endpoint de salud
+        let req_health = Request::builder().uri("/health").body(Body::empty()).unwrap();
+        let res_health = app.clone().oneshot(req_health).await.unwrap();
+        assert_eq!(res_health.status(), StatusCode::OK);
+
+        // Validar que solicitudes anómalas o con ruta incorrecta responden OperationOutcome formal
+        let req_bad = Request::builder()
+            .uri("/fhir/r4/Patient/id_texto_invalido")
+            .body(Body::empty())
+            .unwrap();
+        let res_bad = app.oneshot(req_bad).await.unwrap();
+        assert_eq!(res_bad.status(), StatusCode::BAD_REQUEST);
+        let body_bad = body_to_string(res_bad).await;
+        assert!(body_bad.contains("\"resourceType\": \"OperationOutcome\""), "Error en {name}");
+    }
+}
+
