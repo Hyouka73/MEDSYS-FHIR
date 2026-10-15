@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "2.0",
+  "projectConfig": {
+    "entryPoints": [
+      "AGENTS.md",
+      "GEMINI.md"
+    ],
+    "rulesDir": ".agents/rules",
+    "skillsDir": ".agents/skills",
+    "agentsDir": ".agents/agents",
+    "workflowsDir": ".agents/workflows",
+    "stateFiles": {
+      "state": "STATE.md",
+      "backlog": "BACKLOG.md",
+      "decisions": "DECISIONS.md"
+    },
+    "orchestration": {
+      "maxConcurrentSubagents": 3,
+      "requireDisjointFileScopesForParallel": true,
+      "maxRetryPerTask": 3,
+      "preserveMasterPlanReadOnly": true
+    }
+  }
+}
