@@ -1,0 +1,546 @@
+CAPÍTULO III. METODOLOGÍA Y DISEÑO DE LA SOLUCIÓN (MedSys-FHIR)
+El presente capítulo expone el marco metodológico, las decisiones arquitectónicas y el diseño técnico de la solución MedSys-FHIR. Con base en el Capítulo I y los fundamentos del Capítulo II, se describe la estrategia para responder a la pregunta de investigación y evaluar el artefacto bajo el paradigma Design Science Research (DSR). La exposición abarca el enfoque metodológico, el esquema relacional legado simulado, la arquitectura con su motor declarativo en YAML y los protocolos de validación experimental.
+3.1 Enfoque metodológico
+3.1.1 Tipo y diseño de la investigación
+La investigación es aplicada y adopta el paradigma Design Science Research (DSR; Hevner et al., 2004; Peffers et al., 2007). Su artefacto es una instanciación de software que integra extracción relacional de solo lectura, reglas declarativas externas y construcción tipada de recursos FHIR R4. La contribución consiste en el diseño y la evaluación de esa integración bajo un alcance explícito, no en proponer un nuevo estándar clínico ni en demostrar superioridad universal frente a otras herramientas (Gregor y Hevner, 2013). Con FEDS (Venable et al., 2016), la evaluación final se caracteriza como sumativa y artificial, mediante pruebas técnicas controladas de laboratorio (Wohlin et al., 2012).
+Se evalúa un artefacto único frente a criterios técnicos, sin experimento factorial ni línea base comparativa directa. La expresión «fidelidad clínica» utilizada en los instrumentos se entiende aquí como concordancia algorítmica de los atributos proyectados con el modelo esperado. No implica validar la pertinencia médica del origen, la totalidad del expediente ni la interpretación por instituciones receptoras. El análisis comprende conformidad estructural, concordancia, rechazo T1–T5 y adaptación S0–S3; la caracterización de rendimiento es descriptiva y no atribuye causalmente los resultados a Rust.
+Desde la perspectiva bioética y regulatoria, el diseño experimental no interviene en personas ni accede a expedientes clínicos reales. La fundamentación del uso de datos sintéticos y la determinación institucional sobre revisión por un Comité de Ética en Investigación (CEI) se abordan en la Sección 3.7.
+3.1.2 Criterios de Aceptación del Artefacto (DSR), Caracterización Técnica y Regla de Decisión
+En correspondencia con la pregunta y los objetivos del Capítulo I y con los fundamentos de las Secciones 2.6.1 y 2.6.2, la evaluación se organiza en cinco criterios de aceptación complementarios (CA-1 a CA-5) sobre los arquetipos S0 a S3. Son condiciones operativas definidas para este estudio, no requisitos universales de DSR. No se utiliza una prueba de hipótesis estadística para decidir la aceptación del artefacto.
+CA-1 (Conformidad sintáctica oficial): Cero incidencias de severidad Fatal o Error emitidas por el validador oficial org.hl7.fhir.validator-cli sobre el censo de 16,250 recursos FHIR R4 generados a partir de cada esquema relacional evaluado.
+CA-2 (Fidelidad del dato proyectado): Cero discrepancias entre las salidas del middleware y el oráculo diferencial en Python en los atributos y transformaciones declarados. La concordancia se limita al modelo sintético evaluado y no acredita veracidad médica, completitud del expediente ni validación clínica independiente.
+CA-3 (Fallo seguro - Fail-Closed): Tasa del 100 % de rechazo estructurado mediante recursos OperationOutcome (HTTP 422 Unprocessable Entity) bajo la política de fallo seguro (Fail-Closed) ante el corpus de anomalías en los arquetipos relacionales (S0 a S3). Simultáneamente, exige 0 % de falsos rechazos sobre el censo de 16,250 recursos válidos, sin inventar ni suponer datos.
+CA-4 (Sencillez de adopción e invarianza de código): Cero modificaciones al código fuente compilado en Rust (crates medsys-core, medsys-db y medsys-server) tras el congelamiento de la versión v1.2.0-eval para adaptar nuevos arquetipos relacionales, documentando el esfuerzo exclusivamente mediante líneas de configuración YAML.
+CA-5 (Cobertura de arquetipos relacionales): Transformación completa de los registros pertenecientes a los arquetipos relacionales (S0 a S3: S0 base, S1 plano desnormalizado, S2 catálogos/JOINs y S3 texto/heredado), delimitando el alcance expresivo del motor declarativo.
+Operacionalización de CA-4: La invarianza debe comprobarse sobre las tres crates de producción (medsys-core, medsys-db y medsys-server), en correspondencia con el alcance del criterio y con el git diff sobre crates/ reportado en la Sección 4.4.1. Deben conservarse la identificación de la versión congelada y los artefactos de integridad del ejecutable. El número de líneas, reglas y directivas YAML caracteriza el volumen de configuración; no mide por sí solo tiempo, costo, dificultad ni usabilidad. Las iteraciones de edición solo podrán analizarse si se dispone de su registro; cero errores de arranque en la configuración final no demuestra cero errores durante su elaboración. La autoría de las reglas y del DSL limita la generalización a terceros.
+Caracterización Técnica (CT) Complementaria: De forma independiente de los Criterios de Aceptación (CA-1 a CA-5), el desempeño computacional bajo carga concurrente se mide mediante variables descriptivas de caracterización técnica (CT) en laboratorio. Estas variables describen la operación en hardware modesto sin carácter vinculante de aprobación o rechazo. Para ello, k6 registra la latencia de red (referencia orientativa p95 ≤ 200 ms a 50 usuarios virtuales) y el éxito transaccional (≥ 99.5 %). Paralelamente, docker stats monitorea la memoria del contenedor en cgroups v2 (referencia ≤ 150.0 MiB bajo límite estricto de 256 MiB para medsys-server y 512 MiB para postgres:16-alpine) y el procesador (≤ 50.0 % de 1.0 vCPU), manteniendo el endpoint /health desacoplado de las mediciones.
+A partir de la evaluación empírica, la viabilidad técnica del middleware MedSys-FHIR se determina mediante una regla de decisión mutuamente excluyente estructurada en tres escenarios posibles:
+Tabla 3.1. Regla de decisión de viabilidad técnica del middleware MedSys-FHIR según el cumplimiento de los Criterios de Aceptación (CA-1 a CA-5).
+Dictamen de Viabilidad
+Condición sobre Criterios de Aceptación (CA-1 a CA-5)
+Interpretación Técnica
+Viable
+Cumplimiento estricto del 100 % en CA-1 (cero errores de validación sintáctica), CA-2 (cero discrepancias con el oráculo), CA-3 (100 % de rechazo Fail-Closed ante el corpus de anomalías evaluado en S0–S3, con 0 % de falsos rechazos en el censo válido), CA-4 (cero cambios en código Rust tras congelamiento de v1.2.0-eval en los cuatro arquetipos) y CA-5 (cobertura completa de arquetipos S0 a S3 y corpus de anomalías).
+El artefacto satisface los cinco criterios técnicos en los datos y escenarios de laboratorio definidos; este dictamen no acredita suficiencia clínica, cumplimiento normativo integral ni adopción operativa.
+Viable con limitaciones
+Sin cumplir la condición de «Viable», cumplimiento íntegro de CA-1, CA-2 y CA-3 en S0 y al menos dos arquetipos heterogéneos, con las adaptaciones y los límites del DSL documentados y sin discrepancias en los atributos evaluados.
+El artefacto opera satisfactoriamente en los escenarios clínicos base, identificando límites de expresividad en el motor declarativo ante esquemas relacionales complejos.
+No viable
+Discrepancias en CA-2, emisión de recursos anómalos no capturados en CA-3 o incidencias Fatal o Error en CA-1 dentro de los esquemas evaluados.
+El artefacto no satisface las condiciones técnicas correspondientes al escenario evaluado; no se infiere de ello una evaluación de adopción clínica real.
+Nota. Elaboración propia con fundamento en Hevner et al. (2004), Venable et al. (2016) y Wohlin et al. (2012) (§2.6.1 y §2.6.2).
+3.1.3 Fases del ciclo de investigación y desarrollo (DSR)
+Las cuatro fases organizan la construcción y evaluación del artefacto; no sustituyen las seis actividades de DSR. La identificación del problema y los objetivos se documentan en el Capítulo I y §3.1.2; el diseño y desarrollo corresponden principalmente a las fases 2 y 3; la demostración y evaluación al protocolo de la fase 4; y la comunicación a la tesis y sus artefactos. Esta correspondencia expresa la organización metodológica, sin asumir que cada actividad ocurrió una sola vez ni que la documentación actual acredita su cronología.
+Fase 1: Análisis normativo y diseño del modelo base (OE1). Selecciona y justifica un subconjunto de datos de consulta externa a partir de las NOM-004-SSA3-2012 y NOM-024-SSA3-2012 y de HL7 FHIR R4. Produce el esquema S0 y la matriz de correspondencias y exclusiones del Anexo I. El Distrito de Salud I constituye una referencia contextual; esta fase no equivale a un levantamiento en sus unidades ni a representar la historia clínica completa.
+Fase 2: Diseño de la arquitectura del middleware y del archivo de configuración YAML (Objetivo Específico 2 - OE2). Diseña la arquitectura modular del middleware de solo lectura bajo cinco patrones de software y define la gramática del archivo YAML (versión 1.2). Este diseño incorpora la poda opcional (optional: true) y la política de fallo seguro (Fail-Closed) ante datos obligatorios faltantes o inválidos.
+Fase 3: Construcción en Rust y empaquetamiento en Docker (OE2 y OE3). El workspace contiene medsys-core, medsys-db y medsys-server, con versión de paquete 1.2.0 y edición 2021. El congelamiento experimental exige identificar commit, ejecutable e imágenes por hash; la denominación v1.2.0-eval del manuscrito no acredita por sí sola ese paso. Las reglas se cargan al arrancar el proceso, por lo que cambiar su archivo requiere reiniciar el servicio para aplicar la nueva configuración.
+Fase 4: Evaluación prevista sobre S0–S3 y el corpus de anomalías (OE3). El protocolo utiliza el modelo canónico de 9,000 registros lógicos, cuya proyección esperada es de 16,250 recursos, 800 ocurrencias NULL opcionales y cien casos T1–T5. Debe contrastar CA-1 a CA-5 y caracterizar latencia, estados HTTP, CPU y memoria. La presencia de configuraciones y pruebas locales no acredita la ejecución completa de cada esquema; los resultados disponibles y sus pendientes se distinguen en el Capítulo IV.
+La relación entre las cuatro fases de ingeniería de MedSys-FHIR, las actividades de Design Science Research (Peffers et al., 2007; Hevner et al., 2004), los objetivos específicos (OE1 a OE3) y el marco FEDS (Venable et al., 2016) se ilustra en la Figura 3.1:
+Figura 3.1. Flujo metodológico DSR y estrategia de evaluación FEDS de MedSys-FHIR.
+Nota. Elaboración propia con fundamento en Hevner et al. (2004), Peffers et al. (2007) y Venable et al. (2016) (§2.6 y §3.1.1).
+3.1.4 Procedimiento de evaluación
+El protocolo experimental para la evaluación sistemática del artefacto se diseñó siguiendo directrices estandarizadas de evaluación de rendimiento de software (Jain, 1991; Wohlin et al., 2012). Se configuran solicitudes HTTP dirigidas a los endpoints RESTful del middleware para los recursos delimitados (GET /fhir/r4/Patient/{id}, GET /fhir/r4/Encounter/{id}, GET /fhir/r4/Observation/{id} y GET /fhir/r4/Condition/{id}), acompañadas de una prueba negativa con identificadores inexistentes para evaluar la generación de respuestas OperationOutcome (HTTP 404).
+El protocolo de CA-1 prevé exportar salidas reales y validarlas con org.hl7.fhir.validator-cli para FHIR R4 v4.0.1, identificando versión de Java, JAR y opciones. scripts/export_fhir_samples.py --all recorre rangos de IDs fijados para el banco sintético; no descubre todas las instancias de una base arbitraria ni garantiza por sí solo el censo esperado. La clasificación de cada 404 respiratorio debe contrastarse con los IDs ausentes en origen. La validación requiere conservar archivos, reportes y códigos de salida efectivos, no solo el mensaje de resumen del script.
+La caracterización técnica complementaria (CT) en k6 forma parte del protocolo descriptivo de laboratorio. El procedimiento ejecuta tres réplicas independientes con 50 usuarios virtuales (VU) concurrentes en fases de rampa, meseta y enfriamiento. De este modo, registra la latencia y el consumo de recursos sin carácter vinculante sobre el dictamen del artefacto (véanse los scripts en el Anexo D).
+3.1.5 Alcance y delimitaciones
+En estricta congruencia con el marco normativo y la problematización del estudio, el alcance de la investigación se delimita a través de ocho exclusiones y definiciones formales:
+Delimitación de datos y privacidad: El proyecto opera exclusivamente con datos sintéticos en contenedores locales sin acceder a expedientes reales ni servidores clínicos en producción, conforme a las Secciones 3.2.1 y 3.7.
+Delimitación de firma electrónica y seguridad perimetral: Se excluyen la infraestructura de clave pública (PKI), la Firma Electrónica Avanzada y el recurso Provenance (Sección 2.2.4), delegando el cifrado TLS y la autenticación a un API Gateway externo (Sección 3.3.1).
+Delimitación regulatoria: La investigación constituye un estudio académico de ingeniería de software; no realiza trámites formales de certificación de sistemas SIRES ante la Dirección General de Información en Salud (DGIS).
+Delimitación funcional de la evaluación: Los criterios principales se centran en lecturas por identificador de cuatro recursos clínicos. El código inspeccionado también registra rutas de colección con filtros y paginación limitados que devuelven Bundle de tipo searchset; su existencia no equivale a implementar todo el contrato de búsqueda FHIR. No se registra /fhir/r4/metadata ni operaciones de escritura en router.rs. OperationOutcome y Bundle son recursos auxiliares de respuesta, distintos de los cuatro dominios clínicos transformados.
+Alcance demostrativo del estudio: Los criterios buscan comprobar en laboratorio conformidad estructural, concordancia de atributos, rechazo de las anomalías delimitadas y adaptación S0–S3. El repositorio aporta la implementación e instrumentos con coberturas diferentes; el cumplimiento experimental permanece pendiente según el Capítulo IV. No se evalúan aceptación administrativa sanitaria, usabilidad clínica en consulta real ni un despliegue hospitalario completo.
+Delimitación terminológica y semántica: La validación no juzga la pertinencia médica ni consulta servidores terminológicos en red; la correspondencia se acota a asignar códigos LOINC, CIE-10 y CURP según el archivo de reglas.
+Delimitación técnica de implementación, frontera del DSL y supuestos semánticos: Se evalúa un artefacto único sin grupo de control, por lo que no se afirma superioridad empírica sobre HAPI FHIR ni se atribuye causalmente de forma estadística aislada el desempeño al lenguaje Rust. Asimismo, conforme a la frontera de expresividad del DSL YAML v1.2 (Tabla 3.5, Sección 3.4.3), agregar nuevos tipos de recursos FHIR fuera de los cuatro evaluados o nuevos discriminadores cerrados observation_type requiere modificar y recompilar el código en Rust. Finalmente, se declaran como límites acotados del modelo que en el arquetipo S1 (DISTINCT ON) no se ejecuta validación cross-row de contradicciones demográficas entre filas, en Patient se concatenan ambos apellidos en name[0].family y en Observation se inyecta la constante fija status = "final" (Secciones 3.2.2, 3.4.3 y 3.4.4).
+Delimitación de autenticación y medición: OAuth 2.0/JWT y TLS se plantean para un API Gateway futuro. router.rs y los archivos Compose no incorporan ese componente. R1 describe acceso directo al contenedor en Ryzen 7 5700U/WSL2; ese antecedente no acredita un despliegue productivo ni la configuración de seguridad de una corrida posterior.
+3.2 Entorno de estudio y datos
+3.2.1 Delimitación epistemológica
+La investigación no contempló una auditoría presencial ni acceso a servidores productivos de las clínicas o Centros de Salud con Servicios Ampliados (CESSA) del Distrito de Salud I en Tuxtla Gutiérrez, Chiapas. Esta delimitación obedeció a la ausencia de un convenio formal de colaboración y confidencialidad con las autoridades sanitarias jurisdiccionales. Asimismo, respondió a las restricciones de la LGPDPPSO (2025) y la LFPDPPP (2025) sobre el tratamiento de datos sensibles de salud fuera de fines asistenciales.
+Por ello, el entorno se modeló de forma deductiva a partir de la literatura técnica y los reportes de la Dirección General de Información en Salud. Este enfoque sigue el antecedente de Morales-Rocha et al. (2020), quienes modelaron el dominio del expediente clínico electrónico mediante el método KMoS-RE con base en las normas NOM-004 y NOM-024, permitiendo experimentar en laboratorio sin intervenir sistemas en producción.
+3.2.2 Esquema relacional simulado y taxonomía multi-esquema (S0 a S3)
+El esquema relacional legado simulado se compone de cuatro tablas interrelacionadas en PostgreSQL 16. La tabla tbl_pacientes concentra la filiación del paciente; conforme al numeral 5.2.3 de la NOM-004-SSA3-2012, los datos generales requeridos son «Nombre, sexo, edad y domicilio del paciente». En este diseño de laboratorio, la edad se sustituye por la fecha de nacimiento (birthDate) y se representa una CURP sintética tomando como referencia la identificación prevista en la NOM-024-SSA3-2012 (Secretaría de Salud, 2012b, numeral 6.5.1) usando el espacio de nombres (urn:oid:2.16.840.1.113883.4.629) como decisión de representación en Patient, omitiendo el domicilio por delimitación de alcance. Asimismo, tbl_consultas registra el encuentro médico (numerales 5.10 y 6.1); tbl_signos_vitales almacena las constantes de exploración física (numeral 6.1.2: temperatura, tensión arterial, frecuencia cardíaca y respiratoria); y tbl_diagnosticos guarda los juicios clínicos codificados en CIE-10 (numeral 6.1.4). La correspondencia detallada entre las normas NOM-004-SSA3-2012 y NOM-024-SSA3-2012, el esquema S0 y HL7 FHIR R4 se documenta en el Anexo I.
+S0 organiza cuatro entidades: pacientes, consultas, signos vitales y diagnósticos, relacionadas por identificadores de paciente y consulta. Una fila de paciente, consulta o diagnóstico corresponde a un recurso; una fila de signos vitales origina hasta cuatro Observation. El DDL completo se conserva como artefacto técnico del Anexo A, en schema_legado_simulado_nom004.sql y docker/sql/schema_s0_base.sql. Esta separación mantiene en el cuerpo las entidades y relaciones que justifican la transformación, y remite los tipos, índices, permisos y restricciones al archivo ejecutable.
+El DDL incluye tipo_diagnostico como columna opcional de tbl_diagnosticos, necesaria para el mapeo de verificationStatus; el listado anterior del manuscrito la omitía. Las restricciones SQL no coinciden necesariamente con la obligatoriedad de los constructores: por ejemplo, sexo_biologico y algunas referencias admiten NULL en el DDL consultado, aunque una transformación concreta pueda rechazarlos. El Anexo A debe identificar el DDL y los datos cargados de cada corrida; no basta asumir que toda anomalía T1–T5 queda bloqueada por PostgreSQL.
+Según la literatura sobre sistemas de información en salud, las bases de datos clínicas heredadas suelen presentar estructuras dispares y registros incompletos. Esto ocurre en fechas guardadas como texto, campos opcionales vacíos, códigos en catálogos externos o signos vitales en unidades no métricas. Para evaluar la adaptación del middleware sin acceder a servidores clínicos reales, el autor diseñó los arquetipos relacionales (S0 a S3) a partir de patrones frecuentes en la literatura de integración de datos.
+El esquema relacional legado simulado selecciona parte de los contenidos de la NOM-004-SSA3-2012 (numeral 6.1.2), con proyección prevista de cuatro signos vitales a Observation y poda opcional prevista bajo la política de Cero Invención de Datos (D-006) (optional: true) en los cuatro atributos secundarios opcionales (segundo_nombre y telefono_contacto en tbl_pacientes, frecuencia_respiratoria en tbl_signos_vitales y tipo_diagnostico en tbl_diagnosticos) conforme a las Secciones 3.2.3 y 3.4.4.
+La familia S0–S3 selecciona cuatro formas de heterogeneidad para el banco sintético. Son arquetipos construidos, no una muestra empírica que establezca representatividad de los sistemas del primer nivel de atención. Su valor experimental consiste en variar la estructura de origen conservando el conjunto canónico esperado.
+Arquetipo S0 (Base normalizado): Modelo tabular relacional estándar con cuatro tablas dedicadas por dominio (tbl_pacientes, tbl_consultas, tbl_signos_vitales y tbl_diagnosticos), con claves primarias y foráneas explícitas y tipos de datos fuertemente tipados.
+Arquetipo S1 (Plano/desnormalizado): tbl_sabana_consulta_externa concentra paciente, consulta y signos vitales; tbl_sabana_diagnosticos almacena los diagnósticos. El DDL conserva id_paciente como identificador y el YAML usa distinct_on: "id_paciente" para deduplicar. No aparece una columna id_paciente_s1 en el esquema inspeccionado. La deduplicación no compara contradicciones demográficas entre filas; su comportamiento y el criterio de ordenación deben distinguirse de una validación del historial.
+Arquetipo S2 (Catálogos y relaciones): Las cuatro tablas principales se complementan con cat_sexo_biologico, cat_estado_consulta, cat_cie10 y cat_tipo_diagnostico (docker/sql/schema_s2_lookup.sql). Los bloques lookup de config/mapping_rules_s2.yaml identifican table, key y value_column; el constructor SQL genera LEFT JOIN y conserva el alias de la columna de origen para el resultado consultado.
+Arquetipo S3 (Convenciones heredadas y formatos texto): El DDL contiene columnas abreviadas, fechas de texto, presión arterial concatenada y peso_libras; la temperatura se almacena en temp_celsius. No modela temperatura Fahrenheit. El YAML incluye un mapeo body_weight con lb_to_kg, pero los manejadores HTTP de Observation solo despachan bp, temp, hr y resp. La presencia de la regla de peso no demuestra un endpoint ni un censo ejecutado para ese subtipo.
+El protocolo propone ejecutar S0–S3 secuencialmente con configuraciones identificadas y un mismo ejecutable. Esa secuencia requiere registros de ejecución. Además, deben comprobarse las incompatibilidades entre la proyección SQL y los adaptadores descritas en §3.3.2; no basta cambiar el YAML para dar por conseguida la equivalencia.
+La Figura 3.2 representa la convergencia conceptual de los arquetipos hacia un modelo canónico común. La implementación combina reglas y adaptadores Rust; el diagrama no prueba que las cuatro rutas HTTP produzcan salidas equivalentes ni establece por sí solo un ahorro de complejidad o esfuerzo.
+Figura 3.2. Convergencia de la familia de arquetipos relacionales (S0–S3) hacia el Modelo Canónico HL7 FHIR R4 mediante reglas declarativas YAML v1.2.
+Nota. Elaboración propia con fundamento en la teoría de integración de datos de Doan et al. (2012), el patrón Canonical Data Model de Hohpe y Woolf (2003) y los contenidos clínicos de la NOM-004-SSA3-2012 (Secretaría de Salud, 2012a) (§2.2.1, §2.3.3 y §2.4.2).
+Límites de representatividad de la taxonomía relacional
+Aunque los arquetipos S0 a S3 fueron diseñados para representar patrones estructurales comunes en repositorios clínicos legados, se establece formalmente como delimitación que dicha taxonomía no abarca la totalidad de paradigmas de almacenamiento existentes. En particular, quedan excluidos del alcance de evaluación los esquemas basados en el modelo Entity-Attribute-Value (EAV), bases de datos orientadas a documentos (JSON/NoSQL), campos binarios no estructurados (BLOBs) y arquitecturas de grafos. El motor MedSys-FHIR v1.2 está diseñado específicamente para bases de datos relacionales organizadas en tablas que puedan consultarse mediante sentencias SQL estándar.
+3.2.3 Generación y proyección del conjunto canónico de datos sintéticos
+scripts/generate_data.py define la semilla 20260930 y genera un conjunto canónico de 1,000 pacientes, 2,500 consultas, 2,500 signos vitales y 3,000 diagnósticos. Sus 9,000 filas corresponden al modelo base S0; S1 materializa entidades combinadas y S2 incorpora catálogos, por lo que la cuenta física debe distinguirse de los registros lógicos canónicos. La semilla permite repetir el generador de la versión identificada, pero la reproducción también depende del código, de su entorno y de los archivos cargados. El conjunto incluye variación de nombres, estados y valores opcionales para explorar las transformaciones delimitadas.
+El generador define 150 ausencias de segundo_nombre y 100 de telefono_contacto en mil pacientes, 250 de frecuencia_respiratoria en 2,500 signos vitales y 300 de tipo_diagnostico en tres mil diagnósticos: 800 ocurrencias. La proyección esperada omite la Observation respiratoria ausente y verificationStatus cuando corresponda, sin alterar las otras entidades. Es una expectativa que debe contrastarse con cada salida real. generate_curp utiliza caracteres de nombres, fecha, sexo, entidad y un sufijo derivado del índice, con una alternativa ante colisión; no fija una X universal en la homoclave ni calcula el dígito verificador oficial. Su generación sintética no acredita inscripción en RENAPO.
+La composición detallada y distribución de atributos del conjunto de datos sintéticos canónico se sintetiza en la Tabla 3.2:
+Tabla 3.2. Composición del dataset sintético canónico, atributos clave y política de nulos.
+Entidad Relacional
+Registros
+Atributos Clave y Diversidad / Casos Límite
+Manejo de Nulos / Proporción
+tbl_pacientes
+1,000
+CURP generada algorítmicamente, sin marcador X universal de homoclave; nombres con Unicode y longitudes variables.
+segundo_nombre (15.0 % nulo exacto: 150 nulos, 850 válidos), telefono_contacto (10.0 % nulo exacto: 100 nulos, 900 válidos).
+tbl_consultas
+2,500
+Estados de consulta (FINALIZADA, EN_CURSO, CANCELADA), marcas ISO 8601.
+Campos obligatorios (0% nulos).
+tbl_signos_vitales
+2,500
+Presión sistólica/diastólica, FC, FR, Temp. Cero valores fuera de rango fisiológico.
+frecuencia_respiratoria: 250 NULL previstos (10.0 %); proyección esperada de 2,250 Observation respiratorias.
+tbl_diagnosticos
+3,000
+Codificación CIE-10 (E11.9, I10, J00, K29.7), tipo (PRESUNTIVO, CONFIRMADO).
+tipo_diagnostico: 300 NULL previstos (10.0 %); omisión esperada de verificationStatus y 2,700 valores presentes. Confirmar los conteos en la carga efectiva.
+Nota. Elaboración propia a partir del generador determinista de datos sintéticos (scripts/generate_data.py, SEED = 20260930, Anexo C) y las disposiciones de la NOM-004-SSA3-2012 (Secretaría de Salud, 2012a).
+3.2.4 Oráculo independiente de fidelidad clínica
+Conforme a lo expuesto en la Sección 2.6.4, la validación sintáctica con org.hl7.fhir.validator-cli no basta por sí sola para comprobar la exactitud semántica de los valores clínicos traducidos. Para resolver esta limitación, se implementó un oráculo diferencial independiente en Python, desacoplado del código en Rust y de los archivos YAML.
+scripts/oracle_verifier.py distingue tres modos. --self-test serializa y deserializa las salidas esperadas y las compara consigo mismas; comprueba consistencia local del verificador, no el middleware Rust. --input-dir permite comparar JSON exportado y --base-url solicita recursos al servidor. Para sustentar CA-2 deben conservarse el modo, el commit, la semilla, el arquetipo y la procedencia de cada salida real, junto con discrepancias y denominadores. La comparación se limita a atributos mapeados; las columnas excluidas no forman parte de la exactitud evaluada. normalize_iso_datetime elimina Z o el desplazamiento para comparar cadenas locales: una coincidencia tras esa normalización no acredita equivalencia de instantes ni validez de zona horaria. Es necesario un control específico de esas propiedades.
+El oráculo Python y la implementación Rust comparten autoría y supuestos. El verificador permite buscar discrepancias en atributos seleccionados cuando recibe salidas externas; no demuestra de antemano ausencia de truncamientos o cruces. Los controles siguientes complementan la evaluación, sin sustituir los reportes por esquema:
+Protocolo de pruebas de mutación: Se inyectan 20 mutaciones deliberadas en los datos y transformaciones (como permutación de presiones arteriales, fechas alteradas y códigos CIE-10 modificados) para comprobar que el oráculo detecte el 100 % de las discrepancias.
+Control de cronología: Las expectativas y reglas utilizadas deben identificarse por commit y conservar su fecha respecto de cada ejecución. La existencia actual de archivos versionados no acredita por sí sola que las salidas esperadas se registraran antes de elaborar o evaluar S1–S3. Esa secuencia requiere evidencia histórica específica y no se da por comprobada en este capítulo.
+Verificación normativa de la matriz de mapeo: Las reglas de transformación se contrastan con las normas NOM-004-SSA3-2012 y NOM-024-SSA3-2012 y los perfiles Vital Signs de HL7 FHIR R4 (Anexo I).
+Estos controles reducen algunos riesgos de implementación compartida, pero no convierten al oráculo en una validación clínica externa ni descartan errores comunes en la especificación. La concordancia obtenida debe interpretarse respecto del modelo y de las mutaciones efectivamente ensayadas.
+3.2.5 Corpus de inyección de fallos y política de anomalías
+El corpus contiene 100 casos tipificados T1–T5 para explorar el rechazo de anomalías. Su construcción, las pruebas en memoria y la inyección contra PostgreSQL/HTTP son niveles diferentes. scripts/run_fault_corpus.py evalúa casos con lógica Python y devuelve números de estado sin enviar peticiones; incluso base_url no cambia el bucle de evaluación consultado. La prueba fault_corpus_integration.rs llama al evaluador Rust para ciertas categorías y simula T4 mediante rangos de identificadores; no acredita por sí sola la interacción completa con la base y el servidor. El ensayo extremo a extremo exige una ruta de inyección y registros por caso.
+El corpus aplica la taxonomía propia de cinco categorías (T1 a T5) introducida en la Sección 2.6.5, conformando 100 casos anómalos (20 por categoría):
+Categoría T1 (Dato obligatorio ausente): Omisión o valor nulo en atributos indispensables (p. ej., fecha de nacimiento en Patient o código diagnóstico en Condition).
+Categoría T2 (Error de conversión de tipo o fecha): Cadenas malformadas que impiden la conversión hacia tipos primitivos de FHIR o fechas ISO 8601.
+Categoría T3 (Valor fuera de diccionario): El diseño exige rechazar valores no admitidos de sexo, estado del encuentro y tipo de diagnóstico. Hay validaciones en el evaluador y en constructores concretos, pero los adaptadores dinámicos pueden descartar o sustituir el valor antes de alcanzarlas. codigo_cie10 se proyecta bajo la URI CIE-10; no se verifica su pertenencia a un catálogo oficial completo por el solo hecho de asignar esa URI.
+T4 (Referencia relacional rota): La lectura individual S0 llama a comprobaciones específicas de existencia de paciente/consulta; la dinámica llama a parent_checks cuando está configurado. Los listados usan funciones raw y no ejecutan esas mismas comprobaciones por fila. Las consultas de existencia tampoco verifican que el encuentro indicado pertenezca al paciente indicado. Estas diferencias deben probarse por ruta y no se interpretan como integridad completa del grafo.
+T5 (Sintaxis de CURP): transform.rs implementa comprobaciones de longitud, caracteres, sexo, entidad y rangos de mes/día. No consulta RENAPO ni comprueba la identidad de una persona; tampoco valida completamente el calendario o calcula el dígito verificador. La respuesta HTTP de esta categoría debe comprobarse por la ruta real, distinguiéndola del chequeo local del identificador.
+La respuesta prevista ante un error de dominio detectado es HTTP 422 con OperationOutcome. Esa traducción no garantiza que toda anomalía llegue al manejador como error: algunos adaptadores aplican sustituciones o convierten fallos de parseo opcional en ausencia. Tampoco equivale a detener una única transacción que abarque lectura, comprobación y construcción. El comportamiento efectivo se determina por la ruta y los casos ejecutados.
+La distribución de los 100 casos de prueba del corpus se formaliza en la Tabla 3.3:
+Tabla 3.3. Matriz de distribución del corpus de inyección de fallos (categorías T1 a T5, 100 casos anómalos) y respuesta canónica Fail-Closed.
+Categoría de Anomalía
+Descripción Técnica
+Casos Totales
+Esquema de Aplicación Primario
+Respuesta Canónica Esperada
+T1
+Ausencia de identificador o dato normativo obligatorio
+20
+S0–S3 (réplica sin restricciones)
+HTTP 422 (OperationOutcome)
+T2
+Error o incompatibilidad de formato temporal o tipo de dato
+20
+S0–S3 (réplica sin restricciones)
+HTTP 422 (OperationOutcome)
+T3
+Valor no catalogado en diccionarios de equivalencia
+20
+S0–S3 (réplica sin restricciones)
+HTTP 422 (OperationOutcome)
+T4
+Referencia relacional inexistente o rota
+20
+S0–S3 (réplica sin restricciones)
+HTTP 422 (OperationOutcome)
+T5
+Identificador con sintaxis o longitud inválida
+20
+S0–S3 (réplica sin restricciones)
+HTTP 422 (OperationOutcome)
+Nota. Elaboración propia con base en las técnicas de inyección de fallos de Hsueh et al. (1997) y Voas y McGraw (1998) (§2.6.5) y la especificación de OperationOutcome de HL7 International (2019).
+La Tabla 3.3 define categorías y respuestas esperadas. Las 100 evaluaciones en memoria no se presentan como 100 transacciones HTTP observadas ni como ejecuciones en cada arquetipo. El protocolo extremo a extremo debe identificar el conjunto de casos aplicable a cada esquema, la carga que los introduce, la ruta solicitada, la respuesta y el control nominal. Los porcentajes de rechazo o falsos rechazos solo se calculan a partir de esos registros; las comprobaciones locales se informan por separado.
+Limitaciones de la taxonomía de anomalías y trabajo futuro (T6–T8): Se establece formalmente como limitación del diseño experimental que la taxonomía propia T1–T5 se circunscribe a fallos sintácticos, estructurales y de tipo. Dicha taxonomía no evalúa la plausibilidad fisiológica del dato (e.g., presiones arteriales extremas pero sintácticamente numéricas), la concordancia temporal ni la coherencia clínica cruzada entre diagnósticos y tratamientos. Como trabajo futuro, se contempla ampliar la caracterización de fallos integrando tres nuevas categorías: Categoría T6 (Plausibilidad fisiológica y valores imposibles), Categoría T7 (Incoherencia temporal y cronológica) y Categoría T8 (Incongruencia semántica y clínica cruzada).
+3.2.6 Entorno experimental de laboratorio
+El entorno histórico R1 identifica un AMD Ryzen 7 5700U de 8 núcleos/16 hilos, Windows 11 Home y Docker Desktop sobre WSL2, compartidos por cliente, servicio y PostgreSQL. Informa rustc/Cargo 1.98.1, Docker 29.5.3, Compose 5.1.4, k6 2.2.0 y Java 8; declara que el validador HL7 no se ejecutó. Estos datos pertenecen al commit 69a5926 del 5 de octubre de 2026. Las versiones antes declaradas como rustc 1.82.0, Compose 2.29.2, k6 0.54.0 y OpenJDK 21 no se atribuyen a esa corrida. La configuración actual propone cuotas de 1 vCPU/256 MiB para el servicio y 1 vCPU/512 MiB para PostgreSQL, cuya aplicación debe acreditarse en cada ejecución.
+El protocolo recomienda mantener alimentación eléctrica y condiciones térmicas estables, controlar aplicaciones concurrentes y documentar pausas entre réplicas. No se dispone de un registro por corrida que permita presentar todas esas condiciones como controles efectivamente aplicados; deberán acompañar a las mediciones que se utilicen para el cierre experimental.
+3.3 Decisiones y arquitectura de la solución MedSys-FHIR
+3.3.1 Fundamentación técnica de decisiones de diseño
+Las decisiones arquitectónicas adoptadas para MedSys-FHIR se derivan directamente del análisis teórico y tecnológico del Capítulo II, priorizando la seguridad de memoria, el bajo consumo de recursos en hardware austero y el desacoplamiento frente a sistemas relacionales existentes. Cada elección técnica responde a un compromiso de ingeniería explícito frente a las alternativas evaluadas:
+Rust (edición 2021 en los manifiestos) se seleccionó por su sistema de tipos, la gestión de propiedad y la compilación a código nativo, como decisiones de ingeniería vinculadas con seguridad de memoria y control de recursos. La ausencia de recolector de basura no garantiza por sí sola una latencia o huella específica. Esas propiedades deben medirse en el artefacto; no se realizó una comparación experimental de lenguajes ni se midió la curva de aprendizaje.
+El archivo de configuración se deserializa con serde_yaml; Cargo.lock del commit inspeccionado fija 0.9.34+deprecated. Deben distinguirse la versión de YAML, el campo version del DSL —"1.2.0" en las configuraciones— y la versión del artefacto. YAML 1.2 no trata NO o YES como booleanos en su esquema Core; se conserva el entrecomillado explícito de códigos como convención de configuración, sin atribuir a la especificación esa conversión (YAML Language Development Team, 2021, §10.3.2). La dependencia deprecada constituye una decisión de mantenimiento pendiente de reevaluación, no una garantía de estabilidad.
+Se utiliza helios-fhir con la característica R4 habilitada y serialización mediante Serde. Cargo.lock del commit inspeccionado resuelve la versión 0.2.3. La elección facilita construir tipos FHIR y evita modelarlos manualmente; no se dispone aquí de mediciones comparativas de tiempo de compilación que demuestren ventaja frente a fhir-sdk. La justificación se apoya en la integración técnica requerida, manteniendo la validación externa como comprobación independiente.
+PostgreSQL 16 proporciona el banco relacional del prototipo. Los DDL definen medsys_ro con permisos SELECT y Compose configura ese usuario para el servicio; DbConfig permite sustituir la URL mediante variables de entorno. El código no comprueba al arrancar los privilegios efectivos del rol. La ruta dinámica abre transacciones REPEATABLE READ READ ONLY; los repositorios específicos S0 ejecutan sus lecturas ordinarias directamente sobre el pool, aunque contengan un método para abrir ese tipo de transacción. Por ello, no se atribuye el mismo aislamiento a todas las consultas ni una instantánea común a toda la solicitud.
+La protección de identificadores SQL se implementa mediante ALLOWED_TABLES y ALLOWED_COLUMNS, listas estáticas compiladas en crates/medsys-db/src/query_builder.rs, junto con una comprobación de sintaxis. main.rs ejecuta esa verificación al arranque; no consulta el catálogo de PostgreSQL para construir o ampliar la lista. En consecuencia, cambiar a nombres ajenos a las listas requiere modificar Rust y recompilar, aunque la transformación deseada ya exista. Esta restricción y las conversiones row_to_legacy_* limitan la independencia del esquema: las configuraciones S0–S3 conocidas no demuestran adaptación arbitraria mediante YAML. Los parámetros de consulta se enlazan por separado; las credenciales y permisos del rol de lectura siguen siendo parte del entorno de despliegue.
+Tokio, Axum y SQLx conforman la pila asíncrona seleccionada: Tokio aporta el runtime, Axum el enrutamiento y SQLx el acceso a PostgreSQL. La parametrización de valores y los tipos de Rust reducen ciertos errores, pero las consultas dinámicas generadas como cadenas no se validan íntegramente contra el esquema en compilación. Deben separarse las garantías del lenguaje, las comprobaciones de configuración y los errores que solo aparecen al consultar la base.
+La terminación TLS y la autenticación OAuth 2.0/JWT se plantean como responsabilidades de un API Gateway en un despliegue futuro. El enrutador y Docker Compose inspeccionados no implementan ese componente ni acreditan una instalación productiva en subred privada. La caracterización local del servicio debe indicar que excluye esa sobrecarga y conservar la configuración efectiva de red y permisos del banco.
+3.3.2 Arquitectura por capas y pipeline de procesamiento
+La interacción entre estos patrones de diseño y las capas desacopladas del middleware se formaliza en la Figura 3.3:
+Figura 3.3. Arquitectura interna por capas y pipeline de los cinco patrones de diseño en MedSys-FHIR.
+Nota. Elaboración propia fundamentada en los patrones Facade y Adapter (Gamma et al., 1995), Repository / Data Mapper (Fowler, 2003), Message Translator y Canonical Data Model (Hohpe y Woolf, 2003), y aislamiento transaccional de solo lectura (Silberschatz et al., 2020) (§2.3.2 y §2.4.2).
+Facade: La capa medsys-server/src/handlers y router.rs organiza las rutas y oculta parte del acceso a datos y de la construcción de respuestas. Además de /fhir/r4/, existen rutas de salud e inspección del legado; esta distribución es una interpretación arquitectónica de responsabilidades, no una afirmación de conformidad completa de la API con FHIR.
+Repository/Data Mapper: Los repositorios S0 residen en crates/medsys-db/src/repository/; dynamic_repo.rs y query_builder.rs construyen la lectura dinámica. Los manejadores eligen por source_table y luego convierten a Legacy*. En S0, las consultas ordinarias usan el pool y las comprobaciones de padres abren otra transacción. En la ruta dinámica, find_by_id_raw confirma su lectura antes de verify_parent_checks. Ninguna de esas secuencias acredita una instantánea única para toda la mediación.
+Adapter: row_to_legacy_* convierte mapas a LegacyPaciente, LegacyConsulta, LegacySignoVital y LegacyDiagnostico mediante nombres y conversiones codificados. Esa adaptación no interpreta de manera general target_path. Por ejemplo, los alias id_sexo e id_cie10 producidos por lookup en S2 no figuran entre los nombres aceptados para sexo_biologico y codigo_cie10. La coincidencia entre proyección SQL y adaptador debe comprobarse además de la corrección del YAML.
+Message Translator: evaluator.rs aplica directivas sobre serde_json::Value y transform.rs contiene constructores FHIR tipados. Los manejadores HTTP llaman a estos últimos después de convertir a Legacy*, sin pasar de manera general por evaluate_resource_mapping. Las pruebas que comparan cuatro mapas mediante ese evaluador no cubren automáticamente el acceso SQL, sus alias, los adaptadores ni la respuesta HTTP.
+Patrón Canonical Data Model: Gobernado por el crate helios-fhir v0.2 (especificación Release 4), suministra los modelos de datos unificados fuertemente tipados que actúan como formato canónico común hacia el cual convergen todos los registros relacionales extraídos.
+La selección dinámica de Observation utiliza el primer mapeo de ese tipo —el panel de presión arterial en S1–S3—, aunque el identificador solicite temp, hr o resp. DynamicSqlBuilder proyecta solo la clave y columnas declaradas por ese mapeo, no todas las columnas de la tabla. Sin embargo, row_to_legacy_signo_vital exige también frecuencia cardíaca y temperatura antes de llamar al transformador específico. La composición visible deja esas columnas fuera de la proyección y contiene una incompatibilidad estática, cuyo resultado HTTP debe documentarse con un ensayo identificado. La existencia de reglas separadas por subtipo no demuestra su ejecución correcta.
+El flujo algorítmico del pipeline de mediación para solicitudes de lectura se formaliza en el siguiente pseudocódigo:
+Algoritmo 1: Pipeline de transformación y mediación FHIR R4 (GET /fhir/r4/{resource}/{id})
+Propiedades por verificar: concordancia de atributos (CA-2), rechazo T1–T5 (CA-3) y adaptación sin cambios de código dentro de las restricciones documentadas (CA-4). El siguiente flujo resume la ruta de lectura inspeccionada; no constituye una prueba de esas propiedades.
+Costo por solicitud: No se establece O(1) por el solo uso de índices B-tree. El acceso depende del volumen, índices efectivos, uniones, deduplicación y comprobaciones de padres. La latencia se caracteriza mediante mediciones del banco y no mediante una cota constante no demostrada.
+Interpretar el identificador y, para Observation, su subtipo; devolver HTTP 400 ante un identificador inválido.
+Elegir el repositorio específico de S0 o la consulta dinámica según source_table; recuperar la fila o devolver HTTP 404.
+En la lectura individual dinámica, ejecutar parent_checks si está configurado y convertir la fila proyectada a Legacy*. Los listados raw y los adaptadores tienen una cobertura diferente; las incompatibilidades de campos descritas deben registrarse como límites de la implementación.
+Invocar transform_patient, transform_encounter, el transformador de signo vital o transform_condition; propagar los errores de dominio al manejador de respuestas.
+Si la frecuencia respiratoria no está disponible, omitir esa Observation y responder HTTP 404 cuando se solicite por identificador; la colección puede continuar con los otros signos.
+Serializar el recurso tipado mediante FhirResponse y devolver HTTP 200. ServerError traduce los fallos de dominio, persistencia o serialización a las respuestas descritas en §3.3.3.
+3.3.3 Flujo operativo, contrato de interfaz RESTful y política de errores
+El enrutador registra lecturas individuales de Patient, Encounter, Observation y Condition, construidas con helios-fhir y serializadas por FhirResponse. Esas rutas implementadas deben distinguirse de la validación oficial de sus respuestas y de la cobertura completa de interacciones FHIR R4.
+GET /fhir/r4/Patient/{id}: Admite un entero i32 y el prefijo pat-; selecciona el repositorio S0 o dinámico según la configuración y construye Patient.
+GET /fhir/r4/Encounter/{id}: Admite un entero i32 y el prefijo enc-; recupera el encuentro y construye su representación tipada, con las limitaciones de estado y procedencia descritas en §3.4.4.
+GET /fhir/r4/Observation/{id}: Reconoce bp, temp, hr, resp y el alias rr como prefijo o sufijo; un entero sin subtipo selecciona presión arterial. Los identificadores emitidos son bp-{id}, temp-{id}, hr-{id} y resp-{id}. No hay despacho de body_weight.
+GET /fhir/r4/Condition/{id}: Admite un entero i32 y el prefijo cond-; construye Condition con el código diagnóstico almacenado, sin comprobar pertenencia al catálogo CIE-10 completo.
+No se registra GET /fhir/r4/metadata. /health y /api/health ejecutan SELECT 1 y devuelven JSON técnico con estado ok/degraded y database_status. El manejador retorna HTTP 200 también cuando informa degraded; por ello, un healthcheck basado solo en curl -f no acredita conectividad ni corrección de las transformaciones.
+Las rutas auxiliares son /api/legacy/patients y /api/legacy/patients/{id}/full. Las colecciones FHIR admiten limit/offset; Encounter añade patient, Observation patient/encounter y Condition patient/encounter/code, con precedencia y cobertura específicas. Los filtros dinámicos conservan nombres fijos id_paciente/id_consulta, que no coinciden con pac_id/con_id en S3. El límite de Observation se aplica a filas de signos, de las que pueden surgir hasta cuatro recursos; Bundle.total se calcula con las entradas de esa página y no con el total de coincidencias. No se implementan enlaces de paginación. Estas rutas no constituyen una búsqueda FHIR completa.
+ServerError y el fallback de rutas desconocidas construyen OperationOutcome para los errores que reciben. Su cobertura no incluye automáticamente los rechazos de los extractores Query ni los métodos HTTP no admitidos: el enrutador no define una normalización común para esas respuestas. La siguiente relación describe el mapeo explícito de ServerError, no una garantía sobre toda respuesta del servidor:
+HTTP 200 OK: FhirResponse serializa el recurso a JSON con Content-Type application/fhir+json; charset=utf-8. El código 200 no acredita por sí solo conformidad estructural ni fidelidad clínica.
+HTTP 400 Bad Request (severity: error, issue.code: invalid): ServerError::InvalidPath cubre los identificadores que el manejador no puede interpretar. Los errores de consulta rechazados directamente por Query requieren una comprobación separada de estado, cuerpo y cabeceras.
+HTTP 404 Not Found (severity: error, issue-type: not-found): Registro inexistente en la base de datos relacional de origen (o recurso Observation opcional omitido por valor nulo).
+HTTP 422 Unprocessable Entity (severity: error, issue.code: processing): Mapea MissingField, ProcessingError, ValidationError, InvalidRule y TransformationError. El estado puede deberse también a un campo que la consulta o el adaptador no recuperó, aunque exista en origen; no demuestra por sí solo que el registro clínico esté corrupto.
+HTTP 500/503: ServerError asigna exception a fallos internos y transient a fallos de persistencia. En el código inspeccionado, create_operation_outcome recibe severity = "error" también para estas respuestas; no se debe documentar severity = "fatal" como comportamiento implementado.
+Las pruebas de contrato deben cubrir rutas y métodos válidos, identificadores malformados, consultas no deserializables, ausencia de filas, errores de transformación y fallos de persistencia. Las aserciones existentes de ServerError no sustituyen esa matriz ni demuestran tasas de rechazo o falsos rechazos sobre un censo.
+3.4 Especificación del Lenguaje Declarativo de Mapeo (YAML)
+3.4.1 Justificación técnica de YAML sobre JSON
+La elección de YAML (versión 1.2) sobre JSON para el archivo de reglas responde a su legibilidad y al soporte de comentarios con el carácter #, útiles para documentar la justificación normativa de cada campo. En cambio, sobre la red HTTP el middleware transmite exclusivamente objetos JSON estándar conforme al RFC 8259 (Bray, 2017) y a HL7 International (2019).
+3.4.2 Gramática declarativa y semántica de ejecución
+El documento YAML completo es un objeto MappingRules con version y resources, y los atributos opcionales description y timezone_default. Cada entrada de resources contiene resource_type, source_table, primary_key y mappings; admite además profile, observation_type, distinct_on, parent_checks y filter_not_null. La Tabla 3.4 resume los tipos aceptados por model/mapping.rs. El campo version identifica la configuración y no selecciona por sí solo otro motor. La deserialización de timezone_default no prueba su aplicación a todas las funciones: el evaluador consultado utiliza America/Mexico_City explícitamente en parse_datetime.
+Tabla 3.4. Gramática declarativa y semántica de ejecución de las directivas del DSL YAML v1.2 en MedSys-FHIR.
+Directiva
+Aplica a
+Tipo de valor
+Semántica / Efecto
+Cardinalidad / Presencia
+resource_type
+Nivel recurso
+Cadena (String)
+Define el tipo canónico de recurso FHIR R4 generado en la transformación (e.g., Patient, Encounter, Observation, Condition).
+Requerido (1..1)
+source_table
+Nivel recurso
+Cadena (String)
+Especifica el nombre de la tabla relacional de origen en PostgreSQL desde la cual se extraen los registros.
+Requerido (1..1)
+primary_key
+Nivel recurso
+Cadena (String)
+Identifica la columna que actúa como clave primaria en la tabla relacional para la recuperación indexada por identificador.
+Requerido (1..1)
+profile
+Nivel recurso
+Cadena (String, URI)
+profile se deserializa como metadato de configuración. evaluate_resource_mapping no lo copia por sí mismo y los constructores consultados asignan meta: None; declararlo en YAML no demuestra que se emita meta.profile ni que se valide el perfil.
+Opcional (0..1)
+observation_type
+Nivel recurso
+Cadena (String)
+Discriminador cerrado de perfil clínico para la instanciación de observaciones específicas (e.g., blood_pressure_panel, body_temperature).
+Condicional (0..1)
+source_column
+Nivel mapeo
+Cadena (String)
+Especifica la columna relacional de origen de donde proviene el valor clínico o administrativo a proyectar.
+Condicional (0..1)
+target_path
+Nivel mapeo
+Cadena (String)
+Define la ruta exacta de destino dentro de la estructura jerárquica del recurso FHIR R4 (e.g., identifier[0].value).
+Requerido (1..1)
+constant_value
+Nivel mapeo
+Cadena (String)
+Valor constante de configuración. No es necesariamente una exigencia del estándar; la validación actual permite combinarlo con source_column y el evaluador genérico puede usarlo si el origen obligatorio es nulo.
+Condicional (0..1)
+transform
+Nivel mapeo
+Cadena (String)
+Funciones de apply_transform: date_iso8601, datetime_iso8601 y reference:patrón. El parseo con formatos personalizados usa la directiva separada parse_datetime.
+Opcional (0..1)
+dictionary
+Nivel mapeo
+Mapa (Map<String, String>)
+Tabla de equivalencias para homologar valores categóricos locales discretos hacia vocabularios controlados de FHIR.
+Opcional (0..1)
+lookup
+Nivel mapeo
+Objeto (LookupConfig)
+Configura LEFT JOIN contra table, enlazando source_column con key y proyectando value_column. La consulta y el evaluador de campos son etapas distintas.
+Opcional (0..1)
+combine_with
+Nivel mapeo
+Cadena (String)
+Especifica una segunda columna relacional a combinar con la columna principal de origen.
+Opcional (0..1)
+combine_format
+Nivel mapeo
+Cadena (String)
+Plantilla de interpolación de texto para estructurar la combinación de columnas (e.g., "{apellido_paterno} {apellido_materno}").
+Condicional (0..1)
+split_part
+Nivel mapeo
+Objeto {delimiter: String, index: usize}
+Divide la cadena por delimiter y toma index con base cero. Un fragmento ausente o vacío genera error en el evaluador genérico.
+Opcional (0..1)
+unit_conversion
+Nivel mapeo
+Cadena (String)
+Selecciona una conversión codificada: f_to_c o lb_to_kg. No acepta un objeto con source_unit, target_unit y formula.
+Opcional (0..1)
+optional
+Nivel mapeo
+Booleano (Boolean)
+En el evaluador genérico, permite omitir la asignación si el origen está ausente, nulo o vacío. Un valor presente pero inválido se trata por sus transformaciones; los constructores tipados y adaptadores deben contrastarse por separado.
+Opcional (0..1, por defecto false)
+system
+Nivel mapeo
+Cadena (String)
+URI canónica, OID o espacio de nombres del sistema terminológico, identificador o unidades de medida.
+Opcional (0..1)
+code
+Nivel mapeo
+Cadena (String)
+Código formal representativo del concepto clínico o la unidad UCUM en el sistema estandarizado.
+Opcional (0..1)
+display
+Nivel mapeo
+Cadena (String)
+Glosa o descripción textual oficial asociada al código clínico estandarizado.
+Opcional (0..1)
+unit
+Nivel mapeo
+Cadena (String)
+Etiqueta textual legible de la unidad de medida asistencial (e.g., "mmHg", "Cel", "/min").
+Opcional (0..1)
+distinct_on
+Nivel recurso
+Cadena (String)
+Activa DISTINCT ON en la consulta. La selección determinista requiere un ORDER BY suficiente; el generador de lectura por identificador no añade ORDER BY, aunque sí lo hace el listado paginado.
+Opcional (0..1)
+parent_checks
+Nivel recurso
+Lista de Objetos (List<ParentCheck>)
+Configura comprobaciones de existencia de padres en la ruta dinámica. verify_parent_checks abre una transacción diferente de la lectura; no demuestra una instantánea común ni se ejecuta cuando no hay reglas.
+Opcional (0..N)
+filter_not_null
+Nivel recurso
+Cadena (String)
+Añade una condición IS NOT NULL tanto a la lectura por identificador como al listado paginado construidos por DynamicSqlBuilder. Su ausencia no excluye una omisión posterior en el transformador.
+Opcional (0..1)
+Fuente: crates/medsys-core/src/model/mapping.rs, engine/evaluator.rs y crates/medsys-db/src/query_builder.rs del commit 18b434a692f8ab28a400f6ccab64c5d52e6bc183. FieldMapping admite además parse_datetime como cadena de formatos separados por |, y use/use_type como cadenas opcionales. Esta tabla resume el contrato de configuración; no implica que todas las directivas se apliquen en todas las rutas HTTP.
+Los cinco fragmentos siguientes ilustran directivas del evaluador; no constituyen un archivo ejecutable en conjunto. El lookup debe usar columnas existentes del catálogo: en S2 se proyecta codigo_fhir. El ejemplo de Fahrenheit es hipotético y no describe el DDL S3 actual, que contiene temp_celsius. La reproducción debe usar las configuraciones completas y verificar además su compatibilidad con la ruta HTTP.
+# Fragmentos de mappings; requieren MappingRules y ResourceMapping.
+# S2: catálogo incluido en el banco
+- source_column: "id_sexo"
+  target_path: "gender"
+  lookup:
+    table: "cat_sexo_biologico"
+    key: "id_sexo"
+    value_column: "codigo_fhir"
+  dictionary: {"male": "male", "female": "female", "other": "other"}
+# S3: formatos de entrada personalizados
+- source_column: "fech_ini_txt"
+  target_path: "period.start"
+  parse_datetime: "%d/%m/%Y %H:%M:%S|%d/%m/%Y %H:%M"
+# Combinación de apellidos
+- source_column: "apellido_paterno"
+  target_path: "name[0].family"
+  combine_with: "apellido_materno"
+  combine_format: "{apellido_paterno} {apellido_materno}"
+# S3: componente sistólico
+- source_column: "presion_arterial_txt"
+  target_path: "component[0].valueQuantity.value"
+  split_part: {delimiter: "/", index: 0}
+# Ejemplo hipotético: conversión Fahrenheit/Celsius en el evaluador
+- source_column: "temp_f"
+  target_path: "valueQuantity.value"
+  unit_conversion: "f_to_c"
+La configuración se lee una vez al arrancar: parse_mapping_rules deserializa y validate_mapping_rules comprueba los cuatro recursos requeridos y propiedades del primer mapeo de cada tipo; después se validan los identificadores contra la allowlist estática. No hay un observador ni recarga automática de YAML. Esta secuencia no comprueba exhaustivamente subtipos, nombres contra el catálogo vivo, rutas destino, transformaciones o claves desconocidas, ni asegura compatibilidad entre la proyección y Legacy*. Los errores posteriores pueden aparecer al consultar o transformar.
+La semántica del evaluador genérico sigue el orden: extracción o combinación de origen, split_part, unit_conversion, parse_datetime, dictionary, transform, asignación target_path y atributos auxiliares. Las reglas se recorren en orden de declaración. Si una regla incluye source_column y constant_value, el valor de origen presente tiene prioridad; si falta y la regla no es opcional, puede utilizarse la constante. Por ello, la política de no completar datos clínicos requiere comprobar las configuraciones y no se deduce únicamente de no usar una clave llamada fallback_value.
+Figura 3.4. Árbol de decisión interna del motor MedSys-FHIR: poda opcional (optional: true) frente a rechazo estructurado Fail-Closed (HTTP 422 OperationOutcome).
+Nota. Elaboración propia con fundamento en las reglas de serialización JSON y OperationOutcome de HL7 International (2019), el principio de proporcionalidad y minimización de la LGPDPPSO (2025, Art. 19) y la integridad clínica de la NOM-004-SSA3-2012 (Secretaría de Salud, 2012a) (§2.1.4, §2.2.1 y §2.2.3).
+Tratamiento de ausencias: El banco define 800 ocurrencias NULL en las cuatro columnas opcionales seleccionadas. El evaluador genérico omite la asignación cuando optional es verdadero y el dato no está disponible. En la ruta HTTP, los constructores y adaptadores controlan también la ausencia: transform_observation_respiratory_rate devuelve None para una frecuencia ausente y el manejador de lectura la convierte en HTTP 404. Algunas conversiones opcionales del adaptador pueden convertir un parseo fallido en None; por tanto, no se equipara ausencia y valor corrupto sin comprobar la ruta concreta.
+Fallo seguro y sustituciones: Los errores de dominio detectados suelen traducirse a HTTP 422. Sin embargo, row_to_legacy_consulta asigna FINALIZADA si no reconoce un estado y copia el inicio cuando no obtiene el fin; row_to_legacy_diagnostico usa el código como descripción si esta falta. Algunas conversiones numéricas contienen alternativas por defecto y las opcionales pueden convertir un parseo fallido en None. Estas ramas limitan D-006 y deben evaluarse con casos dirigidos; la política documental no demuestra su ausencia.
+La correspondencia de proyección relacional se define según la cardinalidad clínica de cada entidad. La relación fila-a-recurso (1:1) aplica a entidades como tbl_pacientes (hacia Patient), tbl_consultas (hacia Encounter) y tbl_diagnosticos (hacia Condition). Por su parte, la entidad tbl_signos_vitales opera bajo un esquema de expansión 1:4: a partir de un único registro relacional, el motor genera hasta cuatro recursos Observation independientes (presión arterial, frecuencia cardíaca, temperatura corporal y frecuencia respiratoria). Específicamente, para la temperatura corporal, se mapea la columna temperatura_celsius en valueQuantity.value con código LOINC 8310-5 (Body temperature) y unidad UCUM "Cel" bajo el perfil http://hl7.org/fhir/StructureDefinition/bodytemp.
+3.4.3 Ejemplos ilustrativos de reglas de mapeo y frontera de expresividad del DSL
+Para delimitar qué variaciones se resuelven en el archivo YAML v1.2, cuáles requieren recompilar el código en Rust y cuáles quedan fuera del diseño del middleware, la Tabla 3.5 sintetiza la frontera de expresividad del DSL:
+Tabla 3.5. Frontera de expresividad del DSL v1.2, requerimientos de recompilación en Rust y límites fuera de alcance del middleware.
+Configuración mediante YAML dentro de las restricciones implementadas
+Modificaciones que requieren cambios en el código fuente en Rust
+Características fuera de alcance absoluto
+Tablas y columnas ya incluidas en la allowlist, diccionarios de equivalencia y directivas admitidas por la ruta concreta. El evaluador genérico soporta segmentación, conversiones y formatos; los manejadores HTTP añaden adaptadores y constructores específicos que pueden restringir su efecto.
+Nuevos nombres de tabla o columna fuera de ALLOWED_TABLES/ALLOWED_COLUMNS; convenciones no reconocidas por row_to_legacy_*; nuevos recursos o subtipos, transformaciones o rutas no soportadas por los constructores. La extensión debe comprobarse sobre la ruta HTTP y sus pruebas, no solo sobre evaluate_resource_mapping.
+Bases de datos no relacionales (NoSQL/documentos), motores orientados a grafos, modelos Entity-Attribute-Value (EAV) complejos, campos binarios no estructurados (BLOBs) e intercambio asíncrono sobre colas de mensajes.
+Fuente: model/mapping.rs, engine/evaluator.rs, engine/transform.rs, medsys-db/src/query_builder.rs y dynamic_repo.rs, y manejadores HTTP, commit 18b434a. La frontera distingue el contrato del evaluador de las restricciones de acceso y adaptación.
+La frontera de la Tabla 3.5 limita la adaptabilidad a los recursos, rutas y transformaciones soportados. Requerir Rust para una funcionalidad excluida, como un nuevo recurso FHIR, no rebaja automáticamente el dictamen del experimento S0–S3. «Viable con limitaciones» se aplica únicamente según la condición de la Tabla 3.1. Si falta evidencia o un resultado no encaja en sus condiciones, no debe asignarse un dictamen por inferencia; corresponde documentar el caso pendiente sin cambiar retrospectivamente los criterios.
+A continuación se presenta el fragmento de configuración declarativa para el recurso Patient:
+- resource_type: "Patient"  source_table: "tbl_pacientes"  primary_key: "id_paciente"  mappings:    - source_column: "curp"      target_path: "identifier[0].value"      system: "urn:oid:2.16.840.1.113883.4.629"    - source_column: "primer_nombre"      target_path: "name[0].given[0]"    - source_column: "segundo_nombre"      target_path: "name[0].given[1]"      optional: true    - source_column: "apellido_paterno"      target_path: "name[0].family"      combine_with: "apellido_materno"      combine_format: "{apellido_paterno} {apellido_materno}"    - source_column: "fecha_nacimiento"      target_path: "birthDate"      transform: "date_iso8601"    - source_column: "sexo_biologico"      target_path: "gender"      dictionary:        "M": "male"        "F": "female"        "I": "other"    - source_column: "telefono_contacto"      target_path: "telecom[0].value"      system: "phone"      optional: true
+La concatenación de apellidos conserva un único family y no conserva por separado sus roles paterno y materno. En el constructor consultado, HumanName se crea con extension: None; por tanto, la omisión se documenta como decisión y limitación del prototipo, sin atribuirla a una imposibilidad general de helios-fhir. La regla de combinación ilustra la semántica del evaluador y el transformador tipado también concatena explícitamente en Rust.
+Para la transformación de constantes fisiológicas en recursos Observation, la configuración del panel de presión arterial se especifica de la siguiente manera:
+- resource_type: "Observation"
+  profile: "http://hl7.org/fhir/StructureDefinition/bp"
+  source_table: "tbl_signos_vitales"
+  primary_key: "id_signo"
+  observation_type: "blood_pressure_panel"
+  mappings:
+    - constant_value: "final"
+      target_path: "status"
+    - constant_value: "vital-signs"
+      target_path: "category[0].coding[0].code"
+      system: "http://terminology.hl7.org/CodeSystem/observation-category"
+    - constant_value: "85354-9"
+      target_path: "code.coding[0].code"
+      display: "Blood pressure panel with all children optional"
+      system: "http://loinc.org"
+    - source_column: "id_paciente"
+      target_path: "subject.reference"
+      transform: "reference:Patient/{value}"
+    - source_column: "id_consulta"
+      target_path: "encounter.reference"
+      transform: "reference:Encounter/{value}"
+    - source_column: "fecha_registro"
+      target_path: "effectiveDateTime"
+      transform: "datetime_iso8601"
+    # Subcomponente Presión Sistólica (LOINC 8480-6 + UCUM mm[Hg])
+    - constant_value: "8480-6"
+      target_path: "component[0].code.coding[0].code"
+      display: "Systolic blood pressure"
+      system: "http://loinc.org"
+    - source_column: "presion_sistolica"
+      target_path: "component[0].valueQuantity.value"
+      unit: "mmHg"
+      code: "mm[Hg]"
+      system: "http://unitsofmeasure.org"
+    # Subcomponente Presión Diastólica (LOINC 8462-4 + UCUM mm[Hg])
+    - constant_value: "8462-4"
+      target_path: "component[1].code.coding[0].code"
+      display: "Diastolic blood pressure"
+      system: "http://loinc.org"
+    - source_column: "presion_diastolica"
+      target_path: "component[1].valueQuantity.value"
+      unit: "mmHg"
+      code: "mm[Hg]"
+      system: "http://unitsofmeasure.org"
+El ejemplo distingue códigos LOINC de las magnitudes Quantity y sus unidades UCUM. Los constructores específicos realizan una composición parcialmente codificada en Rust. La presencia de la URI bp en YAML no basta para afirmar cumplimiento del perfil Vital Signs: las salidas tipadas consultadas usan meta: None y necesitan validación externa. Se conserva el ejemplo como explicación de la correspondencia, no como reporte de conformidad.
+3.4.4 Matrices de correspondencia estructural y terminológica
+La correspondencia entre el esquema relacional legado simulado y los recursos HL7 FHIR Release 4 se define en el archivo mapping_rules.yaml v1.2. El grado de cobertura respecto a las normas NOM-004-SSA3-2012 y NOM-024-SSA3-2012 se detalla en el Anexo I. A continuación se describe el mapeo estructural y terminológico de los cuatro recursos clínicos:
+Recurso Patient:
+Identificador institucional (id): Se asigna a partir de la columna tbl_pacientes.id_paciente, convertida a cadena alfanumérica como identificador lógico en el servidor FHIR.
+Identificador CURP (identifier[0]): transform_patient copia el valor de origen y utiliza el system declarado en la regla, con urn:oid:2.16.840.1.113883.4.629 como alternativa. is_valid_curp realiza comprobaciones sintácticas parciales; no verifica inscripción en RENAPO, unicidad interinstitucional, calendario completo ni dígito verificador. La selección normativa del dato se documenta en el Anexo I y no convierte esas comprobaciones en una acreditación oficial de identidad.
+Nombre estructurado: El constructor transform_patient crea given con los nombres disponibles y family con los apellidos concatenados, dejando HumanName.extension en None. Esa salida no preserva por separado el rol de cada apellido. El ejemplo YAML documenta la correspondencia deseada; la composición final de esta ruta se encuentra codificada en Rust.
+Fecha de nacimiento (birthDate): Se proyecta desde tbl_pacientes.fecha_nacimiento aplicando la transformación date_iso8601 para asegurar el formato normativo YYYY-MM-DD.
+Sexo y género administrativo (gender): Se mapea desde tbl_pacientes.sexo_biologico mediante diccionario ('M' a 'male', 'F' a 'female' e 'I' a 'other'). Conviene distinguir el sexo biológico del género administrativo (AdministrativeGender) de FHIR R4, destinado al registro administrativo. El valor 'I' se traduce a 'other' en lugar de 'unknown', pues 'unknown' indica dato faltante y 'other' representa una condición registrada distinta del binario, declarándose esta simplificación como una limitación del modelo.
+Datos de contacto secundario (telecom[0]): La columna telefono_contacto se asigna a telecom[0].value (sistema "phone") con poda opcional (optional: true), omitiendo el bloque telecom si el valor es nulo en apego al principio de minimización (LGPDPPSO, 2025). El campo unidad_medica se conserva en la base de datos sin proyectarse en Patient.
+Recurso Encounter:
+Identificador del encuentro: El constructor usa id_consulta como id y valor de identifier[0]. El YAML inspeccionado declara https://distritosalud1.chiapas.gob.mx/encounters y transform_encounter contiene esa misma URI como alternativa. El manuscrito no puede describir urn:medsys:encounters como valor implementado sin cambiar y verificar el artefacto. La URI literal no acredita control del dominio, autorización institucional ni un servicio publicado en él.
+Estado del encuentro: transform_encounter traduce FINALIZADA/EN_CURSO/CANCELADA a finished/in-progress/cancelled con ramas Rust y consulta el diccionario para otros valores. Antes de ello, row_to_legacy_consulta puede sustituir por FINALIZADA un valor no extraído. En S2, el lookup produce id_estado_consulta; en S3, la columna se llama est_consulta. Ninguno figura entre los nombres candidatos del adaptador, por lo que no se acredita preservación del estado original en esas rutas.
+Clase de encuentro (class): Se asigna como valor constante (constant_value) el código "AMB" (ambulatory) bajo el sistema normativo http://terminology.hl7.org/CodeSystem/v3-ActCode.
+Sujeto de atención (subject): Se construye mediante la transformación referencial reference:Patient/{value} a partir de tbl_consultas.id_paciente, vinculando el encuentro con el recurso Patient correspondiente.
+Motivo asistencial (reasonCode[0].text): Se asigna directamente desde el texto descriptivo registrado en tbl_consultas.motivo_consulta.
+Fechas del encuentro: Los constructores tipados llaman a fhir_helpers::fhir_datetime, que formatea un NaiveDateTime sin desplazamiento antes de PrecisionDateTime::parse y no aplica chrono_tz. El evaluador genérico sí contiene funciones con America/Mexico_City. No se atribuye ese comportamiento a la ruta HTTP tipada sin comprobar la salida. FHIR R4 exige zona cuando un dateTime incluye hora; la precisión, el desplazamiento y la validez de los valores emitidos deben contrastarse con el validador y la procedencia temporal del dato.
+Profesional participante: transform_encounter asigna cedula_medico_tratante a participant[0].individual.identifier con system literal http://cedulaprofesional.sep.gob.mx, y nombre_medico a display; no emite Practitioner independiente. urn:medsys:profesionales:cedula era una propuesta documental, no el valor del constructor inspeccionado. El código no verifica la cédula ante un registro profesional.
+Recurso Observation:
+Identificadores y referencias de Observation: Los constructores emiten bp-/temp-/hr-/resp- a partir de id_signo, con referencias Patient/{id_paciente} y Encounter/{id_consulta}. Las marcas temporales pasan por el helper tipado fhir_datetime, distinto de la transformación genérica del evaluador. Los estados final y la categoría vital-signs se asignan en Rust; temperatura, frecuencia cardíaca y respiratoria reciben un argumento _rules que no utilizan.
+Panel de presión arterial: Modelado como observación multivariable compleja bajo el perfil http://hl7.org/fhir/StructureDefinition/bp con código de panel LOINC 85354-9 (Blood pressure panel with all children optional). Desglosa dos subcomponentes coordinados:
+Presión arterial sistólica: Ubicada en component[0], codificada bajo el sistema http://loinc.org con código 8480-6 (Systolic blood pressure). Su magnitud cuantitativa se serializa en component[0].valueQuantity a partir de presion_sistolica, con unidad textual "mmHg" y código canónico UCUM "mm[Hg]" bajo el sistema http://unitsofmeasure.org.
+Presión arterial diastólica: Ubicada en component[1], codificada bajo el sistema http://loinc.org con código 8462-4 (Diastolic blood pressure). Su magnitud cuantitativa se serializa en component[1].valueQuantity a partir de presion_diastolica, con unidad textual "mmHg" y código canónico UCUM "mm[Hg]" bajo http://unitsofmeasure.org.
+Temperatura corporal: Recurso escalar atómico modelado con código LOINC 8310-5 (Body temperature). Su valor escalar se mapea desde temperatura_celsius en valueQuantity.value con unidad "Cel" y código UCUM "Cel".
+Frecuencia cardíaca: Recurso escalar atómico modelado con código LOINC 8867-4 (Heart rate). Su valor se proyecta desde frecuencia_cardiaca en valueQuantity.value con unidad "/min" y código UCUM "/min".
+Frecuencia respiratoria: transform_observation_respiratory_rate devuelve None cuando LegacySignoVital no contiene el valor; rechaza valores no positivos que sí recibe y construye LOINC 9279-1 con /min cuando está disponible. El manejador individual convierte None en 404 y la colección omite esa entrada. Esta decisión está codificada, sin consultar optional de forma general; además, el adaptador dinámico puede convertir un parseo fallido en ausencia, por lo que debe distinguirse NULL de corrupción al verificar D-006.
+Recurso Condition:
+Identificador y referencias: Identificador asignado a partir de tbl_diagnosticos.id_diagnostico. Las referencias canónicas subject.reference y encounter.reference vinculan el diagnóstico con Patient y Encounter respectivamente.
+Estatus clínico (clinicalStatus): Se asigna como valor constante (constant_value) el código "active" bajo el sistema http://terminology.hl7.org/CodeSystem/condition-clinical.
+verificationStatus de Condition: El constructor omite el elemento ante tipo_diagnostico ausente o vacío y aplica el diccionario para valores presentes, con equivalencias CONFIRMADO/confirmed y PRESUNTIVO/provisional. No interpreta optional de manera general. La ruta dinámica depende de que el alias sea reconocido por el adaptador: id_tipo_diag de S2 no está entre sus candidatos. Los rechazos de campos/referencias y la pertenencia al catálogo CIE-10 deben comprobarse por separado.
+Código diagnóstico: transform_condition copia codigo_cie10 y descripcion_diagnostico en code.coding[0] y code.text, bajo http://hl7.org/fhir/sid/icd-10. No consulta un catálogo CIE-10 completo. En la ruta dinámica, la ausencia de una descripción reconocible puede sustituirse por el código; esa rama debe declararse y probarse, sin describirla como preservación íntegra de una descripción clínica observada.
+recordedDate: El YAML declara date_iso8601 para fecha_diagnostico, mientras el constructor tipado agrega 00:00:00 a esa fecha y llama fhir_datetime. Esa medianoche es una elección de representación, no una hora de registro observada. El formato y la zona realmente serializados deben verificarse; no se describe la ruta HTTP como una simple salida YYYY-MM-DD.
+Supuestos de diseño en la asignación de constantes normativas
+La configuración y los constructores asignan valores de contexto como Encounter.class = "AMB" y Observation.category = "vital-signs", y estados como Observation.status = "final" y Condition.clinicalStatus = "active". Son supuestos explícitos; en particular, "active" describe el estado de la condición y no que una consulta haya finalizado.
+Observation.status y Encounter.status describen ciclos de vida distintos: un resultado final puede coexistir con un encuentro en curso. Esa combinación no constituye por sí sola una contradicción. La limitación del prototipo consiste en asignar estados constantes sin un atributo de origen que los respalde; una ampliación debe definir su procedencia y reglas de validación, sin deducir automáticamente un estado del otro (HL7 International, 2019).
+D-006 expresa el objetivo de no completar datos clínicos ausentes. La implementación debe evaluarse contra esa política: además de constantes de contexto, existen sustituciones en adaptadores para estado, fin, descripción y ciertas conversiones. Por tanto, D-006 es un criterio que puede incumplirse en una ruta concreta, no una propiedad garantizada por usar YAML, Option o tipos FHIR.
+El oráculo diferencial independiente en Python verifica la concordancia algorítmica frente a las reglas de mapeo definidas, sin constituir una validación clínica externa sobre dichas constantes fijas.
+3.5 Inspector de correspondencia (herramienta de apoyo)
+El inspector auxiliar está en dashboard/ (React/Vite) y consulta /health, las lecturas FHIR y /api/legacy/patients. Su cliente api.js puede sustituir respuestas fallidas por datos de mockData.js y devolver indicadores isFallback; las latencias 2/3 ms de esas ramas son valores de demostración. La tarjeta de latencia recibe la duración de /health medida en el navegador, no la transformación ni el p95 de k6. La ruta legacy/full utiliza repositorios S0 y no acredita inspección multi-esquema. La herramienta queda fuera de CA-1 a CA-5 y sus pantallas no sustituyen registros del servidor.
+3.6 Amenazas a la validez y reproducibilidad
+3.6.1 Taxonomía de amenazas a la validez y tratamiento de la circularidad del DSL
+Para garantizar el rigor metodológico y delimitar el alcance de los hallazgos experimentales, las amenazas a la validez se analizan en cuatro dimensiones conforme a Wohlin et al. (2012):
+Validez de constructo y circularidad: El DSL y los arquetipos fueron elaborados en el mismo proyecto, y la adaptación se restringe por listas y convertidores Rust diseñados para nombres conocidos. Congelar un ejecutable puede controlar cambios durante un ensayo, pero no elimina ese ajuste previo. Se requiere identificar el commit y el hash usados en cada corrida, separar la autoprueba del oráculo de la comparación contra salidas reales y conservar el historial de expectativas. La edición de YAML por terceros sobre un esquema nuevo permanece como evaluación futura; ni las líneas YAML ni un estado PASS asignado en un script demuestran esa capacidad.
+Validez interna: Ejecutar cliente de carga, PostgreSQL y middleware en el mismo anfitrión introduce competencia por recursos. Docker Compose define cuotas por contenedor, pero estas no equivalen a medir una máquina antigua ni aíslan toda la actividad del anfitrión. Las réplicas deben registrar fecha, configuración efectiva, fases y pausas. El script nominal implementa 90 segundos de calentamiento, cinco minutos de meseta y 30 segundos de descenso; no corresponde describir solo 30 segundos como todo el calentamiento.
+Validez externa: R1 describe un Ryzen 7 5700U/WSL2 con cuotas de contenedor. Su caché, almacenamiento y actividad del anfitrión no representan un servidor clínico antiguo. Las mediciones se limitan a la versión y condiciones documentadas; no establecen por sí solas viabilidad global ni capacidad hospitalaria, y no se trasladan automáticamente al commit actual.
+Los arquetipos S0–S3 son construcciones simplificadas de laboratorio, no una muestra de bases productivas. No cubren toda la diversidad de terminologías, reglas institucionales o corrupción posible. Además, la existencia de configuraciones no demuestra que sus rutas SQL/adaptador/HTTP sean equivalentes; las incompatibilidades localizadas en §3.3.2 deben resolverse o delimitarse y comprobarse antes de generalizar.
+Validez de conclusión y cobertura de pruebas: Se necesitan resultados actuales por corrida, fase y esquema, con percentiles realmente exportados. Un p99 ausente no se infiere de otros percentiles. Las pruebas existentes tampoco acreditan todas las rutas: test_live_postgresql_persistence_when_available puede terminar sin aserciones de datos cuando no conecta; otras pruebas HTTP admiten OperationOutcome como alternativa al recurso. test_multi_schema_s0_s1_s2_s3_semantic_equivalence compara mapas del evaluador genérico, no ejecuta el pipeline HTTP. Un resultado global de Cargo debe acompañarse de esas condiciones y del reporte de las rutas efectivamente ejercitadas.
+3.6.2 Condiciones de reproducibilidad del experimento y contabilidad visible de respuestas 4xx en k6
+Para posibilitar la replicación independiente del protocolo experimental conforme a Wohlin et al. (2012), se detallan los elementos de configuración del banco de pruebas:
+Repositorio del proyecto: El código fuente del middleware, los scripts de prueba, las reglas declarativas y la configuración de contenedores se encuentran estructurados bajo control de versiones Git en el repositorio del proyecto MedSys-FHIR.
+Identidad del código: main se verificó en 18b434a692f8ab28a400f6ccab64c5d52e6bc183, del 15 de octubre de 2026. Los tres paquetes Rust declaran 1.2.0; version del YAML también es 1.2.0. La consulta remota de tags/v1.2.0-eval devuelve 404: se conserva como denominación del manuscrito, no como etiqueta experimental acreditada. Cargo.lock resuelve helios-fhir 0.2.3, Axum 0.8.9, SQLx 0.8.6 y serde_yaml 0.9.34+deprecated. Los Dockerfile usan imágenes sin digest y compilan sin --locked. Se requieren hashes y versiones efectivas de cada corrida; ni el manifiesto ni un estado de backlog identifican el binario medido. Fuente: https://github.com/Hyouka73/MEDSYS-FHIR/commit/18b434a692f8ab28a400f6ccab64c5d52e6bc183.
+Las versiones del entorno se registran por ejecución. R1 declara herramientas y commit diferentes del consolidado posterior, incluida Java 8 y validación HL7 no ejecutada. El árbol actual y su lockfile no acreditan qué toolchain se usó en una corrida. La evidencia debe incluir versión completa del validador, Java, Rust/Cargo, Docker/Compose y k6, además de comandos y códigos de salida.
+Aislamiento de ejecución y control de recursos en el pipeline experimental:
+Docker Compose define para medsys-server una cuota de 1.0 vCPU y 256 MiB y para PostgreSQL 1.0 vCPU y 512 MiB. El servicio escucha por defecto en el puerto 3000, con publicación configurable; los comandos deben emplear la URL efectiva del banco. La ejecución directa con cargo run constituye otra configuración, no un conflicto inevitable con 8080. Para comparar mediciones deben mantenerse el mismo despliegue y las mismas cuotas efectivamente aplicadas.
+Censo esperado: El conjunto canónico de 9,000 filas lógicas describe 1,000 pacientes, 2,500 consultas, 2,500 signos vitales y 3,000 diagnósticos. Su proyección prevista es de 16,250 recursos: 1,000 Patient, 2,500 Encounter, 9,750 Observation y 3,000 Condition. En S1, la desnormalización cambia la cantidad física de filas; no se equiparan entidades canónicas con filas SQL de todos los esquemas. El censo y el volumen serializado deben obtenerse de las salidas reales por arquetipo; un conteo de model.expected_resources solo describe la expectativa.
+La validación prevista usa -version 4.0.1 y declara -tx n/a, que limita la consulta terminológica remota. Las advertencias se conservan con su causa; no se descartan como necesariamente esperadas. validate_fhir.ps1 cuenta palabras de severidad en stdout/stderr sin evaluar Process.ExitCode para decidir el resultado final. La función Python de validación sí examina el returncode, pero main no propaga su booleano. Un mensaje de aprobación o la salida del envoltorio no sustituye el código del proceso validador y sus incidencias estructuradas por recurso.
+Las réplicas de caracterización deben reportarse con sus valores individuales y su configuración. Se pueden resumir descriptivamente con mediana y rango, evitando presentar como observado un intervalo o una dispersión que no se haya calculado. Un número pequeño de réplicas limita la inferencia; no convierte un intervalo amplio en un resultado «artificial».
+La secuencia experimental se estructura como un pipeline modular repetible para cada arquetipo relacional Sx (S0, S1, S2 y S3), articulado en seis etapas secuenciales armonizadas:
+Etapa 1 (Aprovisionamiento y despliegue): Carga del esquema DDL sintético en PostgreSQL 16 y despliegue del middleware configurado con el archivo YAML correspondiente al arquetipo Sx.
+Etapa 2 (CA-1): Ejecutar la exportación sobre los rangos aplicables al banco, reconciliar recursos exportados, omisiones e IDs con la carga SQL e identificar cualquier error. Validar esos archivos con el JAR y las opciones documentadas, conservando reportes oficiales y códigos de salida por lote. --all no garantiza por sí solo cobertura ni aprobación.
+Etapa 3 (CA-2): Comparar las salidas del servidor mediante --base-url o un directorio exportado mediante --input-dir de scripts/oracle_verifier.py, conservando el arquetipo, la semilla y el reporte. --self-test se ejecuta como control local y no se contabiliza como validación del middleware.
+Etapa 4 (CA-3): Preparar una base de pruebas para los casos aplicables T1–T5, inyectar cada anomalía, solicitar la lectura y guardar solicitud, respuesta y estado. El script Python y la prueba Rust en memoria son controles adicionales; no sustituyen esta ejecución. La aceptación nominal se verifica contra el censo exportado del mismo esquema.
+Etapa 5 (Auditoría de adaptación declarativa CA-4): Verificación de git diff sobre las tres crates de producción (medsys-core, medsys-db y medsys-server), identificación del ejecutable congelado y cómputo de líneas, reglas y directivas YAML del arquetipo Sx (Anexo H).
+Etapa 6 (CT): Ejecutar y conservar réplicas del cliente k6 con su URL y configuración efectivas. El load_test.js inspeccionado incluye sleep aleatorio entre 0.1 y 0.3 segundos al final de cada iteración de cuatro lecturas; por tanto, no instrumenta una carga sin pausas. Los cuatro endpoints se consultan en cada iteración, el subtipo Observation se elige uniformemente y las métricas de meseta se distinguen de las globales. Las series sincronizadas de CPU/memoria deben permitir reproducir el agregado conjunto; no basta sumar percentiles individuales.
+Tratamiento metodológico y contabilidad visible de respuestas 4xx en las pruebas con k6
+Durante el barrido aleatorio de k6 sobre los signos vitales (IDs 1 a 2,500), el 10.0 % de las filas (250 registros) tiene frecuencia_respiratoria en NULL (Sección 3.2.3). Al solicitar GET /fhir/r4/Observation/resp-{id} para una de esas 250 filas, la poda opcional (optional: true) omite el recurso y responde con HTTP 404 Not Found y OperationOutcome (issue.code = "not-found"). Asimismo, ante los casos anómalos (T1 a T5), la política de fallo seguro (Fail-Closed) devuelve HTTP 422 Unprocessable Entity con OperationOutcome (issue.code = "processing").
+Dado que la herramienta k6 contabiliza por defecto cualquier código HTTP de la familia 4xx (400, 404, 422) dentro de su indicador genérico de fallos de red (http_req_failed), un muestreo directo sin distinción mezclaría las ausencias de datos clínicos con las fallas técnicas del servidor. Para evitar ese sesgo sin ocultar en ningún momento las respuestas de error emitidas, la suite de pruebas implementa una contabilidad visible y separada en dos niveles:
+Contadores diagnósticos: load_test.js incrementa contadores de HTTP 200, 404 opcional y errores inesperados. Para resp, comprueba además pertenencia al conjunto de IDs omitidos y busca cadenas de texto en el cuerpo; esa búsqueda depende del espaciado y no equivale a parsear y validar estructuralmente OperationOutcome. Los resultados deben conservar el desglose por fase, recurso y código. No se infiere ausencia de errores de programación a partir del mero total de 4xx esperados.
+Tasa de fallos esperados: El script nominal configura http.expectedStatuses(200, 404) globalmente. Por ello, http_req_failed aislado puede excluir un 404 inesperado; los contadores y aserciones por recurso deben revisarse en conjunto. La tasa de atribución solo incorpora las ramas que la actualizan y requiere declarar su denominador. Esta configuración es diferente de aceptar individualmente cada respuesta después de verificar su cuerpo.
+La arquitectura del banco de pruebas articula el contenedor bajo evaluación, el oráculo diferencial independiente en Python y los módulos de inyección de fallos y telemetría sobre el conjunto de datos sintéticos, como se muestra en la Figura 3.5:
+Figura 3.5. Arquitectura del banco de pruebas experimental: validación sintáctica (CA-1), oráculo diferencial (CA-2), inyección de fallos (CA-3) y telemetría conjunta (CT).
+Nota. Elaboración propia con base en Weyuker (1982), McKeeman (1998), Hsueh et al. (1997), Wilkie (2017) y Wohlin et al. (2012) (§2.6.1 a §2.6.5).
+El capítulo distingue el diseño del protocolo de su evidencia de ejecución. scripts/run_all_cap4_experiments.py calcula parte del censo a partir del modelo esperado, compara copias de ese modelo en CA-2 y asigna directamente valores de conformidad, invarianza, equivalencia y CT. Su salida consolidada no constituye por sí sola prueba de ejecución de HL7, git diff, k6 o telemetría. El Capítulo IV debe contrastar sus afirmaciones con los registros originales; sin esa trazabilidad, el cumplimiento permanece pendiente de comprobación y no se deriva automáticamente del reporte generado.
+3.6.3 Índice de trazabilidad de artefactos y anexos técnicos
+La Tabla 3.6 identifica artefactos asociados con los anexos y evidencias que deben acompañar la evaluación. Se contrastaron las rutas contra el árbol completo del commit 18b434a. La presencia de un script no equivale a su ejecución, y una ruta prevista no equivale a un archivo entregado. Las ausencias indicadas son del commit inspeccionado, no una afirmación de inexistencia en otros equipos o versiones.
+Tabla 3.6. Anexos requeridos, títulos, secciones de cita primaria y artefactos asociados.
+Anexo
+Título / Descripción del Anexo
+Sección Cita Primaria
+Artefacto / Archivo
+Anexo A
+Especificación DDL de esquemas relacionales (S0, S1, S2, S3)
+§3.2.2
+schema_legado_simulado_nom004.sql, docker/sql/*.sql
+Anexo B
+Código fuente del oráculo independiente de verificación en Python
+§3.2.4, §3.6.2 (Etapa 3)
+scripts/oracle_verifier.py
+Anexo C
+Script de generación determinista de dataset sintético y exportación censal
+§3.1.4, §3.2.3, §3.6.2
+scripts/generate_data.py, scripts/export_fhir_samples.py
+Anexo D
+Scripts de pruebas de carga concurrente y resiliencia en k6
+§3.1.4, §3.6.2 (Etapa 6)
+tests/k6/load_test.js, tests/k6/resilience_and_errors_test.js
+Anexo E
+Corpus de inyección de fallos y anomalías (T1 a T5)
+§3.2.5, §3.6.2 (Etapa 4)
+tests/fault_corpus/*.json, scripts/run_fault_corpus.py
+Anexo F
+Especificaciones de reglas declarativas YAML (mapping_rules S0-S3)
+§3.4.2, §3.6.2 (Etapa 5)
+mapping_rules.yaml, config/mapping_rules_*.yaml
+Anexo G
+Reportes de validación sintáctica de org.hl7.fhir.validator-cli
+§3.1.4, §3.6.2 (Etapa 2)
+reports/validation_*.json: ruta prevista; no localizada en el commit inspeccionado. Requiere aportar los informes de ejecución originales.
+Anexo H
+Guía de adopción declarativa y métricas de configuración CA-4
+§3.1.2, §3.6.2 (Etapa 5)
+docs/adoption_guide_v1.2.md y reports/ca4_metrics.json: no localizados en el commit inspeccionado. Se dispone de los YAML; faltan estos artefactos o sus equivalentes identificados.
+Anexo I
+Matriz de cobertura normativa NOM-004 y NOM-024 frente al esquema S0 y FHIR R4
+§3.2.2, §3.4.4
+Documento Drive 06_Anexo_I_Matriz_Cobertura_Normativa. No se localizó Anexo_I_Matriz_cobertura_NOM.md en el árbol inspeccionado.
+Nota. Inventario contrastado con el árbol completo del commit 18b434a692f8ab28a400f6ccab64c5d52e6bc183. Los archivos de código y configuración indicados son fuentes del diseño; los reportes de ejecución y los anexos documentales requieren identificación y entrega separadas.
+3.7 Consideraciones éticas, bioéticas y de protección de datos
+En congruencia con las delimitaciones metodológicas (§3.1.1 y §3.1.5) y las decisiones de diseño del proyecto, se formalizan las consideraciones éticas, bioéticas y de seguridad de la información que sustentan el estudio:
+Revisión ética institucional: El estudio declara datos sintéticos y ausencia de participantes, muestras biológicas y expedientes reales. El artículo 17, fracción I, del Reglamento de la Ley General de Salud en Materia de Investigación para la Salud (1987, texto reformado en 2014) define la investigación sin riesgo; no establece por sí solo una dispensa de dictamen o consentimiento. Debe conservarse la determinación de la instancia académica competente sobre el trámite aplicable. No se presenta una exención institucional como ya otorgada.
+Ausencia de Información de Salud Protegida (PHI): El experimento opera de manera exclusiva sobre un esquema relacional sintético poblado algorítmicamente en laboratorio mediante un generador determinista con semilla pseudoaleatoria fija (20260930). En ningún momento se extrajo, transformó, almacenó o manipuló información clínica real proveniente de unidades del Distrito de Salud I ni de ninguna otra institución de salud. Ningún atributo de las tablas contiene información de salud protegida (Protected Health Information, PHI).
+Generación computacional y salvaguarda de identificadores: Las claves CURP fueron generadas algorítmicamente mediante expresiones estructuradas para pruebas de laboratorio sin consultar padrones ni bases de datos oficiales; no están vinculadas intencionalmente a personas físicas, aunque metodológicamente no se descarta una coincidencia fortuita con registros reales.
+Marco de protección de datos personales: El alcance declarado excluye información clínica real y vinculación intencional con personas físicas. Si se incorporan datos identificados o identificables, deberá revisarse el régimen público o privado aplicable y sus obligaciones de consentimiento, proporcionalidad y seguridad (LGPDPPSO, 2025; LFPDPPP, 2025; §2.2.3). La generación de claves sintéticas no certifica su inexistencia en padrones reales.
+Referencias
+Las referencias bibliográficas de este capítulo se encuentran integradas en la lista consolidada de la tesis. Para consultar las referencias completas, véase el documento 05_Referencias_Bibliograficas.

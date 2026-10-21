@@ -1,5 +1,20 @@
 # BACKLOG MAESTRO DE EJECUCIÓN (`BACKLOG.md`)
 
+## Reverificación solicitada — checkpoint 2026-10-20
+
+El cierre histórico inferior queda sujeto a evidencia primaria. Ejecución detenida por instrucción del usuario «termina».
+
+- [v] Inspección inicial de Git y lectura documental: commit y árbol inicial contrastados; fuentes y umbrales preservados en `auditoria/evidencias/2026-10-20-reverificacion/`.
+- [~] Regresiones baseline S2/S3 en `crates/medsys-db/src/dynamic_repo.rs`; aprobación no acreditada.
+- [ ] Corregir y verificar AUD-R5-003/004/005/006/008/009/010 contra rutas reales.
+- [ ] Reparar exportación, validador y consolidación sin resultados asignados (AUD-R5-013/014).
+- [ ] Ejecutar CA-1–CA-5 y tres réplicas CT con manifiestos, hashes, logs y denominadores reales.
+- [!] Entorno Docker: motor Linux no disponible; log de arranque señala acceso fallido al socket de telemetría. No se borraron datos ni se reinicializó Docker.
+- [ ] Actualizar puntualmente Drive y añadir ronda cuando existan resultados trazables. Ningún documento editado durante este checkpoint.
+- [!] Determinación ética institucional: requiere documento o decisión de la instancia académica competente.
+
+---
+
 > **Leyenda de Estados Verificables:**
 > - `[ ]` **Pendiente (`PENDING`):** No iniciada.
 > - `[/]` **En progreso (`IN_PROGRESS`):** En ejecución o delegada a un subagente activo.

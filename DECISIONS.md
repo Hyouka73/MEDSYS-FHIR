@@ -1,5 +1,9 @@
 # REGISTRO DE DECISIONES TÉCNICAS Y SUPUESTOS DE ADAPTACIÓN (`DECISIONS.md`)
 
+## DEC-005 — 2026-10-20 — Reverificación experimental y detención solicitada
+
+La instrucción actual reabre la evaluación previamente declarada completa: STATE/BACKLOG históricos y números asignados por scripts no sustituyen evidencia primaria. Se conservan los umbrales originales leídos en Drive y no se crea la etiqueta histórica ausente. Las correcciones futuras identifican un artefacto nuevo y no validan retroactivamente el anterior. El usuario pidió «termina» durante la inspección y preparación; se detiene el trabajo conservando cambios parciales revisables. No se modificaron documentos Drive, no se publicó ni se hizo push. El motor Docker falló durante arranque por acceso a un socket de telemetría; no se autoriza inferir ensayos aprobados a partir de ese bloqueo. El trámite ético sigue dependiendo de determinación institucional.
+
 > Este archivo conserva la trazabilidad de todas las decisiones arquitectónicas extraídas del plan maestro `.md` y de los supuestos adoptados por el Coordinador cuando el plan presenta vacíos no bloqueantes.
 
 | ID | Fecha | Origen (`Plan` / `Adaptación` / `Usuario`) | Decisión o Supuesto | Impacto / Archivos Relacionados | Estado |

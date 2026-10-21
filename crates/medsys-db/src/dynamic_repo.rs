@@ -1019,4 +1019,29 @@ mod tests {
         );
         assert_eq!(diag.tipo_diagnostico.as_deref(), Some("CONFIRMADO"));
     }
+    #[test]
+    fn regression_s2_lookup_aliases_and_required_encounter_fields() {
+        let mut patient = json!({"id_paciente":1,"curp":"ROMA900101HCSMNL09","primer_nombre":"Ana","apellido_paterno":"Ramos","fecha_nacimiento":"1990-01-01","id_sexo":"female"}).as_object().unwrap().clone();
+        assert_eq!(row_to_legacy_paciente(&patient).unwrap().sexo_biologico.as_deref(), Some("female"));
+        patient.insert("id_paciente".into(), json!(i64::MAX));
+        assert!(row_to_legacy_paciente(&patient).is_err(), "integer overflow must reject");
+        let mut encounter = json!({"id_consulta":1,"id_paciente":1,"cedula_medico_tratante":"123","nombre_medico":"Ana","id_estado_consulta":"finished","motivo_consulta":"Control","fecha_hora_inicio":"2026-01-01 10:00:00","fecha_hora_fin":"2026-01-01 11:00:00"}).as_object().unwrap().clone();
+        assert_eq!(row_to_legacy_consulta(&encounter).unwrap().estado_consulta, "finished");
+        encounter.remove("id_estado_consulta");
+        assert!(row_to_legacy_consulta(&encounter).is_err(), "missing status must reject");
+        encounter.insert("estado_consulta".into(), json!("FINALIZADA"));
+        encounter.insert("fecha_hora_fin".into(), json!("invalid"));
+        assert!(row_to_legacy_consulta(&encounter).is_err(), "invalid end must reject");
+    }
+
+    #[test]
+    fn regression_s3_actual_columns_and_optional_corruption() {
+        let mut row = json!({"sig_id":1,"pac_id":1,"con_id":1,"presion_arterial_txt":"120/80","fc":70,"fr":18,"temp_celsius":36.5,"fech_reg_txt":"2026-01-01 10:00:00"}).as_object().unwrap().clone();
+        assert_eq!(row_to_legacy_signo_vital(&row).unwrap().temperatura_celsius, Decimal::from_str("36.5").unwrap());
+        row.insert("fr".into(), json!("invalid"));
+        assert!(row_to_legacy_signo_vital(&row).is_err(), "optional corrupt value must not become absent");
+        let diag = json!({"diag_id":1,"pac_id":1,"con_id":1,"cie10":"E11.9","desc_diag":"Diabetes","fech_diag_txt":"2026-01-01"}).as_object().unwrap().clone();
+        assert_eq!(row_to_legacy_diagnostico(&diag).unwrap().descripcion_diagnostico, "Diabetes");
+    }
+
 }

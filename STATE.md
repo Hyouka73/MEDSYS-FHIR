@@ -1,5 +1,24 @@
 # ESTADO PERSISTENTE DEL PROYECTO (`STATE.md`)
 
+## Checkpoint vigente — 2026-10-20, 23:16 America/Mexico_City
+
+**EVALUACIÓN REABIERTA; DETENIDA POR INSTRUCCIÓN «termina».** El cierre 40/40 que sigue debajo es un antecedente histórico, no el dictamen experimental vigente. CA-1–CA-5 y CT permanecen pendientes de verificación primaria; ningún hallazgo R5 se cierra en esta sesión.
+
+- Inicio: commit `18b434a692f8ab28a400f6ccab64c5d52e6bc183`, árbol limpio, ninguna etiqueta local. No se creó v1.2.0-eval ni se hizo commit/push.
+- Lectura efectiva en Drive: registro, paquete de prompts, capítulos III y IV. Guardadas copias textuales en `auditoria/evidencias/2026-10-20-reverificacion/`. No se modificó ningún documento en Drive.
+- Se recuperaron umbrales originales y regla de decisión; véase `ACCESO_Y_BASELINE.md` en esa carpeta.
+- Cambios en curso: dos pruebas de regresión añadidas en `crates/medsys-db/src/dynamic_repo.rs`; no se certifica su aprobación ni corrección productiva. Inspeccionar diff antes de reanudar.
+- Entorno: Windows 11, Rust/Cargo 1.98.1, Python 3.13.1, Java 21.0.10. Docker Desktop 4.37.1/CLI 27.4.0 no pudo levantar motor Linux. Log informa fallo al retirar socket `userAnalyticsOtlpHttp.sock` por acceso del sistema; no se borraron archivos ni volúmenes para intentar repararlo.
+- Sin PostgreSQL/HTTP aislado listo, no se ejecutaron censos Rust S0–S3, validador oficial, corpus HTTP ni CT. Metadatos de releases en `tools/experimental/bin/` no equivalen a herramientas descargadas ni corridas.
+- Siguiente acción al recibir «continúa»: recuperar sesión, inspeccionar cambios parciales y resultados de subagentes, ejecutar regresiones baseline, corregir los defectos, resolver motor Docker con medidas reversibles o preparar PostgreSQL aislado alternativo; después completar evidencias antes de editar celdas N/V.
+- Pendiente externo académico: determinación/documento de la instancia competente sobre trámite ético institucional. No se afirmó su resolución.
+
+### Entrega para revisión
+
+El usuario autorizó posteriormente crear un commit local de este checkpoint. Es un avance parcial, no una corrección terminada ni una evaluación aprobada. Incluye fuentes documentales, estado, metadatos de herramientas y dos regresiones aún sin resultado acreditado. No se realiza push. Para el agente revisor: leer este checkpoint, contrastar el diff del commit y continuar por las regresiones baseline antes de implementar cambios productivos o cerrar hallazgos. No tomar los bloques históricos inferiores como estado experimental vigente.
+
+---
+
 ## Metadatos de Control Operativo
 - **Estado del Sistema:** `ACTIVE`
 - **Plan Maestro de Referencia (Solo Lectura):** `.agents/backlog/sprint_10_automatizacion_experimentos_cap4.md` y `auditoria/DECISIONES.md`

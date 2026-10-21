@@ -1,0 +1,601 @@
+CAPÍTULO IV. RESULTADOS Y DISCUSIÓN
+Este capítulo examina los resultados disponibles de MedSys-FHIR y su suficiencia frente a CA-1 a CA-5. Se distinguen tres procedencias: expectativas del conjunto sintético, resultados declarados por el script consolidado y registros históricos de ejecución. La inspección del repositorio se fija al commit 18b434a692f8ab28a400f6ccab64c5d52e6bc183; la ejecución R1 citada corresponde al commit anterior 69a592696241ba987068116db3a1000a46ad3cb5. No se consideran intercambiables sus versiones, configuraciones ni datos.
+La evaluación se organiza por conformidad estructural, concordancia de datos, rechazo de anomalías, adaptación declarativa y caracterización computacional. Una expectativa, una prueba en memoria o un valor asignado en un reporte no se clasifican como una medición del servicio. Cuando falta evidencia suficiente se indica «no verificado» (N/V), sin sustituirla por cero ni interpretar esa ausencia como un fallo observado. La caracterización técnica sigue siendo descriptiva y no determina por sí sola el cumplimiento de los criterios vinculantes.
+4.1 Evaluación de conformidad sintáctica oficial (CA-1)
+El Criterio de Aceptación CA-1 evalúa la adecuación funcional y la interoperabilidad sintáctica de la norma ISO/IEC 25010 (ISO/IEC, 2023) de los recursos emitidos por el middleware. Este criterio exige cero incidencias de severidad Fatal y cero Error frente a la especificación HL7 FHIR Release 4 (v4.0.1) (HL7 International, 2019).
+4.1.1 Censo determinista de recursos generados y volumen de serialización
+El generador define un modelo canónico con semilla 20260930 y 9,000 registros lógicos en S0. El informe histórico R1 documenta conteos SQL de 1,000 pacientes, 2,500 consultas, 2,500 signos vitales y 3,000 diagnósticos, y declara dos comprobaciones de hash del archivo de datos. Esa evidencia pertenece a la versión histórica; no demuestra por sí sola la carga de S1–S3 ni su proyección en el commit posterior. El hash publicado se conserva como dato declarado por R1, no como cálculo efectuado en esta revisión.
+La proyección esperada del modelo actual es de 1,000 Patient, 2,500 Encounter, 9,750 Observation y 3,000 Condition: 16,250 recursos. Las Observation se derivan de 7,500 mediciones obligatorias y 2,250 respiratorias disponibles; los 250 valores respiratorios ausentes no producen ese recurso. Multiplicar 16,250 por cuatro da 65,000 salidas esperadas si cada arquetipo satisface el contrato, no un censo de cuatro exportaciones ejecutadas. El informe R1 corresponde a una versión cuyo cliente de carga solo consultaba bp, temp y hr; no acredita el censo actual de recursos respiratorios.
+La Tabla 4.1 conserva la composición esperada y los tamaños declarados por el consolidado, distinguiéndolos del resultado del validador. R1 registra que la validación HL7 no se ejecutó; run_experiment_ca1 del script posterior asigna los campos fatal_errors y errors a cero y la tasa a 100 %, sin invocar al validador. No se localizó un reporte primario posterior que acredite CA-1 sobre las salidas reales de los cuatro arquetipos.
+Tabla 4.1. Composición esperada del modelo FHIR y tamaños declarados; conformidad oficial no verificada.
+Tipo de Recurso FHIR R4
+Subtipo / Perfil y Codificación Canónica
+Cantidad esperada
+Tamaño declarado (KiB / B)
+Incidencias Fatal
+Incidencias Error
+Tasa de Conformidad
+Patient
+Filiación NOM-004 (num. 5.2.3) / CURP NOM-024 (num. 6.5.1); espacio de nombres usado por el prototipo: urn:oid:2.16.840.1.113883.4.629
+1,000
+0.40 KiB (~410 B)
+N/V
+N/V
+Pendiente
+Encounter
+Consulta ambulatoria (AMB, v3-ActCode) / Cédula profesional SEP
+2,500
+0.89 KiB (~911 B)
+N/V
+N/V
+Pendiente
+Observation (BP)
+Panel de presión arterial (bp-{id}, LOINC 85354-9, 8480-6 / 8462-4, UCUM mm[Hg])
+2,500
+0.94 KiB (~963 B)
+N/V
+N/V
+Pendiente
+Observation (Temp)
+Temperatura corporal (temp-{id}, LOINC 8310-5, UCUM Cel)
+2,500
+0.57 KiB (~584 B)
+N/V
+N/V
+Pendiente
+Observation (HR)
+Frecuencia cardíaca (hr-{id}, LOINC 8867-4, UCUM /min)
+2,500
+0.57 KiB (~584 B)
+N/V
+N/V
+Pendiente
+Observation (Resp)
+Frecuencia respiratoria (resp-{id}, LOINC 9279-1, UCUM /min, optional: true)
+2,250 (250 NULL omitidas)
+0.58 KiB (~594 B)
+N/V
+N/V
+Pendiente
+Condition
+Diagnósticos ambulatorios CIE-10 (http://hl7.org/fhir/sid/icd-10)
+3,000
+0.77 KiB (~788 B)
+N/V
+N/V
+Pendiente
+Total Consolidado
+Proyección esperada del modelo canónico
+16,250
+0.70 KiB (720.5 B)
+N/V
+N/V
+Pendiente
+Nota. Cantidades derivadas del modelo canónico; tamaños procedentes del consolidado scripts/run_all_cap4_experiments.py, que serializa recursos esperados del oráculo. N/V indica ausencia de validación oficial comprobada. El script divide bytes entre 1024 y 1024²: las unidades correctas son KiB y MiB. El valor 11.17 es redondeado y no un volumen exacto de respuestas Rust; la suma de cuatro volúmenes redondeados tampoco prueba 44.68 MiB exportados. Los tamaños medios por tipo están redondeados, por lo que no deben recomponerse como si fueran valores exactos.
+4.1.2 Análisis técnico de la validación estructural y constructores tipados
+CA-1 permanece no verificado con la evidencia consultada. El informe R1, §8, documenta un intento con salida 1 por ausencia del JAR y un entorno Java 8; no informa cero errores de validación. El consolidado posterior contiene esos ceros como valores asignados. No se deduce de ello que los recursos sean necesariamente inválidos: falta una ejecución identificada del validador sobre las salidas reales.
+Construcción tipada: transform.rs utiliza modelos de helios-fhir y serialización Serde, mecanismos que reducen determinados errores de estructura. Su uso no demuestra automáticamente todas las cardinalidades, invariantes, perfiles y restricciones del contenido. La conformidad debe verificarse independientemente con la configuración, versión y resultados del validador conservados.
+Codificación de observaciones: El código distingue el panel de presión arterial, sus componentes y las magnitudes con LOINC/UCUM. Esta correspondencia es evidencia de diseño e implementación. La afirmación de cumplimiento de un perfil Vital Signs requiere el reporte correspondiente; no se obtiene del tamaño JSON declarado ni de que las URI aparezcan en las reglas.
+La configuración fuera de línea (-tx n/a) debe declararse al interpretar una ejecución oficial: limita la verificación terminológica disponible. La comprobación estructural tampoco sustituye la fidelidad frente a PostgreSQL. CA-1 y CA-2 son verificaciones distintas, y ninguna se da por cumplida mediante la sola construcción tipada del recurso.
+4.2 Verificación de fidelidad clínica frente al oráculo independiente (CA-2)
+La verificación de CA-2 exige comparar salidas reales del middleware con un modelo esperado. scripts/oracle_verifier.py dispone de modos de autoprueba, directorio exportado y consulta HTTP. La interpretación del resultado depende del modo utilizado y de la procedencia de sus entradas, no solo del porcentaje que imprime.
+4.2.1 Verificación diferencial exhaustiva campo por campo
+El comando --self-test citado en la versión anterior de este apartado toma cada expected_res, lo serializa/deserializa y compara su copia con el original. El dato declarado 16,250/16,250 en 0.26–0.59 s corresponde a esa autoverificación y no demuestra concordancia de 16,250 respuestas de Rust ni mide latencia del servicio. Para acreditar CA-2 se necesitan ejecuciones --input-dir o --base-url con salidas reales y reporte por arquetipo.
+Las 65,000 salidas resultan de multiplicar el censo esperado por cuatro; sin exportaciones y comparaciones identificadas no constituyen observaciones verificadas. Tampoco son muestras independientes de una población clínica. Se conserva el denominador del diseño, mientras la cantidad efectivamente contrastada contra el middleware queda N/V.
+4.2.2 Auditoría de omisión limpia de atributos secundarios opcionales (Cero Invención de Datos)
+La política D-006 prescribe omitir valores opcionales ausentes, sin sustituirlos por valores clínicos inventados. El generador define 800 ocurrencias: 150 segundo_nombre, 100 telefono_contacto, 250 frecuencia_respiratoria y 300 tipo_diagnostico; su omisión en salidas reales permanece por verificar. Observation.status = "final" y Condition.clinicalStatus = "active" son constantes configuradas, no estados clínicos observados en origen. Por ello, la política de nulos no demuestra que todos los elementos emitidos tengan una fuente clínica observada (§3.4.3 y §3.4.4).
+La Tabla 4.2 describe las 800 ocurrencias NULL definidas en las cuatro columnas seleccionadas y su tratamiento previsto. El total suma 7,500 posiciones de campo —1,000 nombres secundarios, 1,000 teléfonos, 2,500 frecuencias respiratorias y 3,000 tipos de diagnóstico—, no 7,500 personas, filas distintas ni recursos. Los 6,700 valores presentes y el 10.67 % de ausencias describen esas posiciones, sin acreditar una auditoría del 100 % de las salidas HTTP.
+Tabla 4.2. Distribución de ausencias del modelo canónico y comportamiento previsto o visible en el código.
+Columna Relacional de Origen
+Ruta Destino en HL7 FHIR R4
+Posiciones de campo
+Registros con Valor NULL (%)
+Valores presentes previstos
+Tratamiento previsto o visible en código
+Alcance del tratamiento
+segundo_nombre (tbl_pacientes)
+Patient.name[0].given[1]
+1,000
+150 (15.0 %)
+850 (85.0 %)
+El arreglo given conserva únicamente given[0] (primer_nombre), omitiendo la segunda posición sin cadenas vacías.
+No completa el segundo nombre ausente; no valida identidad legal.
+telefono_contacto (tbl_pacientes)
+Patient.telecom[0].value
+1,000
+100 (10.0 %)
+900 (90.0 %)
+El bloque telecom completo se poda del objeto JSON serializado cuando el teléfono es nulo.
+Omite el contacto ausente; no demuestra cumplimiento jurídico integral.
+frecuencia_respiratoria (tbl_signos_vitales)
+Recurso Observation (resp-{id}, LOINC 9279-1)
+2,500
+250 (10.0 %)
+2,250 (90.0 %)
+Se omite exclusivamente la emisión del recurso Observation/resp-{id} (retornando HTTP 404 con OperationOutcome not-found si se solicita por ID), preservando intactos bp-{id}, temp-{id} y hr-{id}.
+Ausencia de medición respiratoria: no sustituida por un valor clínico.
+tipo_diagnostico (tbl_diagnosticos)
+Condition.verificationStatus
+3,000
+300 (10.0 %)
+2,700 (90.0 %)
+Se omite la propiedad verificationStatus (cardinalidad 0..1 en FHIR R4), conservando el código diagnóstico code.coding (CIE-10).
+El estado diagnóstico ausente no se rellena por esa regla; requiere verificación de salida.
+Total de posiciones definidas
+4 reglas con optional: true
+7,500
+800 (10.67 %)
+6,700 (89.33 %)
+Tratamiento de 800 ausencias previsto; ejecución N/V
+La política se limita a los atributos indicados; conserva los supuestos de estado.
+Nota. Las proporciones corresponden a los valores definidos por el generador y el modelo esperado. Una persona puede aportar varias posiciones auditadas. Omitir un campo o una Observation escalar son comportamientos diferentes y deben verificarse por separado en las salidas reales. El censo de personas no disminuye por un segundo nombre ausente.
+4.2.3 Sensibilidad del oráculo mediante pruebas de mutación clínica (Mutation Testing)
+El módulo run_mutation_tests define 20 alteraciones del modelo esperado y contrasta las copias mutadas contra sus originales. Es una prueba de sensibilidad del verificador para esos casos, no una prueba del middleware ni de validez médica. El código está disponible; el reporte individual de ejecución usado para sostener 20/20 no se localizó en el commit consultado.
+La Tabla 4.3 identifica los casos definidos y su recurso objetivo. El consolidado declara 20/20 detectados, pero ese resultado queda N/V sin la salida individual de la ejecución. Aun si se verifica, su alcance será la detección de estas 20 mutaciones, no la de todo error semántico posible.
+Tabla 4.3. Casos de mutación definidos para el verificador y estado de su evidencia de ejecución.
+ID de Mutación
+Recurso Objetivo
+Naturaleza de la Mutación Clínica o Semántica Inyectada
+Resultado del Oráculo
+Estado
+MUT-01
+Patient/1
+Alteración del último dígito verificador de la clave CURP en identifier[0].value.
+N/V
+Caso definido
+MUT-02
+Patient/1
+Inversión del género administrativo de "male" a "female" en Patient.gender.
+N/V
+Caso definido
+MUT-03
+Patient/1
+Modificación de un día en la fecha de nacimiento ISO 8601 (birthDate).
+N/V
+Caso definido
+MUT-04
+Patient/1
+Corrupción del OID oficial de RENAPO en identifier[0].system.
+N/V
+Caso definido
+MUT-05
+Patient/1
+Alteración léxica del apellido paterno en name[0].family.
+N/V
+Caso definido
+MUT-06
+Encounter/1
+Cambio de estatus de consulta de "finished" a "cancelled" en Encounter.status.
+N/V
+Caso definido
+MUT-07
+Encounter/1
+Sustitución del código de clase ambulatoria "AMB" por hospitalización "IMP" en class.code.
+N/V
+Caso definido
+MUT-08
+Encounter/1
+Desviación de la referencia lógica del sujeto de "Patient/1" a "Patient/2".
+N/V
+Caso definido
+MUT-09
+Encounter/1
+Alteración de un dígito en la cédula profesional SEP del médico tratante (participant[0]).
+N/V
+Caso definido
+MUT-10
+Encounter/1
+Desplazamiento de la hora de inicio en period.start.
+N/V
+Caso definido
+MUT-11
+Observation/bp-1
+Alteración del código LOINC del panel de presión arterial (85354-9 a 85353-1).
+N/V
+Caso definido
+MUT-12
+Observation/bp-1
+Permutación del código LOINC de presión sistólica por diastólica (8480-6 a 8462-4).
+N/V
+Caso definido
+MUT-13
+Observation/bp-1
+Modificación numérica de la presión arterial sistólica (de 130 a 140 mmHg).
+N/V
+Caso definido
+MUT-14
+Observation/temp-1
+Alteración del código LOINC de temperatura corporal (8310-5 a 8311-3).
+N/V
+Caso definido
+MUT-15
+Observation/temp-1
+Sustitución de la unidad canónica UCUM de "Cel" a "degF" sin conversión escalar.
+N/V
+Caso definido
+MUT-16
+Observation/temp-1
+Alteración clínica de la magnitud de temperatura (de 36.6 a 39.5 °C, simulando fiebre).
+N/V
+Caso definido
+MUT-17
+Observation/hr-1
+Alteración del valor de frecuencia cardíaca (de 76 a 120 /min, simulando taquicardia).
+N/V
+Caso definido
+MUT-18
+Condition/1
+Sustitución del código diagnóstico CIE-10 de hipertensión (I10) por diabetes (E11.9).
+N/V
+Caso definido
+MUT-19
+Condition/1
+Inversión del estado de verificación diagnóstica de "confirmed" a "provisional".
+N/V
+Caso definido
+MUT-20
+Condition/3
+Inyección indebida de verificationStatus: "provisional" cuando tipo_diagnostico era NULL en origen (violación de D-006).
+N/V
+Caso definido
+Total
+4 tipos de recurso
+20 mutaciones clínicas y estructurales evaluadas
+N/V
+Reporte individual pendiente
+Nota. Los identificadores y recursos se contrastaron con run_mutation_tests de scripts/oracle_verifier.py. No se rellenan resultados observados a partir de lo que el caso pretende detectar. MUT-20 explora una sustitución específica; no certifica la ausencia de todo fallback en el middleware. Las mutaciones no fueron sometidas aquí a validación HL7, por lo que no se afirma que todas preserven conformidad sintáctica.
+4.3 Evaluación de rechazo seguro Fail-Closed e inyección de fallos (CA-3)
+El Criterio de Aceptación CA-3 se alinea con la fiabilidad y tolerancia a fallos de la norma ISO/IEC 25010 (ISO/IEC, 2023) y la inyección de fallos (Hsueh et al., 1997; Voas y McGraw, 1998). Este criterio evalúa la intercepción de registros corruptos o incompletos bajo la política de fallo seguro (Fail-Closed).
+4.3.1 Evaluación del corpus de 100 anomalías clínicas (Categorías T1 a T5)
+El corpus define 100 casos T1–T5, veinte por categoría. run_fault_corpus.py los evalúa con lógica Python en memoria; no inyecta cada caso en PostgreSQL ni envía las cien peticiones al servidor. La prueba Rust del corpus ejercita el evaluador para algunas categorías y simula T4 mediante rangos. Estas evidencias deben distinguirse de una ejecución extremo a extremo por arquetipo.
+La Tabla 4.4 conserva la distribución del corpus y separa las respuestas esperadas de los rechazos HTTP efectivamente verificados, que permanecen N/V.
+Tabla 4.4. Distribución de T1–T5 y evidencia pendiente del rechazo HTTP y del control nominal.
+Categoría
+Anomalía definida
+Casos definidos
+Rechazos HTTP verificados
+Fugas HTTP verificadas
+Sensibilidad HTTP
+Estado
+T1
+Ausencia en atributos requeridos por las transformaciones: identificación, fecha de nacimiento, diagnóstico o constantes vitales según el caso.
+20
+N/V
+N/V
+N/V
+Evidencia pendiente
+T2
+Formatos, tipos de datos y fechas corruptas o calendario imposible (e.g., 2026-02-30, 2025-13-01, cadenas "FIEBRE" o "120-80" malformadas en constantes vitales).
+20
+N/V
+N/V
+N/V
+Evidencia pendiente
+T3
+Valores fuera de los diccionarios de sexo, estado de consulta y tipo de diagnóstico. El corpus T3 no acredita rechazo general de códigos CIE-10 inexistentes en una terminología externa.
+20
+N/V
+N/V
+N/V
+Evidencia pendiente
+T4
+Referencias inexistentes: el corpus prevé rechazo; la cobertura depende de la ruta individual, sus comprobaciones S0 o parent_checks y los controles realmente ejecutados.
+20
+N/V
+N/V
+N/V
+Evidencia pendiente
+T5
+Identificadores oficiales con sintaxis o longitud inválida (claves CURP truncadas, con caracteres prohibidos o entidad federativa inexistente según la expresión regular oficial de RENAPO).
+20
+N/V
+N/V
+N/V
+Evidencia pendiente
+Total Corpus
+Evaluación Integral de Resiliencia Sintáctica y Semántica (T1–T5)
+100
+N/V
+N/V
+N/V
+Evidencia pendiente
+Control Nominal
+Verificación de Falsos Rechazos sobre el Censo Válido (S0–S3)
+16,250 esperados por arquetipo
+N/V
+N/V
+N/V
+Evidencia pendiente
+Nota. Los estados numéricos de evaluate_case_in_memory son resultados de una función local, no respuestas HTTP capturadas. El consolidado declara 100/100 y cero falsos rechazos, pero no aporta con ello las peticiones, respuestas, base cargada y control nominal necesarios. N/V no se interpreta como cero fallos ni como cien rechazos reales.
+4.3.2 Análisis de la contención de errores y alcance del corpus
+La sensibilidad HTTP, la fuga de recursos corruptos y la tasa de falsos rechazos permanecen N/V. Sus denominadores deben obtenerse de casos realmente ejecutados por arquetipo y de lecturas nominales válidas. No se trasladan a la operación del middleware los porcentajes de un simulador Python ni se infiere una tasa poblacional a partir del corpus construido.
+Las lecturas individuales S0 comprueban existencia de padres; la dinámica lo hace mediante parent_checks cuando está configurado, en una transacción posterior. Los listados raw no ejecutan esas mismas comprobaciones por fila. Verificar que paciente y encuentro existan tampoco demuestra que el encuentro pertenezca a ese paciente. La simulación T4 por rangos no acredita estos comportamientos en la base real.
+4.4 Evaluación de adaptación declarativa multi-esquema y cobertura (CA-4 y CA-5)
+Los Criterios CA-4 (sencillez de adopción e invarianza de código) y CA-5 (cobertura de los arquetipos relacionales (S0 a S3) y frontera del lenguaje) evalúan la mantenibilidad y modularidad de la norma ISO/IEC 25010 (ISO/IEC, 2023). Con ello responden al problema del acoplamiento rígido en traductores punto a punto (Doan et al., 2012; Hohpe y Woolf, 2003).
+4.4.1 Invarianza del código compilado en Rust y adaptación mediante YAML v1.2
+Se dispone de configuraciones S0–S3 y de código para repositorios específicos, acceso dinámico, adaptadores Legacy* y transformadores tipados. La denominación v1.2.0-eval del manuscrito no identifica por sí sola un binario experimental: no se verificó esa referencia remota y no se localizaron manifiestos de hashes por corrida. La presencia actual de los archivos no acredita su ejecución secuencial con un mismo ejecutable.
+run_experiment_ca4_ca5 cuenta líneas de YAML, pero asigna rust_loc_modified = 0 y semantic_equivalence = PASS sin ejecutar git diff ni comparar los cuatro censos. La Tabla 4.5 informa las propiedades estáticas comprobables de los archivos y deja N/V la invarianza temporal y la equivalencia de salidas.
+Tabla 4.5. Inventario estático de configuraciones S0–S3 y verificaciones experimentales pendientes.
+Arquetipo Relacional
+Estructura y Complejidad del Esquema en PostgreSQL 16
+Archivo de Configuración Declarativa
+Líneas Totales de YAML
+Reglas de campo (target_path)
+Directivas presentes en el archivo
+Líneas de Rust Modificadas
+Censo esperado / equivalencia observada
+S0
+Base normalizado NOM-004 (4 tablas): tbl_pacientes, tbl_consultas, tbl_signos_vitales y tbl_diagnosticos con tipos nativos y FKs explícitas.
+mapping_rules.yaml (config/mapping_rules_s0.yaml)
+262
+54
+combine_with, dictionary, optional, date_iso8601, datetime_iso8601, reference.
+N/V
+16,250 previstos; equivalencia N/V
+S1
+Plano desnormalizado (2 tablas): Sábana única tbl_sabana_consulta_externa que colapsa paciente, consulta y signos vitales con redundancia demográfica por atención (estilo SINBA/SIS), más tabla de diagnósticos.
+config/mapping_rules_s1.yaml
+262
+54
+distinct_on, combine_with, dictionary, optional y transform.
+N/V
+16,250 previstos; equivalencia N/V
+S2
+Normalizado con catálogos externos (8 tablas): 4 tablas principales cuyos atributos categóricos apuntan por llave foránea numérica a 4 tablas maestras (cat_sexo_biologico, cat_estado_consulta, cat_cie10, cat_tipo_diagnostico).
+config/mapping_rules_s2.yaml
+283
+54
+lookup, dictionary, optional y transform. Sin parent_checks ni filter_not_null declarados.
+N/V
+16,250 previstos; equivalencia N/V
+S3
+S3: cuatro tablas sin FOREIGN KEY declarada, columnas abreviadas, fechas DD/MM/YYYY en texto, presión concatenada y peso_libras. La temperatura se almacena en temp_celsius, no Fahrenheit.
+config/mapping_rules_s3.yaml
+348
+61
+parse_datetime, split_part, unit_conversion, parent_checks, optional; incluye body_weight.
+N/V
+16,250 previstos; equivalencia N/V
+Nota. Conteo de líneas físicas, incluidas líneas vacías y comentarios, y de entradas target_path mediante lectura de archivos del commit 18b434a. S0, S1 y S2 contienen 54 reglas de campo; S3 contiene 61. Los ceros de LOC del script no constituyen un diff observado. La allowlist es estática y S0/S2 no declaran parent_checks o filter_not_null en sus YAML, aunque existan mecanismos específicos en otras rutas del código.
+4.4.2 Análisis de cobertura estructural y frontera de expresividad del DSL
+Las configuraciones tienen 262 líneas para S0/S1, 283 para S2 y 348 para S3. Respecto de 262, los incrementos son 8.02 % y 32.82 %, respectivamente. Son medidas del tamaño textual de estos archivos y no de horas, costo, complejidad intrínseca ni facilidad de uso. No se da por demostrada la equivalencia S0 ≡ S1 ≡ S2 ≡ S3 sin cuatro exportaciones y comparaciones identificadas.
+S1 utiliza distinct_on para deduplicar datos demográficos, sin una validación cruzada entre filas contradictorias. Esta capacidad visible en la configuración no acredita por sí sola un censo ejecutado de 1,000 Patient ni una selección determinista en toda ruta de consulta; deben conservarse el orden, la consulta y las salidas obtenidas.
+La ruta S2 presenta incompatibilidades estáticas además de evidencia de ejecución pendiente: el lookup conserva alias como id_sexo e id_cie10, mientras row_to_legacy_* busca otros nombres para construir los modelos. El estado id_estado_consulta tampoco se reconoce y puede terminar sustituido por FINALIZADA. Son diferencias localizadas en configuración, constructor SQL y adaptadores; su manifestación y alcance deben documentarse por HTTP, sin declarar equivalencia a partir del evaluador JSON.
+En S1–S3, el manejador consulta el primer mapeo Observation, cuyo SELECT no incluye frecuencia cardíaca ni temperatura, aunque el adaptador exige ambas. S3 también declara body_weight/lb_to_kg, sin un subtipo HTTP correspondiente; su temperatura ya está en Celsius. Estas diferencias entre reglas y ruta tipada impiden interpretar el inventario como una demostración de cobertura; requieren ensayos identificados de cada subtipo y esquema.
+La frontera documentada permite interpretar qué podría configurarse dentro de los nombres y convertidores admitidos. La invarianza del código durante el experimento, la equivalencia de las salidas y la adopción por terceros permanecen como verificaciones distintas. La inspección estática no sustituye ninguna de ellas.
+4.5 Caracterización técnica descriptiva de tiempos de respuesta y uso de recursos (CT)
+La caracterización disponible reúne un reporte histórico R1 con extractos de k6 y telemetría, y un consolidado posterior que incorpora valores numéricos asignados. Se informa la procedencia de cada serie; no se combinan como réplicas de un único experimento ni se generalizan a la versión actual.
+4.5.1 Tiempos de respuesta y rendimiento transaccional bajo carga concurrente en k6
+R1 documenta una corrida nominal de siete minutos, con 90 segundos de calentamiento, cinco minutos de meseta a 50 VU y 30 segundos de descenso, y tres corridas de resiliencia de 15 segundos a 10 VU. El script nominal histórico recuperado en el commit 69a5926 consulta bp, temp y hr, con pausas de 0.1–0.3 s; el actual añade resp y contabilidad de 404. Las tres corridas de resiliencia no se contabilizan como tres réplicas de la carga nominal ni prueban cien anomalías clínicas.
+La Tabla 4.6 presenta los valores declarados por cada fuente e identifica qué filas tienen un extracto de ejecución histórico y cuáles solo aparecen asignadas en el script consolidado.
+Tabla 4.6. Latencia y tasa de solicitudes por fuente, versión y fase; separación de datos históricos y valores no verificados.
+Escenario y procedencia
+Concurrencia y Duración
+Peticiones declaradas
+Tasa reportada (req/s)
+Latencia Media (ms)
+Mediana p50 (ms)
+Percentil p90 (ms)
+Percentil p95 (ms)
+Percentil p99 (ms)
+Latencia Máxima (ms)
+Referencia Orientativa de Ingeniería
+Consolidado posterior: valores asignados; N/V como corrida
+50 VUs (Meseta 5m)
+372,480
+1,241.6 req/s
+1.84 ms
+1.48 ms
+2.76 ms
+3.38 ms
+5.12 ms
+18.45 ms
+Referencia 200 ms; no se evalúa sin corrida verificable
+R1 histórico, commit 69a5926: extracto transcrito
+50 VUs (7m total / 5m meseta con sleep 0.1–0.3s)
+317,312 (271,936 en meseta)
+755.3 req/s
+4.62 ms (4.78 ms meseta)
+2.78 ms (2.79 ms meseta)
+7.59 ms (8.17 ms meseta)
+14.76 ms (15.91 ms meseta)
+—
+204.77 ms
+Referencia 200 ms; resultado histórico reportado
+R1: resiliencia, tres corridas históricas; mediana de resúmenes
+10 VUs (3 réplicas × 15s)
+11,560 (Rango: 11,370–11,755)
+769.4 req/s (Rango: 756.8–782.0)
+2.68 ms (Rango: 2.48–2.86)
+—
+4.00 ms (Rango: 3.62–4.35)
+4.72 ms (Rango: 4.10–5.16)
+—
+14.18 ms (Rango: 8.99–24.52)
+Referencia 30 ms; resultado histórico reportado
+Nota. R1 informa p95 global = 14.76 ms y p95 de meseta = 15.91 ms para http_req_duration; la métrica personalizada de meseta informa 16 ms. No son medidas intercambiables. Las 317,312 peticiones corresponden a toda la corrida y las 271,936 a la meseta. Dividir este último conteo entre los 300 segundos nominales da aproximadamente 906.45 req/s: es una derivación del resumen, no la tasa global de 755.3 req/s ni una nueva medición. Los percentiles de cada réplica se resumen por mediana y rango, sin equivaler al percentil de todas las solicitudes agrupadas. Los p99 no informados quedan como no disponibles.
+El conjunto de 372,480 solicitudes, 1,241.6 req/s y p95 = 3.38 ms procede de valores asignados en run_experiment_ct; no se recuperó una salida k6 que lo respalde. R1 sí contiene un extracto con p95 de meseta = 15.91 ms en una versión histórica distinta. Por tanto, no se presenta el primer conjunto como una corrida nominal consolidada comprobada ni se infiere una mejora entre versiones a partir de estas dos fuentes.
+4.5.2 Contabilidad de respuestas 4xx y discrepancia del patrón de carga
+La contabilidad de errores debe separar códigos observados, respuesta esperada por contrato y clasificación del cliente de carga. http_req_failed depende de expectedStatuses; no es una medición aislada de errores 5xx ni demuestra por sí sola exactitud del recurso. En el script actual, aceptar globalmente 200/404 obliga a revisar también aserciones y contadores por ruta.
+El script nominal actual realiza cuatro lecturas por iteración; una es Observation y su subtipo se elige entre bp, temp, hr y resp. Con un 10 % de IDs respiratorios ausentes, la probabilidad de un 404 opcional por solicitud es 0.25 × 0.25 × 0.10 = 0.00625, es decir, 0.625 %. Para 372,480 solicitudes, la esperanza sería 2,328, no un conteo observado. El consolidado asigna 23,280 (6.25 %), diez veces esa esperanza; no se cambia por 2,328 como si fuera una medición. Además, la corrida R1 usa un cliente anterior sin resp y no puede respaldar esa atribución histórica. El contrato de omitir la Observation ausente y responder 404 en su lectura individual es coherente; la discrepancia está en la evidencia y el conteo reportado.
+La Tabla 4.7 diferencia los contadores del cliente nominal, la evaluación local del corpus y los casos de resiliencia. No se atribuye automáticamente todo 4xx a corrupción de datos en origen: una ruta inexistente o un parámetro malformado pertenecen a otra clase de prueba. Los totales de distintas suites no se suman sin identificar su población y ventana.
+Tabla 4.7. Procedencia y límites de la contabilidad HTTP; resultados no medidos señalados como N/V.
+Contador o indicador propuesto
+Código HTTP y Tipo de Respuesta
+Nominal: consolidado posterior, sin salida bruta
+Corpus de 100 casos: evaluación local
+Resiliencia: R1 histórico, tres réplicas
+Alcance de la atribución y evidencia pendiente
+http_200_valid_resources_total
+HTTP 200; su validez clínica requiere verificación adicional
+N/V; 349,200 es una cifra asignada en el consolidado
+N/A: no hay tráfico HTTP en la evaluación local
+Control Patient/1 definido; desglose HTTP no adjunto
+Un HTTP 200 acredita una respuesta; no sustituye la validación FHIR ni la comparación independiente de su contenido.
+expected_404_optional_null_total / expected_404_not_found_total
+HTTP 404 Not Found (OperationOutcome, code = "not-found")
+N/V; 23,280 (6.25 %) no se acredita como conteo observado
+N/A: no hay tráfico HTTP en la evaluación local
+Casos de rutas/IDs inexistentes; desglose HTTP no adjunto
+En el script nominal actual, 0.25 × 0.25 × 250/2,500 = 0.625 % es una probabilidad esperada, no una frecuencia medida. R1 usó bp/temp/hr, sin resp. Un 404 de recurso opcional omitido es coherente con el contrato.
+expected_422_fail_closed_total
+HTTP 422 Unprocessable Entity (OperationOutcome, code = "processing")
+N/V: no se acredita la tasa de falsos rechazos
+100 casos definidos; su evaluación Python no acredita HTTP 422 real
+Patient/999999 admite 404 o 422; no prueba una fila existente corrupta
+El rechazo del corpus debe comprobarse con inyección en la base de datos, solicitudes al middleware y registro de cada respuesta. Los códigos devueltos por funciones Python son resultados locales.
+expected_400_invalid_param_total
+HTTP 400 Bad Request (OperationOutcome, code = "invalid")
+N/V
+N/A: no hay tráfico HTTP en la evaluación local
+Caso de ID alfanumérico definido; desglose HTTP no adjunto
+El parámetro malformado es un estímulo negativo del cliente; no demuestra corrupción clínica en origen.
+expected_4xx_due_to_missing_data_rate
+Tasa de Atribución de Códigos 4xx a Datos Ausentes/Anómalos de Origen
+N/V: falta trazabilidad de cada 404 a los IDs omitidos
+N/A: una simulación local no mide atribución de respuestas HTTP
+N/V para esta tasa. R1 informa otra métrica: operation_outcome_conformity_rate
+R1 reporta conformidad de OperationOutcome: 9,248/9,248; 9,096/9,096; 9,404/9,404 respuestas negativas. No son los denominadores de todas las solicitudes ni una prueba de atribución de 4xx a datos ausentes.
+unexpected_technical_errors_total; http_req_failed por separado
+5xx, fallos de conexión y timeouts; http_req_failed depende del callback de k6
+N/V
+N/A como contador HTTP del middleware
+Sin exportación bruta suficiente para acreditar el contador actual
+No se infiere ausencia de pánicos ni de agotamiento del pool a partir de una cifra asignada o de una tasa agregada. Se requieren métricas, configuración de estados esperados y registros de ejecución.
+Nota. Los 349,200/23,280 del consolidado son valores asignados, no contadores recuperados de una corrida. run_fault_corpus.py devuelve estados locales sin intercambio HTTP. R1 documenta 9,248/9,248 respuestas negativas clasificadas como OperationOutcome en su primera corrida de resiliencia, pero no aporta en ese extracto un desglose de todos los contadores actuales. La tasa de conformidad del cliente no equivale a validación oficial FHIR ni a exactitud clínica.
+En R1, las tres corridas de resiliencia reportan 9,248/9,248, 9,096/9,096 y 9,404/9,404 respuestas negativas conformes según sus aserciones; los totales de solicitudes son 11,560, 11,370 y 11,755. Cada proporción usa como denominador las respuestas negativas evaluadas, no todas las solicitudes. El caso Patient/999999 admite 404 o 422 y no demuestra que un registro existente con corrupción haya producido un 422. Esta suite no sustituye el corpus T1–T5 extremo a extremo.
+4.5.3 Consumo de procesador y huella de memoria bajo confinamiento cgroups v2
+R1 documenta para medsys-server una cuota de 1.0 vCPU y 268,435,456 B (256 MiB) y transcribe resúmenes de docker stats, VmRSS y memory.current. Son magnitudes distintas: la CLI de Docker en Linux descuenta cierta caché, mientras VmRSS describe residencia del proceso. No se equiparan sus valores ni se convierten medias o máximos en percentiles. Las series temporales originales y sus marcas de tiempo no están disponibles en el árbol consultado.
+La Tabla 4.8 separa las mediciones históricas declaradas de los agregados no verificados. El informe menciona 64 muestras cada cinco segundos; esa información aislada no acredita cobertura uniforme de los siete minutos ni identifica por sí sola las muestras de meseta.
+Tabla 4.8. Resúmenes históricos de CPU y memoria por métrica; ausencia de telemetría conjunta verificable.
+Contenedor / Componente
+Cuota Estricta cgroups v2
+Imagen reportada en R1 / tamaño de binario pendiente
+Uso de CPU Promedio
+CPU p95 y máximo, cuando están informados
+Memoria docker stats Promedio
+Memoria p95 y máximo, cuando están informados
+VmRSS: media y máximo; p95 no disponible en R1
+Referencias Orientativas de Ingeniería
+medsys-server: R1 histórico (69a5926)
+1.0 vCPU / 256 MiB RAM
+Imagen: 145 MB (contenido reportado: 36.8 MB); binario N/V
+47.86 % (R1)
+50.0 % p95; 93.33 % máximo (R1)
+19.42 MiB (R1)
+p95 no disponible; máximo 20.16 MiB (R1)
+Media 11.74 MiB; máximo 11.92 MiB; p95 no disponible (R1)
+Referencia CPU p95 ≤ 50 % y RAM p95 ≤ 150 MiB. El valor histórico de CPU alcanza el límite; RAM p95 no se puede evaluar.
+medsys_fhir_postgres (postgres:16-alpine)
+1.0 vCPU / 512 MiB RAM
+Imagen: 420 MB (contenido reportado: 117 MB, R1)
+N/V: falta serie de mediciones de PostgreSQL
+N/V: falta serie de mediciones de PostgreSQL
+N/V: falta serie de mediciones de PostgreSQL
+N/V: falta serie de mediciones de PostgreSQL
+N/V: falta serie de mediciones de PostgreSQL
+Cuota configurada; consumo de ejecución pendiente de verificar
+Sistema conjunto: cuotas configuradas, consumo pendiente
+2.0 vCPU / 768 MiB: suma de cuotas, no de consumos
+No se estima el espacio ocupado sumando imágenes con capas potencialmente compartidas
+N/V: se requiere serie temporal conjunta
+N/V: se requiere serie temporal conjunta
+N/V: se requiere serie temporal conjunta
+N/V: se requiere serie temporal conjunta
+N/V: se requiere serie temporal conjunta
+No se acredita aún la huella conjunta bajo carga
+Nota. Fuente histórica: auditoria/RESULTADOS_EJECUCION_R1.md, §§6–7. VmRSS = 11.74 MiB es una media de la corrida, no una medición basal. memory.current informa media 36.84 MiB y máximo 38.58 MiB. El resumen no entrega p95 de memoria ni una serie sincronizada de PostgreSQL. No se sustituyen esos faltantes por los valores asignados del consolidado posterior.
+Los 32.10 MiB, 22.80 MiB, 72.50 MiB y 104.60 MiB del consolidado no se trataron como mediciones corroboradas. Incluso con mediciones válidas, la suma de los percentiles individuales no determina el percentil del consumo simultáneo conjunto; se requieren series alineadas, suma muestra a muestra y cálculo del percentil del agregado. Sumar tamaños de imágenes tampoco equivale al espacio físico ocupado por sus capas compartidas.
+4.6 Discusión general y dictamen de viabilidad técnica
+En esta sección final se integran los resultados de las Secciones 4.1 a 4.5 para aplicar la Regla de Decisión de la Tabla 3.1 (§3.1.2). Asimismo, se contrastan los hallazgos frente a los trabajos relacionados de los Capítulos I y II y se discuten las limitaciones y amenazas a la validez del estudio.
+4.6.1 Síntesis de evaluación y aplicación de la Regla de Decisión (Tabla 3.1)
+La Tabla 4.9 distingue condición de aceptación, evidencia disponible y estado de verificación. Un criterio no se marca cumplido por un valor asignado o una prueba de otro componente. «Pendiente de verificación» no equivale a «No viable»: expresa que la regla de decisión no puede aplicarse todavía con respaldo suficiente.
+Tabla 4.9. Matriz integral de evaluación de los Criterios de Aceptación (CA-1 a CA-5), Caracterización Técnica (CT-1 a CT-4) y dictamen de viabilidad según la Regla de Decisión de la Tabla 3.1.
+Criterio / Dimensión Evaluada
+Indicador Empírico y Fuente de Verificación
+Condición / Referencia Establecida (Cap. III §3.1.2)
+Evidencia disponible y alcance
+Dictamen por Criterio
+CA-1: Conformidad sintáctica oficial (Vinculante)
+Severidades Fatal y Error en el censo de recursos FHIR R4 v4.0.1 (org.hl7.fhir.validator-cli, -tx n/a).
+0 incidencias Fatal y 0 incidencias Error (100.0 % sobre el censo de cada esquema).
+El consolidado asigna 0 Fatal/0 Error/100 %. R1 declara que el validador no se ejecutó. Faltan salidas oficiales por recurso y esquema.
+PENDIENTE DE VERIFICACIÓN
+CA-2: Fidelidad clínica del dato (Vinculante)
+Discrepancias frente al oráculo diferencial en Python (oracle_verifier.py), poda de nulos (optional: true) y sensibilidad a mutaciones.
+0 discrepancias en los atributos mapeados frente al oráculo (concordancia = 100.0 %) y detección de las 20 mutaciones definidas.
+El modo --self-test compara el modelo con copias de sí mismo. Hay 20 mutaciones definidas; falta el reporte por caso y la comparación con exportaciones o respuestas reales de Rust.
+PENDIENTE DE VERIFICACIÓN
+CA-3: Rechazo seguro (Fail-Closed) (Vinculante)
+Sensibilidad de rechazo ante el corpus de 100 anomalías (T1–T5) y tasa de falsos rechazos sobre el censo válido.
+100.0 % de rechazo con HTTP 422 y OperationOutcome (code = "processing"); 0.0 % de falsos rechazos.
+El corpus Python es una evaluación local; no se acredita la inyección de 100 anomalías ni sus HTTP 422 en el middleware, ni el denominador de falsos rechazos.
+PENDIENTE DE VERIFICACIÓN
+CA-4: Sencillez de adopción e invarianza de código (Vinculante)
+Líneas de código Rust modificadas (git diff sobre crates/) tras el congelamiento de v1.2.0-eval para adaptar S0–S3.
+0 líneas de código Rust modificadas en producción; adaptación gobernada por YAML v1.2.
+Existen YAML S0–S3 con 262/262/283/348 líneas. El valor 0 LOC se asigna en el consolidado; falta un diff entre versiones identificadas y evidencia de adopción.
+PENDIENTE DE VERIFICACIÓN
+CA-5: Cobertura de arquetipos relacionales (Vinculante)
+Equivalencia semántica de transformación sobre la familia S0 (base), S1 (plano), S2 (catálogos/JOIN) y S3 (legado/texto/unidades).
+Cobertura completa de los 4 arquetipos (S0 ≡ S1 ≡ S2 ≡ S3) y delimitación formal de la frontera del DSL.
+Cuatro YAML presentes, con incompatibilidades de alias y proyección frente a Legacy*. body_weight de S3 no tiene despacho HTTP. La equivalencia extremo a extremo sigue sin acreditarse.
+PENDIENTE DE VERIFICACIÓN
+CT-1: Latencia de respuesta HTTP (Descriptiva no vinculante)
+Percentil 95 (p95) de duración de lectura en meseta sostenida de 50 VUs en k6 (load_test.js).
+Referencia orientativa: p95 ≤ 200.0 ms a 50 VUs.
+3.38 ms y 1,241.6 req/s son valores asignados sin salida bruta. R1 histórico informa p95 de meseta = 15.91 ms; es otra versión y otro protocolo.
+HISTÓRICO; versión actual no verificada
+CT-2: Errores y atribución de respuestas (Descriptiva no vinculante)
+Separación entre códigos 4xx por falta/anomalía de datos de origen y errores técnicos del servidor (5xx).
+Referencia orientativa: http_req_failed < 0.5 % (éxito técnico ≥ 99.5 %) y 100 % de atribución de 4xx.
+No se acredita el desglose HTTP del consolidado. http_req_failed depende de los estados esperados de k6 y no equivale por definición a 5xx. La atribución nominal de 404 carece de trazabilidad y difiere del muestreo esperado.
+NO VERIFICADO EN LA VERSIÓN ACTUAL
+CT-3: Consumo de procesador (CPU) (Descriptiva no vinculante)
+Percentil 95 (p95) de uso de CPU bajo cuota de 1.0 vCPU en cgroups v2 (docker stats).
+Referencia orientativa: p95 ≤ 50.0 % de 1.0 vCPU.
+R1: media 47.86 %, p95 50.0 % y máximo 93.33 %. No hay serie que respalde los valores 8.42 %/18.15 % del consolidado posterior.
+DESCRIPTIVO HISTÓRICO
+CT-4: Consumo de memoria RAM (Descriptiva no vinculante)
+Percentil 95 (p95) de memoria del contenedor (docker stats) y memoria residente real (VmRSS) bajo límite de 256 MiB.
+Referencia orientativa: p95 ≤ 150.0 MiB.
+R1: docker stats medio 19.42 MiB (máximo 20.16); VmRSS medio 11.74 MiB (máximo 11.92). No hay p95 de memoria ni serie de PostgreSQL/conjunto verificables.
+DESCRIPTIVO HISTÓRICO; p95 pendiente
+Nota. La evaluación se apoya en el contraste de los scripts y configuraciones del commit 18b434a con el registro histórico R1 del commit 69a5926. Ninguna cifra del consolidado se eleva a resultado observado sin su procedencia verificable. CT es descriptiva y no subsana la evidencia pendiente de los criterios vinculantes.
+Con los materiales consultados, el dictamen global de viabilidad queda PENDIENTE DE VERIFICACIÓN. No se acreditan todavía CA-1 a CA-5 sobre una misma versión identificada y los cuatro arquetipos. Esto sustituye la declaración previa de VIABLE sustentada en el consolidado; no significa que el prototipo haya demostrado ser No viable. El cierre requiere ejecutar o aportar los ensayos y artefactos indicados en cada criterio, sin cambiar retrospectivamente sus umbrales.
+4.6.2 Contraste de los hallazgos frente al estado del arte y trabajos relacionados
+El contraste con trabajos relacionados se limita a propósitos y decisiones de arquitectura descritos en los capítulos previos. No se utiliza como prueba de superioridad ni como compensación por la evidencia experimental pendiente.
+Configuración externa: MedSys-FHIR explora separar parte de la correspondencia del código Rust. La allowlist y los adaptadores compilados acotan esa separación. La presencia de cuatro configuraciones es un resultado de desarrollo; no demuestra menor esfuerzo ni adaptación universal frente a los trabajos revisados.
+Relación con SMART on FHIR: El prototipo aborda la extracción y representación desde un origen relacional, una responsabilidad distinta del consumo de recursos por aplicaciones. Esa diferencia de propósito no prueba por sí sola una integración operativa con SMART ni una ventaja cuantitativa.
+Mediación bajo demanda: Los manejadores consultan datos y construyen recursos para solicitudes HTTP. Esa arquitectura difiere de una ingesta por lotes, pero la cifra p95 = 3.38 ms no se utiliza para demostrar su ventaja porque su corrida de origen no está acreditada. No se realizaron comparaciones de rendimiento bajo el mismo protocolo con CAMP FHIR o FHIR Data Pipes.
+Memoria frente a otras plataformas: No se comparan requisitos de instalación de sistemas completos con VmRSS de un solo proceso como si fueran cargas equivalentes. El dato histórico de MedSys-FHIR se limita a su versión y banco R1; faltan mediciones actuales de la solución completa, con base de datos y seguridad perimetral, y una línea base experimental comparable.
+Relación con el contexto normativo: La selección de datos y la matriz de correspondencias justifican el subconjunto del prototipo. La omisión de nulos y la política de rechazo son mecanismos técnicos cuya ejecución debe verificarse; no demuestran cumplimiento jurídico integral ni seguridad del paciente. Las coberturas parciales y exclusiones del Anexo I se conservan como límites del diseño.
+4.6.3 Discusión de alcances, límites de afirmación y amenazas a la validez
+La revisión identifica resultados negativos y vacíos de evidencia que condicionan el alcance: R1 informa 57 pruebas aprobadas y 2 fallidas de 59, con salida 1 de cargo test, y declara que no se ejecutó el validador HL7. Son antecedentes del commit 69a5926; no se atribuyen esas dos fallas al commit actual ni se presume que estén resueltas sin una ejecución posterior. El autocontraste del oráculo, el corpus local y los valores asignados en el consolidado tampoco acreditan los ensayos extremo a extremo. Las siguientes acotaciones delimitan la interpretación, sin reemplazar esas verificaciones.
+Límites de inferencia: Los criterios se definen para un artefacto y un banco sintético sin grupo de control. La inspección actual no valida sus porcentajes de cumplimiento y la caracterización disponible mezcla fuentes y versiones que deben separarse. No se atribuyen causalmente a Rust las diferencias de latencia o memoria ni se afirma superioridad sobre HAPI FHIR u otra plataforma.
+Banco histórico y validez externa: R1 describe acceso directo al contenedor en un AMD Ryzen 7 5700U con WSL2, cuotas de cgroups y ausencia de un API Gateway perimetral en la medición. Este entorno no representa por sí solo una unidad clínica. La latencia y el consumo con TLS, autenticación, auditoría, red física y almacenamiento del despliegue deben medirse; no se asigna una sobrecarga ni se extrapola capacidad hospitalaria desde el banco histórico.
+Límites del contrato: El repositorio incluye lecturas individuales y rutas de colección con Bundle y filtros limitados; no implementa por ello todo el contrato de búsqueda FHIR. El alcance no incluye certificación SIRES ni infraestructura completa de firma y seguridad perimetral. La extensión a nuevos nombres, recursos y transformaciones se restringe por listas y convertidores Rust, según la frontera corregida de la Tabla 3.5.
+Límites semánticos: Se documentan sustituciones de estado, fin y descripción en adaptadores, diferencias de formato temporal y ausencia de comprobación integral de catálogos. S1 no compara contradicciones entre filas y los apellidos concatenados pierden su rol separado. Las constantes final/active no tienen una fuente clínica verificada. Observation.status y Encounter.status representan ciclos de vida distintos, por lo que su combinación no demuestra por sí sola contradicción. Las incompatibilidades estáticas de §3.3.2 deben distinguirse de resultados de pruebas actuales, aún no disponibles.
+La evidencia disponible sostiene la existencia de una implementación y de instrumentos de prueba, junto con algunos resultados históricos transcritos. No basta para responder afirmativamente a la pregunta de viabilidad con los cinco criterios satisfechos en S0–S3. La contribución de diseño puede describirse, mientras la demostración experimental integral permanece abierta.
+CONCLUSIONES Y TRABAJO FUTURO
+Se presentan las conclusiones que permite la evidencia disponible y las verificaciones necesarias para cerrar la evaluación. La versión declarada v1.2.0-eval no se trata como un artefacto congelado experimentalmente identificado mientras falten sus manifiestos y registros.
+Conclusiones generales por objetivo de investigación
+Objetivo Específico 1 (OE1 — Selección y justificación del subconjunto de datos): Las Secciones 2.2, 3.2.2 y 3.4.4 y el Anexo I relacionan los requisitos seleccionados con S0 y los cuatro recursos clínicos. La revisión normativa conserva 26 filas: 25 correspondencias normativas y una decisión de diseño (cédula). Entre las 25 hay 13 cubiertas, 3 parciales, 7 no cubiertas y 2 fuera de alcance. Al separar los dos ítems de firma quedan 23: 13/23 (56.52 %) con representación cubierta y 16/23 (69.57 %) cubierta o parcial. Son proporciones del subconjunto diseñado, no cumplimiento integral de las NOM ni resultados experimentales. OE1 aporta esa selección justificada y sus exclusiones.
+Objetivo Específico 2 (OE2 — Arquitectura e implementación): Existen servicio de lectura, reglas YAML, acceso específico/dinámico, adaptadores y constructores FHIR. La contribución de desarrollo se conserva, delimitada por la allowlist y las rutas codificadas. La inspección identifica incompatibilidades de alias/proyección, sustituciones y diferencias temporales entre evaluador y constructores; por ello, no se concluye integridad clínica ni cobertura multi-esquema completa a partir de la existencia del software.
+Objetivo Específico 3 (OE3 — Evaluación): Se dispone de un modelo sintético, scripts y registros históricos, pero no de una ejecución trazable que acredite conjuntamente CA-1 a CA-5 para el commit actual y todos los arquetipos. La evaluación integral queda pendiente en los siguientes términos:
+CA-1: Conformidad oficial N/V. R1 informa que el validador no se ejecutó y el consolidado asigna los ceros; se requieren informes posteriores del validador sobre salidas reales.
+CA-2: Concordancia con Rust N/V. El 16,250/16,250 de --self-test corresponde a autoverificación del oráculo; se necesitan comparaciones contra el servidor o sus exportaciones. Las veinte mutaciones son casos del verificador y sus resultados deben documentarse por separado.
+CA-3: Rechazo HTTP y falsos rechazos N/V. La evaluación local de cien casos no acredita cien transacciones del servidor ni el control nominal de cada arquetipo.
+CA-4 y CA-5: Se verificó la presencia y el tamaño de las configuraciones. Los cero cambios y la equivalencia declarados por el consolidado no prueban una transición experimental con el mismo binario; se necesitan hashes, historial y comparación de salidas por esquema.
+Caracterización Técnica: R1 reporta una corrida nominal histórica y tres de resiliencia. Sus métricas se conservan con versión, fase y fuente, sin trasladarlas al commit actual. Las cifras del consolidado posterior y la telemetría conjunta permanecen N/V, y no permiten concluir capacidad hospitalaria ni eficiencia comparativa.
+Objetivo General y pregunta de investigación: El diseño y el software permiten formular una hipótesis de factibilidad técnica, pero su evaluación completa no está acreditada con los materiales disponibles. El resultado global se mantiene PENDIENTE DE VERIFICACIÓN, sin asignar Viable o No viable por ausencia de evidencia. Su cierre requiere salidas reales, validación independiente, corpus HTTP y trazabilidad de la adaptación.
+Limitaciones identificadas y recomendaciones para trabajo futuro
+La prioridad inmediata es cerrar las verificaciones del protocolo ya definido y reconciliar versiones, resultados negativos y fuentes. Las líneas siguientes corresponden a ampliaciones posteriores; no sustituyen la validación pendiente ni deben presentarse como tareas realizadas.
+Firma electrónica y procedencia: Diseñar y evaluar una extensión que vincule los recursos clínicos con su procedencia y, cuando corresponda, firmas digitales mediante Provenance.signature. La incorporación técnica de certificados y firmas debe acompañarse de la evaluación normativa y operativa aplicable; por sí sola no acredita validez jurídica, no repudio ni certificación del sistema.
+Evaluación integral con API Gateway, OAuth 2.0 (SMART on FHIR) y cifrado TLS: Desplegar MedSys-FHIR detrás de un API Gateway productivo con terminación TLS 1.3, permisos por alcances clínicos (scopes patient/*.read de SMART on FHIR; Mandel et al., 2016) y bitácoras de auditoría. Esto permitirá medir la sobrecarga criptográfica sobre redes físicas reales.
+Ampliación y verificación del contrato RESTful: Partir de las rutas de colección y Bundle ya presentes, documentar sus filtros realmente admitidos y contrastarlos con el contrato de búsqueda FHIR R4. Ampliar las búsquedas que falten y publicar un CapabilityStatement que describa el comportamiento implementado. Cada extensión requiere pruebas contra el servicio y no se presume existente por aparecer como propuesta de ruta.
+Extensiones de apellidos y procedencia de estados: Implementar y evaluar la preservación separada de apellidos cuando el contrato lo requiera, y definir fuentes o reglas justificadas para Observation.status y Condition.clinicalStatus. No se deriva el estado de la observación automáticamente del estado del encuentro, pues representan ciclos de vida distintos.
+Expansión de la taxonomía de fallos hacia validación clínica avanzada (Categorías T6 a T8): Ampliar el motor y el corpus de fallos para detectar valores fisiológicos imposibles (T6, p. ej., presión diastólica mayor que la sistólica). Asimismo, incorporar reglas para incoherencias cronológicas entre fechas (T7) y contradicciones clínicas entre edad o sexo y diagnóstico CIE-10 (T8).
+Guía de adopción y evaluación con terceros: Completar y verificar la Guía de Adopción prevista como Anexo H, no localizada entre los artefactos del repositorio consultado, y después evaluar su uso por desarrolladores externos sobre un esquema nuevo. Cualquier piloto institucional requerirá acordar el banco, la protección de datos, los permisos y las condiciones de medición; no se presenta como validación realizada.
+Referencias
+Las referencias citadas en este capítulo se reúnen en el documento 05_Referencias_Bibliograficas de la tesis. Su presencia en ese documento no sustituye la comprobación de cada afirmación ni los reportes primarios de los experimentos.
