@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "436",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUXR660709MCSGXS86"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Fernanda Aguilar",
+      "family": "Aguilar",
+      "given": [
+        "Rosa",
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616543334",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-07-09"
+}

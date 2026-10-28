@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "625",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXG001230MCSDXB95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Sofia Medina",
+      "family": "Medina",
+      "given": [
+        "Gabriela",
+        "Sofia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617555018",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2000-12-30"
+}

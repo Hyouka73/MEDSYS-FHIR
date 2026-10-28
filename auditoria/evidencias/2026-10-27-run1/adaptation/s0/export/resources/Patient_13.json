@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "13",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROMA640214HCSDNR23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Pedro Rodriguez Munoz",
+      "family": "Rodriguez Munoz",
+      "given": [
+        "Armando",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617152991",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1964-02-14"
+}

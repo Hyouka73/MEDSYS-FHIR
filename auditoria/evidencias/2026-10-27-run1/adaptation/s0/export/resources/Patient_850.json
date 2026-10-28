@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "850",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAJL170524MCSMRC50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Beatriz Ramirez Juarez",
+      "family": "Ramirez Juarez",
+      "given": [
+        "Lucia",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616318751",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2017-05-24"
+}

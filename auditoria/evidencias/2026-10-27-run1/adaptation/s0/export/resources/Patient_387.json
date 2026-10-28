@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "387",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEPA640527MCSRRL37"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Perez Perez",
+      "family": "Perez Perez",
+      "given": [
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612452707",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1964-05-27"
+}

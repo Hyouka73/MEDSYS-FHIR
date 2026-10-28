@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/563",
+  "started_utc": "2026-10-28T02:56:29.206860+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"563\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REPC900219MCSYRR33\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carmen Patricia Reyes Perez\",\n      \"family\": \"Reyes Perez\",\n      \"given\": [\n        \"Carmen\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612149391\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1990-02-19\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "83c41bf38f4457824f430ec5a0da17d75ad4eb240374fb08d963c1e921a8d684",
+  "elapsed_seconds": 0.00872969999909401,
+  "resource": "Patient/563",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

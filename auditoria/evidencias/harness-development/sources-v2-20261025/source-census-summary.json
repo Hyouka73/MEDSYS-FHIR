@@ -1,0 +1,87 @@
+{
+  "kind": "source_census_and_oracle_sensitivity_only",
+  "schemas": {
+    "s0": {
+      "source_sha256": "5515525341ff60fa15f6ac1ef5b08a980c848e281ae55b68a0f39345624f8d5c",
+      "row_counts": {
+        "tbl_pacientes": 1000,
+        "tbl_consultas": 2500,
+        "tbl_signos_vitales": 2500,
+        "tbl_diagnosticos": 3000
+      },
+      "expected_resource_census_derived_from_real_source": {
+        "Patient": 1000,
+        "Encounter": 2500,
+        "Observation": 9750,
+        "Condition": 3000
+      },
+      "expected_absences": 250,
+      "mutations_detected": 20,
+      "mutation_total": 20,
+      "not_rust_outputs": true,
+      "census_matches_original": true
+    },
+    "s1": {
+      "source_sha256": "de61a16136dd92b57a6aad2b5857271a3c1db5fada6ab9fc6396d1b5d0eaaa26",
+      "row_counts": {
+        "tbl_sabana_consulta_externa": 2500,
+        "tbl_sabana_diagnosticos": 3000
+      },
+      "expected_resource_census_derived_from_real_source": {
+        "Patient": 1000,
+        "Encounter": 2500,
+        "Observation": 9750,
+        "Condition": 3000
+      },
+      "expected_absences": 250,
+      "mutations_detected": 20,
+      "mutation_total": 20,
+      "not_rust_outputs": true,
+      "census_matches_original": true
+    },
+    "s2": {
+      "source_sha256": "fae4ba3087f05fdeeaf6c1ea2fa331476776e34b28a9b12350e0b06f2d447ccd",
+      "row_counts": {
+        "tbl_pacientes_s2": 1000,
+        "tbl_consultas_s2": 2500,
+        "tbl_signos_s2": 2500,
+        "tbl_diagnosticos_s2": 3000,
+        "cat_sexo_biologico": 3,
+        "cat_estado_consulta": 3,
+        "cat_cie10": 20,
+        "cat_tipo_diagnostico": 2
+      },
+      "expected_resource_census_derived_from_real_source": {
+        "Patient": 1000,
+        "Encounter": 2500,
+        "Observation": 9750,
+        "Condition": 3000
+      },
+      "expected_absences": 250,
+      "mutations_detected": 20,
+      "mutation_total": 20,
+      "not_rust_outputs": true,
+      "census_matches_original": true
+    },
+    "s3": {
+      "source_sha256": "eef2a92eab1e79147d108880c98923e26a8a5e1e7e7e0684169b0a9e3c683a8c",
+      "row_counts": {
+        "tbl_pacientes_s3": 1000,
+        "tbl_consultas_s3": 2500,
+        "tbl_signos_s3": 2500,
+        "tbl_diagnosticos_s3": 3000
+      },
+      "expected_resource_census_derived_from_real_source": {
+        "Patient": 1000,
+        "Encounter": 2500,
+        "Observation": 9750,
+        "Condition": 3000
+      },
+      "expected_absences": 250,
+      "mutations_detected": 20,
+      "mutation_total": 20,
+      "not_rust_outputs": true,
+      "census_matches_original": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "301",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RATJ831026HCSMRR41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Rogelio Ramos Torres",
+      "family": "Ramos Torres",
+      "given": [
+        "Jorge",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615555320",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1983-10-26"
+}

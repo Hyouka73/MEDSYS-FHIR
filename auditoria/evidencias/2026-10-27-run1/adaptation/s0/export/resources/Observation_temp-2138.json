@@ -1,0 +1,39 @@
+{
+  "resourceType": "Observation",
+  "id": "temp-2138",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "8310-5",
+        "display": "Body temperature"
+      }
+    ],
+    "text": "Temperatura Corporal"
+  },
+  "subject": {
+    "reference": "Patient/719"
+  },
+  "encounter": {
+    "reference": "Encounter/2138"
+  },
+  "effectiveDateTime": "2025-02-11T06:41:00+00:00",
+  "valueQuantity": {
+    "value": 37.3,
+    "unit": "Cel",
+    "system": "http://unitsofmeasure.org",
+    "code": "Cel"
+  }
+}

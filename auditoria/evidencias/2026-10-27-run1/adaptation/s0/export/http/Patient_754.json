@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/754",
+  "started_utc": "2026-10-28T02:56:29.791527+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "553",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"754\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUCA070910MCSTSL44\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandra Gutierrez Castillo\",\n      \"family\": \"Gutierrez Castillo\",\n      \"given\": [\n        \"Alejandra\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615265407\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2007-09-10\"\n}",
+  "body_bytes": 553,
+  "body_sha256": "f6887a4fd2935a6c37563dceed173aa0151d7eb84aa4c17b65a1e378ad807bcf",
+  "elapsed_seconds": 0.01767829997697845,
+  "resource": "Patient/754",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

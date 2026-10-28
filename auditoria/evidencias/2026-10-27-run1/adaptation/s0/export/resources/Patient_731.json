@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "731",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOTM151026MCSPRR21"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Maria Elena Lopez Torres",
+      "family": "Lopez Torres",
+      "given": [
+        "Maria",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611657785",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2015-10-26"
+}

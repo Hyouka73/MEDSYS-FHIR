@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "310",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAML731202MCSRRT50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Carmen Garcia Moreno",
+      "family": "Garcia Moreno",
+      "given": [
+        "Leticia",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617648898",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1973-12-02"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/178",
+  "started_utc": "2026-10-28T02:56:27.971823+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "452",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"178\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAGM731006HCSHRR98\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mario Eduardo Chavez Garcia\",\n      \"family\": \"Chavez Garcia\",\n      \"given\": [\n        \"Mario\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1973-10-06\"\n}",
+  "body_bytes": 452,
+  "body_sha256": "7eb852e3d74ca8539abf672180df9cc26c215d7403783fc35c28300bd73c2fb7",
+  "elapsed_seconds": 0.022223700012546033,
+  "resource": "Patient/178",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

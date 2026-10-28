@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "734",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOML631027MCSPDR24"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Mariana Lopez Medina",
+      "family": "Lopez Medina",
+      "given": [
+        "Lorena",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617009156",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-10-27"
+}

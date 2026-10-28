@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "628",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXR480723HCSSXB98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Andres Castro",
+      "family": "Castro",
+      "given": [
+        "Roberto",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611835004",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1948-07-23"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "200",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAVC540721MCSSSL30"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Alejandra Castillo Vasquez",
+      "family": "Castillo Vasquez",
+      "given": [
+        "Claudia",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613048557",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1954-07-21"
+}

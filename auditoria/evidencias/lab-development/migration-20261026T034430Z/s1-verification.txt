@@ -1,0 +1,6 @@
+medsys_eval_s1
+reanudacion-2933964
+/var/lib/postgresql/medsys-eval-2933964
+55432
+medsys_ro
+t|f

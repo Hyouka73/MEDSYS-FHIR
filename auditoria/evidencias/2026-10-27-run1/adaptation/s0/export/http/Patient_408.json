@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/408",
+  "started_utc": "2026-10-28T02:56:28.751133+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "446",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"408\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORL550809MCSMMT58\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Leticia Ana Gomez Ramos\",\n      \"family\": \"Gomez Ramos\",\n      \"given\": [\n        \"Leticia\",\n        \"Ana\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1955-08-09\"\n}",
+  "body_bytes": 446,
+  "body_sha256": "75d3b05e3d9951fc4b8f4320528da5de85a9fadb24cb7921d2ae778031231a11",
+  "elapsed_seconds": 0.005626900005154312,
+  "resource": "Patient/408",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/440",
+  "started_utc": "2026-10-28T02:56:28.837634+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "546",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"440\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PEXM700108MCSRXR90\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mariana Karla Perez\",\n      \"family\": \"Perez\",\n      \"given\": [\n        \"Mariana\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613193546\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1970-01-08\"\n}",
+  "body_bytes": 546,
+  "body_sha256": "f359502b61303b0e6bf3ff94a04a036b015567eef21f48bc029e70e6e967b125",
+  "elapsed_seconds": 0.009531599993351847,
+  "resource": "Patient/440",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

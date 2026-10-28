@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/135",
+  "started_utc": "2026-10-28T02:56:27.849335+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"135\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TOHJ481001HCSRRV55\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Eduardo Torres Herrera\",\n      \"family\": \"Torres Herrera\",\n      \"given\": [\n        \"Javier\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613559158\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1948-10-01\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "f05b88ed954071c8585ee14b14b3b81429932661d5e19b84a1b2660a842214f7",
+  "elapsed_seconds": 0.012306899996474385,
+  "resource": "Patient/135",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

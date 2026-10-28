@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "504",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HERK810824MCSRDR64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Natalia Herrera Rodriguez",
+      "family": "Herrera Rodriguez",
+      "given": [
+        "Karla",
+        "Natalia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1981-08-24"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/691",
+  "started_utc": "2026-10-28T02:56:29.621315+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"691\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOMS640315MCSLRF71\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Leticia Flores Moreno\",\n      \"family\": \"Flores Moreno\",\n      \"given\": [\n        \"Sofia\",\n        \"Leticia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613332541\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1964-03-15\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "ab1f0f2a3f56d0124ae1c1970b201cc03d019c4efd7e1ac30c3524f5592eca29",
+  "elapsed_seconds": 0.008400300052016973,
+  "resource": "Patient/691",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

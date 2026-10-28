@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "109",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUSG841010MCSTNB29"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Martha Gutierrez Sanchez",
+      "family": "Gutierrez Sanchez",
+      "given": [
+        "Gabriela",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611649152",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1984-10-10"
+}

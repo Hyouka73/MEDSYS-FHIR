@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "110",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUMD620510HCSRNV30"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Antonio Juarez Munoz",
+      "family": "Juarez Munoz",
+      "given": [
+        "David",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612148166",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1962-05-10"
+}

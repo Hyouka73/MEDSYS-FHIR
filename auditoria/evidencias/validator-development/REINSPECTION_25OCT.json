@@ -1,0 +1,100 @@
+{
+  "kind": "prior_validator_control_reinspection",
+  "inspected_utc": "2026-10-26T03:41:04.298968+00:00",
+  "original_summary_sha256": "59ddf6d882dff8a8c4902fd31e892a29c64ab5d9f24767b6d4f406d51162a033",
+  "original_outcomes_sha256": "55db2fa1831d1ec21beffe9f88023c82cc80b3f63789aef1acf558a679c59886",
+  "validator_process_exit_code": 0,
+  "runner_status": "FAIL",
+  "resources": [
+    {
+      "resource": "Patient/invalid",
+      "severity_counts": {
+        "error": 2,
+        "warning": 1
+      }
+    },
+    {
+      "resource": "Patient/nominal",
+      "severity_counts": {
+        "warning": 1
+      }
+    }
+  ],
+  "loaded_package_ids": [
+    "hl7.fhir.r4.core#4.0.1",
+    "hl7.fhir.uv.extensions#5.3.0",
+    "hl7.fhir.uv.extensions.r4#5.2.0",
+    "hl7.fhir.uv.extensions.r5#5.2.0",
+    "hl7.fhir.xver-extensions#0.1.0",
+    "hl7.terminology#7.4.0",
+    "hl7.terminology.r4#6.2.0",
+    "hl7.terminology.r5#7.1.0"
+  ],
+  "package_hashes_now": [
+    {
+      "name": "hl7.fhir.uv.extensions.r4",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\0a1579a2-55c1-4a7d-8023-fcf790b1c3fd\\package",
+      "file_count": 1401,
+      "tree_sha256": "ae0ca26512b5aa6a2e97adaa0bf7ad5c80a31dcec8b802f25728c95918522890",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r4",
+      "version": "6.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\1b74415e-e111-4fcd-a472-89e9897e4732\\package",
+      "file_count": 4342,
+      "tree_sha256": "a9ebec2143e87c862e9ed33dae7304f9b6bdc0cb50b0abe2e0984384399ed234",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions.r5",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\3f57693c-781d-4c15-9f42-bc3fa74c2095\\package",
+      "file_count": 1401,
+      "tree_sha256": "1b730308f45a1d9021aac70bd4e55da4604fcea3ca34e05cbb422ccca296ad9a",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r5",
+      "version": "7.1.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\67851277-8f47-49cb-9f52-d1a54612bac5\\package",
+      "file_count": 4120,
+      "tree_sha256": "5af59c886367f2d22a270384fde7d12890d409b023091493dfc16e91d9db6f5c",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions",
+      "version": "5.3.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\9b908c54-3049-4604-b726-4cf55b0e16a9\\package",
+      "file_count": 1565,
+      "tree_sha256": "c66b5f1d969e0127ead2dfd640839bc8ad757d1e79eb4ba1225173f6dbec9382",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.r4.core",
+      "version": "4.0.1",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\d9d7f741-e209-4973-97e9-43390afe1131\\package",
+      "file_count": 4741,
+      "tree_sha256": "70d66023b0cc2143be32eef6c97ca1595cd3f59aa5f12838260451fbd9ac6238",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.xver-extensions",
+      "version": "0.1.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\f26a1398-4f92-4c45-8aa3-fac05594e955\\package",
+      "file_count": 13,
+      "tree_sha256": "0a0bc0e7afbe2e72791569aadef1b07b2af3e362256f5d23b99377c2d54765e3",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology",
+      "version": "7.4.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\f45c57b5-00cf-410a-af1a-3397f80ff886\\package",
+      "file_count": 4230,
+      "tree_sha256": "dca68f40ebe6456eaf82bcb280d37e53b68c6d2862dc6d54b7260c8f56b07c2f",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    }
+  ],
+  "limitation": "Reinspection of a historical control, not a new middleware conformance execution. Package hashes are read now from the retained cache and do not replace the original run timestamp."
+}

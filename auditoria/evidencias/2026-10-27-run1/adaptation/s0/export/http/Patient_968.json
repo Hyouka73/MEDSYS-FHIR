@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/968",
+  "started_utc": "2026-10-28T02:56:30.488071+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"968\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOOG500910MCSPRD78\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Guadalupe Gabriela Lopez Ortiz\",\n      \"family\": \"Lopez Ortiz\",\n      \"given\": [\n        \"Guadalupe\",\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613245824\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1950-09-10\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "c1861f122469b618c20addf10f8d366a65d49eacf692e4c893d8275f9f582374",
+  "elapsed_seconds": 0.0172193999751471,
+  "resource": "Patient/968",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

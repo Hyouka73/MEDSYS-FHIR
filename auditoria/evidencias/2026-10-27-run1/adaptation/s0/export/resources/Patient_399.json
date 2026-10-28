@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "399",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AATY080524MCSLRL49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Beatriz Alvarez Torres",
+      "family": "Alvarez Torres",
+      "given": [
+        "Yolanda",
+        "Beatriz"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2008-05-24"
+}

@@ -1,0 +1,2 @@
+# Preserve experimental evidence byte-for-byte across platforms.
+/auditoria/evidencias/** -text

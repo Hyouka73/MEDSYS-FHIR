@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/167",
+  "started_utc": "2026-10-28T02:56:27.939246+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "576",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"167\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAGY060213MCSSNL87\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Gabriela Castillo Gonzalez\",\n      \"family\": \"Castillo Gonzalez\",\n      \"given\": [\n        \"Yolanda\",\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615187369\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2006-02-13\"\n}",
+  "body_bytes": 576,
+  "body_sha256": "5eed6e3e1fd8fde42eaacb08f5e444690081f5fb7f76b486f09e860680c078f1",
+  "elapsed_seconds": 0.008234600012656301,
+  "resource": "Patient/167",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

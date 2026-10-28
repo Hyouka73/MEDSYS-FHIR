@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-1946",
+  "started_utc": "2026-10-28T02:56:06.043798+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "775",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:06 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-1946\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/737\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1946\"\n  },\n  \"effectiveDateTime\": \"2025-11-17T22:32:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 86,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 775,
+  "body_sha256": "516a43731cb394d9cff2b62d112eb19ef2ab93e35a796d1ef4615a4bc01ab10e",
+  "elapsed_seconds": 0.017467099998611957,
+  "resource": "Observation/hr-1946",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

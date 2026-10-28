@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "430",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORB600821MCSRZT80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Gloria Moreno Ruiz",
+      "family": "Moreno Ruiz",
+      "given": [
+        "Beatriz",
+        "Gloria"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1960-08-21"
+}

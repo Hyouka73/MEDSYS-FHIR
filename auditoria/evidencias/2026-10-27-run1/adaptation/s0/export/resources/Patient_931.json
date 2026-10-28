@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "931",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOMM910912HCSRRG41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Andres Moreno Morales",
+      "family": "Moreno Morales",
+      "given": [
+        "Miguel",
+        "Andres"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1991-09-12"
+}

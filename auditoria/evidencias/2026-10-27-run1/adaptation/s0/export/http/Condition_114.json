@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/114",
+  "started_utc": "2026-10-28T02:55:32.466690+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1041",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:32 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"114\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"K30\",\n        \"display\": \"Dispepsia funcional\"\n      }\n    ],\n    \"text\": \"Dispepsia funcional\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/171\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/114\"\n  },\n  \"recordedDate\": \"2026-01-24\"\n}",
+  "body_bytes": 1041,
+  "body_sha256": "ea85e543b68229cd98eed08318f27b785df44629225e6495e20bea41cf48d4c1",
+  "elapsed_seconds": 0.007753399957437068,
+  "resource": "Condition/114",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,95 @@
+{
+  "kind": "CA-1",
+  "started_utc": "2026-10-28T02:53:03.009194+00:00",
+  "status": "INCOMPLETE",
+  "fhir_version": "4.0.1",
+  "terminology": "n/a",
+  "terminology_limit": "tx=n/a disables terminology server checks; structural conformance is not complete terminology validation",
+  "batches": [
+    {
+      "command": [
+        "java",
+        "-Xmx768m",
+        "-jar",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-invalid.json",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-valid.json",
+        "-version",
+        "4.0.1",
+        "-tx",
+        "n/a",
+        "-output",
+        "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\control-27oct\\batch-0001\\outcomes.json",
+        "-output-style",
+        "json"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-28T02:53:03.418080+00:00",
+      "input_count": 2,
+      "windows_command_line_characters": 403,
+      "duration_seconds": 250.78445570002077,
+      "finished_utc": "2026-10-28T02:57:14.202661+00:00"
+    }
+  ],
+  "schema": "s0",
+  "jar": "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+  "jar_sha256": "e3e50f06b806437821b7aef8189a1b790415cb96c5036e0812ed62981452b377",
+  "java": {
+    "command": [
+      "java",
+      "-version"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "openjdk version \"21.0.10\" 2026-01-20 LTS\nOpenJDK Runtime Environment Microsoft-13106404 (build 21.0.10+7-LTS)\nOpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sharing)\n"
+  },
+  "expected_count": 2,
+  "observed_count": 2,
+  "resource_census": {
+    "Patient": 2
+  },
+  "unique_resource_count": 2,
+  "duplicate_resource_ids": [],
+  "stop_reason": "Explicit user stop; Java control finished but package hashing/consolidation interrupted",
+  "stopped_utc": "2026-10-28T03:01:13.017499+00:00",
+  "package_hashing_complete": false,
+  "observed_java_execution": {
+    "command": [
+      "java",
+      "-Xmx768m",
+      "-jar",
+      "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+      "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-invalid.json",
+      "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-valid.json",
+      "-version",
+      "4.0.1",
+      "-tx",
+      "n/a",
+      "-output",
+      "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\control-27oct\\batch-0001\\outcomes.json",
+      "-output-style",
+      "json"
+    ],
+    "exit_code": 0,
+    "started_utc": "2026-10-28T02:53:03.418080+00:00",
+    "input_count": 2,
+    "windows_command_line_characters": 403,
+    "duration_seconds": 250.78445570002077,
+    "finished_utc": "2026-10-28T02:57:14.202661+00:00"
+  },
+  "observed_fixture_results": [
+    {
+      "resource": "Patient/invalid",
+      "severity_counts": {
+        "error": 2,
+        "warning": 1
+      }
+    },
+    {
+      "resource": "Patient/nominal",
+      "severity_counts": {
+        "warning": 1
+      }
+    }
+  ]
+}

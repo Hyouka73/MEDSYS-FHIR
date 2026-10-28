@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "314",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AACD771003HCSLSV54"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Salvador Alvarez Castillo",
+      "family": "Alvarez Castillo",
+      "given": [
+        "David",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611290492",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1977-10-03"
+}

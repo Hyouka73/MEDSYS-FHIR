@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "632",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIXD940927HCSZXV12"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Gabriel Diaz",
+      "family": "Diaz",
+      "given": [
+        "David",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612036591",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1994-09-27"
+}

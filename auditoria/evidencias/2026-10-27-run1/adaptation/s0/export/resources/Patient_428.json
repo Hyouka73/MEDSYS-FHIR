@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "428",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUXL660804MCSGXC78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Adriana Aguilar",
+      "family": "Aguilar",
+      "given": [
+        "Lucia",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616190631",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-08-04"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/392",
+  "started_utc": "2026-10-28T02:56:28.708438+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"392\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MELD730709HCSNPN42\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniel Eduardo Mendoza Lopez\",\n      \"family\": \"Mendoza Lopez\",\n      \"given\": [\n        \"Daniel\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611154319\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1973-07-09\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "96f18caaeca6a829fe9ab6f944c3a54b75c8d29bd9b4109a787839f266d72164",
+  "elapsed_seconds": 0.00985259999288246,
+  "resource": "Patient/392",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

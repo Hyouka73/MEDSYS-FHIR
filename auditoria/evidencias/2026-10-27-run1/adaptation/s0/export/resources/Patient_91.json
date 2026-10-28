@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "91",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROGR570613HCSDMC11"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ricardo Javier Rodriguez Gomez",
+      "family": "Rodriguez Gomez",
+      "given": [
+        "Ricardo",
+        "Javier"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614096153",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1957-06-13"
+}

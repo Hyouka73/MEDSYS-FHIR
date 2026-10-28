@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/330",
+  "started_utc": "2026-10-28T02:56:28.503031+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "531",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"330\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUXN910225MCSTXT70\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Gutierrez\",\n      \"family\": \"Gutierrez\",\n      \"given\": [\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617083633\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1991-02-25\"\n}",
+  "body_bytes": 531,
+  "body_sha256": "cb2fc39a4c4ca08da86d9175dc5ac3e4fbd20280bf7f9cdaf6d051c42d4258ba",
+  "elapsed_seconds": 0.010069300013128668,
+  "resource": "Patient/330",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

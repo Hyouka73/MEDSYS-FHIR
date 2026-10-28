@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "687",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUHP121211MCSNRL67"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Lucia Munoz Herrera",
+      "family": "Munoz Herrera",
+      "given": [
+        "Paola",
+        "Lucia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612157073",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-12-11"
+}

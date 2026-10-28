@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "444",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DICJ921005HCSZSS94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Armando Diaz Castillo",
+      "family": "Diaz Castillo",
+      "given": [
+        "Jose",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612642193",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1992-10-05"
+}

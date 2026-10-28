@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "220",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAPC170506HCSRRR50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Manuel Garcia Perez",
+      "family": "Garcia Perez",
+      "given": [
+        "Carlos",
+        "Manuel"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2017-05-06"
+}

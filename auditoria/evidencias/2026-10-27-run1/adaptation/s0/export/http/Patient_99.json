@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/99",
+  "started_utc": "2026-10-28T02:56:30.557403+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "453",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"99\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VACA750201HCSRHL19\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Luis Vargas Chavez\",\n      \"family\": \"Vargas Chavez\",\n      \"given\": [\n        \"Alejandro\",\n        \"Luis\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1975-02-01\"\n}",
+  "body_bytes": 453,
+  "body_sha256": "fb349efd1f2e20754c0397bf8e9e2a848826cd5874eea5281a106c2b3525f401",
+  "elapsed_seconds": 0.012355700018815696,
+  "resource": "Patient/99",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

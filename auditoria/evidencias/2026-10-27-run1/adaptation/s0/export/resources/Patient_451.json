@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "451",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "REMA780108HCSYRL11"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Salvador Reyes Moreno",
+      "family": "Reyes Moreno",
+      "given": [
+        "Alexis",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613431848",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1978-01-08"
+}

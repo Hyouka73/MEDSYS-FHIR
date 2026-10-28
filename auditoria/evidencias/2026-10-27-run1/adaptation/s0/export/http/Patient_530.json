@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/530",
+  "started_utc": "2026-10-28T02:56:29.112084+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"530\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MARP070510HCSRDD90\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Pedro Andres Martinez Rodriguez\",\n      \"family\": \"Martinez Rodriguez\",\n      \"given\": [\n        \"Pedro\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612048478\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2007-05-10\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "9d31f0728337511b10914561a5ca84baf84e0445f64cc6268023ac8d8a4eafc6",
+  "elapsed_seconds": 0.008278299996163696,
+  "resource": "Patient/530",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

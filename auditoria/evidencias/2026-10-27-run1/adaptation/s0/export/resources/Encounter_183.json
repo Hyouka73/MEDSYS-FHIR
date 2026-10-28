@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "183",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "183"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/945"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "8274019"
+        },
+        "display": "Dra. Carmen Rodríguez Guillén"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-04-07T12:19:00+00:00",
+    "end": "2025-04-07T12:50:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Fiebre y dolor faríngeo de 3 días de evolución"
+    }
+  ]
+}

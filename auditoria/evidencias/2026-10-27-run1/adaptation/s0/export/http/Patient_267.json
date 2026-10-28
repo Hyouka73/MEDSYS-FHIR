@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/267",
+  "started_utc": "2026-10-28T02:56:28.291556+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "460",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"267\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AAJG570504MCSLRB97\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Monica Alvarez Juarez\",\n      \"family\": \"Alvarez Juarez\",\n      \"given\": [\n        \"Gabriela\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1957-05-04\"\n}",
+  "body_bytes": 460,
+  "body_sha256": "e04169e88452c761adb4187186a5d9fc20559397afeb1d7aa5a38b8ee114ca47",
+  "elapsed_seconds": 0.013219200016465038,
+  "resource": "Patient/267",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

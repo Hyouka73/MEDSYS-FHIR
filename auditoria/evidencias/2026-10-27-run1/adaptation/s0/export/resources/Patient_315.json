@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "315",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAMA800102MCSLRD55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Adriana Gloria Alvarez Morales",
+      "family": "Alvarez Morales",
+      "given": [
+        "Adriana",
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613362660",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1980-01-02"
+}

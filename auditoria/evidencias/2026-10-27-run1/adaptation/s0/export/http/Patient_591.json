@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/591",
+  "started_utc": "2026-10-28T02:56:29.290430+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "548",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"591\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAXM060306HCSMXR61\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mario Antonio Ramirez\",\n      \"family\": \"Ramirez\",\n      \"given\": [\n        \"Mario\",\n        \"Antonio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619743938\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2006-03-06\"\n}",
+  "body_bytes": 548,
+  "body_sha256": "b16cc3270a4c852ecba2b9bf6a31d977361d7e4a2fb4106833878e7b0c8bdbb3",
+  "elapsed_seconds": 0.045603000035043806,
+  "resource": "Patient/591",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

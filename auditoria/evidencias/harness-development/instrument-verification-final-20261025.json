@@ -1,0 +1,18 @@
+{
+  "kind": "instrument_verification_only",
+  "command": [
+    "C:\\Python313\\python.exe",
+    "scripts/test_experimental_evidence.py"
+  ],
+  "exit_code": 0,
+  "finished_utc": "2026-10-26T04:01:04.685676+00:00",
+  "middleware_results": false,
+  "script_sha256": {
+    "test_experimental_evidence.py": "f48728d467624fc1b35daf25d0ece58d8771e8f02d2d2da6e1738251a00b3122",
+    "experimental_evidence.py": "60e9cdc5cb36eb55b2801c53495041e2f48e14d7cdb48444cea33cbf969be463",
+    "oracle_verifier.py": "dd49d4907f42a9c7758632dd7be8e4b2d99ee975fa4efd1fcedd38063cd4ef4a",
+    "run_all_cap4_experiments.py": "b39adf6a1fb3423f69ddafac345c1e131f2086e1c47b2cba1f45ffa62c1efbc2",
+    "generate_data.py": "b7a24551396760d07516364e590f40a39ebc770f5e9e307f45fcd76fc26bacc4",
+    "create_evaluation_lab_v2.py": "c286511e9ef3cbe1b1d48b8649466363fced25a5f8414a7e60cbef544fb006c8"
+  }
+}

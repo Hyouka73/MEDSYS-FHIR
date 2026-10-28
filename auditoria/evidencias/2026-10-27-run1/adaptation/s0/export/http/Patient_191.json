@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/191",
+  "started_utc": "2026-10-28T02:56:28.010908+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "550",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"191\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PEXD611117MCSRXN21\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniela Adriana Perez\",\n      \"family\": \"Perez\",\n      \"given\": [\n        \"Daniela\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616875191\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-11-17\"\n}",
+  "body_bytes": 550,
+  "body_sha256": "6b0faeb9f2364d100caa9d9270535f0793454d79a16aa398196f9415b273ce37",
+  "elapsed_seconds": 0.012481400044634938,
+  "resource": "Patient/191",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "367",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HECM090525HCSRSG17"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Alejandro Herrera Castillo",
+      "family": "Herrera Castillo",
+      "given": [
+        "Miguel",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613863162",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2009-05-25"
+}

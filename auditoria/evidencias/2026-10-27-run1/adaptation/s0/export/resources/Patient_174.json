@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "174",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIFD691231MCSZLN94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Claudia Diaz Flores",
+      "family": "Diaz Flores",
+      "given": [
+        "Daniela",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614894822",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1969-12-31"
+}

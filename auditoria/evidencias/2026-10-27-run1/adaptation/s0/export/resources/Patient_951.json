@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "951",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIXC100504MCSZXL61"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Diaz",
+      "family": "Diaz",
+      "given": [
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613572237",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2010-05-04"
+}

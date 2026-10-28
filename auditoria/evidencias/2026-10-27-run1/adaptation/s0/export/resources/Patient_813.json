@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "813",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROMR880813MCSDNS13"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Fernanda Rodriguez Mendez",
+      "family": "Rodriguez Mendez",
+      "given": [
+        "Rosa",
+        "Fernanda"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-08-13"
+}

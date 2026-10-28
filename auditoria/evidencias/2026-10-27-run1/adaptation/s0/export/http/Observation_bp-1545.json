@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/bp-1545",
+  "started_utc": "2026-10-28T02:55:54.223402+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1433",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:54 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"bp-1545\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"85354-9\",\n        \"display\": \"Blood pressure panel with all children optional\"\n      }\n    ],\n    \"text\": \"Presión arterial\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/86\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1545\"\n  },\n  \"effectiveDateTime\": \"2025-08-17T01:12:00+00:00\",\n  \"component\": [\n    {\n      \"code\": {\n        \"coding\": [\n          {\n            \"system\": \"http://loinc.org\",\n            \"code\": \"8480-6\",\n            \"display\": \"Systolic blood pressure\"\n          }\n        ]\n      },\n      \"valueQuantity\": {\n        \"value\": 155,\n        \"unit\": \"mmHg\",\n        \"system\": \"http://unitsofmeasure.org\",\n        \"code\": \"mm[Hg]\"\n      }\n    },\n    {\n      \"code\": {\n        \"coding\": [\n          {\n            \"system\": \"http://loinc.org\",\n            \"code\": \"8462-4\",\n            \"display\": \"Diastolic blood pressure\"\n          }\n        ]\n      },\n      \"valueQuantity\": {\n        \"value\": 75,\n        \"unit\": \"mmHg\",\n        \"system\": \"http://unitsofmeasure.org\",\n        \"code\": \"mm[Hg]\"\n      }\n    }\n  ]\n}",
+  "body_bytes": 1433,
+  "body_sha256": "bc66a357bb4b1494baf13bfcd34bb48eb1ddcd2cdeda1508f29f2b1a36dbb0a5",
+  "elapsed_seconds": 0.009546399989631027,
+  "resource": "Observation/bp-1545",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

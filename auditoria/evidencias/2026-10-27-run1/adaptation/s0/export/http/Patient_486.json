@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/486",
+  "started_utc": "2026-10-28T02:56:28.968714+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"486\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUGY640329MCSNML46\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Teresa Munoz Gomez\",\n      \"family\": \"Munoz Gomez\",\n      \"given\": [\n        \"Yolanda\",\n        \"Teresa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618392012\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1964-03-29\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "1f4a2d58f07a49d0a435129e5c753587e7b332b4d4779de522a4f006bfcc2988",
+  "elapsed_seconds": 0.008829899947158992,
+  "resource": "Patient/486",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

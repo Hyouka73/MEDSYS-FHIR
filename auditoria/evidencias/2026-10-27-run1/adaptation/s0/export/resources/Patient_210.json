@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "210",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOGR500524HCSRZG40"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rogelio Moreno Guzman",
+      "family": "Moreno Guzman",
+      "given": [
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618256229",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1950-05-24"
+}

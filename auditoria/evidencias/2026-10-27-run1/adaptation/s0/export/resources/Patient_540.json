@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "540",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUPP870921MCSNRL10"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Teresa Munoz Perez",
+      "family": "Munoz Perez",
+      "given": [
+        "Paola",
+        "Teresa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614184535",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1987-09-21"
+}

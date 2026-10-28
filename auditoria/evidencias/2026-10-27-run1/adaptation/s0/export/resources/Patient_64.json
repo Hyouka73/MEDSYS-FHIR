@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "64",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIRA930423MCSRZN74"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Patricia Ortiz Ruiz",
+      "family": "Ortiz Ruiz",
+      "given": [
+        "Ana",
+        "Patricia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1993-04-23"
+}

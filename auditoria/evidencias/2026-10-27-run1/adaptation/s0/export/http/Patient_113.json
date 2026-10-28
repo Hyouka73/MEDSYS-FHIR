@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/113",
+  "started_utc": "2026-10-28T02:56:27.795379+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"113\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAJA130605HCSMRL33\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Arturo Ramirez Juarez\",\n      \"family\": \"Ramirez Juarez\",\n      \"given\": [\n        \"Alexis\",\n        \"Arturo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611856157\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2013-06-05\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "7ec3f15097ee30df7c5ac4ea79ee2c8ea2dab6219a7c500b9a899ae77a757240",
+  "elapsed_seconds": 0.009376199974212795,
+  "resource": "Patient/113",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

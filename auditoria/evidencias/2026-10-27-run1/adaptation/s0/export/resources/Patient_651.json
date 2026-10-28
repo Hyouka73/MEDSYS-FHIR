@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "651",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAGS060101MCSMML31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Teresa Ramirez Gomez",
+      "family": "Ramirez Gomez",
+      "given": [
+        "Silvia",
+        "Teresa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616230775",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2006-01-01"
+}

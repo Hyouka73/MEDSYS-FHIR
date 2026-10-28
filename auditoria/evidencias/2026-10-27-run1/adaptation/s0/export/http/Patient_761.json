@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/761",
+  "started_utc": "2026-10-28T02:56:29.815557+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"761\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUTM500817HCSNRR51\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mario Eduardo Munoz Torres\",\n      \"family\": \"Munoz Torres\",\n      \"given\": [\n        \"Mario\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616601751\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-08-17\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "929ad2f72d1e224b0b8c84ba31ec0c3bfcd7a1afa513bc615e82155e664ce2a0",
+  "elapsed_seconds": 0.029573400039225817,
+  "resource": "Patient/761",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

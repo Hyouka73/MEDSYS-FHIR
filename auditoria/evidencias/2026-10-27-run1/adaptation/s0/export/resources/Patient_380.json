@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "380",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CATG090314MCSSRD30"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Mariana Castillo Torres",
+      "family": "Castillo Torres",
+      "given": [
+        "Guadalupe",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612256859",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2009-03-14"
+}

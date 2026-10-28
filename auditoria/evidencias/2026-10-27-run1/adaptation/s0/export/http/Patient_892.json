@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/892",
+  "started_utc": "2026-10-28T02:56:30.265583+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "545",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"892\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOHK791209MCSNRR92\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Karla Gonzalez Hernandez\",\n      \"family\": \"Gonzalez Hernandez\",\n      \"given\": [\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617962297\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1979-12-09\"\n}",
+  "body_bytes": 545,
+  "body_sha256": "519587ecccf345ea76153e236fffbbf79ef5f039d48795a73699f4fec86af7b8",
+  "elapsed_seconds": 0.035115000035148114,
+  "resource": "Patient/892",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

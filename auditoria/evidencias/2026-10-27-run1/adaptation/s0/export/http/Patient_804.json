@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/804",
+  "started_utc": "2026-10-28T02:56:29.957939+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "531",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"804\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIRL980603MCSRMR94\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Laura Ortiz Ramos\",\n      \"family\": \"Ortiz Ramos\",\n      \"given\": [\n        \"Laura\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617907389\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1998-06-03\"\n}",
+  "body_bytes": 531,
+  "body_sha256": "056d618c2f4eed1ff8418516cb9633d25cfef510052c1e07a022d994c588cd1b",
+  "elapsed_seconds": 0.015856599959079176,
+  "resource": "Patient/804",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "483",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAJJ150115HCSNRN43"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Antonio Sanchez Juarez",
+      "family": "Sanchez Juarez",
+      "given": [
+        "Juan",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9619229609",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2015-01-15"
+}

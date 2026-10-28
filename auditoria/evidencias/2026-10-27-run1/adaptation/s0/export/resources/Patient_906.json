@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "906",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEMM111018HCSDNR16"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Jorge Medina Mendoza",
+      "family": "Medina Mendoza",
+      "given": [
+        "Mario",
+        "Jorge"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612225636",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2011-10-18"
+}

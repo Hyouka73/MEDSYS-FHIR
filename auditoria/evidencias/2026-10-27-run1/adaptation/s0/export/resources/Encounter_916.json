@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "916",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "916"
+    }
+  ],
+  "status": "cancelled",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/456"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7362915"
+        },
+        "display": "Dr. Alejandro Morales Domínguez"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-05-11T12:49:00+00:00",
+    "end": "2025-05-11T13:08:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Fiebre y dolor faríngeo de 3 días de evolución"
+    }
+  ]
+}

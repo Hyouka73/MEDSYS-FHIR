@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/23",
+  "started_utc": "2026-10-28T02:56:28.150770+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "565",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"23\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEVS510502MCSRRL33\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Silvia Elena Hernandez Vargas\",\n      \"family\": \"Hernandez Vargas\",\n      \"given\": [\n        \"Silvia\",\n        \"Elena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611830141\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1951-05-02\"\n}",
+  "body_bytes": 565,
+  "body_sha256": "a93a3d1c8736370001567824613d08e9421bcfe472d8c4da4323236124be0a73",
+  "elapsed_seconds": 0.00799920002464205,
+  "resource": "Patient/23",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

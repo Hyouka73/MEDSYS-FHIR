@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/1000",
+  "started_utc": "2026-10-28T02:56:27.756225+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "557",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"1000\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIDJ970727HCSRZV20\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Gabriel Ortiz Diaz\",\n      \"family\": \"Ortiz Diaz\",\n      \"given\": [\n        \"Javier\",\n        \"Gabriel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612099297\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1997-07-27\"\n}",
+  "body_bytes": 557,
+  "body_sha256": "d5271b8886bc6fa4eb7ced9e041a040f9887961e839b127d5cd0eb032b9cf3ff",
+  "elapsed_seconds": 0.011500100023113191,
+  "resource": "Patient/1000",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

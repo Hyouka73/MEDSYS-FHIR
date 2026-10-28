@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/464",
+  "started_utc": "2026-10-28T02:56:28.908814+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"464\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAXC630522MCSSXL24\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Claudia Daniela Castro\",\n      \"family\": \"Castro\",\n      \"given\": [\n        \"Claudia\",\n        \"Daniela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616915042\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1963-05-22\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "0d280c8c4667f0d0d84deaa48352f3c6b131908b9048c9ef17bfe4f1f2659478",
+  "elapsed_seconds": 0.01130600000033155,
+  "resource": "Patient/464",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

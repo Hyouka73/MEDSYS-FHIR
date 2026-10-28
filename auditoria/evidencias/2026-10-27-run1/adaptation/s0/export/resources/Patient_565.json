@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "565",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOTD470922HCSLRN35"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniel Juan Flores Torres",
+      "family": "Flores Torres",
+      "given": [
+        "Daniel",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613500921",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1947-09-22"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "684",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOHS060207HCSPRL64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Salvador Mario Lopez Herrera",
+      "family": "Lopez Herrera",
+      "given": [
+        "Salvador",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612184848",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2006-02-07"
+}

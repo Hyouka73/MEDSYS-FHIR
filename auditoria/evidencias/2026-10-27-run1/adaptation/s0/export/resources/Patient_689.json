@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "689",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEGA521025HCSRRN69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Andres Hernandez Garcia",
+      "family": "Hernandez Garcia",
+      "given": [
+        "Andres",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616268940",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1952-10-25"
+}

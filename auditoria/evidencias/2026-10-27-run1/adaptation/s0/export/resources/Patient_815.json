@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "815",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAXR700602MCSLXS15"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Martha Alvarez",
+      "family": "Alvarez",
+      "given": [
+        "Rosa",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613931622",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1970-06-02"
+}

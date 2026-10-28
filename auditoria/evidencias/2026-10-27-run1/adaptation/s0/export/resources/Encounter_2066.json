@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2066",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2066"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/603"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "6284910"
+        },
+        "display": "Dra. Patricia Aguilar Cárdenas"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-10-18T19:38:00+00:00",
+    "end": "2025-10-18T20:14:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Control de glucemia y ajuste terapéutico"
+    }
+  ]
+}

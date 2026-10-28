@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1384",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1384"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/569"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "8274019"
+        },
+        "display": "Dra. Carmen Rodríguez Guillén"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-02-21T07:38:00+00:00",
+    "end": "2025-02-21T08:08:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Cefalea persistente y mareos"
+    }
+  ]
+}

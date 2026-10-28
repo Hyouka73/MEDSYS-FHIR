@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2135",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2135"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/667"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9182374"
+        },
+        "display": "Dr. Roberto Mendoza Solís"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-02-13T07:57:00+00:00",
+    "end": "2025-02-13T08:29:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Disuria y polaquiuria de inicio súbito"
+    }
+  ]
+}

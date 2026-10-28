@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/temp-1588",
+  "started_utc": "2026-10-28T02:56:21.386707+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "783",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:21 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"temp-1588\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8310-5\",\n        \"display\": \"Body temperature\"\n      }\n    ],\n    \"text\": \"Temperatura Corporal\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/110\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1588\"\n  },\n  \"effectiveDateTime\": \"2025-07-14T13:40:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 37.1,\n    \"unit\": \"Cel\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"Cel\"\n  }\n}",
+  "body_bytes": 783,
+  "body_sha256": "8ade08194461afdec847f3ca18ebb9bb58b2250b0d821e696311d9c551c2983a",
+  "elapsed_seconds": 0.012955499987583607,
+  "resource": "Observation/temp-1588",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

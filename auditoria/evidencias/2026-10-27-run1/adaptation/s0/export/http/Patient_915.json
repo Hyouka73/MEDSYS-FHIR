@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/915",
+  "started_utc": "2026-10-28T02:56:30.337423+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"915\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUCM910108MCSRSN25\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Monica Gloria Juarez Castro\",\n      \"family\": \"Juarez Castro\",\n      \"given\": [\n        \"Monica\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613506459\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1991-01-08\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "93d163a9a9f95c0b9db72a1649d8d1983a18ddb6b5a492d0cc6366a5bf8e4d8f",
+  "elapsed_seconds": 0.01309890003176406,
+  "resource": "Patient/915",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

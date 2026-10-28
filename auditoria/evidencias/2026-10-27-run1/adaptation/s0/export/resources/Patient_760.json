@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "760",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AARM700129MCSLYR50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Maria Ana Alvarez Reyes",
+      "family": "Alvarez Reyes",
+      "given": [
+        "Maria",
+        "Ana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616348127",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1970-01-29"
+}

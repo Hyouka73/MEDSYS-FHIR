@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "52",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAGV650426MCSSTR62"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Veronica Patricia Castillo Gutierrez",
+      "family": "Castillo Gutierrez",
+      "given": [
+        "Veronica",
+        "Patricia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612032976",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1965-04-26"
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "585",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAXV971117MCSLXR55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Veronica Beatriz Alvarez",
+      "family": "Alvarez",
+      "given": [
+        "Veronica",
+        "Beatriz"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-11-17"
+}

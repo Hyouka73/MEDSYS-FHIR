@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "588",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXL790227MCSSXR58"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Laura Lorena Castillo",
+      "family": "Castillo",
+      "given": [
+        "Laura",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612479300",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-02-27"
+}

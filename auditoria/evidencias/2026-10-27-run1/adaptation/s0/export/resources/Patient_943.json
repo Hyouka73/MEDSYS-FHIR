@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "943",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAMM990705MCSSNR53"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mariana Paola Castillo Mendez",
+      "family": "Castillo Mendez",
+      "given": [
+        "Mariana",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612088077",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1999-07-05"
+}

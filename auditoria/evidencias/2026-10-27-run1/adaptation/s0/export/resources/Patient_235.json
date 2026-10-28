@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "235",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAJL120816MCSRRT65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Guadalupe Vargas Juarez",
+      "family": "Vargas Juarez",
+      "given": [
+        "Leticia",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613133640",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-08-16"
+}

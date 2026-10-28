@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/210",
+  "started_utc": "2026-10-28T02:56:28.086568+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "537",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"210\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOGR500524HCSRZG40\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rogelio Moreno Guzman\",\n      \"family\": \"Moreno Guzman\",\n      \"given\": [\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618256229\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-05-24\"\n}",
+  "body_bytes": 537,
+  "body_sha256": "e7620f27e79abebe967993c04b7c272b65685e0d3f6491f43e26596bceb65396",
+  "elapsed_seconds": 0.016477600031066686,
+  "resource": "Patient/210",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

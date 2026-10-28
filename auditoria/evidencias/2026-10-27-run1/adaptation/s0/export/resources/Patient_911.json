@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "911",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAPG720711MCSMRL21"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Ramos Perez",
+      "family": "Ramos Perez",
+      "given": [
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615784595",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1972-07-11"
+}

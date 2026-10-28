@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "87",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAPS800322MCSMRF97"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Sofia Natalia Ramos Perez",
+      "family": "Ramos Perez",
+      "given": [
+        "Sofia",
+        "Natalia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1980-03-22"
+}

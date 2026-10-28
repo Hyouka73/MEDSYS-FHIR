@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/109",
+  "started_utc": "2026-10-28T02:56:27.776790+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"109\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUSG841010MCSTNB29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Martha Gutierrez Sanchez\",\n      \"family\": \"Gutierrez Sanchez\",\n      \"given\": [\n        \"Gabriela\",\n        \"Martha\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611649152\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1984-10-10\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "811f6c4bdf9ae34d59855b2ce6fa80a898a901559ee9ad5f060ba2862a4df694",
+  "elapsed_seconds": 0.011087199964094907,
+  "resource": "Patient/109",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

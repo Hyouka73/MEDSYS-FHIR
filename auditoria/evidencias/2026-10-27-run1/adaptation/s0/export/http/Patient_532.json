@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/532",
+  "started_utc": "2026-10-28T02:56:29.120560+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"532\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIJA591012HCSRML92\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Manuel Ortiz Jimenez\",\n      \"family\": \"Ortiz Jimenez\",\n      \"given\": [\n        \"Alexis\",\n        \"Manuel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612317489\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1959-10-12\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "575ad8ec4a5b413246c395213c75acbc9657cc1d2fb802eee9be787b83df830f",
+  "elapsed_seconds": 0.012583100004121661,
+  "resource": "Patient/532",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

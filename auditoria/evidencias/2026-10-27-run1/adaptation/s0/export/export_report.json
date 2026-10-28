@@ -1,0 +1,44 @@
+{
+  "kind": "rust_http_export",
+  "schema": "s0",
+  "source_sha256": "0921e3878546ebc86aee8fc2fce99bb90946306974f47714d2cb83dee9859dc9",
+  "provenance": {
+    "command": [
+      "C:\\Python313\\python.exe",
+      "scripts/experimental_evidence.py",
+      "adapt",
+      "--executable",
+      "D:\\Proyectos X\\MedSys-FHIR\\output\\evaluation\\20261027\\artifact-v1\\medsys-server.exe",
+      "--port-base",
+      "3310",
+      "--workers",
+      "8",
+      "--lab-id",
+      "reeval20261025-v2",
+      "--output",
+      "auditoria\\evidencias\\2026-10-27-run1\\adaptation"
+    ],
+    "python": "3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]",
+    "git_commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+    "git_status": " M .agents/rules/project-profile.md\n M BACKLOG.md\n M Cargo.lock\n M DECISIONS.md\n M STATE.md\n M auditoria/RESULTADOS_CAPITULO_IV.md\n M crates/medsys-core/src/engine/evaluator.rs\n M crates/medsys-core/src/engine/transform.rs\n M crates/medsys-core/src/model/fhir_helpers.rs\n M crates/medsys-db/Cargo.toml\n M crates/medsys-db/src/dynamic_repo.rs\n M crates/medsys-db/src/lib.rs\n M crates/medsys-db/src/query_builder.rs\n M crates/medsys-db/tests/persistence_integration.rs\n M crates/medsys-server/src/error.rs\n M crates/medsys-server/src/handlers/condition.rs\n M crates/medsys-server/src/handlers/encounter.rs\n M crates/medsys-server/src/handlers/health.rs\n M crates/medsys-server/src/handlers/mod.rs\n M crates/medsys-server/src/handlers/observation.rs\n M crates/medsys-server/src/handlers/patient.rs\n M crates/medsys-server/src/router.rs\n M crates/medsys-server/tests/e2e_interoperability.rs\n M crates/medsys-server/tests/server_integration.rs\n M docker/sql/02_bulk_data.sql\n M docker/sql/bulk_s1.sql\n M docker/sql/bulk_s2.sql\n M docker/sql/bulk_s3.sql\n M scripts/export_fhir_samples.py\n M scripts/generate_data.py\n M scripts/oracle_verifier.py\n M scripts/run_all_cap4_experiments.py\n M scripts/run_fault_corpus.py\n?? .agents/tools/\n?? auditoria/REVERIFICACION_2026-10-25.md\n?? auditoria/evidencias/2026-10-27-run1/\n?? auditoria/evidencias/antigravity-review/\n?? auditoria/evidencias/harness-development/\n?? auditoria/evidencias/lab-development/\n?? auditoria/evidencias/reanudacion/\n?? auditoria/evidencias/runtime-development/\n?? auditoria/evidencias/validator-development/\n?? auditoria/revision/\n?? crates/medsys-server/src/handlers/common.rs\n?? crates/medsys-server/tests/regression_runtime_contract.rs\n?? scripts/EXPERIMENTAL_EVIDENCE.md\n?? scripts/create_evaluation_lab_v2.py\n?? scripts/experimental_evidence.py\n?? scripts/requirements-experiments.txt\n?? scripts/test_experimental_evidence.py\n?? tools/experimental/.gitignore\n?? tools/experimental/README.md\n?? tools/experimental/aggregate_ct.py\n?? tools/experimental/audit_prior_validator.py\n?? tools/experimental/evidence_runners.py\n?? tools/experimental/fixtures/\n?? tools/experimental/lab-compose.yaml\n?? tools/experimental/lab-docker-init.sh\n?? tools/experimental/lab-migrate-persistent.sh\n?? tools/experimental/lab-postgres.sh\n?? tools/experimental/lab_verify.py\n?? tools/experimental/test_validator_batches.py\n",
+    "tracked_diff_sha256": "0c9f6b27c7e887da6903dbe13c56e146db9db392688e21a6c95e39b9ec31b94d",
+    "scripts_sha256": {
+      "experimental_evidence.py": "56ac5d7848157e4f7d1549b22cfb0837c6f184e12826c3c9000ff9eae84427c1",
+      "oracle_verifier.py": "dd49d4907f42a9c7758632dd7be8e4b2d99ee975fa4efd1fcedd38063cd4ef4a",
+      "generate_data.py": "b7a24551396760d07516364e590f40a39ebc770f5e9e307f45fcd76fc26bacc4"
+    }
+  },
+  "expected_resources": 16250,
+  "requests": 16500,
+  "status_counts": {
+    "200": 16250,
+    "404": 250
+  },
+  "expected_omissions": 250,
+  "failures": [],
+  "actual_payload_bytes": 15921976,
+  "actual_payload_mean_kib": 0.9568495192307692,
+  "census_complete": true,
+  "status": "PASS",
+  "finished_utc": "2026-10-28T02:56:32.020313+00:00"
+}

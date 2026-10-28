@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "108",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUXA961127HCSGXL28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro David Aguilar",
+      "family": "Aguilar",
+      "given": [
+        "Alejandro",
+        "David"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612339418",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1996-11-27"
+}

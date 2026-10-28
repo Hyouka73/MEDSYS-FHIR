@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/473",
+  "started_utc": "2026-10-28T02:56:28.934326+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"473\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEXN800302MCSRXT33\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Lorena Hernandez\",\n      \"family\": \"Hernandez\",\n      \"given\": [\n        \"Natalia\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611189846\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1980-03-02\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "a4ee2a3dfce584efe7dd8a0a559333aa9d77f0b9cab74010f560ad22a68f9134",
+  "elapsed_seconds": 0.006756899994798005,
+  "resource": "Patient/473",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

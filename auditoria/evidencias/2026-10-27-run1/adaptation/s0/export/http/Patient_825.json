@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/825",
+  "started_utc": "2026-10-28T02:56:30.034671+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"825\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROLS760110MCSDPL25\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Silvia Carmen Rodriguez Lopez\",\n      \"family\": \"Rodriguez Lopez\",\n      \"given\": [\n        \"Silvia\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611179413\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-01-10\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "4df8dca9b26c2409e103f0027b9a3009df30a8007244be976786a0fdd5bb94dc",
+  "elapsed_seconds": 0.016077400010544807,
+  "resource": "Patient/825",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

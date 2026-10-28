@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/363",
+  "started_utc": "2026-10-28T02:56:28.622731+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"363\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUJV840327MCSGMR13\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Karla Aguilar Jimenez\",\n      \"family\": \"Aguilar Jimenez\",\n      \"given\": [\n        \"Veronica\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612398643\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1984-03-27\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "fdb23574f0d9994263a76eb71f99544bef0fd07955f79410512717f063fa8c93",
+  "elapsed_seconds": 0.01276100001996383,
+  "resource": "Patient/363",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

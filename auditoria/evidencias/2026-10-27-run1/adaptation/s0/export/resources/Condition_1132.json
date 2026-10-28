@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "1132",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "provisional",
+        "display": "Provisional"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "E11.9",
+        "display": "Diabetes mellitus tipo 2 sin mención de complicación"
+      }
+    ],
+    "text": "Diabetes mellitus tipo 2 sin mención de complicación"
+  },
+  "subject": {
+    "reference": "Patient/738"
+  },
+  "encounter": {
+    "reference": "Encounter/1132"
+  },
+  "recordedDate": "2026-03-18"
+}

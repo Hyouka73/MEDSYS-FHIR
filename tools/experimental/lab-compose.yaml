@@ -1,0 +1,30 @@
+name: medsys-eval-2933964-docker
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      # Synthetic isolated laboratory only; published exclusively to loopback.
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "127.0.0.1:55433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./lab-docker-init.sh:/docker-entrypoint-initdb.d/10-lab.sh:ro
+      - ../../docker/sql:/lab-source/sql:ro
+    cpus: 1.0
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d medsys_eval_s3"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+    networks:
+      - lab
+volumes:
+  pgdata:
+networks:
+  lab:
+    internal: true

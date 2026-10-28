@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "895",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OICA480505MCSRHN95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Laura Ortiz Chavez",
+      "family": "Ortiz Chavez",
+      "given": [
+        "Ana",
+        "Laura"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617160766",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-05-05"
+}

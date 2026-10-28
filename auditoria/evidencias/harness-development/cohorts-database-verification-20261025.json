@@ -1,0 +1,32 @@
+{
+  "kind": "source_cohort_v1_v2_database_comparison",
+  "recorded_utc": "2026-10-26T03:53:52.561199+00:00",
+  "read_only_checks": [
+    {
+      "cohort": "v1",
+      "database": "medsys_eval_s1",
+      "flat_rows": 2500,
+      "unique_patients": 905,
+      "role": "medsys_ro",
+      "privileges": {
+        "SELECT": true,
+        "INSERT": false,
+        "UPDATE": false,
+        "DELETE": false
+      }
+    },
+    {
+      "cohort": "v2",
+      "database": "medsys_eval_v2_s1",
+      "flat_rows": 2500,
+      "unique_patients": 1000,
+      "role": "medsys_ro",
+      "privileges": {
+        "SELECT": true,
+        "INSERT": false,
+        "UPDATE": false,
+        "DELETE": false
+      }
+    }
+  ]
+}

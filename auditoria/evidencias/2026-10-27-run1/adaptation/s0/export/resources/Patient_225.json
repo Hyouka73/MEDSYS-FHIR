@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "225",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUJJ061215HCSZMR55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Armando Guzman Jimenez",
+      "family": "Guzman Jimenez",
+      "given": [
+        "Jorge",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9619641387",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2006-12-15"
+}

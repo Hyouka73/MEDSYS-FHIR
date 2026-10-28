@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "941",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOMA560725MCSRDL51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Guadalupe Torres Medina",
+      "family": "Torres Medina",
+      "given": [
+        "Alejandra",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611982988",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1956-07-25"
+}

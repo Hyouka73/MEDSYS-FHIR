@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "404",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUGL921214HCSNZS54"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Munoz Guzman",
+      "family": "Munoz Guzman",
+      "given": [
+        "Luis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615365237",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1992-12-14"
+}

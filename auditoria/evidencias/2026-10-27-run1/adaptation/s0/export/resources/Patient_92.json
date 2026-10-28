@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "92",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGR470607HCSNNG12"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rogelio Gabriel Mendoza Gonzalez",
+      "family": "Mendoza Gonzalez",
+      "given": [
+        "Rogelio",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614908364",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1947-06-07"
+}

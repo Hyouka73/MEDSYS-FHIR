@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/303",
+  "started_utc": "2026-10-28T02:56:28.405981+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"303\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TOJD050625HCSRRV43\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"David Andres Torres Juarez\",\n      \"family\": \"Torres Juarez\",\n      \"given\": [\n        \"David\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616114635\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2005-06-25\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "3046ddc5cdf63abb8298508dbc543525534b7c09243570e6540026461149da94",
+  "elapsed_seconds": 0.006252099992707372,
+  "resource": "Patient/303",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

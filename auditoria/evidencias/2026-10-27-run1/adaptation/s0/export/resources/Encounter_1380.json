@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1380",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1380"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/495"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "8472910"
+        },
+        "display": "Dra. María Elena Cruz Martínez"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-01-29T08:37:00+00:00",
+    "end": "2026-01-29T09:00:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Tos productiva y malestar general"
+    }
+  ]
+}

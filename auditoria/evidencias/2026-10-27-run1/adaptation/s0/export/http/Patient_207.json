@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/207",
+  "started_utc": "2026-10-28T02:56:28.078332+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"207\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIGR590714MCSMZS37\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rosa Adriana Jimenez Guzman\",\n      \"family\": \"Jimenez Guzman\",\n      \"given\": [\n        \"Rosa\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613156755\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1959-07-14\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "cef4ccc76c0299d4b2df725fb4fdd3c9dc26fe35839084e96496e1112fb691e6",
+  "elapsed_seconds": 0.015516599989496171,
+  "resource": "Patient/207",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

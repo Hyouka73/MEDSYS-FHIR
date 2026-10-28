@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "619",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TORL610110MCSRMR89"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Patricia Torres Ramos",
+      "family": "Torres Ramos",
+      "given": [
+        "Lorena",
+        "Patricia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611884414",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-01-10"
+}

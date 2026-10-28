@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "776",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROCF590131MCSDHR66"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Silvia Rodriguez Chavez",
+      "family": "Rodriguez Chavez",
+      "given": [
+        "Fernanda",
+        "Silvia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612346063",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1959-01-31"
+}

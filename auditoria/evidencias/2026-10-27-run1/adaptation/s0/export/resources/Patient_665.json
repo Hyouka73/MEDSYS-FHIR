@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "665",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DICA910422HCSZHR45"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Fernando Diaz Chavez",
+      "family": "Diaz Chavez",
+      "given": [
+        "Armando",
+        "Fernando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9619510525",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1991-04-22"
+}

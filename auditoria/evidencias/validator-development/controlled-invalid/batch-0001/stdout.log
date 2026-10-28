@@ -1,0 +1,78 @@
+FHIR Validation tool Version 7.0.2 (Git# de3463393298). Built 2026-10-15T16:42:38.193Z (5 days old)
+  Java:   21.0.10 from C:\Program Files\Microsoft\jdk-21.0.10.7-hotspot on amd64 (64bit). 1536MB available
+  Paths:  Current = D:\Proyectos X\MedSys-FHIR, Package Cache = C:\Users\baka6\.fhir\packages
+  Params: "D:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-invalid.json" "D:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-valid.json" -version 4.0.1 -tx n/a -output "D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\controlled-invalid\batch-0001\outcomes.json" -output-style json
+  Locale: México/MX
+  Jurisdiction: Mexico
+Loading
+  Loading FHIR v4.0.1 from hl7.fhir.r4.core#4.0.1
+Installing hl7.fhir.r4.core#4.0.1 to the package cache
+  Fetching:
+
+Installing hl7.fhir.r4.core#4.0.1
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.fhir.r4.core#4.0.1
+Installing hl7.fhir.xver-extensions#0.1.0 to the package cache
+  Fetching:
+
+Installing hl7.fhir.xver-extensions#0.1.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.fhir.xver-extensions#0.1.0
+Installing hl7.terminology.r4#6.2.0 to the package cache
+  Fetching:
+
+Installing hl7.terminology.r4#6.2.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.terminology.r4#6.2.0
+  Load hl7.terminology.r4#6.2.0 - 4288 resources (07:25.232)
+Installing hl7.fhir.uv.extensions.r4#5.2.0 to the package cache
+  Fetching:
+
+Installing hl7.fhir.uv.extensions.r4#5.2.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.fhir.uv.extensions.r4#5.2.0
+  Load hl7.fhir.uv.extensions.r4#5.2.0 - 759 resources (00:18.239)
+  Loaded FHIR - 8265 resources (00:00.006)
+  Terminology Cache at C:\Users\baka6\AppData\Local\Temp\default-tx-cache\r4
+  Terminology server null - Version n/a: No Terminology Server (00:00.058)
+Installing hl7.terminology#7.4.0 to the package cache
+  Fetching:
+
+Installing hl7.terminology#7.4.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.terminology#7.4.0
+  Load hl7.terminology#7.4.0 - 4181 resources (00:45.761)
+Installing hl7.fhir.uv.extensions#5.3.0 to the package cache
+  Fetching:
+
+Installing hl7.fhir.uv.extensions#5.3.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.fhir.uv.extensions#5.3.0
+Installing hl7.terminology.r5#7.1.0 to the package cache
+  Fetching:
+
+Installing hl7.terminology.r5#7.1.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.terminology.r5#7.1.0
+Installing hl7.fhir.uv.extensions.r5#5.2.0 to the package cache
+  Fetching:
+
+Installing hl7.fhir.uv.extensions.r5#5.2.0
+ done.
+ loaded @ C:\Users\baka6\.fhir\packages\hl7.fhir.uv.extensions.r5#5.2.0
+  Load hl7.fhir.uv.extensions.r5#5.2.0 - 759 resources (03:06.153)
+  Load hl7.terminology.r5#7.1.0 - 4072 resources (00:00.155)
+  Load hl7.fhir.uv.extensions#5.3.0 - 856 resources (00:30.803)
+  Package Summary: [hl7.fhir.r4.core#4.0.1, hl7.fhir.xver-extensions#0.1.0, hl7.terminology.r4#6.2.0, hl7.fhir.uv.extensions.r4#5.2.0, hl7.terminology#7.4.0, hl7.fhir.uv.extensions.r5#5.2.0, hl7.terminology.r5#7.1.0, hl7.fhir.uv.extensions#5.3.0]
+  Get set... 
+  ...go! (00:02.751)
+Cached new session. Cache size = 1
+Sources to validate: D:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-invalid.jsonD:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-valid.json
+Validating
+  Validate D:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-invalid.json
+ 00:00.422
+  Validate D:\Proyectos X\MedSys-FHIR\tools\experimental\fixtures\Patient-valid.json
+ 00:00.053
+Done. Times: Loading: 12:15.394, validation: 00:00.477 (#2). Memory = 424Mb
+
+Done. Times: Loading: 12:15.394, validation: 00:00.477 (#2). Max Memory = 1Gb

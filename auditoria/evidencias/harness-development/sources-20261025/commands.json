@@ -1,0 +1,128 @@
+{
+  "kind": "source_and_oracle_sensitivity_only",
+  "finished_utc": "2026-10-26T03:46:01.078609+00:00",
+  "commands": [
+    {
+      "schema": "s0",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s0",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s0-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s0",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s0-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s0-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s1",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s1",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s1-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s1",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s1-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s1-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s2",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s2",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s2-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s2",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s2-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s2-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s3",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s3",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s3-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s3",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s3-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-20261025\\s3-mutations.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "files_sha256": {
+    "s0-mutations.json": "c614de06c886b3d7265943173aca154ab8eb4bf317863ca0a82f82105d9015c7",
+    "s0-source.json": "0a743ee924cb3329baaaf70093324dbafbfd1b5f558dd4e1ccde7410f6a6190b",
+    "s1-mutations.json": "cf685135278cf04eb1836d4b155c110b5889af0677ac1415f15768fde0040fbb",
+    "s1-source.json": "e6ed610cff57c4516cd188e68306b6e60738fcceed161522ddacec2a067c410d",
+    "s2-mutations.json": "e91a973862bbe13c24970c24cd75f6b69efc14565ec2f013a351bbf78a12cfff",
+    "s2-source.json": "46c63f6962341ba55b78448ba4e8619df41a1260ce66cff1a2d8f53fcbb9eeac",
+    "s3-mutations.json": "5cf9257bc181b7b916fd784dba8b45bb19fedd25a92c8d2ea61ddd8cc45ed68d",
+    "s3-source.json": "84b7c33f4df361d6f6bc9cfde1e54547207de543d10be8489af658a10ccd341d"
+  }
+}

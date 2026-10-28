@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "730",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUPM870325MCSTRR20"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mariana Silvia Gutierrez Perez",
+      "family": "Gutierrez Perez",
+      "given": [
+        "Mariana",
+        "Silvia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618578603",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1987-03-25"
+}

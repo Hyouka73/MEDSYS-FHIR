@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/temp-9",
+  "started_utc": "2026-10-28T02:56:27.433734+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "777",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"temp-9\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8310-5\",\n        \"display\": \"Body temperature\"\n      }\n    ],\n    \"text\": \"Temperatura Corporal\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/509\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/9\"\n  },\n  \"effectiveDateTime\": \"2026-07-12T03:57:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 36.4,\n    \"unit\": \"Cel\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"Cel\"\n  }\n}",
+  "body_bytes": 777,
+  "body_sha256": "5fe5792bfa2125a4a5a5958c7a514c3c52a783912aee321974b00a962f3ee03c",
+  "elapsed_seconds": 0.009905499988235533,
+  "resource": "Observation/temp-9",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

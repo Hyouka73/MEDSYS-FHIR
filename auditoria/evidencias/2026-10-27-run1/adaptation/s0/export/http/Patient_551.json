@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/551",
+  "started_utc": "2026-10-28T02:56:29.171611+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "458",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"551\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOHL870130MCSMRR21\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lorena Monica Gomez Hernandez\",\n      \"family\": \"Gomez Hernandez\",\n      \"given\": [\n        \"Lorena\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1987-01-30\"\n}",
+  "body_bytes": 458,
+  "body_sha256": "73d72ba1a3511a5406093fb4e4306db753c91baaeee78a1fbc01233be96c7bfb",
+  "elapsed_seconds": 0.009236600017175078,
+  "resource": "Patient/551",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

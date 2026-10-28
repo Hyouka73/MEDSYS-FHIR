@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/temp-159",
+  "started_utc": "2026-10-28T02:56:21.388415+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "781",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:21 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"temp-159\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8310-5\",\n        \"display\": \"Body temperature\"\n      }\n    ],\n    \"text\": \"Temperatura Corporal\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/840\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/159\"\n  },\n  \"effectiveDateTime\": \"2025-06-22T22:27:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 36.8,\n    \"unit\": \"Cel\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"Cel\"\n  }\n}",
+  "body_bytes": 781,
+  "body_sha256": "e50f3a42d0dc3bc5fe87064961f99ae9ff6bb9993f9e501f24aef2623881c208",
+  "elapsed_seconds": 0.023660500010009855,
+  "resource": "Observation/temp-159",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

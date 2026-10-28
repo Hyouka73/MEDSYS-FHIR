@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/501",
+  "started_utc": "2026-10-28T02:56:29.020572+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "464",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"501\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FORS520402HCSLDL61\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Salvador Antonio Flores Rodriguez\",\n      \"family\": \"Flores Rodriguez\",\n      \"given\": [\n        \"Salvador\",\n        \"Antonio\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-04-02\"\n}",
+  "body_bytes": 464,
+  "body_sha256": "6886c3b48fe09522efa91250bde1e54a06013ac8fe0302baa4d2b074bfd0f40b",
+  "elapsed_seconds": 0.020306000020354986,
+  "resource": "Patient/501",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

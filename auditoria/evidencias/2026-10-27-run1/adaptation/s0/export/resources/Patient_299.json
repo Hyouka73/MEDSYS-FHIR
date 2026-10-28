@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "299",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GACA130319MCSRSL39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Paola Garcia Castro",
+      "family": "Garcia Castro",
+      "given": [
+        "Alejandra",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614662698",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2013-03-19"
+}

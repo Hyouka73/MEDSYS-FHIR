@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/438",
+  "started_utc": "2026-10-28T02:55:49.525683+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1200",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:49 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"438\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"438\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/640\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"6284910\"\n        },\n        \"display\": \"Dra. Patricia Aguilar Cárdenas\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-01-12T17:47:00+00:00\",\n    \"end\": \"2026-01-12T18:18:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Diarrea acuosa y dolor abdominal tipo cólico\"\n    }\n  ]\n}",
+  "body_bytes": 1200,
+  "body_sha256": "98a9008a689148c974d087874d0c0a84b599a64f90c6707878f1292e6090a059",
+  "elapsed_seconds": 0.030886200023815036,
+  "resource": "Encounter/438",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

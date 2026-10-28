@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "19",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MAGE660524HCSRND29"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Hugo Martinez Gonzalez",
+      "family": "Martinez Gonzalez",
+      "given": [
+        "Eduardo",
+        "Hugo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613816714",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1966-05-24"
+}

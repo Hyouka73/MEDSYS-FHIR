@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/bp-82",
+  "started_utc": "2026-10-28T02:56:01.312357+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1430",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:01 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"bp-82\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"85354-9\",\n        \"display\": \"Blood pressure panel with all children optional\"\n      }\n    ],\n    \"text\": \"Presión arterial\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/904\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/82\"\n  },\n  \"effectiveDateTime\": \"2026-04-26T10:21:00+00:00\",\n  \"component\": [\n    {\n      \"code\": {\n        \"coding\": [\n          {\n            \"system\": \"http://loinc.org\",\n            \"code\": \"8480-6\",\n            \"display\": \"Systolic blood pressure\"\n          }\n        ]\n      },\n      \"valueQuantity\": {\n        \"value\": 123,\n        \"unit\": \"mmHg\",\n        \"system\": \"http://unitsofmeasure.org\",\n        \"code\": \"mm[Hg]\"\n      }\n    },\n    {\n      \"code\": {\n        \"coding\": [\n          {\n            \"system\": \"http://loinc.org\",\n            \"code\": \"8462-4\",\n            \"display\": \"Diastolic blood pressure\"\n          }\n        ]\n      },\n      \"valueQuantity\": {\n        \"value\": 68,\n        \"unit\": \"mmHg\",\n        \"system\": \"http://unitsofmeasure.org\",\n        \"code\": \"mm[Hg]\"\n      }\n    }\n  ]\n}",
+  "body_bytes": 1430,
+  "body_sha256": "f11d401e8f9da16c2129da0702f698b8b44fa02f4ef2692f4dc52216e930df45",
+  "elapsed_seconds": 0.014570700004696846,
+  "resource": "Observation/bp-82",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

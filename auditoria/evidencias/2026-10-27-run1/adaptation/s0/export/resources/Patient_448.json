@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "448",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUPJ760603HCSTRV98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Miguel Gutierrez Perez",
+      "family": "Gutierrez Perez",
+      "given": [
+        "Javier",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614829068",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1976-06-03"
+}

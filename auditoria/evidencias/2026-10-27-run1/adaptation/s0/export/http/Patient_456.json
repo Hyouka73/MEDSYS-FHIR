@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/456",
+  "started_utc": "2026-10-28T02:56:28.878473+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"456\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUMA790520MCSZRL16\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandra Teresa Guzman Martinez\",\n      \"family\": \"Guzman Martinez\",\n      \"given\": [\n        \"Alejandra\",\n        \"Teresa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611236423\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1979-05-20\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "c3a447443c3281748dde87cd05c9ca85bcf735e3803c08e71044a54b569c1968",
+  "elapsed_seconds": 0.03424580005230382,
+  "resource": "Patient/456",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

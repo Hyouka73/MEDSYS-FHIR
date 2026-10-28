@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-147",
+  "started_utc": "2026-10-28T02:56:04.211204+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "773",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:04 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-147\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/758\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/147\"\n  },\n  \"effectiveDateTime\": \"2026-02-20T03:40:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 91,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 773,
+  "body_sha256": "e338dc8284baab643e72592de4cf396c4a951884825ddc2fd98c17092139da5b",
+  "elapsed_seconds": 0.016086700023151934,
+  "resource": "Observation/hr-147",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

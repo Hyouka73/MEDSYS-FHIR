@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-897",
+  "started_utc": "2026-10-28T02:56:30.852063+00:00",
+  "status": 404,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "589",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"id\": \"outcome-1793156190861\",\n  \"language\": \"es\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"not-found\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/issue-type\",\n            \"code\": \"not-found\"\n          }\n        ],\n        \"text\": \"La consulta de signos vitales 'resp-897' no registra frecuencia respiratoria (campo opcional NULL).\"\n      },\n      \"diagnostics\": \"La consulta de signos vitales 'resp-897' no registra frecuencia respiratoria (campo opcional NULL).\"\n    }\n  ]\n}",
+  "body_bytes": 589,
+  "body_sha256": "73a4045851efbe6c11038d774d821a68e68e6154e5682e865c55ef3e333a2920",
+  "elapsed_seconds": 0.013784600014332682,
+  "resource": "Observation/resp-897",
+  "expected_status": 404,
+  "invalid_content_type": false,
+  "omission_outcome_valid": true
+}

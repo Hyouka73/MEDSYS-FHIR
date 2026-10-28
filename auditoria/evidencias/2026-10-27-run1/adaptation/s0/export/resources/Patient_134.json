@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "134",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAXA880630MCSRXD54"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Adriana Elena Garcia",
+      "family": "Garcia",
+      "given": [
+        "Adriana",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615298033",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-06-30"
+}

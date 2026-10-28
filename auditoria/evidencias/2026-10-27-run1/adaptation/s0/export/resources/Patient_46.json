@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "46",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OICF621124HCSRHR56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernando Armando Ortiz Chavez",
+      "family": "Ortiz Chavez",
+      "given": [
+        "Fernando",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613524191",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1962-11-24"
+}

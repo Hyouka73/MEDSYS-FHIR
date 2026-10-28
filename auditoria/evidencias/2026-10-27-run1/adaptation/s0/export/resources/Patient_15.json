@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "15",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CARC551012MCSHMR25"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Chavez Ramos",
+      "family": "Chavez Ramos",
+      "given": [
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613855313",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1955-10-12"
+}

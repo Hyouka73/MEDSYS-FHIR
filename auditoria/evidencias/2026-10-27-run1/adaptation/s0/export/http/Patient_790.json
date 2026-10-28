@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/790",
+  "started_utc": "2026-10-28T02:56:29.905125+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "544",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"790\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEXG800204MCSDXL80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gloria Rosa Medina\",\n      \"family\": \"Medina\",\n      \"given\": [\n        \"Gloria\",\n        \"Rosa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619867399\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1980-02-04\"\n}",
+  "body_bytes": 544,
+  "body_sha256": "083e3cd31e60754852dfb66227895c60bb18d2895ecb534aa582e6c2510549f8",
+  "elapsed_seconds": 0.010729199973866343,
+  "resource": "Patient/790",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

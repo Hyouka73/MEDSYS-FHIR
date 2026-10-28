@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "795",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXM131103MCSHXR85"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mariana Ana Chavez",
+      "family": "Chavez",
+      "given": [
+        "Mariana",
+        "Ana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614849429",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2013-11-03"
+}

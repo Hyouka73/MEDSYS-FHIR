@@ -1,0 +1,2 @@
+2026-10-21T05:24:10.557Z info 	[IPC] desktopGoBackend/rejectLicenseTerms:
+2026-10-21T05:24:10.561Z info 	[HTTP] 200: POST /license/reject

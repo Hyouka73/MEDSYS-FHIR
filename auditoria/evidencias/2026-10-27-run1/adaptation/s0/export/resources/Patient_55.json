@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "55",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIAA910321HCSZGN65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Alejandro Diaz Aguilar",
+      "family": "Diaz Aguilar",
+      "given": [
+        "Andres",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617973296",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1991-03-21"
+}

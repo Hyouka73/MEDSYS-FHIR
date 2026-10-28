@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "839",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROTA070723HCSDRL39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto David Rodriguez Torres",
+      "family": "Rodriguez Torres",
+      "given": [
+        "Alberto",
+        "David"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617603779",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2007-07-23"
+}

@@ -1,0 +1,110 @@
+{
+  "kind": "isolated_postgresql_lab_verification",
+  "checked_utc": "2026-10-26T03:45:01.689602+00:00",
+  "host": "127.0.0.1",
+  "port": 55432,
+  "databases": {
+    "s0": {
+      "marker": "reanudacion-2933964",
+      "data_directory": "/var/lib/postgresql/medsys-eval-2933964",
+      "counts": {
+        "tbl_pacientes": 1000,
+        "tbl_consultas": 2500,
+        "tbl_signos_vitales": 2500,
+        "tbl_diagnosticos": 3000
+      },
+      "medsys_ro_grants_select_any_dml": {
+        "tbl_pacientes": [
+          true,
+          false
+        ],
+        "tbl_consultas": [
+          true,
+          false
+        ],
+        "tbl_signos_vitales": [
+          true,
+          false
+        ],
+        "tbl_diagnosticos": [
+          true,
+          false
+        ]
+      }
+    },
+    "s1": {
+      "marker": "reanudacion-2933964",
+      "data_directory": "/var/lib/postgresql/medsys-eval-2933964",
+      "counts": {
+        "tbl_sabana_consulta_externa": 2500,
+        "tbl_sabana_diagnosticos": 3000
+      },
+      "medsys_ro_grants_select_any_dml": {
+        "tbl_sabana_consulta_externa": [
+          true,
+          false
+        ],
+        "tbl_sabana_diagnosticos": [
+          true,
+          false
+        ]
+      }
+    },
+    "s2": {
+      "marker": "reanudacion-2933964",
+      "data_directory": "/var/lib/postgresql/medsys-eval-2933964",
+      "counts": {
+        "tbl_pacientes_s2": 1000,
+        "tbl_consultas_s2": 2500,
+        "tbl_signos_s2": 2500,
+        "tbl_diagnosticos_s2": 3000
+      },
+      "medsys_ro_grants_select_any_dml": {
+        "tbl_pacientes_s2": [
+          true,
+          false
+        ],
+        "tbl_consultas_s2": [
+          true,
+          false
+        ],
+        "tbl_signos_s2": [
+          true,
+          false
+        ],
+        "tbl_diagnosticos_s2": [
+          true,
+          false
+        ]
+      }
+    },
+    "s3": {
+      "marker": "reanudacion-2933964",
+      "data_directory": "/var/lib/postgresql/medsys-eval-2933964",
+      "counts": {
+        "tbl_pacientes_s3": 1000,
+        "tbl_consultas_s3": 2500,
+        "tbl_signos_s3": 2500,
+        "tbl_diagnosticos_s3": 3000
+      },
+      "medsys_ro_grants_select_any_dml": {
+        "tbl_pacientes_s3": [
+          true,
+          false
+        ],
+        "tbl_consultas_s3": [
+          true,
+          false
+        ],
+        "tbl_signos_s3": [
+          true,
+          false
+        ],
+        "tbl_diagnosticos_s3": [
+          true,
+          false
+        ]
+      }
+    }
+  }
+}

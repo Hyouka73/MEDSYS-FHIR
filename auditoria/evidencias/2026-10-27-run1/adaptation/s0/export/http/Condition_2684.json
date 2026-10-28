@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2684",
+  "started_utc": "2026-10-28T02:55:38.800561+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1111",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:38 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2684\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"N39.0\",\n        \"display\": \"Infección de vías urinarias, sitio no especificado\"\n      }\n    ],\n    \"text\": \"Infección de vías urinarias, sitio no especificado\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/437\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/2307\"\n  },\n  \"recordedDate\": \"2025-08-18\"\n}",
+  "body_bytes": 1111,
+  "body_sha256": "2dadd778dd749109b3bc326bc563bb09ba25e0da79c7d164d244fb88f4123850",
+  "elapsed_seconds": 0.007772199984174222,
+  "resource": "Condition/2684",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

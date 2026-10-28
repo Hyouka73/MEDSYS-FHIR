@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "322",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAXR991231HCSSXB62"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Antonio Vasquez",
+      "family": "Vasquez",
+      "given": [
+        "Roberto",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613001884",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1999-12-31"
+}

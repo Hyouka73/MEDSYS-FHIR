@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "281",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIXD640110HCSRXV21"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Salvador Ortiz",
+      "family": "Ortiz",
+      "given": [
+        "David",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613352070",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1964-01-10"
+}

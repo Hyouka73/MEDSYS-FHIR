@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "713",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "713"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/814"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9182374"
+        },
+        "display": "Dr. Roberto Mendoza Solís"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-01-24T18:53:00+00:00",
+    "end": "2026-01-24T19:29:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Fiebre y dolor faríngeo de 3 días de evolución"
+    }
+  ]
+}

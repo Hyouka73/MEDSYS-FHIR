@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1316",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1316"
+    }
+  ],
+  "status": "cancelled",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/324"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7362915"
+        },
+        "display": "Dr. Alejandro Morales Domínguez"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-05-11T19:11:00+00:00",
+    "end": "2026-05-11T19:42:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Cefalea persistente y mareos"
+    }
+  ]
+}

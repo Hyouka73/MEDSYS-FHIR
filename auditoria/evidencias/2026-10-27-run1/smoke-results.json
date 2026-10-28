@@ -1,0 +1,12 @@
+[
+  {
+    "url": "http://127.0.0.1:3330/health",
+    "status": 200,
+    "content_type": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:3330/fhir/r4/Patient/1",
+    "status": 200,
+    "content_type": "application/fhir+json; charset=utf-8"
+  }
+]

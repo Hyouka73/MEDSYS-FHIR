@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/634",
+  "started_utc": "2026-10-28T02:56:29.453824+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"634\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUAY720425MCSGGL14\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Beatriz Aguilar Aguilar\",\n      \"family\": \"Aguilar Aguilar\",\n      \"given\": [\n        \"Yolanda\",\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615164384\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1972-04-25\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "fb7bcc35596df4da88973a7fba4477da2c868586db2669d311b269f2394e8531",
+  "elapsed_seconds": 0.011185300012584776,
+  "resource": "Patient/634",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

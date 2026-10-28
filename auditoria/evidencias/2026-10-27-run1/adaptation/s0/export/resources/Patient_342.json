@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "342",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUXA510830MCSGXL82"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Sofia Aguilar",
+      "family": "Aguilar",
+      "given": [
+        "Alejandra",
+        "Sofia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615796108",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1951-08-30"
+}

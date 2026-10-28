@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/726",
+  "started_utc": "2026-10-28T02:56:29.713944+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "454",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"726\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUFK010107MCSGLR16\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Karla Silvia Aguilar Flores\",\n      \"family\": \"Aguilar Flores\",\n      \"given\": [\n        \"Karla\",\n        \"Silvia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2001-01-07\"\n}",
+  "body_bytes": 454,
+  "body_sha256": "c5e5cc6dc2ba2fd5e9c0955a31bfd6ea689539c0af6341f0b2c51a2437b8125d",
+  "elapsed_seconds": 0.01466190000064671,
+  "resource": "Patient/726",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

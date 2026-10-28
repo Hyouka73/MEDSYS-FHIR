@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/390",
+  "started_utc": "2026-10-28T02:55:40.374169+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "872",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:40 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"390\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"J00\",\n        \"display\": \"Rinofaringitis aguda (resfriado común)\"\n      }\n    ],\n    \"text\": \"Rinofaringitis aguda (resfriado común)\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/705\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/390\"\n  },\n  \"recordedDate\": \"2025-08-21\"\n}",
+  "body_bytes": 872,
+  "body_sha256": "c3d275868591bbba7c02f1f3aceb881cce49913281fab8c3d9325baaee5117ce",
+  "elapsed_seconds": 0.011538400023709983,
+  "resource": "Condition/390",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

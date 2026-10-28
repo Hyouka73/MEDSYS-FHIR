@@ -1,0 +1,30 @@
+{
+  "kind": "isolated_original_unit_fixture",
+  "database": "medsys_eval_unit",
+  "marker": "medsys-unit-20261025",
+  "source_file": "D:\\Proyectos X\\MedSys-FHIR\\schema_legado_simulado_nom004.sql",
+  "source_sha256": "fa434082590a974e2e283ddea5c5dfd8568f3b1c914acd1c4da3820fa9bf2ba1",
+  "applied_ddl_sha256": "ae1ef960e2c545fb3abdc365c1d00827b7c2377ea4b4d2d58dd921a408c97128",
+  "omitted_scope": "Initial role-management DO block; existing roles preserved",
+  "started_utc": "2026-10-26T03:56:27.185756+00:00",
+  "patients": [
+    [
+      1,
+      "Alberto",
+      "Ramos"
+    ],
+    [
+      2,
+      "Mariana",
+      "López"
+    ]
+  ],
+  "counts": {
+    "tbl_pacientes": 2,
+    "tbl_consultas": 2,
+    "tbl_signos_vitales": 2,
+    "tbl_diagnosticos": 2
+  },
+  "status": "PASS",
+  "finished_utc": "2026-10-26T03:56:27.568512+00:00"
+}

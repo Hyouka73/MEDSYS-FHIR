@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/91",
+  "started_utc": "2026-10-28T02:56:30.319760+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "565",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"91\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROGR570613HCSDMC11\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ricardo Javier Rodriguez Gomez\",\n      \"family\": \"Rodriguez Gomez\",\n      \"given\": [\n        \"Ricardo\",\n        \"Javier\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614096153\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1957-06-13\"\n}",
+  "body_bytes": 565,
+  "body_sha256": "e50cb443207246120c16de5836c83eff908052cced8742b5cdef0b3da0be566b",
+  "elapsed_seconds": 0.006352399999741465,
+  "resource": "Patient/91",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

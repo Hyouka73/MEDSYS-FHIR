@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2145",
+  "started_utc": "2026-10-28T02:55:36.530215+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "812",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:36 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2145\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"M79.1\",\n        \"display\": \"Mialgia\"\n      }\n    ],\n    \"text\": \"Mialgia\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/157\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/2145\"\n  },\n  \"recordedDate\": \"2025-08-17\"\n}",
+  "body_bytes": 812,
+  "body_sha256": "8b112bf282ae2a65d60dcd137432a51d8f08cbee2cc2148da1e7788fbdc92f90",
+  "elapsed_seconds": 0.008206999977119267,
+  "resource": "Condition/2145",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

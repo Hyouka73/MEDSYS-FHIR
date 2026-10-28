@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/231",
+  "started_utc": "2026-10-28T02:56:28.154594+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"231\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUVV760503MCSRRR61\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Monica Juarez Vargas\",\n      \"family\": \"Juarez Vargas\",\n      \"given\": [\n        \"Veronica\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614950385\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-05-03\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "63213e3fdc649744b5e935c7417883809c51a8f9834693238c7a4f10ac1da062",
+  "elapsed_seconds": 0.014881500042974949,
+  "resource": "Patient/231",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

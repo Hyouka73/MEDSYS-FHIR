@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "298",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIGM021013HCSRTG38"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Andres Ortiz Gutierrez",
+      "family": "Ortiz Gutierrez",
+      "given": [
+        "Miguel",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613084309",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2002-10-13"
+}

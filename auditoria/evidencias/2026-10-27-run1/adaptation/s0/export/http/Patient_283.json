@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/283",
+  "started_utc": "2026-10-28T02:56:28.350546+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "535",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"283\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VARA580921MCSRZD23\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Adriana Vargas Ruiz\",\n      \"family\": \"Vargas Ruiz\",\n      \"given\": [\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619215082\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1958-09-21\"\n}",
+  "body_bytes": 535,
+  "body_sha256": "5de6b573e3675d9bbd884ca3f7f2f0d83a26266ba0a71b165af43c28d4e8b12b",
+  "elapsed_seconds": 0.008756000024732202,
+  "resource": "Patient/283",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

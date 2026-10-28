@@ -1,0 +1,22 @@
+[*] Generando entidades sintéticas en memoria con SEED=20260930...
+[OK] IDs k6 exportados: 2250 válidos y 250 omitidos en D:\Proyectos X\MedSys-FHIR\tests\k6
+[OK] Archivo SQL 's0' generado exitosamente:
+     Ruta:   D:\Proyectos X\MedSys-FHIR\docker\sql\02_bulk_data.sql
+     SHA256: 9401cf1661effb409df461f5e50188b44e712968bc1ccea88c68bf7c5d5d836d
+[OK] Archivo SQL 's1' generado exitosamente:
+     Ruta:   D:\Proyectos X\MedSys-FHIR\docker\sql\bulk_s1.sql
+     SHA256: a4e6601bebd11e1409bb03b2334116b15882fd98d47ce6ba8e79e1fac3084a47
+[OK] Archivo SQL 's2' generado exitosamente:
+     Ruta:   D:\Proyectos X\MedSys-FHIR\docker\sql\bulk_s2.sql
+     SHA256: 66c7fe65f214b32382cd1c12edd6d031e392f0a2ee59664fb9a3bcb784186c12
+[OK] Archivo SQL 's3' generado exitosamente:
+     Ruta:   D:\Proyectos X\MedSys-FHIR\docker\sql\bulk_s3.sql
+     SHA256: 91f7e9cd72e7b186ad7c350dc2ac80200f031f195d8ef7185db07c4ff7bd0535
+
+[OK] Resumen Experimental Consolidado (Capítulo III §3.2.3):
+     - Pacientes generados:           998 (Total BD: 1,000 | 150 segundo_nombre=NULL, 100 telefono=NULL)
+     - Consultas generadas:           2498 (Total BD: 2,500 vinculadas a 1..1000)
+     - Signos vitales generados:      2498 (Total BD: 2,500 | 250 FR=NULL [10%], 2,250 FR presentes [90%])
+     - Diagnósticos generados:        2998 (Total BD: 3,000 | 300 tipo=NULL [10%], 2,700 presentes [90%])
+     - Recursos Observation totales:  9750 (2,500 PA + 2,500 Temp + 2,500 FC + 2,250 FR)
+     - Censo total recursos FHIR R4:  16250 (1,000 Patient + 2,500 Encounter + 9,750 Observation + 3,000 Condition)

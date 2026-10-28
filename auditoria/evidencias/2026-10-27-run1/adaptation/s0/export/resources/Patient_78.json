@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "78",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEGD930113HCSRZV88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Herrera Guzman",
+      "family": "Herrera Guzman",
+      "given": [
+        "David"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616206892",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1993-01-13"
+}

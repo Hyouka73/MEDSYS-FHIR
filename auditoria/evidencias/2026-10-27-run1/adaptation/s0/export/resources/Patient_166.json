@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "166",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIRA510118HCSMMR86"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Arturo Arturo Jimenez Ramos",
+      "family": "Jimenez Ramos",
+      "given": [
+        "Arturo",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611510950",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1951-01-18"
+}

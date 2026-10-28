@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "468",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORA990723HCSRYL28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto Enrique Moreno Reyes",
+      "family": "Moreno Reyes",
+      "given": [
+        "Alberto",
+        "Enrique"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616994943",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1999-07-23"
+}

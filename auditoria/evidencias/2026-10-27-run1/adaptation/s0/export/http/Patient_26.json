@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/26",
+  "started_utc": "2026-10-28T02:56:28.264859+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "453",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"26\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RUJA890531HCSZMR36\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Armando Roberto Ruiz Jimenez\",\n      \"family\": \"Ruiz Jimenez\",\n      \"given\": [\n        \"Armando\",\n        \"Roberto\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1989-05-31\"\n}",
+  "body_bytes": 453,
+  "body_sha256": "6cd36c001241e80fbef37ace6db9951b02d3f322415f5c073d6e7def78bccac8",
+  "elapsed_seconds": 0.009816200006753206,
+  "resource": "Patient/26",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

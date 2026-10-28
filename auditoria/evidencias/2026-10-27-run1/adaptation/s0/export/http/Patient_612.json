@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/612",
+  "started_utc": "2026-10-28T02:56:29.393242+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"612\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAMN750402MCSSNT82\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Gabriela Castro Mendoza\",\n      \"family\": \"Castro Mendoza\",\n      \"given\": [\n        \"Natalia\",\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617488724\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1975-04-02\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "f2df39cf1f0fea92facecc0560da3180ee767a3266eb07d50a9e7e10cef6ba0f",
+  "elapsed_seconds": 0.013022899976931512,
+  "resource": "Patient/612",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

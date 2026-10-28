@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "893",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIXJ790527HCSZXV93"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Antonio Diaz",
+      "family": "Diaz",
+      "given": [
+        "Javier",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616379819",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1979-05-27"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "946",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIAA600112HCSRLN56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Miguel Ortiz Alvarez",
+      "family": "Ortiz Alvarez",
+      "given": [
+        "Andres",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611084399",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1960-01-12"
+}

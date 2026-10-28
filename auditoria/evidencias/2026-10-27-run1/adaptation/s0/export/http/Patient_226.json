@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/226",
+  "started_utc": "2026-10-28T02:56:28.132632+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"226\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIMA670924HCSRRL56\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Miguel Ortiz Moreno\",\n      \"family\": \"Ortiz Moreno\",\n      \"given\": [\n        \"Alejandro\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617897411\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1967-09-24\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "32600144ec8835262d18894ea6c27f315bd971a091fd5eb428046a26a16230c3",
+  "elapsed_seconds": 0.013169299985747784,
+  "resource": "Patient/226",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

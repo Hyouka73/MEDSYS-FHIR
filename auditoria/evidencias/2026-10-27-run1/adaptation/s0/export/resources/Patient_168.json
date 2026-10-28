@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "168",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAXA820523HCSRXR88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Javier Vargas",
+      "family": "Vargas",
+      "given": [
+        "Armando",
+        "Javier"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616050529",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1982-05-23"
+}

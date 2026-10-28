@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/870",
+  "started_utc": "2026-10-28T02:56:30.196037+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "464",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"870\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUHB940106MCSRRT70\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Beatriz Leticia Juarez Hernandez\",\n      \"family\": \"Juarez Hernandez\",\n      \"given\": [\n        \"Beatriz\",\n        \"Leticia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1994-01-06\"\n}",
+  "body_bytes": 464,
+  "body_sha256": "b601a8781aff228a3d722a7258aebea38dd114e6c5d5f03e1ca6a9ac1cfa5d98",
+  "elapsed_seconds": 0.008972299983724952,
+  "resource": "Patient/870",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

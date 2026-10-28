@@ -3,13 +3,13 @@ trigger: always_on
 globs: ["**/*"]
 ---
 
-# Perfil de Adaptación del Proyecto: `MedSys-FHIR` (`v1.2.0-eval` — Tesis UNACH 2026)
+# Perfil de Adaptación del Proyecto: `MedSys-FHIR` (Reverificación — Tesis UNACH 2026)
 
 ## 1. Identidad y Contexto del Proyecto
 - **Nombre del Proyecto:** `MedSys-FHIR` — Middleware en Rust basado en reglas declarativas YAML v1.2 para la interoperabilidad de bases de datos clínicas relacionales (PostgreSQL 16) con el estándar HL7 FHIR R4 (`v4.0.1`).
 - **Autores:** Carlos Eduardo Iglesias de la Cruz y Alexis Andrey Gálvez Roblero (UNACH, 2026).
 - **Arquetipo de Proyecto:** `backend-api` + `research-thesis` + `qa-audit`.
-- **Versión Congelada del Artefacto:** `v1.2.0-eval` (Commit base verificado: `898b4080449513f708389f4b5658a9670cd5057a`, Sprints 1 al 9 completados al 100 %).
+- **Identidad experimental vigente:** reverificación local desde `2933964` sobre `18b434a`; la etiqueta histórica `v1.2.0-eval` no está acreditada. Las correcciones requieren nuevo ejecutable identificado por hash y manifiesto; ningún cierre histórico acredita CA-1–CA-5 actuales.
 
 ## 2. Subagentes Activos
 - [x] `implementer` (Ajustes en scripts de telemetría `k6`, enrutamiento dinámico HTTP `S0`–`S3` y orquestador de experimentos `scripts/run_all_cap4_experiments.py`)

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/773",
+  "started_utc": "2026-10-28T02:56:29.849419+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "464",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"773\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOMM760403MCSNRN63\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Monica Veronica Gonzalez Morales\",\n      \"family\": \"Gonzalez Morales\",\n      \"given\": [\n        \"Monica\",\n        \"Veronica\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-04-03\"\n}",
+  "body_bytes": 464,
+  "body_sha256": "6118d91ce582a7cbd6d347983dae85c9ca72faad6dd04d3e2a3ad43bb1fcf42b",
+  "elapsed_seconds": 0.010325699986424297,
+  "resource": "Patient/773",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

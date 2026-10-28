@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "961",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAJL660817MCSSRT71"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Natalia Vasquez Juarez",
+      "family": "Vasquez Juarez",
+      "given": [
+        "Leticia",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616470276",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-08-17"
+}

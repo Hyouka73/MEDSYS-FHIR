@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "748",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEHP070430HCSRRD38"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Fernando Hernandez Herrera",
+      "family": "Hernandez Herrera",
+      "given": [
+        "Pedro",
+        "Fernando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614657161",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2007-04-30"
+}

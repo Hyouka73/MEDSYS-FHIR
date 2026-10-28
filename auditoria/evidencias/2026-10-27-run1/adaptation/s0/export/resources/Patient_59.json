@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "59",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIXY500703MCSZXL69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Veronica Diaz",
+      "family": "Diaz",
+      "given": [
+        "Yolanda",
+        "Veronica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612968067",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1950-07-03"
+}

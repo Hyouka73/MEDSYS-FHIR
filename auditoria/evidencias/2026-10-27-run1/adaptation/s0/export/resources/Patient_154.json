@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "154",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAVJ040414HCSNSV74"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Juan Sanchez Vasquez",
+      "family": "Sanchez Vasquez",
+      "given": [
+        "Javier",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612261374",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2004-04-14"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "284",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEHR660408HCSRRB24"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Fernando Herrera Herrera",
+      "family": "Herrera Herrera",
+      "given": [
+        "Roberto",
+        "Fernando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612801108",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1966-04-08"
+}

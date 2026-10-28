@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "562",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUHG920726MCSTRL32"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Patricia Gutierrez Herrera",
+      "family": "Gutierrez Herrera",
+      "given": [
+        "Gloria",
+        "Patricia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-07-26"
+}

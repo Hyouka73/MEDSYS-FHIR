@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-1543",
+  "started_utc": "2026-10-28T02:56:13.080693+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "786",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:13 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"resp-1543\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"9279-1\",\n        \"display\": \"Respiratory rate\"\n      }\n    ],\n    \"text\": \"Frecuencia respiratoria\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/937\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1543\"\n  },\n  \"effectiveDateTime\": \"2025-09-14T08:46:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 22,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 786,
+  "body_sha256": "65fd5fd1e24e31d0b97bc3b4414035c3c6f2fa5fd9aa5a0fd9857a0712ce8b26",
+  "elapsed_seconds": 0.02477690001251176,
+  "resource": "Observation/resp-1543",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

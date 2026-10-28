@@ -1,0 +1,24 @@
+{
+  "resourceType": "Patient",
+  "id": "945",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAAA480219MCSLLD55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Adriana Alvarez Alvarez",
+      "family": "Alvarez Alvarez",
+      "given": [
+        "Adriana"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-02-19"
+}

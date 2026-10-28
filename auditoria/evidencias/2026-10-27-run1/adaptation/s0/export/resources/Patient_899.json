@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "899",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FORR690518HCSLMC99"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ricardo Hugo Flores Ramirez",
+      "family": "Flores Ramirez",
+      "given": [
+        "Ricardo",
+        "Hugo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613304435",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1969-05-18"
+}

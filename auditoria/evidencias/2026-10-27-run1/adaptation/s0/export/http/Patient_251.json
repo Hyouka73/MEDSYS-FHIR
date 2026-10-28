@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/251",
+  "started_utc": "2026-10-28T02:56:28.236433+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "525",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"251\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SAXM701023MCSNXN81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Monica Sanchez\",\n      \"family\": \"Sanchez\",\n      \"given\": [\n        \"Monica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615115483\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1970-10-23\"\n}",
+  "body_bytes": 525,
+  "body_sha256": "22d692002c0a3704df700bd3559a834a4db7378d82e70685a686e8032df93014",
+  "elapsed_seconds": 0.017475900007411838,
+  "resource": "Patient/251",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

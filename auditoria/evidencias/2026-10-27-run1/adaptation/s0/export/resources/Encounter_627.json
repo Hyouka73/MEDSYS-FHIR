@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "627",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "627"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/547"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9481726"
+        },
+        "display": "Dr. Fernando Gómez Coutiño"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-07-16T07:05:00+00:00",
+    "end": "2025-07-16T07:26:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Control de glucemia y ajuste terapéutico"
+    }
+  ]
+}

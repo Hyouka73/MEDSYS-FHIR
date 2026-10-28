@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1630",
+  "started_utc": "2026-10-28T02:55:34.255472+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1075",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:34 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1630\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"J03.9\",\n        \"display\": \"Amigdalitis aguda, no especificada\"\n      }\n    ],\n    \"text\": \"Amigdalitis aguda, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/823\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1630\"\n  },\n  \"recordedDate\": \"2025-03-01\"\n}",
+  "body_bytes": 1075,
+  "body_sha256": "43bf03e8b30fb083660dda02b2b38e2afec0e674d5284639e510b5649d5fc30c",
+  "elapsed_seconds": 0.017697300005238503,
+  "resource": "Condition/1630",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

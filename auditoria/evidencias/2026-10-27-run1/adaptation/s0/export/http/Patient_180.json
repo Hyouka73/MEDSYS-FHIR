@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/180",
+  "started_utc": "2026-10-28T02:56:27.984858+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "462",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"180\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAMP000228MCSSRT10\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Patricia Silvia Castillo Moreno\",\n      \"family\": \"Castillo Moreno\",\n      \"given\": [\n        \"Patricia\",\n        \"Silvia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2000-02-28\"\n}",
+  "body_bytes": 462,
+  "body_sha256": "449f096844e183d3da632e3c1ee1e8d3a71f6e13d91984954482d6d2bfac2d86",
+  "elapsed_seconds": 0.010440399986691773,
+  "resource": "Patient/180",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

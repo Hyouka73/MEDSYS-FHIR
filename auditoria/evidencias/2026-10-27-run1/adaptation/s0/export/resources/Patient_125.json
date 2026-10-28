@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "125",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUMD920505MCSGRN45"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Alejandra Aguilar Morales",
+      "family": "Aguilar Morales",
+      "given": [
+        "Daniela",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614781461",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-05-05"
+}

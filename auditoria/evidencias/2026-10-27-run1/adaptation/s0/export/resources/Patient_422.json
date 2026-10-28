@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "422",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOXM850516HCSRXG72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Raul Torres",
+      "family": "Torres",
+      "given": [
+        "Miguel",
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616589332",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1985-05-16"
+}

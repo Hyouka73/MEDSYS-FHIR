@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "866",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEHD831109HCSRRV66"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Eduardo Perez Hernandez",
+      "family": "Perez Hernandez",
+      "given": [
+        "David",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611856861",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1983-11-09"
+}

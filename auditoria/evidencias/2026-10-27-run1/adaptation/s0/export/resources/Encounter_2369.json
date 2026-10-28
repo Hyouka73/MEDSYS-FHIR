@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2369",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2369"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/929"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "8274019"
+        },
+        "display": "Dra. Carmen Rodríguez Guillén"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-04-13T01:57:00+00:00",
+    "end": "2026-04-13T02:34:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Tos productiva y malestar general"
+    }
+  ]
+}

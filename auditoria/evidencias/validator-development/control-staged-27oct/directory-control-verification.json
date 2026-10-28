@@ -1,0 +1,19 @@
+{
+  "kind": "validator_directory_instrument_control",
+  "status": "PASS",
+  "checked_utc": "2026-10-28T03:00:14.193165+00:00",
+  "java_exit_code": 0,
+  "duration_seconds": 96.6126647000201,
+  "structured_outcomes": 2,
+  "per_resource_severity_counts": {
+    "Patient/invalid": {
+      "error": 2,
+      "warning": 1
+    },
+    "Patient/nominal": {
+      "warning": 1
+    }
+  },
+  "mapping_one_to_one_and_bytes_unchanged": true,
+  "limitation": "PASS means the instrument recognizes an invalid fixture and accepts folder sources, not CA-1 of Rust."
+}

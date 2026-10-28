@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/111",
+  "started_utc": "2026-10-28T02:56:27.793388+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"111\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERL121024MCSNMT31\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Leticia Patricia Mendez Ramirez\",\n      \"family\": \"Mendez Ramirez\",\n      \"given\": [\n        \"Leticia\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614731995\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2012-10-24\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "fb30be8ba2688a0863a5b08888a490f907cf57fab0d828613a5225fffb333b34",
+  "elapsed_seconds": 0.008312899968586862,
+  "resource": "Patient/111",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

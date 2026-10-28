@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "145",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "145"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/9"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9481726"
+        },
+        "display": "Dr. Fernando Gómez Coutiño"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-03-14T11:30:00+00:00",
+    "end": "2025-03-14T11:47:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Evaluación médica preventiva anual"
+    }
+  ]
+}

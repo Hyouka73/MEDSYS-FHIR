@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/211",
+  "started_utc": "2026-10-28T02:56:28.087115+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"211\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEJA780326HCSDML41\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro David Medina Jimenez\",\n      \"family\": \"Medina Jimenez\",\n      \"given\": [\n        \"Alejandro\",\n        \"David\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613810871\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1978-03-26\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "60740cdaf2d74d4a1cc48ebc6647ee207bbcc9a3bfb7977f798e5e65518c69b2",
+  "elapsed_seconds": 0.021180400042794645,
+  "resource": "Patient/211",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

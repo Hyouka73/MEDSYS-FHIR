@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/504",
+  "started_utc": "2026-10-28T02:56:29.029093+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "462",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"504\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HERK810824MCSRDR64\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Karla Natalia Herrera Rodriguez\",\n      \"family\": \"Herrera Rodriguez\",\n      \"given\": [\n        \"Karla\",\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1981-08-24\"\n}",
+  "body_bytes": 462,
+  "body_sha256": "9bd93e0f8b743bc27faa6640d74fb876b91cc45ab08c2730cd5df88f0e916e77",
+  "elapsed_seconds": 0.008036000013817102,
+  "resource": "Patient/504",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

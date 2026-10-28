@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "767",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CALL851026MCSHPR57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Laura Karla Chavez Lopez",
+      "family": "Chavez Lopez",
+      "given": [
+        "Laura",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611584113",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1985-10-26"
+}

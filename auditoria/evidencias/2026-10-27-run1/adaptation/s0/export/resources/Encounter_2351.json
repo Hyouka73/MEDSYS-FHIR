@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2351",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2351"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/424"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "6284910"
+        },
+        "display": "Dra. Patricia Aguilar Cárdenas"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-01-20T19:34:00+00:00",
+    "end": "2026-01-20T19:51:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Control trimestral de hipertensión arterial"
+    }
+  ]
+}

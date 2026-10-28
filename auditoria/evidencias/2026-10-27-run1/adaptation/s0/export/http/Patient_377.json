@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/377",
+  "started_utc": "2026-10-28T02:56:28.666273+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "460",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"377\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SAMS621228MCSNRF27\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Adriana Sanchez Martinez\",\n      \"family\": \"Sanchez Martinez\",\n      \"given\": [\n        \"Sofia\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1962-12-28\"\n}",
+  "body_bytes": 460,
+  "body_sha256": "5700333bd04419e26edd4208b694a3b014723af5a6b2a69c30031767b943370b",
+  "elapsed_seconds": 0.007388600031845272,
+  "resource": "Patient/377",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

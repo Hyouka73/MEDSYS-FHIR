@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "163",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROJG520304MCSDML83"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Beatriz Rodriguez Jimenez",
+      "family": "Rodriguez Jimenez",
+      "given": [
+        "Gloria",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615750616",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1952-03-04"
+}

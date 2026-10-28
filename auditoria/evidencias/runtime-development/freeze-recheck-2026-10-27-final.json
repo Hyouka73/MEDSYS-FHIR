@@ -1,0 +1,74 @@
+{
+  "captured_utc": "2026-10-28T02:55:36.860909+00:00",
+  "binary_sha256": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "source_tree_sha256": "d19dc276bf4a2c07d159ac3bfb2a4a5518b35be694fd372a82ebf512d8713a6f",
+  "source_changes_during_recheck": [],
+  "build_exit": 0,
+  "fmt_exit": 0,
+  "prior_clippy_exit": 0,
+  "targeted_tests": {
+    "captured_utc": "2026-10-28T02:53:59.210605+00:00",
+    "results": [
+      {
+        "command": [
+          "cargo",
+          "test",
+          "-j1",
+          "--frozen",
+          "--workspace",
+          "regression_",
+          "--",
+          "--nocapture"
+        ],
+        "exit": 0,
+        "log": "recheck-2026-10-27-regressions.log",
+        "passed": 9,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "command": [
+          "cargo",
+          "test",
+          "-j1",
+          "--frozen",
+          "--workspace",
+          "test_unsupported_sql_type_is_decode_error_not_null",
+          "--",
+          "--nocapture"
+        ],
+        "exit": 0,
+        "log": "recheck-2026-10-27-decode.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      {
+        "command": [
+          "cargo",
+          "test",
+          "-j1",
+          "--frozen",
+          "--workspace",
+          "source_date_precision_is_restored_without_observed_midnight",
+          "--",
+          "--nocapture"
+        ],
+        "exit": 0,
+        "log": "recheck-2026-10-27-date-precision.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    ]
+  },
+  "original_full_workspace": {
+    "passed": 104,
+    "failed": 0,
+    "ignored": 0,
+    "exit": 0,
+    "log": "workspace-final3.log"
+  },
+  "rustc_version": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "cargo_version": "cargo 1.98.1 (797e8a9bc 2026-08-05)"
+}

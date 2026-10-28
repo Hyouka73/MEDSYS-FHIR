@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "58",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CACR971205HCSHSL68"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Daniel Chavez Castro",
+      "family": "Chavez Castro",
+      "given": [
+        "Raul",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612299743",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1997-12-05"
+}

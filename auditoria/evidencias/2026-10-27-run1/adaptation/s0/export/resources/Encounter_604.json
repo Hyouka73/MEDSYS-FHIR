@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "604",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "604"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/587"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "8274019"
+        },
+        "display": "Dra. Carmen Rodríguez Guillén"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-02-06T07:50:00+00:00",
+    "end": "2026-02-06T08:34:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Disuria y polaquiuria de inicio súbito"
+    }
+  ]
+}

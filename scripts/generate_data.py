@@ -317,6 +317,27 @@ def generate_entities(seed: int = DEFAULT_SEED):
         all_consultas.append(con)
         consultas_bulk.append(con)
 
+    # S1 stores demographics only in encounter rows. Random assignment alone
+    # left95 of the1,000 patients unrepresented at the original default seed.
+    # Reassign the minimum number of duplicate encounter owners, preserving
+    # the RNG stream, encounter count, and the two DDL seed records. Signs and
+    # diagnoses are generated below from these same encounter dictionaries.
+    from collections import Counter
+    owner_counts = Counter(c['id_paciente'] for c in all_consultas)
+    missing_patients = sorted(set(all_pacientes) - set(owner_counts))
+    available = iter(reversed(consultas_bulk))
+    for missing_pid in missing_patients:
+        for candidate in available:
+            previous_pid = candidate['id_paciente']
+            if owner_counts[previous_pid] > 1:
+                owner_counts[previous_pid] -= 1
+                candidate['id_paciente'] = missing_pid
+                owner_counts[missing_pid] += 1
+                break
+        else:
+            raise ValueError('Insufficient encounters to represent every synthetic patient in S1')
+    assert set(owner_counts) == set(all_pacientes)
+
     # 2,500 Signos Vitales (IDs 1..2500, vinculados 1:1 con consultas 1..2500)
     # Metas exactas en BD:
     #   - 10% (250) frecuencia_respiratoria = NULL. Signo 2 ya tiene NULL en DDL y Signo 1 tiene 18.
@@ -780,10 +801,11 @@ def main():
         elif schema_name == "s3":
             sql_content = generate_sql_s3(args.seed, pacientes_bulk, consultas_bulk, signos_bulk, diagnosticos_bulk)
 
-        with open(target_path, "w", encoding="utf-8") as f:
+        with open(target_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(sql_content)
 
-        file_sha256 = hashlib.sha256(sql_content.encode("utf-8")).hexdigest()
+        with open(target_path, 'rb') as evaluated_file:
+            file_sha256 = hashlib.sha256(evaluated_file.read()).hexdigest()
         print(f"[OK] Archivo SQL '{schema_name}' generado exitosamente:")
         print(f"     Ruta:   {target_path}")
         print(f"     SHA256: {file_sha256}")

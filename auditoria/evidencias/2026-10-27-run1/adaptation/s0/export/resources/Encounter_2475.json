@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2475",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2475"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/403"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9481726"
+        },
+        "display": "Dr. Fernando Gómez Coutiño"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-07-13T10:11:00+00:00",
+    "end": "2025-07-13T10:42:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Lumbalgia mecánica tras esfuerzo físico"
+    }
+  ]
+}

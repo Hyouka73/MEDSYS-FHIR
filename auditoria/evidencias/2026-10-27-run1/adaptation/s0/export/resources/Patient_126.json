@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "126",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOXK921107MCSPXR46"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Sofia Lopez",
+      "family": "Lopez",
+      "given": [
+        "Karla",
+        "Sofia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-11-07"
+}

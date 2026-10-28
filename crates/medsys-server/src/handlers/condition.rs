@@ -1,16 +1,18 @@
 //! Manejadores HTTP para el recurso FHIR `Condition` (Diagnósticos CIE-10).
 
-use axum::extract::{Path, Query, State};
+use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
 use helios_fhir::r4::Resource;
-use medsys_core::{create_searchset_bundle, transform_condition};
+use medsys_core::transform_condition;
 use serde::Deserialize;
 
+use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
 use crate::error::ServerError;
 use crate::response::FhirResponse;
 use crate::state::AppState;
 
 /// Parámetros de consulta para búsqueda de diagnósticos.
 #[derive(Debug, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct ConditionQueryParams {
     pub patient: Option<i32>,
     pub encounter: Option<i32>,
@@ -41,21 +43,12 @@ pub async fn get_condition(
         ServerError::InvalidPath(format!("Identificador de condición inválido: '{raw_id}'"))
     })?;
 
-    let diagnostico = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Condition") {
-        Some(m) if m.source_table != "tbl_diagnosticos" => {
-            let row = state.repositories.dynamic.find_by_id(m, id).await?;
-            medsys_db::row_to_legacy_diagnostico(&row)?
-        }
-        _ => {
-            let d = state.repositories.diagnosticos.find_by_id(id).await?;
-            state
-                .repositories
-                .verify_encounter_and_patient_exist(d.id_consulta, d.id_paciente)
-                .await?;
-            d
-        }
-    };
-    let fhir_cond = transform_condition(&diagnostico, Some(&state.mapping_rules))?;
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Condition")?;
+    let row = state.repositories.dynamic.find_by_id(&mapping, id).await?;
+    let diagnostico = medsys_db::row_to_legacy_diagnostico(&normalize_row(&state, row)?)?;
+
+    let fhir_cond = transform_condition(&diagnostico, Some(&rules))?;
 
     Ok(FhirResponse(Resource::Condition(Box::new(fhir_cond))))
 }
@@ -65,102 +58,46 @@ pub async fn get_condition(
 /// empaquetadas en un `Bundle` FHIR de tipo `searchset`.
 pub async fn list_conditions(
     State(state): State<AppState>,
-    Query(params): Query<ConditionQueryParams>,
+    OriginalUri(uri): OriginalUri,
+    query: Result<Query<ConditionQueryParams>, QueryRejection>,
 ) -> Result<FhirResponse, ServerError> {
-    let diagnosticos = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Condition") {
-        Some(m) if m.source_table != "tbl_diagnosticos" => {
-            let rows = if let Some(enc_id) = params.encounter {
-                state
-                    .repositories
-                    .dynamic
-                    .find_filtered_raw(
-                        m,
-                        "id_consulta",
-                        enc_id,
-                        params.limit(),
-                        params.offset(),
-                    )
-                    .await?
-            } else if let Some(patient_id) = params.patient {
-                state
-                    .repositories
-                    .dynamic
-                    .find_filtered_raw(
-                        m,
-                        "id_paciente",
-                        patient_id,
-                        params.limit(),
-                        params.offset(),
-                    )
-                    .await?
-            } else if let Some(ref cie10) = params.code {
-                let all_rows = state
-                    .repositories
-                    .dynamic
-                    .find_all_raw(m, params.limit(), params.offset())
-                    .await?;
-                all_rows
-                    .into_iter()
-                    .filter(|r| {
-                        r.get("codigo_cie10").and_then(|v| v.as_str()) == Some(cie10.as_str())
-                    })
-                    .collect()
-            } else {
-                state
-                    .repositories
-                    .dynamic
-                    .find_all_raw(m, params.limit(), params.offset())
-                    .await?
-            };
-            let mut list = Vec::with_capacity(rows.len());
-            for r in &rows {
-                list.push(medsys_db::row_to_legacy_diagnostico(r)?);
-            }
-            list
+    let params = parse_query(query)?;
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Condition")?;
+    let rows = state
+        .repositories
+        .dynamic
+        .find_all_raw(&mapping, i64::MAX, 0)
+        .await?;
+    let mut resources = Vec::new();
+    for row in rows {
+        let diagnostico = medsys_db::row_to_legacy_diagnostico(&normalize_row(&state, row)?)?;
+        if params
+            .patient
+            .is_some_and(|id| diagnostico.id_paciente != id)
+        {
+            continue;
         }
-        _ => {
-            let all = if let Some(enc_id) = params.encounter {
-                state
-                    .repositories
-                    .diagnosticos
-                    .find_by_consulta_id(enc_id)
-                    .await?
-            } else if let Some(patient_id) = params.patient {
-                state
-                    .repositories
-                    .diagnosticos
-                    .find_by_paciente_id(patient_id)
-                    .await?
-            } else if let Some(ref cie10) = params.code {
-                state
-                    .repositories
-                    .diagnosticos
-                    .find_by_codigo_cie10(cie10)
-                    .await?
-            } else {
-                state.repositories.diagnosticos.find_all().await?
-            };
-
-            let total = all.len();
-            let offset = params.offset() as usize;
-            let limit = params.limit() as usize;
-            if offset < total {
-                all.into_iter().skip(offset).take(limit).collect()
-            } else {
-                Vec::new()
-            }
+        if params
+            .encounter
+            .is_some_and(|id| diagnostico.id_consulta != id)
+        {
+            continue;
         }
-    };
-
-    let count = diagnosticos.len();
-    let mut resources = Vec::with_capacity(count);
-
-    for d in diagnosticos {
-        let fhir_cond = transform_condition(&d, Some(&state.mapping_rules))?;
-        resources.push(Resource::Condition(Box::new(fhir_cond)));
+        if params
+            .code
+            .as_ref()
+            .is_some_and(|code| diagnostico.codigo_cie10 != *code)
+        {
+            continue;
+        }
+        let value = transform_condition(&diagnostico, Some(&rules))?;
+        resources.push(Resource::Condition(Box::new(value)));
     }
-
-    let bundle = create_searchset_bundle(Some("bundle-conditions"), resources, Some(count));
-
-    Ok(FhirResponse(Resource::Bundle(Box::new(bundle))))
+    Ok(bundle_page(
+        resources,
+        params.limit(),
+        params.offset(),
+        &uri,
+    ))
 }

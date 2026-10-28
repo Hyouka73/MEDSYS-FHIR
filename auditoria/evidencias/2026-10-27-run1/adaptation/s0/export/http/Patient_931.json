@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/931",
+  "started_utc": "2026-10-28T02:56:30.380649+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "454",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"931\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOMM910912HCSRRG41\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Andres Moreno Morales\",\n      \"family\": \"Moreno Morales\",\n      \"given\": [\n        \"Miguel\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1991-09-12\"\n}",
+  "body_bytes": 454,
+  "body_sha256": "847c5d69f3b00cdb2dc9d553006501dd55a211d9de7016fbdec14fc49b95c53f",
+  "elapsed_seconds": 0.00958449998870492,
+  "resource": "Patient/931",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

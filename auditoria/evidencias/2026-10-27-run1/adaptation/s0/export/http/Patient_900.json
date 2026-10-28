@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/900",
+  "started_utc": "2026-10-28T02:56:30.296457+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "539",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"900\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIMK510308MCSMNR10\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Karla Jimenez Mendoza\",\n      \"family\": \"Jimenez Mendoza\",\n      \"given\": [\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614903867\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1951-03-08\"\n}",
+  "body_bytes": 539,
+  "body_sha256": "b8c857b519dd48250c11521eb85fb70d66b21cd837d01580f02c84edc5173ff3",
+  "elapsed_seconds": 0.010219599993433803,
+  "resource": "Patient/900",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

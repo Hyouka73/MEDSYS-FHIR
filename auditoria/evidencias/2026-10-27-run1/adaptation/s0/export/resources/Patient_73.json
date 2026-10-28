@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "73",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEMS470801MCSRRF83"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Sofia Veronica Hernandez Moreno",
+      "family": "Hernandez Moreno",
+      "given": [
+        "Sofia",
+        "Veronica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611616300",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1947-08-01"
+}

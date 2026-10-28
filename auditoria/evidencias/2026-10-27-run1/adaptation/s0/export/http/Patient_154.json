@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/154",
+  "started_utc": "2026-10-28T02:56:27.905470+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"154\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SAVJ040414HCSNSV74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Juan Sanchez Vasquez\",\n      \"family\": \"Sanchez Vasquez\",\n      \"given\": [\n        \"Javier\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612261374\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2004-04-14\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "951e2ecb15ccad36aca5a859c66d9f9d665af421964766bed8dc418ccd0f1b42",
+  "elapsed_seconds": 0.00915480003459379,
+  "resource": "Patient/154",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

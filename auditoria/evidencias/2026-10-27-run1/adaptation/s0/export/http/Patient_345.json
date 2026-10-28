@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/345",
+  "started_utc": "2026-10-28T02:56:28.551628+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "438",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"345\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEXL561120MCSRXC85\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Laura Herrera\",\n      \"family\": \"Herrera\",\n      \"given\": [\n        \"Lucia\",\n        \"Laura\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1956-11-20\"\n}",
+  "body_bytes": 438,
+  "body_sha256": "7145cbac844ccaa296fa66c43a130a702e0270cb9460abe34a47630603889504",
+  "elapsed_seconds": 0.007437099993694574,
+  "resource": "Patient/345",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

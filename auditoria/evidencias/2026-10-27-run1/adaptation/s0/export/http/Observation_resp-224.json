@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-224",
+  "started_utc": "2026-10-28T02:56:30.666432+00:00",
+  "status": 404,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "589",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"id\": \"outcome-1793156190684\",\n  \"language\": \"es\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"not-found\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/issue-type\",\n            \"code\": \"not-found\"\n          }\n        ],\n        \"text\": \"La consulta de signos vitales 'resp-224' no registra frecuencia respiratoria (campo opcional NULL).\"\n      },\n      \"diagnostics\": \"La consulta de signos vitales 'resp-224' no registra frecuencia respiratoria (campo opcional NULL).\"\n    }\n  ]\n}",
+  "body_bytes": 589,
+  "body_sha256": "bfd5f72180a7a709e7c9a2b797da5a8884cee8e2ffd7ebc338c689c7eaea73fc",
+  "elapsed_seconds": 0.0201558000408113,
+  "resource": "Observation/resp-224",
+  "expected_status": 404,
+  "invalid_content_type": false,
+  "omission_outcome_valid": true
+}

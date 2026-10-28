@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "462",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MECD120503MCSNSN22"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Maria Mendoza Castillo",
+      "family": "Mendoza Castillo",
+      "given": [
+        "Daniela",
+        "Maria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613082064",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-05-03"
+}

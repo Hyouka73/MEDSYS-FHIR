@@ -14,8 +14,8 @@ pub mod repository;
 
 pub use config::DbConfig;
 pub use dynamic_repo::{
-    pg_row_to_json_map, row_to_legacy_consulta, row_to_legacy_diagnostico, row_to_legacy_paciente,
-    row_to_legacy_signo_vital, DynamicFhirRepository,
+    normalize_row_timezone, pg_row_to_json_map, row_to_legacy_consulta, row_to_legacy_diagnostico,
+    row_to_legacy_paciente, row_to_legacy_signo_vital, DynamicFhirRepository,
 };
 pub use entities::{ConsultaEntity, DiagnosticoEntity, PacienteEntity, SignoVitalEntity};
 pub use error::{map_sqlx_error, DbError};

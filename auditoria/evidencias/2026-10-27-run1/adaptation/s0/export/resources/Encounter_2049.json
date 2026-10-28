@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2049",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2049"
+    }
+  ],
+  "status": "in-progress",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/887"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9481726"
+        },
+        "display": "Dr. Fernando Gómez Coutiño"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-05-26T18:35:00+00:00",
+    "end": "2026-05-26T19:07:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Cefalea persistente y mareos"
+    }
+  ]
+}

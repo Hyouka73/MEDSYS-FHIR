@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/367",
+  "started_utc": "2026-10-28T02:56:28.634418+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"367\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HECM090525HCSRSG17\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Alejandro Herrera Castillo\",\n      \"family\": \"Herrera Castillo\",\n      \"given\": [\n        \"Miguel\",\n        \"Alejandro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613863162\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2009-05-25\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "6838fc17abf72d6e455538beac7dc731d8011e69577e2963fc7b906d63a01d1d",
+  "elapsed_seconds": 0.007821000006515533,
+  "resource": "Patient/367",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

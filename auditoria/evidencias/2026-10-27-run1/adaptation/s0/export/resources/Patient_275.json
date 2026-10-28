@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "275",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEJL120815HCSNMS15"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Salvador Mendoza Jimenez",
+      "family": "Mendoza Jimenez",
+      "given": [
+        "Luis",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614311869",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2012-08-15"
+}

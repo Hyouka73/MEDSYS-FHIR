@@ -1,21 +1,24 @@
 //! Manejadores HTTP para el recurso FHIR `Observation`.
 //! Implementa el desacoplamiento canónico de signos vitales (Presión Arterial, Temperatura, Frecuencia Cardíaca y Frecuencia Respiratoria).
 
-use axum::extract::{Path, Query, State};
+use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
 use helios_fhir::r4::Resource;
 use medsys_core::{
-    create_searchset_bundle, transform_observation_blood_pressure,
-    transform_observation_heart_rate, transform_observation_respiratory_rate,
-    transform_observation_temperature,
+    transform_observation_blood_pressure, transform_observation_heart_rate,
+    transform_observation_respiratory_rate, transform_observation_temperature,
 };
 use serde::Deserialize;
 
+use super::common::{
+    bundle_page, normalize_row, output_rules, parse_query, read_mapping, with_date_precision,
+};
 use crate::error::ServerError;
 use crate::response::FhirResponse;
 use crate::state::AppState;
 
 /// Parámetros de consulta para búsqueda de observaciones clínicas.
 #[derive(Debug, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct ObservationQueryParams {
     pub patient: Option<i32>,
     pub encounter: Option<i32>,
@@ -87,21 +90,12 @@ pub async fn get_observation(
     Path(raw_id): Path<String>,
 ) -> Result<FhirResponse, ServerError> {
     let (kind, id) = parse_observation_id(&raw_id)?;
-    let signo = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Observation") {
-        Some(m) if m.source_table != "tbl_signos_vitales" => {
-            let row = state.repositories.dynamic.find_by_id(m, id).await?;
-            medsys_db::row_to_legacy_signo_vital(&row)?
-        }
-        _ => {
-            let s = state.repositories.signos_vitales.find_by_id(id).await?;
-            state
-                .repositories
-                .verify_encounter_and_patient_exist(s.id_consulta, s.id_paciente)
-                .await?;
-            s
-        }
-    };
-    let rules = Some(state.mapping_rules.as_ref());
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Observation")?;
+    let row = state.repositories.dynamic.find_by_id(&mapping, id).await?;
+    let row = normalize_row(&state, row)?;
+    let signo = medsys_db::row_to_legacy_signo_vital(&row)?;
+    let rules = Some(&rules);
 
     let obs = match kind {
         VitalKind::BloodPressure => transform_observation_blood_pressure(&signo, rules)?,
@@ -114,7 +108,11 @@ pub async fn get_observation(
                 ))
             })?,
     };
-    Ok(FhirResponse(Resource::Observation(Box::new(obs))))
+    Ok(FhirResponse(with_date_precision(
+        Resource::Observation(Box::new(obs)),
+        &row,
+        &mapping,
+    )?))
 }
 
 /// Endpoint canónico: `GET /fhir/r4/Observation`
@@ -122,100 +120,63 @@ pub async fn get_observation(
 /// y Frecuencia Respiratoria cuando está presente) empaquetadas en un `Bundle` FHIR de tipo `searchset`.
 pub async fn list_observations(
     State(state): State<AppState>,
-    Query(params): Query<ObservationQueryParams>,
+    OriginalUri(uri): OriginalUri,
+    query: Result<Query<ObservationQueryParams>, QueryRejection>,
 ) -> Result<FhirResponse, ServerError> {
-    let signos = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Observation") {
-        Some(m) if m.source_table != "tbl_signos_vitales" => {
-            let rows = if let Some(enc_id) = params.encounter {
-                state
-                    .repositories
-                    .dynamic
-                    .find_filtered_raw(
-                        m,
-                        "id_consulta",
-                        enc_id,
-                        params.limit(),
-                        params.offset(),
-                    )
-                    .await?
-            } else if let Some(patient_id) = params.patient {
-                state
-                    .repositories
-                    .dynamic
-                    .find_filtered_raw(
-                        m,
-                        "id_paciente",
-                        patient_id,
-                        params.limit(),
-                        params.offset(),
-                    )
-                    .await?
-            } else {
-                state
-                    .repositories
-                    .dynamic
-                    .find_all_raw(m, params.limit(), params.offset())
-                    .await?
-            };
-            let mut list = Vec::with_capacity(rows.len());
-            for r in &rows {
-                list.push(medsys_db::row_to_legacy_signo_vital(r)?);
-            }
-            list
+    let params = parse_query(query)?;
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Observation")?;
+    let rows = state
+        .repositories
+        .dynamic
+        .find_all_raw(&mapping, i64::MAX, 0)
+        .await?;
+    let mut resources = Vec::new();
+    for row in rows {
+        let row = normalize_row(&state, row)?;
+        let s = medsys_db::row_to_legacy_signo_vital(&row)?;
+        if params.patient.is_some_and(|id| s.id_paciente != id) {
+            continue;
         }
-        _ => {
-            let all = if let Some(enc_id) = params.encounter {
-                state
-                    .repositories
-                    .signos_vitales
-                    .find_by_consulta_id(enc_id)
-                    .await?
-            } else if let Some(patient_id) = params.patient {
-                state
-                    .repositories
-                    .signos_vitales
-                    .find_by_paciente_id(patient_id)
-                    .await?
-            } else {
-                state.repositories.signos_vitales.find_all().await?
-            };
-
-            let total_records = all.len();
-            let offset = params.offset() as usize;
-            let limit = params.limit() as usize;
-            if offset < total_records {
-                all.into_iter().skip(offset).take(limit).collect()
-            } else {
-                Vec::new()
-            }
+        if params.encounter.is_some_and(|id| s.id_consulta != id) {
+            continue;
         }
-    };
-
-    let mut resources = Vec::with_capacity(signos.len() * 4);
-
-    for s in &signos {
-        // Recurso 3A: Panel de Presión Arterial
-        let obs_bp = transform_observation_blood_pressure(s, Some(&state.mapping_rules))?;
-        resources.push(Resource::Observation(Box::new(obs_bp)));
-
-        // Recurso 3B: Temperatura Corporal
-        let obs_temp = transform_observation_temperature(s, Some(&state.mapping_rules))?;
-        resources.push(Resource::Observation(Box::new(obs_temp)));
-
-        // Recurso 3C: Frecuencia Cardíaca
-        let obs_hr = transform_observation_heart_rate(s, Some(&state.mapping_rules))?;
-        resources.push(Resource::Observation(Box::new(obs_hr)));
-
-        // Recurso 3D: Frecuencia Respiratoria (opcional: se omite si es NULL)
-        if let Some(obs_resp) =
-            transform_observation_respiratory_rate(s, Some(&state.mapping_rules))?
-        {
-            resources.push(Resource::Observation(Box::new(obs_resp)));
+        resources.push(with_date_precision(
+            Resource::Observation(Box::new(transform_observation_blood_pressure(
+                &s,
+                Some(&rules),
+            )?)),
+            &row,
+            &mapping,
+        )?);
+        resources.push(with_date_precision(
+            Resource::Observation(Box::new(transform_observation_temperature(
+                &s,
+                Some(&rules),
+            )?)),
+            &row,
+            &mapping,
+        )?);
+        resources.push(with_date_precision(
+            Resource::Observation(Box::new(transform_observation_heart_rate(
+                &s,
+                Some(&rules),
+            )?)),
+            &row,
+            &mapping,
+        )?);
+        if let Some(obs) = transform_observation_respiratory_rate(&s, Some(&rules))? {
+            resources.push(with_date_precision(
+                Resource::Observation(Box::new(obs)),
+                &row,
+                &mapping,
+            )?);
         }
     }
-
-    let total = resources.len();
-    let bundle = create_searchset_bundle(Some("bundle-observations"), resources, Some(total));
-
-    Ok(FhirResponse(Resource::Bundle(Box::new(bundle))))
+    Ok(bundle_page(
+        resources,
+        params.limit(),
+        params.offset(),
+        &uri,
+    ))
 }

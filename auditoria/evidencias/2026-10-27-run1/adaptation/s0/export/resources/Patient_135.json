@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "135",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOHJ481001HCSRRV55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Eduardo Torres Herrera",
+      "family": "Torres Herrera",
+      "given": [
+        "Javier",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613559158",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1948-10-01"
+}

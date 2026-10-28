@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "469",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HECM750221HCSRSN29"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Pedro Hernandez Castillo",
+      "family": "Hernandez Castillo",
+      "given": [
+        "Manuel",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618239363",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1975-02-21"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "248",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MAVC600211MCSRRL78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Beatriz Martinez Vargas",
+      "family": "Martinez Vargas",
+      "given": [
+        "Claudia",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612841355",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1960-02-11"
+}

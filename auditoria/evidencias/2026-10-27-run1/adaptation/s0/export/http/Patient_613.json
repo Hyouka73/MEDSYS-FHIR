@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/613",
+  "started_utc": "2026-10-28T02:56:29.393468+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "454",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"613\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"DIMC920323MCSZRR83\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carmen Daniela Diaz Morales\",\n      \"family\": \"Diaz Morales\",\n      \"given\": [\n        \"Carmen\",\n        \"Daniela\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1992-03-23\"\n}",
+  "body_bytes": 454,
+  "body_sha256": "4cd3c84aac675e21e1995fce11958cf28bdf70cb73d49b3070f4725ae837e11b",
+  "elapsed_seconds": 0.01593300001695752,
+  "resource": "Patient/613",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

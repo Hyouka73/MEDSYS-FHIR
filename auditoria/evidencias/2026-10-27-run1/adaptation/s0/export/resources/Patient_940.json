@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "940",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAJD630626MCSSRN50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Yolanda Castro Juarez",
+      "family": "Castro Juarez",
+      "given": [
+        "Daniela",
+        "Yolanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612450478",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-06-26"
+}

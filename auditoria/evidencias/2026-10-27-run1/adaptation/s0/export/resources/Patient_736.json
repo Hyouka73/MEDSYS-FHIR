@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "736",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAGL080915MCSHRR26"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Daniela Chavez Garcia",
+      "family": "Chavez Garcia",
+      "given": [
+        "Lorena",
+        "Daniela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618754949",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2008-09-15"
+}

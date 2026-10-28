@@ -1,4 +1,3 @@
-use chrono::NaiveTime;
 use helios_fhir::r4::{
     Bundle, BundleEntry, Condition, ContactPoint, Encounter, EncounterParticipant, HumanName,
     Observation, ObservationComponent, ObservationComponentValue, ObservationEffective,
@@ -11,8 +10,8 @@ use rust_decimal::Decimal as RustDecimal;
 use crate::engine::evaluator::parse_date_iso8601;
 use crate::error::{MedSysError, Result};
 use crate::model::fhir_helpers::{
-    fhir_code, fhir_concept, fhir_date, fhir_datetime, fhir_decimal, fhir_identifier,
-    fhir_reference, fhir_string, fhir_uri,
+    fhir_code, fhir_concept, fhir_date, fhir_date_as_datetime, fhir_datetime_in_timezone,
+    fhir_decimal, fhir_identifier, fhir_reference, fhir_string, fhir_uri,
 };
 use crate::model::legacy::{LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital};
 use crate::model::mapping::{MappingRules, SupportedResource};
@@ -293,8 +292,18 @@ pub fn transform_encounter(
     let period = Period {
         id: None,
         extension: None,
-        start: Some(fhir_datetime(consulta.fecha_hora_inicio)?),
-        end: Some(fhir_datetime(consulta.fecha_hora_fin)?),
+        start: Some(fhir_datetime_in_timezone(
+            consulta.fecha_hora_inicio,
+            rules
+                .map(|r| r.timezone_default.as_str())
+                .unwrap_or("America/Mexico_City"),
+        )?),
+        end: Some(fhir_datetime_in_timezone(
+            consulta.fecha_hora_fin,
+            rules
+                .map(|r| r.timezone_default.as_str())
+                .unwrap_or("America/Mexico_City"),
+        )?),
     };
 
     // Médico tratante con su Cédula Profesional SEP
@@ -386,7 +395,12 @@ pub fn transform_observation_blood_pressure(
     signo: &LegacySignoVital,
     rules: Option<&MappingRules>,
 ) -> Result<Observation> {
-    let effective_dt = fhir_datetime(signo.fecha_registro)?;
+    let effective_dt = fhir_datetime_in_timezone(
+        signo.fecha_registro,
+        rules
+            .map(|r| r.timezone_default.as_str())
+            .unwrap_or("America/Mexico_City"),
+    )?;
 
     let bp_mapping = rules.and_then(|r| {
         r.resources
@@ -606,9 +620,14 @@ pub fn transform_observation_blood_pressure(
 /// Implementa la Tarea 2.3 del Sprint 2.
 pub fn transform_observation_temperature(
     signo: &LegacySignoVital,
-    _rules: Option<&MappingRules>,
+    rules: Option<&MappingRules>,
 ) -> Result<Observation> {
-    let effective_dt = fhir_datetime(signo.fecha_registro)?;
+    let effective_dt = fhir_datetime_in_timezone(
+        signo.fecha_registro,
+        rules
+            .map(|r| r.timezone_default.as_str())
+            .unwrap_or("America/Mexico_City"),
+    )?;
 
     let category = vec![fhir_concept(
         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
@@ -680,9 +699,14 @@ pub fn transform_observation_temperature(
 /// para la medición de Frecuencia Cardíaca (LOINC 8867-4, unidad /min).
 pub fn transform_observation_heart_rate(
     signo: &LegacySignoVital,
-    _rules: Option<&MappingRules>,
+    rules: Option<&MappingRules>,
 ) -> Result<Observation> {
-    let effective_dt = fhir_datetime(signo.fecha_registro)?;
+    let effective_dt = fhir_datetime_in_timezone(
+        signo.fecha_registro,
+        rules
+            .map(|r| r.timezone_default.as_str())
+            .unwrap_or("America/Mexico_City"),
+    )?;
 
     let category = vec![fhir_concept(
         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
@@ -754,7 +778,7 @@ pub fn transform_observation_heart_rate(
 /// (LOINC 9279-1, unidad /min). Campo opcional: si `frecuencia_respiratoria` es `NULL` retorna `Ok(None)`.
 pub fn transform_observation_respiratory_rate(
     signo: &LegacySignoVital,
-    _rules: Option<&MappingRules>,
+    rules: Option<&MappingRules>,
 ) -> Result<Option<Observation>> {
     let rr = match signo.frecuencia_respiratoria {
         None => return Ok(None),
@@ -766,7 +790,12 @@ pub fn transform_observation_respiratory_rate(
         ));
     }
 
-    let effective_dt = fhir_datetime(signo.fecha_registro)?;
+    let effective_dt = fhir_datetime_in_timezone(
+        signo.fecha_registro,
+        rules
+            .map(|r| r.timezone_default.as_str())
+            .unwrap_or("America/Mexico_City"),
+    )?;
 
     let category = vec![fhir_concept(
         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
@@ -898,11 +927,7 @@ pub fn transform_condition(
         Some(&diagnostico.descripcion_diagnostico),
     );
 
-    let recorded_date = fhir_datetime(
-        diagnostico
-            .fecha_diagnostico
-            .and_time(NaiveTime::from_hms_opt(0, 0, 0).unwrap_or_default()),
-    )?;
+    let recorded_date = fhir_date_as_datetime(diagnostico.fecha_diagnostico)?;
 
     Ok(Condition {
         id: Some(fhir_string(diagnostico.id_diagnostico.to_string())),

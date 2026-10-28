@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "207",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIGR590714MCSMZS37"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Adriana Jimenez Guzman",
+      "family": "Jimenez Guzman",
+      "given": [
+        "Rosa",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613156755",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1959-07-14"
+}

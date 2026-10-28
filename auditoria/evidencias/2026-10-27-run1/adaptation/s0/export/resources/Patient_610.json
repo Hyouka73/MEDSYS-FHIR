@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "610",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VARR620313HCSRYB80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto David Vargas Reyes",
+      "family": "Vargas Reyes",
+      "given": [
+        "Roberto",
+        "David"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1962-03-13"
+}

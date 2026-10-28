@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "98",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOTE160717HCSLRN18"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Enrique Flores Torres",
+      "family": "Flores Torres",
+      "given": [
+        "Enrique",
+        "Enrique"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613768352",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2016-07-17"
+}

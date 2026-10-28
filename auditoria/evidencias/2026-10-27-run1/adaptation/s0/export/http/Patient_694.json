@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/694",
+  "started_utc": "2026-10-28T02:56:29.629226+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "545",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"694\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUMV770214MCSTNR74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Gutierrez Munoz\",\n      \"family\": \"Gutierrez Munoz\",\n      \"given\": [\n        \"Veronica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615723447\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1977-02-14\"\n}",
+  "body_bytes": 545,
+  "body_sha256": "99328b003f5c58a2f1a0dd698e67dda20c42d3e42fdb4f3cbd35018412a7c263",
+  "elapsed_seconds": 0.008865099982358515,
+  "resource": "Patient/694",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

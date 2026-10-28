@@ -1,0 +1,14 @@
+{
+  "kind": "corrected_generator_final_artifact_hashes",
+  "finished_utc": "2026-10-26T03:51:05.892568+00:00",
+  "seed": 20260930,
+  "logical_reference": "generator-before-after-20261025.json",
+  "portable_line_ending": "LF; generator now hashes actual file bytes after writing, not pre-newline text",
+  "files_sha256": {
+    "scripts/generate_data.py": "b7a24551396760d07516364e590f40a39ebc770f5e9e307f45fcd76fc26bacc4",
+    "docker/sql/02_bulk_data.sql": "9401cf1661effb409df461f5e50188b44e712968bc1ccea88c68bf7c5d5d836d",
+    "docker/sql/bulk_s1.sql": "a4e6601bebd11e1409bb03b2334116b15882fd98d47ce6ba8e79e1fac3084a47",
+    "docker/sql/bulk_s2.sql": "66c7fe65f214b32382cd1c12edd6d031e392f0a2ee59664fb9a3bcb784186c12",
+    "docker/sql/bulk_s3.sql": "91f7e9cd72e7b186ad7c350dc2ac80200f031f195d8ef7185db07c4ff7bd0535"
+  }
+}

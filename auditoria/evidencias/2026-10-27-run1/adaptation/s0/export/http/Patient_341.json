@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/341",
+  "started_utc": "2026-10-28T02:56:28.540153+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "454",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"341\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIGP930620MCSRNL81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Teresa Ortiz Gonzalez\",\n      \"family\": \"Ortiz Gonzalez\",\n      \"given\": [\n        \"Paola\",\n        \"Teresa\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1993-06-20\"\n}",
+  "body_bytes": 454,
+  "body_sha256": "8a16fc13e39c188f30958762ed90c5fecf5c55334795ceaa84ce0b67be50a9c6",
+  "elapsed_seconds": 0.009389800019562244,
+  "resource": "Patient/341",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

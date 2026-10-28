@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "586",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAJC890129HCSRRR56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Roberto Garcia Juarez",
+      "family": "Garcia Juarez",
+      "given": [
+        "Carlos",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614123221",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1989-01-29"
+}

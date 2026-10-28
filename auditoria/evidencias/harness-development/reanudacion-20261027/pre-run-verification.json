@@ -1,0 +1,13 @@
+{
+  "kind": "instrument_pre_run_guard_verification",
+  "finished_utc": "2026-10-28T02:55:03.253812+00:00",
+  "exit_code": 0,
+  "command": [
+    "C:\\Python313\\python.exe",
+    "scripts/test_experimental_evidence.py"
+  ],
+  "script_sha256": {
+    "experimental_evidence.py": "56ac5d7848157e4f7d1549b22cfb0837c6f184e12826c3c9000ff9eae84427c1",
+    "test_experimental_evidence.py": "0d7726957b768117bc61ce890e2c67812ab23849507e1543faf092441c47822b"
+  }
+}

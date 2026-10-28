@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/146",
+  "started_utc": "2026-10-28T02:56:27.886349+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"146\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CARA860908HCSSDL66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Daniel Castillo Rodriguez\",\n      \"family\": \"Castillo Rodriguez\",\n      \"given\": [\n        \"Alexis\",\n        \"Daniel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611166143\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1986-09-08\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "234e29303eedfdc5bd5c2553f452b507c62f184211897d56adff4a6bab03d704",
+  "elapsed_seconds": 0.008229799976106733,
+  "resource": "Patient/146",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

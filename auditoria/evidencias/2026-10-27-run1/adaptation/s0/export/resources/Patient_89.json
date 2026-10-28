@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "89",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORJ510925HCSRDN99"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Morales Rodriguez",
+      "family": "Morales Rodriguez",
+      "given": [
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618195390",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1951-09-25"
+}

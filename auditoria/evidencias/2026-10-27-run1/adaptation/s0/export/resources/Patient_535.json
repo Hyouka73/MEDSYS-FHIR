@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "535",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEPR150703MCSRRS95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Elena Hernandez Perez",
+      "family": "Hernandez Perez",
+      "given": [
+        "Rosa",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618149357",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2015-07-03"
+}

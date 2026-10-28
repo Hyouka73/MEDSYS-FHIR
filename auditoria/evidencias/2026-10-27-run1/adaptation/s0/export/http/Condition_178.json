@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/178",
+  "started_utc": "2026-10-28T02:55:35.004394+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "860",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:35 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"178\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"I10\",\n        \"display\": \"Hipertensión esencial (primaria)\"\n      }\n    ],\n    \"text\": \"Hipertensión esencial (primaria)\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/459\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/178\"\n  },\n  \"recordedDate\": \"2025-06-30\"\n}",
+  "body_bytes": 860,
+  "body_sha256": "94adf84119bc3441d82640835bab274df4ff3b97d2e7d6b781fcfcbf5cf6653d",
+  "elapsed_seconds": 0.020205499953590333,
+  "resource": "Condition/178",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

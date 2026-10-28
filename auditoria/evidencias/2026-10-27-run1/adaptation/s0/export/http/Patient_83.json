@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/83",
+  "started_utc": "2026-10-28T02:56:30.057697+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "563",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"83\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOSC790315MCSRNL93\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Claudia Paola Moreno Sanchez\",\n      \"family\": \"Moreno Sanchez\",\n      \"given\": [\n        \"Claudia\",\n        \"Paola\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615803064\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1979-03-15\"\n}",
+  "body_bytes": 563,
+  "body_sha256": "99a4bfc1a3dcf9b0333909524fa11347ff6d62bf22ae7561036498fc8c7f3f38",
+  "elapsed_seconds": 0.014248299994505942,
+  "resource": "Patient/83",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

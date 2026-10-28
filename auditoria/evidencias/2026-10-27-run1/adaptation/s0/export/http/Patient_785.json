@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/785",
+  "started_utc": "2026-10-28T02:56:29.894844+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"785\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"METV531020MCSNRR75\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Mendez Torres\",\n      \"family\": \"Mendez Torres\",\n      \"given\": [\n        \"Veronica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618889737\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1953-10-20\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "de8923122ef2e22ea17e1b918f7e633b942fd4ca59478dcca80b0fe6a336dafa",
+  "elapsed_seconds": 0.014054300030693412,
+  "resource": "Patient/785",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

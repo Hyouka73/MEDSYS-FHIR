@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-784",
+  "started_utc": "2026-10-28T02:56:10.295614+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "774",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:10 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-784\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/753\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/784\"\n  },\n  \"effectiveDateTime\": \"2025-08-19T08:08:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 102,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 774,
+  "body_sha256": "af196a8634e63fe86c9ef090c9db76ae8feb42109aae3c1db4eb5c9cb106d36f",
+  "elapsed_seconds": 0.022004500031471252,
+  "resource": "Observation/hr-784",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

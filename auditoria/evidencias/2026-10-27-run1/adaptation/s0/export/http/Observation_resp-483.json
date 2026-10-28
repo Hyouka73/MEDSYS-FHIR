@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-483",
+  "started_utc": "2026-10-28T02:56:30.751845+00:00",
+  "status": 404,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "589",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"id\": \"outcome-1793156190768\",\n  \"language\": \"es\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"not-found\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/issue-type\",\n            \"code\": \"not-found\"\n          }\n        ],\n        \"text\": \"La consulta de signos vitales 'resp-483' no registra frecuencia respiratoria (campo opcional NULL).\"\n      },\n      \"diagnostics\": \"La consulta de signos vitales 'resp-483' no registra frecuencia respiratoria (campo opcional NULL).\"\n    }\n  ]\n}",
+  "body_bytes": 589,
+  "body_sha256": "bcb957552d952bada8ce25113b350c2789e39a8e960f5e4a2e21874227600a71",
+  "elapsed_seconds": 0.01978969998890534,
+  "resource": "Observation/resp-483",
+  "expected_status": 404,
+  "invalid_content_type": false,
+  "omission_outcome_valid": true
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/temp-783",
+  "started_utc": "2026-10-28T02:56:26.981693+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "780",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"temp-783\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8310-5\",\n        \"display\": \"Body temperature\"\n      }\n    ],\n    \"text\": \"Temperatura Corporal\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/66\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/783\"\n  },\n  \"effectiveDateTime\": \"2026-06-25T20:54:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 36.7,\n    \"unit\": \"Cel\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"Cel\"\n  }\n}",
+  "body_bytes": 780,
+  "body_sha256": "4f89811b8db0998f22636dd550d6fa09c3ee7e2d4057ac554c0864f5f77369cc",
+  "elapsed_seconds": 0.02499760000500828,
+  "resource": "Observation/temp-783",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

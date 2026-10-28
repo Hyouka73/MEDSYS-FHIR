@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/631",
+  "started_utc": "2026-10-28T02:56:29.443327+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "537",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"631\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEMA521212HCSDNR11\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Arturo Medina Mendoza\",\n      \"family\": \"Medina Mendoza\",\n      \"given\": [\n        \"Arturo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619118870\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-12-12\"\n}",
+  "body_bytes": 537,
+  "body_sha256": "3b5536c192cc650ef5919e8298f91554d3a86e09400b6e126cc2822a049fddd0",
+  "elapsed_seconds": 0.011063600017223507,
+  "resource": "Patient/631",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

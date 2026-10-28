@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/846",
+  "started_utc": "2026-10-28T02:56:30.117326+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "454",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"846\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIVR630907HCSRRB46\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Roberto Alberto Ortiz Vargas\",\n      \"family\": \"Ortiz Vargas\",\n      \"given\": [\n        \"Roberto\",\n        \"Alberto\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1963-09-07\"\n}",
+  "body_bytes": 454,
+  "body_sha256": "d5a418efe26697dd297eb7b4871e56ef55001d3d7bd8151c44e3178b24f03ec6",
+  "elapsed_seconds": 0.0075323000201024115,
+  "resource": "Patient/846",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

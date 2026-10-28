@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "953",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIRG630325HCSZMB63"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Roberto Diaz Ramirez",
+      "family": "Diaz Ramirez",
+      "given": [
+        "Gabriel",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617093236",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1963-03-25"
+}

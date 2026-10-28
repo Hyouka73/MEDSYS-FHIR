@@ -1,0 +1,150 @@
+[
+  {
+    "schema": "s0",
+    "resource": "Patient/1",
+    "errors": []
+  },
+  {
+    "schema": "s0",
+    "resource": "Encounter/1",
+    "errors": [
+      "$.serviceType: missing projected field"
+    ]
+  },
+  {
+    "schema": "s0",
+    "resource": "Observation/bp-1",
+    "errors": []
+  },
+  {
+    "schema": "s0",
+    "resource": "Observation/temp-1",
+    "errors": []
+  },
+  {
+    "schema": "s0",
+    "resource": "Observation/hr-1",
+    "errors": []
+  },
+  {
+    "schema": "s0",
+    "resource": "Observation/resp-1",
+    "errors": []
+  },
+  {
+    "schema": "s0",
+    "resource": "Condition/1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Patient/1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Encounter/1",
+    "errors": [
+      "$.serviceType: missing projected field"
+    ]
+  },
+  {
+    "schema": "s1",
+    "resource": "Observation/bp-1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Observation/temp-1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Observation/hr-1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Observation/resp-1",
+    "errors": []
+  },
+  {
+    "schema": "s1",
+    "resource": "Condition/1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Patient/1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Encounter/1",
+    "errors": [
+      "$.serviceType: missing projected field"
+    ]
+  },
+  {
+    "schema": "s2",
+    "resource": "Observation/bp-1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Observation/temp-1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Observation/hr-1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Observation/resp-1",
+    "errors": []
+  },
+  {
+    "schema": "s2",
+    "resource": "Condition/1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Patient/1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Encounter/1",
+    "errors": [
+      "$.serviceType: missing projected field"
+    ]
+  },
+  {
+    "schema": "s3",
+    "resource": "Observation/bp-1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Observation/temp-1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Observation/hr-1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Observation/resp-1",
+    "errors": []
+  },
+  {
+    "schema": "s3",
+    "resource": "Condition/1",
+    "errors": []
+  }
+]

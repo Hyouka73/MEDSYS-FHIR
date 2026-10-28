@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "287",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOOR561218HCSPRB27"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Rogelio Lopez Ortiz",
+      "family": "Lopez Ortiz",
+      "given": [
+        "Roberto",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611328400",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1956-12-18"
+}

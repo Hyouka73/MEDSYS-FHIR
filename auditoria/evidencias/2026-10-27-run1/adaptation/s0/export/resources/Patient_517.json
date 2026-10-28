@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "517",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAGG961226MCSSML77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Beatriz Castro Gomez",
+      "family": "Castro Gomez",
+      "given": [
+        "Gloria",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615834913",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1996-12-26"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-855",
+  "started_utc": "2026-10-28T02:56:10.582900+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "773",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:10 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-855\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/448\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/855\"\n  },\n  \"effectiveDateTime\": \"2026-07-08T22:53:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 85,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 773,
+  "body_sha256": "83086746cb898ade7a921191012c9c3c72ad2b29842b15793ef03ee9f85e89a1",
+  "elapsed_seconds": 0.014507199986837804,
+  "resource": "Observation/hr-855",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

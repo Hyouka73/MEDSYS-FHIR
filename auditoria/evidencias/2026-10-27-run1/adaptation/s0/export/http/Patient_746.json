@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/746",
+  "started_utc": "2026-10-28T02:56:29.770453+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"746\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REVA720509HCSYRL36\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Juan Reyes Vargas\",\n      \"family\": \"Reyes Vargas\",\n      \"given\": [\n        \"Alejandro\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612483752\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1972-05-09\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "2aa0c3bcbde0c01536b59558d7e63d75f32f0745854041962a61f0f44f4e74de",
+  "elapsed_seconds": 0.01758390001486987,
+  "resource": "Patient/746",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

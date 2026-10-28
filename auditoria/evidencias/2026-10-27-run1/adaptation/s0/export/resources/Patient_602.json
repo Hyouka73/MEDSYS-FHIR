@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "602",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PECM871113HCSRSR72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Arturo Perez Castro",
+      "family": "Perez Castro",
+      "given": [
+        "Mario",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616106180",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1987-11-13"
+}

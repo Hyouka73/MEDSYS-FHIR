@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/19",
+  "started_utc": "2026-10-28T02:56:28.008670+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "565",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"19\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MAGE660524HCSRND29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Eduardo Hugo Martinez Gonzalez\",\n      \"family\": \"Martinez Gonzalez\",\n      \"given\": [\n        \"Eduardo\",\n        \"Hugo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613816714\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1966-05-24\"\n}",
+  "body_bytes": 565,
+  "body_sha256": "903495cf9b947941e0fe45e07d50f3ec2c7ca07bb8ef01a66c0a6024e502f503",
+  "elapsed_seconds": 0.008546199998818338,
+  "resource": "Patient/19",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

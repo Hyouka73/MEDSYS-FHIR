@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "525",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOCF120924HCSRSR85"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Raul Morales Castro",
+      "family": "Morales Castro",
+      "given": [
+        "Francisco",
+        "Raul"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2012-09-24"
+}

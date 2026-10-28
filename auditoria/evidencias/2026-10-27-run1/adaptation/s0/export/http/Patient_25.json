@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/25",
+  "started_utc": "2026-10-28T02:56:28.230949+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "536",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"25\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOGJ950829HCSRZV35\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Morales Guzman\",\n      \"family\": \"Morales Guzman\",\n      \"given\": [\n        \"Javier\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612182124\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1995-08-29\"\n}",
+  "body_bytes": 536,
+  "body_sha256": "4ce9f89e65fa811f0804c335d40638345964ff19dacde3f6c719f7be7e024543",
+  "elapsed_seconds": 0.010319300054106861,
+  "resource": "Patient/25",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

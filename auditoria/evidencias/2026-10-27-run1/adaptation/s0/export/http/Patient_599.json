@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/599",
+  "started_utc": "2026-10-28T02:56:29.346344+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "550",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"599\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAXK490311MCSHXR69\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Karla Fernanda Chavez\",\n      \"family\": \"Chavez\",\n      \"given\": [\n        \"Karla\",\n        \"Fernanda\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619317095\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1949-03-11\"\n}",
+  "body_bytes": 550,
+  "body_sha256": "b0cd6a37570feea975079cec82f97a6093b1421e0bd025aa479e638e186cdb07",
+  "elapsed_seconds": 0.01666530000511557,
+  "resource": "Patient/599",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

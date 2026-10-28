@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2646",
+  "started_utc": "2026-10-28T02:55:38.653873+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "906",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:38 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2646\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"K21.9\",\n        \"display\": \"Enfermedad por reflujo gastroesofágico sin esofagitis\"\n      }\n    ],\n    \"text\": \"Enfermedad por reflujo gastroesofágico sin esofagitis\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/930\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1686\"\n  },\n  \"recordedDate\": \"2026-08-31\"\n}",
+  "body_bytes": 906,
+  "body_sha256": "509d89d712f5d94d9d02330d7fe684c4972dbba4e6855b393777f28780851d0c",
+  "elapsed_seconds": 0.013425700017251074,
+  "resource": "Condition/2646",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/342",
+  "started_utc": "2026-10-28T02:56:28.541033+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "554",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"342\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUXA510830MCSGXL82\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandra Sofia Aguilar\",\n      \"family\": \"Aguilar\",\n      \"given\": [\n        \"Alejandra\",\n        \"Sofia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615796108\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1951-08-30\"\n}",
+  "body_bytes": 554,
+  "body_sha256": "9cf60de781323ed4d18bc45211a833ffecd4a4fda8624e0f9a1fb2a9c02f02cc",
+  "elapsed_seconds": 0.03454610001062974,
+  "resource": "Patient/342",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

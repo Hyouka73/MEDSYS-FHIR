@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/89",
+  "started_utc": "2026-10-28T02:56:30.246997+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "538",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"89\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MORJ510925HCSRDN99\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Morales Rodriguez\",\n      \"family\": \"Morales Rodriguez\",\n      \"given\": [\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618195390\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1951-09-25\"\n}",
+  "body_bytes": 538,
+  "body_sha256": "de281485d9e7be4c23e2e6c88be4373fd3c9f6dc7f573388313103dc3f29c135",
+  "elapsed_seconds": 0.03204590000677854,
+  "resource": "Patient/89",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

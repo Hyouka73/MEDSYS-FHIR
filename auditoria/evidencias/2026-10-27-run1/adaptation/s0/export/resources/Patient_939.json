@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "939",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAHM740111MCSMRR49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Martha Ramos Hernandez",
+      "family": "Ramos Hernandez",
+      "given": [
+        "Martha",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617250118",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1974-01-11"
+}

@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-1632",
+  "started_utc": "2026-10-28T02:56:31.058130+00:00",
+  "status": 404,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "591",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:31 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"id\": \"outcome-1793156191070\",\n  \"language\": \"es\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"not-found\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/issue-type\",\n            \"code\": \"not-found\"\n          }\n        ],\n        \"text\": \"La consulta de signos vitales 'resp-1632' no registra frecuencia respiratoria (campo opcional NULL).\"\n      },\n      \"diagnostics\": \"La consulta de signos vitales 'resp-1632' no registra frecuencia respiratoria (campo opcional NULL).\"\n    }\n  ]\n}",
+  "body_bytes": 591,
+  "body_sha256": "d120b54df72dec422162a40613f918f4af36709405730237b3c4a423555a60f0",
+  "elapsed_seconds": 0.036154599976725876,
+  "resource": "Observation/resp-1632",
+  "expected_status": 404,
+  "invalid_content_type": false,
+  "omission_outcome_valid": true
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "500",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUGA841018HCSZNL60"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Pedro Guzman Gonzalez",
+      "family": "Guzman Gonzalez",
+      "given": [
+        "Alejandro",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613560075",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1984-10-18"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/370",
+  "started_utc": "2026-10-28T02:56:28.645243+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"370\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUGA000716HCSGMN20\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Antonio Armando Aguilar Gomez\",\n      \"family\": \"Aguilar Gomez\",\n      \"given\": [\n        \"Antonio\",\n        \"Armando\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618450069\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2000-07-16\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "10b41f267dfc31c2726b0da8a281740dde4599f4aaac7679033562411b55e0e0",
+  "elapsed_seconds": 0.01333310001064092,
+  "resource": "Patient/370",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

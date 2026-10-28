@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "285",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOVY731225MCSRSL25"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Lucia Morales Vasquez",
+      "family": "Morales Vasquez",
+      "given": [
+        "Yolanda",
+        "Lucia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616663523",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1973-12-25"
+}

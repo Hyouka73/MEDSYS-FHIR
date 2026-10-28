@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "577",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOSA000520HCSRNN47"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Hugo Torres Sanchez",
+      "family": "Torres Sanchez",
+      "given": [
+        "Andres",
+        "Hugo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615812425",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2000-05-20"
+}

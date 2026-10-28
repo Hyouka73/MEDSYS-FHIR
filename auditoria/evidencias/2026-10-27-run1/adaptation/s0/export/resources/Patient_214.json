@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "214",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HERR480905MCSRZS44"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Elena Hernandez Ruiz",
+      "family": "Hernandez Ruiz",
+      "given": [
+        "Rosa",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615524901",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-09-05"
+}

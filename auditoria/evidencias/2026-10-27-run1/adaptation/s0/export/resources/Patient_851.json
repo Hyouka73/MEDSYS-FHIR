@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "851",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CARG810213MCSSDB51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Beatriz Castillo Rodriguez",
+      "family": "Castillo Rodriguez",
+      "given": [
+        "Gabriela",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613786942",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1981-02-13"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "915",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUCM910108MCSRSN25"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Monica Gloria Juarez Castro",
+      "family": "Juarez Castro",
+      "given": [
+        "Monica",
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613506459",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1991-01-08"
+}

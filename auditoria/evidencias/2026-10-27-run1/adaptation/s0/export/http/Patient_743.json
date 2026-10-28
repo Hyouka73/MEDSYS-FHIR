@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/743",
+  "started_utc": "2026-10-28T02:56:29.757451+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"743\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOMM680819HCSMDG33\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Armando Gomez Medina\",\n      \"family\": \"Gomez Medina\",\n      \"given\": [\n        \"Miguel\",\n        \"Armando\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614881070\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1968-08-19\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "038cdc0f39cda5d68eb549ea7d07dcdedc88e38ef71d8691e76bbe6ed1ab799d",
+  "elapsed_seconds": 0.021982199978083372,
+  "resource": "Patient/743",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

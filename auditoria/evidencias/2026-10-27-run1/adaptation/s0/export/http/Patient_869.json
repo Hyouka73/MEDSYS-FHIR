@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/869",
+  "started_utc": "2026-10-28T02:56:30.189514+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"869\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOGT160528MCSRZR69\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Teresa Paola Moreno Guzman\",\n      \"family\": \"Moreno Guzman\",\n      \"given\": [\n        \"Teresa\",\n        \"Paola\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612924248\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2016-05-28\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "37426aa2b8b39685270819d7faa38423b510648b840f351fdff7621c14b1a0a8",
+  "elapsed_seconds": 0.009286899992730469,
+  "resource": "Patient/869",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

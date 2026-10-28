@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "255",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GORP920210MCSMYL85"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Claudia Gomez Reyes",
+      "family": "Gomez Reyes",
+      "given": [
+        "Paola",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615093963",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-02-10"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "407",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOMG740215MCSNDD57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Natalia Gonzalez Medina",
+      "family": "Gonzalez Medina",
+      "given": [
+        "Guadalupe",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616393268",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1974-02-15"
+}

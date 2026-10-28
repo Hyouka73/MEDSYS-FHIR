@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "82",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEAY080726MCSRGL92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Paola Perez Aguilar",
+      "family": "Perez Aguilar",
+      "given": [
+        "Yolanda",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612314921",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2008-07-26"
+}

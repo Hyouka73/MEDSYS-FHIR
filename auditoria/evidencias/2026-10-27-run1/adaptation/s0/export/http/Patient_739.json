@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/739",
+  "started_utc": "2026-10-28T02:56:29.746464+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "525",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"739\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEXC561201MCSNXR29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carmen Mendoza\",\n      \"family\": \"Mendoza\",\n      \"given\": [\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611264822\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1956-12-01\"\n}",
+  "body_bytes": 525,
+  "body_sha256": "66ff5c0cec4a4f372ab95aff2431b69067d6de08a8c5a88ecf4f417e37376b83",
+  "elapsed_seconds": 0.017578300030436367,
+  "resource": "Patient/739",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "854",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUAA710226HCSZGR54"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Arturo Salvador Guzman Aguilar",
+      "family": "Guzman Aguilar",
+      "given": [
+        "Arturo",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614559860",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1971-02-26"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "403",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIVJ170605HCSRSR53"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Eduardo Ortiz Vasquez",
+      "family": "Ortiz Vasquez",
+      "given": [
+        "Jorge",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615133620",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2017-06-05"
+}

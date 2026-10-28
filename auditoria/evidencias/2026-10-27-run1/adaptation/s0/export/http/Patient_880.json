@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/880",
+  "started_utc": "2026-10-28T02:56:30.222586+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "546",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"880\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAXH110629HCSSXG80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Hugo Eduardo Vasquez\",\n      \"family\": \"Vasquez\",\n      \"given\": [\n        \"Hugo\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617793235\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2011-06-29\"\n}",
+  "body_bytes": 546,
+  "body_sha256": "c4237ecdd15022f81a6d20d2646f2b89c9e9e7c3af14ed96118297b51a58067e",
+  "elapsed_seconds": 0.011459399946033955,
+  "resource": "Patient/880",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

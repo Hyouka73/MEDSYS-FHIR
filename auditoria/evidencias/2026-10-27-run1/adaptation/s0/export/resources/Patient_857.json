@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "857",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAXG540624MCSMXD57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Carmen Ramirez",
+      "family": "Ramirez",
+      "given": [
+        "Guadalupe",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612919807",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1954-06-24"
+}

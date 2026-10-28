@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/589",
+  "started_utc": "2026-10-28T02:56:29.284509+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"589\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOCF990601MCSLSR59\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Flores Castro\",\n      \"family\": \"Flores Castro\",\n      \"given\": [\n        \"Fernanda\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617651881\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1999-06-01\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "c14acb64992832b15d2df2e3f9e422805e7d7573b5d52b1d19fe0760f99b66f6",
+  "elapsed_seconds": 0.048035899992100894,
+  "resource": "Patient/589",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

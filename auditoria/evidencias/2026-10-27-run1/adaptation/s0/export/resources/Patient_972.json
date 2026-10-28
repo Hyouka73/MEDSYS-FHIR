@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "972",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROMG760731MCSDND82"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Karla Rodriguez Mendoza",
+      "family": "Rodriguez Mendoza",
+      "given": [
+        "Guadalupe",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617099875",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1976-07-31"
+}

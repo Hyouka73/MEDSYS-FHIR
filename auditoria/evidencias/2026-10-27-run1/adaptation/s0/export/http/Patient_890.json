@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/890",
+  "started_utc": "2026-10-28T02:56:30.260272+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "427",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"890\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIJJ500128HCSRMV90\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Ortiz Jimenez\",\n      \"family\": \"Ortiz Jimenez\",\n      \"given\": [\n        \"Javier\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-01-28\"\n}",
+  "body_bytes": 427,
+  "body_sha256": "65257c7bb86180d9c10237b622a28a5482d638185c014ee4cea33002124f9f98",
+  "elapsed_seconds": 0.01857630000449717,
+  "resource": "Patient/890",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "954",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEAM720704MCSRGN64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Monica Sofia Hernandez Aguilar",
+      "family": "Hernandez Aguilar",
+      "given": [
+        "Monica",
+        "Sofia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617074252",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1972-07-04"
+}

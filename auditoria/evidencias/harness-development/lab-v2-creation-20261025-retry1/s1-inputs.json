@@ -1,0 +1,7 @@
+{
+  "original_ddl": "D:\\Proyectos X\\MedSys-FHIR\\docker\\sql\\schema_s1_flat.sql",
+  "original_ddl_sha256": "d5a8624d36c074884b70c089be3f6162d4875dcebc4c656214034841a8306393",
+  "bulk": "D:\\Proyectos X\\MedSys-FHIR\\docker\\sql\\bulk_s1.sql",
+  "bulk_sha256": "a4e6601bebd11e1409bb03b2334116b15882fd98d47ce6ba8e79e1fac3084a47",
+  "omitted_scope": "Initial DO block managing existing cluster roles; table DDL and seed inserts unchanged"
+}

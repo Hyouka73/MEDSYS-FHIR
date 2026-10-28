@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/470",
+  "started_utc": "2026-10-28T02:56:28.927696+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"470\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERE660108MCSNDL30\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Karla Mendoza Rodriguez\",\n      \"family\": \"Mendoza Rodriguez\",\n      \"given\": [\n        \"Elena\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612129332\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1966-01-08\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "9df1f5ea009e7eeed82d25bd3aa8d04a61f21141ec5b410fabd212ba430c0e51",
+  "elapsed_seconds": 0.010009500023443252,
+  "resource": "Patient/470",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/991",
+  "started_utc": "2026-10-28T02:55:42.800691+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1058",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:42 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"991\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"L30.9\",\n        \"display\": \"Dermatitis, no especificada\"\n      }\n    ],\n    \"text\": \"Dermatitis, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/41\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/991\"\n  },\n  \"recordedDate\": \"2025-08-29\"\n}",
+  "body_bytes": 1058,
+  "body_sha256": "80a3b86e4ec76e670e6ad4986c3641f2803ffeb07e4e4969329c22c9b63d6a22",
+  "elapsed_seconds": 0.018754700024146587,
+  "resource": "Condition/991",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

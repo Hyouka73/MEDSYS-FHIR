@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/928",
+  "started_utc": "2026-10-28T02:56:30.376601+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"928\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEHE510513HCSNRD38\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Eduardo Hugo Mendez Herrera\",\n      \"family\": \"Mendez Herrera\",\n      \"given\": [\n        \"Eduardo\",\n        \"Hugo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613854553\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1951-05-13\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "8cc3e15d5554bb085cd00668b89ef1306bdc01195bfc75353e47ccc71be33b07",
+  "elapsed_seconds": 0.011448699980974197,
+  "resource": "Patient/928",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "761",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUTM500817HCSNRR51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Eduardo Munoz Torres",
+      "family": "Munoz Torres",
+      "given": [
+        "Mario",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616601751",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1950-08-17"
+}

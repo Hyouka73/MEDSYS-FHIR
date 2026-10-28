@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/333",
+  "started_utc": "2026-10-28T02:56:28.514945+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"333\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERA660518HCSNZN73\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Andres Roberto Mendez Ruiz\",\n      \"family\": \"Mendez Ruiz\",\n      \"given\": [\n        \"Andres\",\n        \"Roberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611406652\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1966-05-18\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "35b8d027903263fd89b0459eafa280a37abc623b8fa189f596bec6fbbb8d6dd2",
+  "elapsed_seconds": 0.017611299990676343,
+  "resource": "Patient/333",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

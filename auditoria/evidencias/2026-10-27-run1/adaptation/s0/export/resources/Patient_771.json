@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "771",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUGL040115MCSGNC61"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Aguilar Gonzalez",
+      "family": "Aguilar Gonzalez",
+      "given": [
+        "Lucia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613558755",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2004-01-15"
+}

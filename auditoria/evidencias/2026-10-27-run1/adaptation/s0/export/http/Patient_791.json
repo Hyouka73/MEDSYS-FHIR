@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/791",
+  "started_utc": "2026-10-28T02:56:29.914029+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "529",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"791\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUMJ921216HCSNDS81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jose Munoz Medina\",\n      \"family\": \"Munoz Medina\",\n      \"given\": [\n        \"Jose\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619013222\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1992-12-16\"\n}",
+  "body_bytes": 529,
+  "body_sha256": "d960cbcd087fe1a402701a237e6cc65baee15d6937a380c1127342262a0f1ec4",
+  "elapsed_seconds": 0.005897199967876077,
+  "resource": "Patient/791",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

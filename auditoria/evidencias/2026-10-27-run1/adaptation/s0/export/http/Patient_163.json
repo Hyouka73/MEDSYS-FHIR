@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/163",
+  "started_utc": "2026-10-28T02:56:27.931875+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"163\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROJG520304MCSDML83\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gloria Beatriz Rodriguez Jimenez\",\n      \"family\": \"Rodriguez Jimenez\",\n      \"given\": [\n        \"Gloria\",\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615750616\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1952-03-04\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "817c2e770c36007b4a3bfba65ee6ce2559bce69ca3c106ca7c6a2c61aec9e3d3",
+  "elapsed_seconds": 0.010423799976706505,
+  "resource": "Patient/163",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

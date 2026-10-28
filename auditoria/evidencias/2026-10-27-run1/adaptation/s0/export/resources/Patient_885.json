@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "885",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEAS970819MCSNLL85"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Lorena Mendoza Alvarez",
+      "family": "Mendoza Alvarez",
+      "given": [
+        "Silvia",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612793318",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-08-19"
+}

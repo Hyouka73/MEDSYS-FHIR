@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/348",
+  "started_utc": "2026-10-28T02:56:28.561219+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"348\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOTM951016HCSMRN88\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Manuel Gabriel Gomez Torres\",\n      \"family\": \"Gomez Torres\",\n      \"given\": [\n        \"Manuel\",\n        \"Gabriel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612092378\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1995-10-16\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "1efe5e25d537fb9cdb662bc681bf85ca49f74e1e7e3a591d2a8cd1ef3aba6b56",
+  "elapsed_seconds": 0.00992380001116544,
+  "resource": "Patient/348",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

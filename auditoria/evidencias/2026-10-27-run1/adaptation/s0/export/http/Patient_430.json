@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/430",
+  "started_utc": "2026-10-28T02:56:28.811480+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "452",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"430\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MORB600821MCSRZT80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Beatriz Gloria Moreno Ruiz\",\n      \"family\": \"Moreno Ruiz\",\n      \"given\": [\n        \"Beatriz\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1960-08-21\"\n}",
+  "body_bytes": 452,
+  "body_sha256": "0efda9a03f90dcdc6f342b5ccdc8d460ef964ba7f63ac930a6bf058f9d04b748",
+  "elapsed_seconds": 0.005286499974317849,
+  "resource": "Patient/430",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

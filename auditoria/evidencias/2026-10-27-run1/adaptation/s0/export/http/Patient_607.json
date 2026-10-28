@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/607",
+  "started_utc": "2026-10-28T02:56:29.373149+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"607\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUHJ520128HCSRRV77\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Juan Juarez Herrera\",\n      \"family\": \"Juarez Herrera\",\n      \"given\": [\n        \"Javier\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612796251\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-01-28\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "5942796397145ed6b18eb413462d5b6aee4defab35b366e3880ab900734c3ebe",
+  "elapsed_seconds": 0.008700600010342896,
+  "resource": "Patient/607",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

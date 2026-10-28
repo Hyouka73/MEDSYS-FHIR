@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "878",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GORR800428HCSMMB78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Antonio Gomez Ramirez",
+      "family": "Gomez Ramirez",
+      "given": [
+        "Roberto",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617208816",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1980-04-28"
+}

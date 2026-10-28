@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "272",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAMY780516MCSRNL12"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Karla Vargas Mendez",
+      "family": "Vargas Mendez",
+      "given": [
+        "Yolanda",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611093359",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1978-05-16"
+}

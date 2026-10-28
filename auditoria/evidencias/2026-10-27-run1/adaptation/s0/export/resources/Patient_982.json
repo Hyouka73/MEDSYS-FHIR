@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "982",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUCM741021MCSRSR92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Martha Juarez Castillo",
+      "family": "Juarez Castillo",
+      "given": [
+        "Martha",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611190701",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1974-10-21"
+}

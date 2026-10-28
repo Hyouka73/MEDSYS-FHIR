@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/539",
+  "started_utc": "2026-10-28T02:56:29.136415+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "550",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"539\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEXS670206MCSRXF99\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Maria Hernandez\",\n      \"family\": \"Hernandez\",\n      \"given\": [\n        \"Sofia\",\n        \"Maria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615345113\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1967-02-06\"\n}",
+  "body_bytes": 550,
+  "body_sha256": "a17d853397afc3382ba0cc77e8e716a04f4f1be88c55e6661c1d65513020ea6a",
+  "elapsed_seconds": 0.01152390002971515,
+  "resource": "Patient/539",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

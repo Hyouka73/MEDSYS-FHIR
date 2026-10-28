@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "121",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEJJ950226HCSRRV41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Armando Hernandez Juarez",
+      "family": "Hernandez Juarez",
+      "given": [
+        "Javier",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613003373",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1995-02-26"
+}

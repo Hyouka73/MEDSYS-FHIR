@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/90",
+  "started_utc": "2026-10-28T02:56:30.288952+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "571",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"90\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUGA100224HCSGNL10\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Miguel Aguilar Gonzalez\",\n      \"family\": \"Aguilar Gonzalez\",\n      \"given\": [\n        \"Alejandro\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614789872\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2010-02-24\"\n}",
+  "body_bytes": 571,
+  "body_sha256": "90b4a93054f0c6a53506d26f63b1b41ee6ab89cb19479d14ac0a3fdbab89f58f",
+  "elapsed_seconds": 0.010915599996224046,
+  "resource": "Patient/90",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

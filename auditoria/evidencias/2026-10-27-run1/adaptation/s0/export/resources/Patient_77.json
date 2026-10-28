@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "77",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DISD020713MCSZNN87"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Fernanda Diaz Sanchez",
+      "family": "Diaz Sanchez",
+      "given": [
+        "Daniela",
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613389791",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2002-07-13"
+}

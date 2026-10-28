@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "638",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUVJ460611HCSZSS18"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Gabriel Ruiz Vasquez",
+      "family": "Ruiz Vasquez",
+      "given": [
+        "Jose",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616074744",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-06-11"
+}

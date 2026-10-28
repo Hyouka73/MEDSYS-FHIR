@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/380",
+  "started_utc": "2026-10-28T02:56:28.673839+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"380\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CATG090314MCSSRD30\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Guadalupe Mariana Castillo Torres\",\n      \"family\": \"Castillo Torres\",\n      \"given\": [\n        \"Guadalupe\",\n        \"Mariana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612256859\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2009-03-14\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "b22037a92018ee9ce98d4a2db290589beae179805b75a89d86b9e57a5c4252d8",
+  "elapsed_seconds": 0.010082799999509007,
+  "resource": "Patient/380",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

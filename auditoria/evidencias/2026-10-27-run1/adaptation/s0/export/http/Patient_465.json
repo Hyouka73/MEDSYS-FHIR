@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/465",
+  "started_utc": "2026-10-28T02:56:28.914240+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "580",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"465\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUHG050512MCSTRL25\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gloria Guadalupe Gutierrez Hernandez\",\n      \"family\": \"Gutierrez Hernandez\",\n      \"given\": [\n        \"Gloria\",\n        \"Guadalupe\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614906351\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2005-05-12\"\n}",
+  "body_bytes": 580,
+  "body_sha256": "c49dd6e68b85ac01bd1c12e20aebecad71bf2920ef76f9dd7a035d58cb005e69",
+  "elapsed_seconds": 0.008096800011117011,
+  "resource": "Patient/465",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

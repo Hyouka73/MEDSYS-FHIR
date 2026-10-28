@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "42",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAME030521HCSNND52"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Antonio Sanchez Mendez",
+      "family": "Sanchez Mendez",
+      "given": [
+        "Eduardo",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616018415",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2003-05-21"
+}

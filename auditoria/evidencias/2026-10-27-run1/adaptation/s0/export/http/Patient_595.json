@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/595",
+  "started_utc": "2026-10-28T02:56:29.331389+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "546",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"595\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUXA090829HCSZXN65\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Antonio Mario Guzman\",\n      \"family\": \"Guzman\",\n      \"given\": [\n        \"Antonio\",\n        \"Mario\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615361833\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2009-08-29\"\n}",
+  "body_bytes": 546,
+  "body_sha256": "41c3df680fbfdc8b443249870615a8bdd2065c54ce3d3ba49524ca58a99740f9",
+  "elapsed_seconds": 0.011522900022100657,
+  "resource": "Patient/595",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

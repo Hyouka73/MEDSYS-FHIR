@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "414",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUHA110731MCSRRN64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Lucia Juarez Herrera",
+      "family": "Juarez Herrera",
+      "given": [
+        "Ana",
+        "Lucia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611756446",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2011-07-31"
+}

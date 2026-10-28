@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "264",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUXM940505HCSRXN94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Mario Juarez",
+      "family": "Juarez",
+      "given": [
+        "Manuel",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616714736",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1994-05-05"
+}

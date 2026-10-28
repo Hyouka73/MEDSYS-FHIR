@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/37",
+  "started_utc": "2026-10-28T02:56:28.643271+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "467",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"37\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUMF080215MCSTNR47\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Alejandra Gutierrez Munoz\",\n      \"family\": \"Gutierrez Munoz\",\n      \"given\": [\n        \"Fernanda\",\n        \"Alejandra\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2008-02-15\"\n}",
+  "body_bytes": 467,
+  "body_sha256": "9d1c7173f1dcf49dcd61cab1a94037eacb06c4776f79871427a9e070a450643e",
+  "elapsed_seconds": 0.009466800023801625,
+  "resource": "Patient/37",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

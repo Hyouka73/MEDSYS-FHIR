@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/1576",
+  "started_utc": "2026-10-28T02:55:45.146382+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1206",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:45 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"1576\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"1576\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/516\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"6284910\"\n        },\n        \"display\": \"Dra. Patricia Aguilar Cárdenas\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-03-13T03:51:00+00:00\",\n    \"end\": \"2026-03-13T04:13:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Fiebre y dolor faríngeo de 3 días de evolución\"\n    }\n  ]\n}",
+  "body_bytes": 1206,
+  "body_sha256": "9f79e91621dfa6ca5b39b4d0531b0cf2a303eefae75c3159106ef0c1cbf86cad",
+  "elapsed_seconds": 0.021464699995703995,
+  "resource": "Encounter/1576",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

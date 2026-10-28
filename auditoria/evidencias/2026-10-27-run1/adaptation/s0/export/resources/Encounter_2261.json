@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2261",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2261"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/203"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "5918273"
+        },
+        "display": "Dr. Jorge Luis Vázquez Toledo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-07-05T19:23:00+00:00",
+    "end": "2026-07-05T19:43:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Evaluación médica preventiva anual"
+    }
+  ]
+}

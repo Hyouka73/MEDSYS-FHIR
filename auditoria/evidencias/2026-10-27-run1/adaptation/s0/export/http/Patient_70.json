@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/70",
+  "started_utc": "2026-10-28T02:56:29.644641+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "445",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"70\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOMJ820227HCSPNV80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier David Lopez Munoz\",\n      \"family\": \"Lopez Munoz\",\n      \"given\": [\n        \"Javier\",\n        \"David\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1982-02-27\"\n}",
+  "body_bytes": 445,
+  "body_sha256": "96de61a5a4f9e58cf15b37632cadc237b205437443d7ea306c8d6f47516e33de",
+  "elapsed_seconds": 0.00861560000339523,
+  "resource": "Patient/70",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

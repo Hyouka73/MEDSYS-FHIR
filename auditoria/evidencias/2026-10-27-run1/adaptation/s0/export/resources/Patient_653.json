@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "653",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAHM121121MCSLRR33"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Fernanda Alvarez Herrera",
+      "family": "Alvarez Herrera",
+      "given": [
+        "Martha",
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612156913",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-11-21"
+}

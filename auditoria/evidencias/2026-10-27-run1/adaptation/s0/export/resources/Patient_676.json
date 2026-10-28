@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "676",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIMC650906HCSMRR56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Jose Jimenez Moreno",
+      "family": "Jimenez Moreno",
+      "given": [
+        "Carlos",
+        "Jose"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615587139",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1965-09-06"
+}

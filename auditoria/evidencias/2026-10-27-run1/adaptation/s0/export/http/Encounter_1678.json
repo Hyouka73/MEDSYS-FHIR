@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/1678",
+  "started_utc": "2026-10-28T02:55:45.502991+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1207",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:45 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"1678\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"1678\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/541\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"7362915\"\n        },\n        \"display\": \"Dr. Alejandro Morales Domínguez\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-04-28T07:14:00+00:00\",\n    \"end\": \"2026-04-28T07:32:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Fiebre y dolor faríngeo de 3 días de evolución\"\n    }\n  ]\n}",
+  "body_bytes": 1207,
+  "body_sha256": "35e3e2867f284df57778f43da38a9159d3534fdfc72be154a5a475fd63715900",
+  "elapsed_seconds": 0.012629400007426739,
+  "resource": "Encounter/1678",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

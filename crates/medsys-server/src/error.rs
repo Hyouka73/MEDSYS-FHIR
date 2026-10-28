@@ -25,6 +25,9 @@ pub enum ServerError {
     #[error("Ruta FHIR no encontrada: {0}")]
     NotFound(String),
 
+    #[error("Método HTTP no admitido")]
+    MethodNotAllowed,
+
     #[error("Error de serialización JSON: {0}")]
     Json(#[from] serde_json::Error),
 }
@@ -51,6 +54,11 @@ impl IntoResponse for ServerError {
                 StatusCode::UNPROCESSABLE_ENTITY,
                 "processing",
                 format!("Error de procesamiento o corrupción de datos clínicos: {msg}"),
+            ),
+            ServerError::MethodNotAllowed => (
+                StatusCode::METHOD_NOT_ALLOWED,
+                "not-supported",
+                "Método HTTP no admitido para esta ruta".into(),
             ),
             ServerError::InvalidPath(msg) => (StatusCode::BAD_REQUEST, "invalid", msg.clone()),
             ServerError::Domain(MedSysError::DatabaseError(msg)) => (
@@ -98,12 +106,11 @@ impl IntoResponse for ServerError {
         let json_body = match serialize_to_fhir_json(&Resource::OperationOutcome(Box::new(outcome)))
         {
             Ok(body) => body,
-            Err(e) => {
-                format!(
-                    r#"{{"resourceType":"OperationOutcome","issue":[{{"severity":"error","code":"exception","diagnostics":"{}"}}]}}"#,
-                    e
-                )
-            }
+            Err(e) => serde_json::json!({
+                "resourceType": "OperationOutcome",
+                "issue": [{"severity":"error", "code":"exception", "diagnostics": e.to_string()}]
+            })
+            .to_string(),
         };
 
         (

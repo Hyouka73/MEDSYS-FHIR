@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "755",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXR570228HCSNXL45"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Alejandro Mendez",
+      "family": "Mendez",
+      "given": [
+        "Raul",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617498561",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1957-02-28"
+}

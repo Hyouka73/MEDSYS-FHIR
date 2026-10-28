@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "707",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIPR750118MCSZRS87"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Alejandra Diaz Perez",
+      "family": "Diaz Perez",
+      "given": [
+        "Rosa",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612858711",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1975-01-18"
+}

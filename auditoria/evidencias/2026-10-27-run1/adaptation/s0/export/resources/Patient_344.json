@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "344",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUVA790620HCSGRN84"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Rogelio Aguilar Vargas",
+      "family": "Aguilar Vargas",
+      "given": [
+        "Andres",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615524633",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1979-06-20"
+}

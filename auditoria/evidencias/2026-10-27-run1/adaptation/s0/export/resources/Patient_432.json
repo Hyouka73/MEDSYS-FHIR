@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "432",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TORA990322MCSRYD82"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Adriana Natalia Torres Reyes",
+      "family": "Torres Reyes",
+      "given": [
+        "Adriana",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616566935",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1999-03-22"
+}

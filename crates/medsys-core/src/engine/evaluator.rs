@@ -143,10 +143,10 @@ pub fn parse_date_iso8601(raw: &str) -> Result<String> {
         .or_else(|_| NaiveDate::parse_from_str(trimmed, "%d-%m-%Y"))
         .or_else(|_| NaiveDate::parse_from_str(trimmed, "%Y%m%d"))
         .or_else(|_| {
-            NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S").map(|dt| dt.date())
+            NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f").map(|dt| dt.date())
         })
         .or_else(|_| {
-            NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S").map(|dt| dt.date())
+            NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S%.f").map(|dt| dt.date())
         });
 
     match parsed_date {
@@ -162,27 +162,27 @@ pub fn parse_datetime_iso8601(raw: &str) -> Result<String> {
     let trimmed = raw.trim();
 
     if let Ok(dt_fixed) = chrono::DateTime::parse_from_rfc3339(trimmed) {
-        return Ok(dt_fixed.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
+        return Ok(dt_fixed.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
     }
 
-    let parsed_dt = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S")
-        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S"))
+    let parsed_dt = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f")
+        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S%.f"))
         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%SZ"))
         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y/%m/%d %H:%M:%S"))
-        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S"))
-        .or_else(|_| {
-            NaiveDate::parse_from_str(trimmed, "%Y-%m-%d").map(|d| d.and_hms_opt(0, 0, 0).unwrap())
-        });
+        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S"));
 
     match parsed_dt {
         Ok(dt) => {
             let tz = Mexico_City;
             let dt_with_tz = match tz.from_local_datetime(&dt) {
                 chrono::LocalResult::Single(dt_tz) => dt_tz,
-                chrono::LocalResult::Ambiguous(dt1, _) => dt1,
-                chrono::LocalResult::None => dt.and_utc().with_timezone(&tz),
+                _ => {
+                    return Err(MedSysError::ProcessingError(
+                        "T2 Fecha/hora local ambigua o inexistente".into(),
+                    ))
+                }
             };
-            Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string())
+            Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false))
         }
         Err(err) => Err(MedSysError::TransformationError(format!(
             "Fallo al parsear fecha y hora '{raw}' con transformación datetime_iso8601: {err}"
@@ -265,83 +265,37 @@ pub fn parse_datetime_with_formats(
     default_tz: Option<&str>,
 ) -> Result<String> {
     let trimmed = raw.trim();
-    if trimmed.is_empty() {
-        return Err(MedSysError::ProcessingError(
-            "T2 Error de formato en parse_datetime: valor de fecha vacío".to_string(),
-        ));
-    }
-
     let tz_name = default_tz.unwrap_or("America/Mexico_City");
-    let tz: chrono_tz::Tz = tz_name.parse().unwrap_or(Mexico_City);
-
-    let formats = formats_spec
+    let tz: chrono_tz::Tz = tz_name
+        .parse()
+        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {tz_name}")))?;
+    for fmt in formats_spec
         .split('|')
-        .map(|s| s.trim())
-        .filter(|s| !s.is_empty());
-
-    for fmt in formats {
-        // 1. Si el formato incluye zona horaria / offset explícito
-        if let Ok(dt_fixed) = chrono::DateTime::parse_from_str(trimmed, fmt) {
-            return Ok(dt_fixed.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+    {
+        if let Ok(fixed) = chrono::DateTime::parse_from_str(trimmed, fmt) {
+            return Ok(fixed.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
         }
-
-        // 2. Si el formato parsea fecha y hora completa
-        if let Ok(naive_dt) = NaiveDateTime::parse_from_str(trimmed, fmt) {
-            let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
-                chrono::LocalResult::Single(dt) => dt,
-                chrono::LocalResult::Ambiguous(dt1, _) => dt1,
-                chrono::LocalResult::None => naive_dt.and_utc().with_timezone(&tz),
-            };
-            return Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
+        if let Ok(local) = NaiveDateTime::parse_from_str(trimmed, fmt) {
+            let instant = tz.from_local_datetime(&local).single().ok_or_else(|| {
+                MedSysError::ProcessingError(format!(
+                    "T2 Fecha/hora local ambigua o inexistente en {tz_name}: {trimmed}"
+                ))
+            })?;
+            return Ok(instant.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
         }
-
-        // 3. Formato fecha y hora sin segundos (ej. "%d/%m/%Y %H:%M")
-        let mut parsed = chrono::format::Parsed::new();
-        if chrono::format::parse(
-            &mut parsed,
-            trimmed,
-            chrono::format::StrftimeItems::new(fmt),
-        )
-        .is_ok()
+        // Sólo un formato sin hora puede producir precisión de fecha. Una hora
+        // inválida o incompleta nunca se sustituye por medianoche.
+        if !["%H", "%I", "%M", "%S", "%T", "%R", "%r", "%X", "%+"]
+            .iter()
+            .any(|token| fmt.contains(token))
         {
-            if let Ok(naive_date) = parsed.to_naive_date() {
-                if let Ok(naive_time) = parsed.to_naive_time() {
-                    let naive_dt = NaiveDateTime::new(naive_date, naive_time);
-                    let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
-                        chrono::LocalResult::Single(dt) => dt,
-                        chrono::LocalResult::Ambiguous(dt1, _) => dt1,
-                        chrono::LocalResult::None => naive_dt.and_utc().with_timezone(&tz),
-                    };
-                    return Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
-                } else if !fmt.contains("%H") && !fmt.contains("%M") && !fmt.contains("%S") {
-                    return Ok(naive_date.format("%Y-%m-%d").to_string());
-                } else {
-                    let naive_dt = naive_date.and_hms_opt(0, 0, 0).unwrap();
-                    let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
-                        chrono::LocalResult::Single(dt) => dt,
-                        chrono::LocalResult::Ambiguous(dt1, _) => dt1,
-                        chrono::LocalResult::None => naive_dt.and_utc().with_timezone(&tz),
-                    };
-                    return Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
-                }
-            }
-        }
-
-        // 4. Si el formato es solo fecha (ej. "%d/%m/%Y" o "%Y-%m-%d")
-        if let Ok(naive_d) = NaiveDate::parse_from_str(trimmed, fmt) {
-            if !fmt.contains("%H") && !fmt.contains("%M") && !fmt.contains("%S") {
-                return Ok(naive_d.format("%Y-%m-%d").to_string());
-            } else if let Some(naive_dt) = naive_d.and_hms_opt(0, 0, 0) {
-                let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
-                    chrono::LocalResult::Single(dt) => dt,
-                    chrono::LocalResult::Ambiguous(dt1, _) => dt1,
-                    chrono::LocalResult::None => naive_dt.and_utc().with_timezone(&tz),
-                };
-                return Ok(dt_with_tz.format("%Y-%m-%dT%H:%M:%S%:z").to_string());
+            if let Ok(date) = NaiveDate::parse_from_str(trimmed, fmt) {
+                return Ok(date.format("%Y-%m-%d").to_string());
             }
         }
     }
-
     Err(MedSysError::ProcessingError(format!(
         "T2 Error de formato en parse_datetime: el valor '{trimmed}' no coincide con ningún formato de '{formats_spec}'"
     )))
@@ -407,8 +361,6 @@ pub fn evaluate_field_mapping(
             None => {
                 if rule.is_optional() {
                     None
-                } else if let Some(ref cv) = rule.constant_value {
-                    Some(cv.clone())
                 } else {
                     return Err(MedSysError::ProcessingError(format!(
                         "Data corruption: Campo crítico obligatorio '{col}' ausente o nulo para el recurso '{resource_type}'"

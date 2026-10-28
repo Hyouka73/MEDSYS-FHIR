@@ -1,0 +1,51 @@
+{
+  "kind": "actual_rust_adaptation_execution",
+  "started_utc": "2026-10-28T02:55:28.869128+00:00",
+  "command": [
+    "C:\\Python313\\python.exe",
+    "-u",
+    "scripts/experimental_evidence.py",
+    "adapt",
+    "--executable",
+    "D:\\Proyectos X\\MedSys-FHIR\\output\\evaluation\\20261027\\artifact-v1\\medsys-server.exe",
+    "--port-base",
+    "3310",
+    "--workers",
+    "8",
+    "--lab-id",
+    "reeval20261025-v2",
+    "--output",
+    "auditoria\\evidencias\\2026-10-27-run1\\adaptation"
+  ],
+  "executable_sha256_before": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "instrument_sha256": {
+    "experimental_evidence.py": "56ac5d7848157e4f7d1549b22cfb0837c6f184e12826c3c9000ff9eae84427c1",
+    "oracle_verifier.py": "dd49d4907f42a9c7758632dd7be8e4b2d99ee975fa4efd1fcedd38063cd4ef4a",
+    "generate_data.py": "b7a24551396760d07516364e590f40a39ebc770f5e9e307f45fcd76fc26bacc4",
+    "test_experimental_evidence.py": "0d7726957b768117bc61ce890e2c67812ab23849507e1543faf092441c47822b"
+  },
+  "status": "INCOMPLETE",
+  "exit_code": 4294967295,
+  "duration_seconds": 329.56947850005236,
+  "finished_utc": "2026-10-28T03:00:58.570932+00:00",
+  "executable_sha256_after": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "stop_reason": "Explicit user instruction to stop; only owned adaptation runner and server terminated",
+  "stopped_utc": "2026-10-28T03:01:20.408349+00:00",
+  "last_completed_stage": "S0 complete HTTP export",
+  "interrupted_stage": "S0 independent oracle comparison; no oracle report produced",
+  "not_started": [
+    "S0 mutations",
+    "S0 fault corpus",
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "reserved_fault_rows_after_stop": {
+    "tbl_pacientes": 0,
+    "tbl_consultas": 0,
+    "tbl_signos_vitales": 0,
+    "tbl_diagnosticos": 0
+  },
+  "executable_sha256_after_stop": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "export_report_sha256": "ad3858c19d99b6c2daf6ba078359a554a7ff2a2a671ee69edce2cb6d4b8f05e7"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/538",
+  "started_utc": "2026-10-28T02:56:29.134915+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"538\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOVE511014HCSLRN98\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Enrique Andres Flores Vargas\",\n      \"family\": \"Flores Vargas\",\n      \"given\": [\n        \"Enrique\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612547853\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1951-10-14\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "ab66d0d8dca62dd4526eb686bbeaf426b4a58a95e3e933c40ca1143a54b496bd",
+  "elapsed_seconds": 0.007443200040142983,
+  "resource": "Patient/538",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2464",
+  "started_utc": "2026-10-28T02:55:37.769663+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1053",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:37 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2464\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"M54.5\",\n        \"display\": \"Lumbago no especificado\"\n      }\n    ],\n    \"text\": \"Lumbago no especificado\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/367\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/2464\"\n  },\n  \"recordedDate\": \"2026-07-15\"\n}",
+  "body_bytes": 1053,
+  "body_sha256": "a97929ea128e72e506c23b1ca2cb76bf3687476ea781bb4925f8258ed43993c1",
+  "elapsed_seconds": 0.010505300015211105,
+  "resource": "Condition/2464",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

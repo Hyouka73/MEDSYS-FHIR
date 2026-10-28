@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "421",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIMG950321MCSMRB71"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Mariana Jimenez Morales",
+      "family": "Jimenez Morales",
+      "given": [
+        "Gabriela",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614656246",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1995-03-21"
+}

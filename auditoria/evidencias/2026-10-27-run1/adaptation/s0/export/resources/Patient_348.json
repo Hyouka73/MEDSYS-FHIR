@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "348",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOTM951016HCSMRN88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Gabriel Gomez Torres",
+      "family": "Gomez Torres",
+      "given": [
+        "Manuel",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612092378",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1995-10-16"
+}

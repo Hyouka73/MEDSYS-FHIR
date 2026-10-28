@@ -1,0 +1,29 @@
+FHIR Validation tool Version 7.0.2 (Git# de3463393298). Built 2026-10-15T16:42:38.193Z (12 days old)
+  Java:   21.0.10 from C:\Program Files\Microsoft\jdk-21.0.10.7-hotspot on amd64 (64bit). 768MB available
+  Paths:  Current = D:\Proyectos X\MedSys-FHIR, Package Cache = C:\Users\baka6\.fhir\packages
+  Params: "D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\control-staged-27oct\batch-0001\inputs" -version 4.0.1 -tx n/a -output "D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\control-staged-27oct\batch-0001\outcomes.json" -output-style json
+  Locale: México/MX
+  Jurisdiction: Mexico
+Loading
+  Loading FHIR v4.0.1 from hl7.fhir.r4.core#4.0.1
+  Load hl7.terminology.r4#6.2.0 - 4288 resources (00:54.263)
+  Load hl7.fhir.uv.extensions.r4#5.2.0 - 759 resources (00:12.555)
+  Loaded FHIR - 8265 resources (00:00.001)
+  Terminology Cache at C:\Users\baka6\AppData\Local\Temp\default-tx-cache\r4
+  Terminology server null - Version n/a: No Terminology Server (00:00.026)
+  Load hl7.terminology#7.5.0 - 4190 resources (00:03.733)
+  Load hl7.terminology.r5#7.5.0 - 4190 resources (00:01.944)
+  Load hl7.fhir.uv.extensions#5.4.0 - 885 resources (00:01.311)
+  Package Summary: [hl7.fhir.r4.core#4.0.1, hl7.fhir.xver-extensions#0.1.0, hl7.terminology.r4#6.2.0, hl7.fhir.uv.extensions.r4#5.2.0, hl7.terminology#7.5.0, hl7.terminology.r5#7.5.0, hl7.fhir.uv.extensions#5.4.0]
+  Get set... 
+  ...go! (00:11.841)
+Cached new session. Cache size = 1
+Sources to validate: D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\control-staged-27oct\batch-0001\inputs
+Validating
+  Validate D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\control-staged-27oct\batch-0001\inputs\00000.json
+ 00:06.945
+  Validate D:\Proyectos X\MedSys-FHIR\auditoria\evidencias\validator-development\control-staged-27oct\batch-0001\inputs\00001.json
+ 00:00.174
+Done. Times: Loading: 01:25.954, validation: 00:07.120 (#2). Memory = 475Mb
+
+Done. Times: Loading: 01:25.954, validation: 00:07.120 (#2). Max Memory = 768Mb

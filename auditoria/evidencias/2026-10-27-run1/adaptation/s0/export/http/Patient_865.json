@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/865",
+  "started_utc": "2026-10-28T02:56:30.175643+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "545",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"865\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEAG050624HCSRLB65\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriel Hernandez Alvarez\",\n      \"family\": \"Hernandez Alvarez\",\n      \"given\": [\n        \"Gabriel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612726070\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2005-06-24\"\n}",
+  "body_bytes": 545,
+  "body_sha256": "824993f23164fc016ba170f2e8983ce693ce0f818b48a386d2f973c69f81db0b",
+  "elapsed_seconds": 0.01297290000366047,
+  "resource": "Patient/865",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

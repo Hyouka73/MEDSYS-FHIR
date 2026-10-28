@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/176",
+  "started_utc": "2026-10-28T02:56:27.963633+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"176\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUPP800401MCSNRT96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Patricia Monica Munoz Perez\",\n      \"family\": \"Munoz Perez\",\n      \"given\": [\n        \"Patricia\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618179782\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1980-04-01\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "41ee364f05d3b9929ebde0f6964e588f736f8d5bcb6e3771b1081ba5678e81f8",
+  "elapsed_seconds": 0.010126299981493503,
+  "resource": "Patient/176",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/56",
+  "started_utc": "2026-10-28T02:56:29.199593+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "461",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"56\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUHR580108HCSZRC66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ricardo Gabriel Guzman Hernandez\",\n      \"family\": \"Guzman Hernandez\",\n      \"given\": [\n        \"Ricardo\",\n        \"Gabriel\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1958-01-08\"\n}",
+  "body_bytes": 461,
+  "body_sha256": "6ecf02f25f993172cc11346b6e4034725f7bd076ad206fc5234c94d03a0d0c97",
+  "elapsed_seconds": 0.0086824000463821,
+  "resource": "Patient/56",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

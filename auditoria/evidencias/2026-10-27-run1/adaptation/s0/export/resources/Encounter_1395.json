@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1395",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1395"
+    }
+  ],
+  "status": "cancelled",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/706"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9182374"
+        },
+        "display": "Dr. Roberto Mendoza Solís"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-05-16T15:42:00+00:00",
+    "end": "2026-05-16T16:19:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Tos productiva y malestar general"
+    }
+  ]
+}

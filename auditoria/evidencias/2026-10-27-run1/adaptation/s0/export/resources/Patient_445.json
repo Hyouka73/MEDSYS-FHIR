@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "445",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TORV610718MCSRZR95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Veronica Beatriz Torres Ruiz",
+      "family": "Torres Ruiz",
+      "given": [
+        "Veronica",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612179411",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-07-18"
+}

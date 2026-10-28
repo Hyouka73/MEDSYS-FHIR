@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/160",
+  "started_utc": "2026-10-28T02:56:27.923232+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"160\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOOG610120MCSMRB80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Maria Gomez Ortiz\",\n      \"family\": \"Gomez Ortiz\",\n      \"given\": [\n        \"Gabriela\",\n        \"Maria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615160271\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-01-20\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "d872c9e3071b6b0f96068bcbd8db56f7b7a615b5efcdb03c683ca0c0ef1a8961",
+  "elapsed_seconds": 0.0077751000062562525,
+  "resource": "Patient/160",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

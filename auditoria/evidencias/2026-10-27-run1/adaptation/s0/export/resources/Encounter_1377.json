@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1377",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1377"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/554"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7362915"
+        },
+        "display": "Dr. Alejandro Morales Domínguez"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-08-21T17:56:00+00:00",
+    "end": "2026-08-21T18:27:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Control de glucemia y ajuste terapéutico"
+    }
+  ]
+}

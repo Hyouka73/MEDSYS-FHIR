@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/52",
+  "started_utc": "2026-10-28T02:56:29.084199+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "579",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"52\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAGV650426MCSSTR62\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Patricia Castillo Gutierrez\",\n      \"family\": \"Castillo Gutierrez\",\n      \"given\": [\n        \"Veronica\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612032976\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1965-04-26\"\n}",
+  "body_bytes": 579,
+  "body_sha256": "94db61c86a9c5049a2af06216d350490bfd5e61ba564da12afe22dc43fe9ac1f",
+  "elapsed_seconds": 0.011919300013687462,
+  "resource": "Patient/52",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

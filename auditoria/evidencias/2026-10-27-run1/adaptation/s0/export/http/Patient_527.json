@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/527",
+  "started_utc": "2026-10-28T02:56:29.106423+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"527\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEHE761013MCSNRL87\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Mendez Hernandez\",\n      \"family\": \"Mendez Hernandez\",\n      \"given\": [\n        \"Elena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619887128\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-10-13\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "fb1dacb846ffe31ea3d6c025a02e4c5b6801a7195b359c5496f601ca77b8c0e1",
+  "elapsed_seconds": 0.006332199962344021,
+  "resource": "Patient/527",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

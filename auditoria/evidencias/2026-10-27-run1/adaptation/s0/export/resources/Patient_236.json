@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "236",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUTB951130MCSZRT66"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Alejandra Guzman Torres",
+      "family": "Guzman Torres",
+      "given": [
+        "Beatriz",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614018708",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1995-11-30"
+}

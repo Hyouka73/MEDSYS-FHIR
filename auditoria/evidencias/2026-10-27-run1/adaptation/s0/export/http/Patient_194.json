@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/194",
+  "started_utc": "2026-10-28T02:56:28.030402+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"194\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAAL700226MCSMGC24\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Silvia Ramirez Aguilar\",\n      \"family\": \"Ramirez Aguilar\",\n      \"given\": [\n        \"Lucia\",\n        \"Silvia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612189134\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1970-02-26\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "c755284e333b3c16ec8e76cb2bd49b7750e41e374a7f50fb3ba0ef0ec48e5ca7",
+  "elapsed_seconds": 0.01841800002148375,
+  "resource": "Patient/194",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

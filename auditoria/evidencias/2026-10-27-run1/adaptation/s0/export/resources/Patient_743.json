@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "743",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOMM680819HCSMDG33"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Armando Gomez Medina",
+      "family": "Gomez Medina",
+      "given": [
+        "Miguel",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614881070",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1968-08-19"
+}

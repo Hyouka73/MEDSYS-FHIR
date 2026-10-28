@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/710",
+  "started_utc": "2026-10-28T02:56:29.672001+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"710\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HERL970807MCSRMT90\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Leticia Fernanda Herrera Ramos\",\n      \"family\": \"Herrera Ramos\",\n      \"given\": [\n        \"Leticia\",\n        \"Fernanda\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615191155\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1997-08-07\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "3a8c52c81c98448b5282a0f35880965f0ab9509784b12785dfdfd686fa558af3",
+  "elapsed_seconds": 0.012190199980977923,
+  "resource": "Patient/710",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

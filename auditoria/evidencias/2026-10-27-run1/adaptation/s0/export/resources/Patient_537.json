@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "537",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VARL170414MCSSMR97"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Laura Adriana Vasquez Ramirez",
+      "family": "Vasquez Ramirez",
+      "given": [
+        "Laura",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612574401",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2017-04-14"
+}

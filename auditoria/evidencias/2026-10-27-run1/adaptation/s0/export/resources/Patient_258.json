@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "258",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SACF100619HCSNSR88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernando Eduardo Sanchez Castro",
+      "family": "Sanchez Castro",
+      "given": [
+        "Fernando",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614074558",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2010-06-19"
+}

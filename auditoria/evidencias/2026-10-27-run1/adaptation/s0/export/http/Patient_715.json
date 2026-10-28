@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/715",
+  "started_utc": "2026-10-28T02:56:29.685010+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"715\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOSC050418HCSNNR95\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carlos Salvador Gonzalez Sanchez\",\n      \"family\": \"Gonzalez Sanchez\",\n      \"given\": [\n        \"Carlos\",\n        \"Salvador\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618867908\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2005-04-18\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "8594ea62610c8c0efe342f6ba253476e03cd0948be2d685321db8a3a48a314a4",
+  "elapsed_seconds": 0.009870700014289469,
+  "resource": "Patient/715",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

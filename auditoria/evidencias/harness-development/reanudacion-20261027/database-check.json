@@ -1,0 +1,54 @@
+{
+  "kind": "persistent_lab_read_only_recheck",
+  "finished_utc": "2026-10-28T02:52:49.031002+00:00",
+  "schemas": [
+    {
+      "schema": "s0",
+      "database": "medsys_eval_v2_s0",
+      "marker": "reeval20261025-v2",
+      "unique_patients": 1000,
+      "read_only_role": [
+        "medsys_ro",
+        true,
+        false
+      ],
+      "status": "PASS"
+    },
+    {
+      "schema": "s1",
+      "database": "medsys_eval_v2_s1",
+      "marker": "reeval20261025-v2",
+      "unique_patients": 1000,
+      "read_only_role": [
+        "medsys_ro",
+        true,
+        false
+      ],
+      "status": "PASS"
+    },
+    {
+      "schema": "s2",
+      "database": "medsys_eval_v2_s2",
+      "marker": "reeval20261025-v2",
+      "unique_patients": 1000,
+      "read_only_role": [
+        "medsys_ro",
+        true,
+        false
+      ],
+      "status": "PASS"
+    },
+    {
+      "schema": "s3",
+      "database": "medsys_eval_v2_s3",
+      "marker": "reeval20261025-v2",
+      "unique_patients": 1000,
+      "read_only_role": [
+        "medsys_ro",
+        true,
+        false
+      ],
+      "status": "PASS"
+    }
+  ]
+}

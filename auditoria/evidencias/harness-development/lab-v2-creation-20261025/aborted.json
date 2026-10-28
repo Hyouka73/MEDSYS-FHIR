@@ -1,0 +1,8 @@
+{
+  "kind": "lab_v2_creation_attempt",
+  "status": "BLOCKED",
+  "recorded_utc": "2026-10-26T03:51:32.460070+00:00",
+  "reason": "Windows PostgreSQL connection to127.0.0.1:55432 timed out; owned Python process17304 stopped; no creation.json was produced",
+  "database_creation_observed": false,
+  "database_state_requires_inspection_before_retry": true
+}

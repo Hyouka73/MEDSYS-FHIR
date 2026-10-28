@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/80",
+  "started_utc": "2026-10-28T02:56:29.954431+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "551",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"80\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUXD880304MCSZXN90\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniela Adriana Guzman\",\n      \"family\": \"Guzman\",\n      \"given\": [\n        \"Daniela\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617131406\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1988-03-04\"\n}",
+  "body_bytes": 551,
+  "body_sha256": "48291bb1e474113984b78a7d2c5d9bd807b2febee23356d80836f9c7d1b01ec3",
+  "elapsed_seconds": 0.008019000000786036,
+  "resource": "Patient/80",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

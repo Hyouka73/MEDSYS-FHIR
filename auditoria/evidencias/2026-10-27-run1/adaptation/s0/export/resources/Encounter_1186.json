@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1186",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1186"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/919"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "5918273"
+        },
+        "display": "Dr. Jorge Luis Vázquez Toledo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-03-10T07:55:00+00:00",
+    "end": "2026-03-10T08:13:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Diarrea acuosa y dolor abdominal tipo cólico"
+    }
+  ]
+}

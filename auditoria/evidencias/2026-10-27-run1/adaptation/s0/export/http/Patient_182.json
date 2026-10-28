@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/182",
+  "started_utc": "2026-10-28T02:56:27.986868+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"182\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEMR161030HCSDDG12\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rogelio Raul Medina Medina\",\n      \"family\": \"Medina Medina\",\n      \"given\": [\n        \"Rogelio\",\n        \"Raul\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619259759\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2016-10-30\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "39ea7ada2b18e1e09bf8c95e8eaa3e49c3a2f0c7140c5f6aa4a83f1de5c85a10",
+  "elapsed_seconds": 0.008323099988047034,
+  "resource": "Patient/182",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

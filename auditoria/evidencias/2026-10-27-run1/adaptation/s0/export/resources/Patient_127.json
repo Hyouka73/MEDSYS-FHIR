@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "127",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GARR811015HCSRYC47"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ricardo Javier Garcia Reyes",
+      "family": "Garcia Reyes",
+      "given": [
+        "Ricardo",
+        "Javier"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613908504",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1981-10-15"
+}

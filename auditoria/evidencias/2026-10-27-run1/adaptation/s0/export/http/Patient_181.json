@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/181",
+  "started_utc": "2026-10-28T02:56:27.985772+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "544",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"181\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUXP880429MCSZXL11\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Karla Guzman\",\n      \"family\": \"Guzman\",\n      \"given\": [\n        \"Paola\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617793938\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1988-04-29\"\n}",
+  "body_bytes": 544,
+  "body_sha256": "e756e1a1564e8f05398e5e531c11cf3e18b9a52a907b8b8e604a98bb8097efe1",
+  "elapsed_seconds": 0.00925839995034039,
+  "resource": "Patient/181",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

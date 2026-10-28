@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1029",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1029"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/521"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "6284910"
+        },
+        "display": "Dra. Patricia Aguilar Cárdenas"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-06-13T08:42:00+00:00",
+    "end": "2026-06-13T09:19:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Dolor epigástrico urente posprandial"
+    }
+  ]
+}

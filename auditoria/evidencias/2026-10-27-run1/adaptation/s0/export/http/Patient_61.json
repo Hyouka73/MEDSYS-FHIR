@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/61",
+  "started_utc": "2026-10-28T02:56:29.376516+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "555",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"61\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PEMM170902HCSRNN71\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Manuel Jorge Perez Mendez\",\n      \"family\": \"Perez Mendez\",\n      \"given\": [\n        \"Manuel\",\n        \"Jorge\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612139315\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2017-09-02\"\n}",
+  "body_bytes": 555,
+  "body_sha256": "f6ac3115749fcf5e2ae3cdc2314fa56f10e15b7d0c3dbc08eb85d455748b2301",
+  "elapsed_seconds": 0.013588699977844954,
+  "resource": "Patient/61",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

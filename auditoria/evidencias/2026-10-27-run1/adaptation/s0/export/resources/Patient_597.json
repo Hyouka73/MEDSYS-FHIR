@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "597",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIXA630622HCSZXN67"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Daniel Diaz",
+      "family": "Diaz",
+      "given": [
+        "Antonio",
+        "Daniel"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1963-06-22"
+}

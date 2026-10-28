@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/584",
+  "started_utc": "2026-10-28T02:56:29.269749+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"584\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUVA460413HCSNSN54\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Antonio Alejandro Munoz Vasquez\",\n      \"family\": \"Munoz Vasquez\",\n      \"given\": [\n        \"Antonio\",\n        \"Alejandro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619581538\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1946-04-13\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "906a701833e239be3acfd423f41c894751031bc669ba6cd59f0851a5714cc6b2",
+  "elapsed_seconds": 0.011117000016383827,
+  "resource": "Patient/584",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

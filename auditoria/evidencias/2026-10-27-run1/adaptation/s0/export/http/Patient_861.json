@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/861",
+  "started_utc": "2026-10-28T02:56:30.161052+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"861\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GURR880515HCSTYG61\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rogelio Gutierrez Reyes\",\n      \"family\": \"Gutierrez Reyes\",\n      \"given\": [\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619323723\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1988-05-15\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "a977376b3df52edd6560a7299d3a8b55b6d9e94ad5662e61e0423eb2537ee7d2",
+  "elapsed_seconds": 0.012639000022318214,
+  "resource": "Patient/861",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

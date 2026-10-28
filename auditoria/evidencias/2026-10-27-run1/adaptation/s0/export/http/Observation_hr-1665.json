@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-1665",
+  "started_utc": "2026-10-28T02:56:04.986415+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "775",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:04 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-1665\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/837\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1665\"\n  },\n  \"effectiveDateTime\": \"2025-08-14T01:08:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 98,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 775,
+  "body_sha256": "cc506070e493003ee821301a4bf37a815db9c20b19dc19ef2673cc6eb82768a2",
+  "elapsed_seconds": 0.009967099991627038,
+  "resource": "Observation/hr-1665",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

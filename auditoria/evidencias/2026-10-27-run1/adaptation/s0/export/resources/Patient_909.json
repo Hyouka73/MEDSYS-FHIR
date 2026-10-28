@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "909",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAGC611020MCSRML19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Elena Vargas Gomez",
+      "family": "Vargas Gomez",
+      "given": [
+        "Claudia",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611822051",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-10-20"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "901",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOOJ830501HCSRRV11"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Jorge Morales Ortiz",
+      "family": "Morales Ortiz",
+      "given": [
+        "Javier",
+        "Jorge"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611808835",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1983-05-01"
+}

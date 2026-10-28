@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "41",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIDA030215HCSRZN51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Manuel Ortiz Diaz",
+      "family": "Ortiz Diaz",
+      "given": [
+        "Antonio",
+        "Manuel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613972645",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2003-02-15"
+}

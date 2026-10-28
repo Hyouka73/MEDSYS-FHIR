@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "819",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROXL590131MCSDXT19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Elena Rodriguez",
+      "family": "Rodriguez",
+      "given": [
+        "Leticia",
+        "Elena"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1959-01-31"
+}

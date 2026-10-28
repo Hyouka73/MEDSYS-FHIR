@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "903",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RADC701214HCSMZR13"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Luis Ramos Diaz",
+      "family": "Ramos Diaz",
+      "given": [
+        "Carlos",
+        "Luis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618894396",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1970-12-14"
+}

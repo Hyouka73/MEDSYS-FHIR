@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "386",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOXF460722HCSMXR36"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Andres Gomez",
+      "family": "Gomez",
+      "given": [
+        "Francisco",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617956722",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-07-22"
+}

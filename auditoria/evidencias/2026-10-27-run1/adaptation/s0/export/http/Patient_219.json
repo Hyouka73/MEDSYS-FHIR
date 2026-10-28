@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/219",
+  "started_utc": "2026-10-28T02:56:28.115394+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"219\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIGT550119MCSMMR49\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Teresa Mariana Jimenez Gomez\",\n      \"family\": \"Jimenez Gomez\",\n      \"given\": [\n        \"Teresa\",\n        \"Mariana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612151897\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1955-01-19\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "8e30cb0ebb075356dd2374cecdfd331eb4d3a2504f50997bdbfe59cdb139deec",
+  "elapsed_seconds": 0.011545100016519427,
+  "resource": "Patient/219",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

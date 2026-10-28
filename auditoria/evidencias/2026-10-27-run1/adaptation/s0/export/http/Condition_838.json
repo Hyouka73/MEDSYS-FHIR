@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/838",
+  "started_utc": "2026-10-28T02:55:42.263557+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1071",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:42 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"838\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"J02.9\",\n        \"display\": \"Faringitis aguda, no especificada\"\n      }\n    ],\n    \"text\": \"Faringitis aguda, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/612\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/838\"\n  },\n  \"recordedDate\": \"2025-09-16\"\n}",
+  "body_bytes": 1071,
+  "body_sha256": "dc70e72bc9ff82c61e7435a5eed1b5c916b422ae23ec3999de266226e5ef67a5",
+  "elapsed_seconds": 0.00921709998510778,
+  "resource": "Condition/838",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

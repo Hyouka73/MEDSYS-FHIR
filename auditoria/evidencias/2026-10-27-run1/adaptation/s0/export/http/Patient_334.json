@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/334",
+  "started_utc": "2026-10-28T02:56:28.517325+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"334\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOVB040806MCSMST74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Beatriz Daniela Gomez Vasquez\",\n      \"family\": \"Gomez Vasquez\",\n      \"given\": [\n        \"Beatriz\",\n        \"Daniela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612831775\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2004-08-06\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "75950a4209fdffdf307c7be6f44ffb05d596984c58c807485ea15f22b7563dff",
+  "elapsed_seconds": 0.00591760000679642,
+  "resource": "Patient/334",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

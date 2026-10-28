@@ -20,7 +20,10 @@ const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules.yaml");
 
 /// Construye la aplicación Axum en memoria para pruebas E2E determinísticas.
 fn setup_e2e_app() -> axum::Router {
-    let config = DbConfig::default();
+    let config = DbConfig::new(
+        std::env::var("DATABASE_URL")
+            .expect("DATABASE_URL debe apuntar a la fixture sintética de pruebas"),
+    );
     let pool = init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
     let repos = MedsysRepositories::new(pool.clone());
     let mapping_rules = parse_mapping_rules(SPECIFICATION_YAML)
@@ -79,6 +82,12 @@ async fn test_e2e_legacy_patient_inspection_api() {
     let status = res.status();
     let content_type = res.headers().get("content-type").unwrap().to_str().unwrap();
 
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
+
     if status == StatusCode::OK {
         assert!(content_type.contains("application/json"));
     } else {
@@ -99,11 +108,25 @@ async fn test_e2e_legacy_patient_inspection_api() {
     let status = res_full.status();
     let body_full = body_to_string(res_full).await;
 
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
+
     if status == StatusCode::OK {
-        assert!(body_full.contains("\"paciente\""));
-        assert!(body_full.contains("\"consultas\""));
-        assert!(body_full.contains("\"signos_vitales\""));
-        assert!(body_full.contains("\"diagnosticos\""));
+        let value: serde_json::Value = serde_json::from_str(&body_full).unwrap();
+        assert_eq!(value["paciente_legado"]["id_paciente"], 1);
+        assert!(!value["consultas_legadas"].as_array().unwrap().is_empty());
+        assert!(!value["signos_vitales_legados"]
+            .as_array()
+            .unwrap()
+            .is_empty());
+        assert!(!value["diagnosticos_legados"].as_array().unwrap().is_empty());
+        assert_eq!(value["fhir_patient"]["resourceType"], "Patient");
+        assert_eq!(value["fhir_encounters"][0]["resourceType"], "Encounter");
+        assert_eq!(value["fhir_observations"][0]["resourceType"], "Observation");
+        assert_eq!(value["fhir_conditions"][0]["resourceType"], "Condition");
     } else {
         assert!(body_full.contains("\"resourceType\": \"OperationOutcome\""));
     }
@@ -126,6 +149,12 @@ async fn test_e2e_fhir_patient_mapping_and_headers() {
 
     let status = res.status();
     let body = body_to_string(res).await;
+
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
 
     if status == StatusCode::OK {
         assert!(body.contains("\"resourceType\": \"Patient\""));
@@ -155,6 +184,12 @@ async fn test_e2e_fhir_encounter_mapping_and_headers() {
     let status = res.status();
     let body = body_to_string(res).await;
 
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
+
     if status == StatusCode::OK {
         assert!(body.contains("\"resourceType\": \"Encounter\""));
         assert!(body.contains("\"code\": \"AMB\""));
@@ -183,6 +218,12 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
     let status_bp = res_bp.status();
     let body_bp = body_to_string(res_bp).await;
 
+    assert_eq!(
+        status_bp,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
+
     if status_bp == StatusCode::OK {
         assert!(body_bp.contains("\"resourceType\": \"Observation\""));
         assert!(body_bp.contains("85354-9")); // Panel BP LOINC
@@ -209,6 +250,12 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
     let status_temp = res_temp.status();
     let body_temp = body_to_string(res_temp).await;
 
+    assert_eq!(
+        status_temp,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
+
     if status_temp == StatusCode::OK {
         assert!(body_temp.contains("\"resourceType\": \"Observation\""));
         assert!(body_temp.contains("8310-5")); // Temperatura LOINC
@@ -230,6 +277,12 @@ async fn test_e2e_fhir_observation_decoupled_vital_signs() {
     );
     let status_hr = res_hr.status();
     let body_hr = body_to_string(res_hr).await;
+
+    assert_eq!(
+        status_hr,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
 
     if status_hr == StatusCode::OK {
         assert!(body_hr.contains("\"resourceType\": \"Observation\""));
@@ -257,6 +310,12 @@ async fn test_e2e_fhir_condition_mapping_and_headers() {
 
     let status = res.status();
     let body = body_to_string(res).await;
+
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
 
     if status == StatusCode::OK {
         assert!(body.contains("\"resourceType\": \"Condition\""));
@@ -292,6 +351,12 @@ async fn test_e2e_fhir_searchset_bundles() {
 
         let status = res.status();
         let body = body_to_string(res).await;
+
+        assert_eq!(
+            status,
+            StatusCode::OK,
+            "La lectura nominal exige PostgreSQL y salida real"
+        );
 
         if status == StatusCode::OK {
             assert!(
@@ -364,6 +429,12 @@ async fn test_e2e_fhir_observation_respiratory_rate_prefix_and_suffix() {
         assert_ne!(status, StatusCode::BAD_REQUEST, "uri: {uri}");
         let body = body_to_string(res).await;
 
+        assert_eq!(
+            status,
+            StatusCode::OK,
+            "La lectura nominal exige PostgreSQL y salida real"
+        );
+
         if status == StatusCode::OK {
             assert!(body.contains("\"resourceType\": \"Observation\""));
             assert!(body.contains("9279-1")); // Respiratory rate LOINC
@@ -397,8 +468,10 @@ async fn test_e2e_multi_archetype_routing_s1_to_s3() {
     ];
 
     for (name, yaml_content) in configs {
-        let config = DbConfig::default();
-        let pool = init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
+        let config =
+            DbConfig::from_env().expect("Configuración de PostgreSQL sintético de pruebas");
+        let pool =
+            init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
         let repos = MedsysRepositories::new(pool.clone());
         let mapping_rules = parse_mapping_rules(yaml_content)
             .unwrap_or_else(|e| panic!("Reglas YAML {name} deben ser válidas: {e}"));
@@ -406,7 +479,10 @@ async fn test_e2e_multi_archetype_routing_s1_to_s3() {
         let app = create_router(state);
 
         // Validar endpoint de salud
-        let req_health = Request::builder().uri("/health").body(Body::empty()).unwrap();
+        let req_health = Request::builder()
+            .uri("/health")
+            .body(Body::empty())
+            .unwrap();
         let res_health = app.clone().oneshot(req_health).await.unwrap();
         assert_eq!(res_health.status(), StatusCode::OK);
 
@@ -418,7 +494,9 @@ async fn test_e2e_multi_archetype_routing_s1_to_s3() {
         let res_bad = app.oneshot(req_bad).await.unwrap();
         assert_eq!(res_bad.status(), StatusCode::BAD_REQUEST);
         let body_bad = body_to_string(res_bad).await;
-        assert!(body_bad.contains("\"resourceType\": \"OperationOutcome\""), "Error en {name}");
+        assert!(
+            body_bad.contains("\"resourceType\": \"OperationOutcome\""),
+            "Error en {name}"
+        );
     }
 }
-

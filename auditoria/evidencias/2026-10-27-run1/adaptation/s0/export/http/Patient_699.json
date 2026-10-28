@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/699",
+  "started_utc": "2026-10-28T02:56:29.639170+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "576",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"699\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUHP791011MCSTRT79\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Patricia Elena Gutierrez Hernandez\",\n      \"family\": \"Gutierrez Hernandez\",\n      \"given\": [\n        \"Patricia\",\n        \"Elena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614473470\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1979-10-11\"\n}",
+  "body_bytes": 576,
+  "body_sha256": "2f162a826a077f98266081d66e6067e3c87f7eb2f12691d918664f583fe8720e",
+  "elapsed_seconds": 0.007562199956737459,
+  "resource": "Patient/699",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

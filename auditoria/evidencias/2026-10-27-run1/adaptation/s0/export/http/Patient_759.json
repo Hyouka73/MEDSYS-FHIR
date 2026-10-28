@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/759",
+  "started_utc": "2026-10-28T02:56:29.804744+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"759\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RUMY150426MCSZRL49\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Lorena Ruiz Moreno\",\n      \"family\": \"Ruiz Moreno\",\n      \"given\": [\n        \"Yolanda\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612056822\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2015-04-26\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "e4793ace6b6528c2a11f91c28fb3d0b668843b0673e412c73ec29cee37dd039b",
+  "elapsed_seconds": 0.008340100001078099,
+  "resource": "Patient/759",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

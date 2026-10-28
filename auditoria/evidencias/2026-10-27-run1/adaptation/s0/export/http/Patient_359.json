@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/359",
+  "started_utc": "2026-10-28T02:56:28.600415+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"359\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MAMG521013HCSRRB99\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriel Luis Martinez Martinez\",\n      \"family\": \"Martinez Martinez\",\n      \"given\": [\n        \"Gabriel\",\n        \"Luis\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615521032\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-10-13\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "7c3d7d72bf711272c51f7de4b40a506d7928d00dd131a95eb914aef7d79cc980",
+  "elapsed_seconds": 0.022987400006968528,
+  "resource": "Patient/359",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

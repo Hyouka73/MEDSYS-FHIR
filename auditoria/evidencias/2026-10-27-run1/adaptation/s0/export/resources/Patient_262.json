@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "262",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAOG581227HCSSRB92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Juan Vasquez Ortiz",
+      "family": "Vasquez Ortiz",
+      "given": [
+        "Gabriel",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612701548",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1958-12-27"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/2255",
+  "started_utc": "2026-10-28T02:55:47.825925+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1199",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:47 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"2255\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"2255\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/525\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"8472910\"\n        },\n        \"display\": \"Dra. María Elena Cruz Martínez\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-02-22T11:14:00+00:00\",\n    \"end\": \"2026-02-22T11:35:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Lumbalgia mecánica tras esfuerzo físico\"\n    }\n  ]\n}",
+  "body_bytes": 1199,
+  "body_sha256": "ec1aa2c1417bbd7e4458b4a26cb96e2ec5a758e17e9112387c28732600137966",
+  "elapsed_seconds": 0.019935599993914366,
+  "resource": "Encounter/2255",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

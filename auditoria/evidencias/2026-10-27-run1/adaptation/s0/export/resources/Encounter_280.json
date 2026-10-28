@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "280",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "280"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/18"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "6284910"
+        },
+        "display": "Dra. Patricia Aguilar Cárdenas"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-05-14T03:27:00+00:00",
+    "end": "2026-05-14T04:01:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Lumbalgia mecánica tras esfuerzo físico"
+    }
+  ]
+}

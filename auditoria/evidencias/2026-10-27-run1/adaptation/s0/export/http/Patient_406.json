@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/406",
+  "started_utc": "2026-10-28T02:56:28.750379+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"406\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AURL700717MCSGDR56\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Laura Aguilar Rodriguez\",\n      \"family\": \"Aguilar Rodriguez\",\n      \"given\": [\n        \"Laura\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617350794\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1970-07-17\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "5d4ff8fe387784e8ec34695e939b8b9a8680bca70615fc2511a4cb54e4ffe9e3",
+  "elapsed_seconds": 0.007301800011191517,
+  "resource": "Patient/406",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

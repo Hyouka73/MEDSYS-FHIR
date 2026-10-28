@@ -1,0 +1,11 @@
+{
+  "kind": "CA-1",
+  "started_utc": "2026-10-21T05:25:21.055113+00:00",
+  "status": "BLOCKED",
+  "fhir_version": "4.0.1",
+  "terminology": "n/a",
+  "terminology_limit": "tx=n/a disables terminology server checks; structural conformance is not complete terminology validation",
+  "batches": [],
+  "error": "[WinError 2] El sistema no puede encontrar el archivo especificado: 'D:\\\\Proyectos X\\\\MedSys-FHIR\\\\tools\\\\experimental\\\\MISSING'",
+  "finished_utc": "2026-10-21T05:25:21.058358+00:00"
+}

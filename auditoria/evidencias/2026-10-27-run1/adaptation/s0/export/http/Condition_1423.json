@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1423",
+  "started_utc": "2026-10-28T02:55:33.397609+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "905",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:33 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1423\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"E11.9\",\n        \"display\": \"Diabetes mellitus tipo 2 sin mención de complicación\"\n      }\n    ],\n    \"text\": \"Diabetes mellitus tipo 2 sin mención de complicación\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/82\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1423\"\n  },\n  \"recordedDate\": \"2025-07-09\"\n}",
+  "body_bytes": 905,
+  "body_sha256": "c9b94c023e8525e4a16a6db0eda24f8251351f3bfeb3b04c351f8c6b5ec60426",
+  "elapsed_seconds": 0.025367699970956892,
+  "resource": "Condition/1423",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

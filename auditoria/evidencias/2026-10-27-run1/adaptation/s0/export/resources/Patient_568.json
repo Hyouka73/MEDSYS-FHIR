@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "568",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROGA791006HCSDZL38"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Juan Rodriguez Guzman",
+      "family": "Rodriguez Guzman",
+      "given": [
+        "Alexis",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618425448",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1979-10-06"
+}

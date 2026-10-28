@@ -1,0 +1,11 @@
+{
+  "kind": "instrument_verification_only",
+  "client_date": "2026-10-25",
+  "host_utc": "2026-10-26T03:41:23.359494+00:00",
+  "command": [
+    "C:\\Python313\\python.exe",
+    "scripts/test_experimental_evidence.py"
+  ],
+  "exit_code": 0,
+  "rust_verified": false
+}

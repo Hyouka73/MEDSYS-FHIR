@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "329",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUJE100303HCSNRD69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Daniel Munoz Juarez",
+      "family": "Munoz Juarez",
+      "given": [
+        "Eduardo",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618629486",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2010-03-03"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "725",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUSJ050422HCSRNS15"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Rogelio Juarez Sanchez",
+      "family": "Juarez Sanchez",
+      "given": [
+        "Jose",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614155028",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2005-04-22"
+}

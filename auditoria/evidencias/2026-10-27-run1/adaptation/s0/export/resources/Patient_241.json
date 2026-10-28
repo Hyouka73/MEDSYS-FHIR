@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "241",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAMM511027MCSRRR71"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Guadalupe Garcia Morales",
+      "family": "Garcia Morales",
+      "given": [
+        "Martha",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1951-10-27"
+}

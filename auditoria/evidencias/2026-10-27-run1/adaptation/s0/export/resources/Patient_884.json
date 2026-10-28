@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "884",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAMM021105HCSSNN84"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Hugo Castro Mendez",
+      "family": "Castro Mendez",
+      "given": [
+        "Manuel",
+        "Hugo"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2002-11-05"
+}

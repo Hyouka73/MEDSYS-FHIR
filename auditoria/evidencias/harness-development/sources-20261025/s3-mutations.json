@@ -1,0 +1,233 @@
+{
+  "kind": "oracle_sensitivity_only",
+  "schema": "s3",
+  "source_sha256": "84b7c33f4df361d6f6bc9cfde1e54547207de543d10be8489af658a10ccd341d",
+  "detected": 20,
+  "provenance": {
+    "command": [
+      "C:\\Python313\\python.exe",
+      "scripts/experimental_evidence.py",
+      "mutations",
+      "--source",
+      "auditoria\\evidencias\\harness-development\\sources-20261025\\s3-source.json",
+      "--output",
+      "auditoria\\evidencias\\harness-development\\sources-20261025\\s3-mutations.json"
+    ],
+    "python": "3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]",
+    "git_commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+    "git_status": " M Cargo.lock\n M STATE.md\n M crates/medsys-core/src/engine/evaluator.rs\n M crates/medsys-core/src/engine/transform.rs\n M crates/medsys-core/src/model/fhir_helpers.rs\n M crates/medsys-db/Cargo.toml\n M crates/medsys-db/src/dynamic_repo.rs\n M crates/medsys-db/src/lib.rs\n M crates/medsys-db/src/query_builder.rs\n M crates/medsys-server/src/error.rs\n M crates/medsys-server/src/handlers/condition.rs\n M crates/medsys-server/src/handlers/encounter.rs\n M crates/medsys-server/src/handlers/health.rs\n M crates/medsys-server/src/handlers/mod.rs\n M crates/medsys-server/src/handlers/observation.rs\n M crates/medsys-server/src/handlers/patient.rs\n M crates/medsys-server/src/router.rs\n M crates/medsys-server/tests/e2e_interoperability.rs\n M crates/medsys-server/tests/server_integration.rs\n M scripts/export_fhir_samples.py\n M scripts/oracle_verifier.py\n M scripts/run_all_cap4_experiments.py\n M scripts/run_fault_corpus.py\n?? auditoria/evidencias/harness-development/\n?? auditoria/evidencias/lab-development/\n?? auditoria/evidencias/reanudacion/\n?? auditoria/evidencias/runtime-development/\n?? auditoria/evidencias/validator-development/\n?? crates/medsys-server/src/handlers/common.rs\n?? crates/medsys-server/tests/regression_runtime_contract.rs\n?? scripts/EXPERIMENTAL_EVIDENCE.md\n?? scripts/experimental_evidence.py\n?? scripts/requirements-experiments.txt\n?? scripts/test_experimental_evidence.py\n?? tools/experimental/.gitignore\n?? tools/experimental/README.md\n?? tools/experimental/aggregate_ct.py\n?? tools/experimental/audit_prior_validator.py\n?? tools/experimental/evidence_runners.py\n?? tools/experimental/fixtures/\n?? tools/experimental/lab-compose.yaml\n?? tools/experimental/lab-docker-init.sh\n?? tools/experimental/lab-migrate-persistent.sh\n?? tools/experimental/lab-postgres.sh\n?? tools/experimental/lab_verify.py\n",
+    "tracked_diff_sha256": "4ba6563ea34feb3a3fd26db1f4aba4c8bb5dc124c0bb64bd15ac408b839e8475",
+    "scripts_sha256": {
+      "experimental_evidence.py": "1f6a26a0d9078d6ccc26e285c82d1e85583763929dfd1ae76c064d479b7e80bf",
+      "oracle_verifier.py": "dd49d4907f42a9c7758632dd7be8e4b2d99ee975fa4efd1fcedd38063cd4ef4a",
+      "generate_data.py": "7cb70913acb707d3011ea43fd686b4d73d7096bc3786adc0f4bbdb2938834e0d"
+    }
+  },
+  "total": 20,
+  "details": [
+    {
+      "id": "MUT-01",
+      "resource": "Patient/1",
+      "description": "Alterar último dígito de la CURP",
+      "detected": true,
+      "reasons": [
+        "CURP mismatch: exp 'ROMA900101HCSMNL09', got 'ROMA900101HCSMNL08'",
+        "$.identifier[0].value: expected 'ROMA900101HCSMNL09', got 'ROMA900101HCSMNL08'"
+      ]
+    },
+    {
+      "id": "MUT-02",
+      "resource": "Patient/1",
+      "description": "Invertir género masculino a femenino",
+      "detected": true,
+      "reasons": [
+        "gender mismatch: exp 'male', got 'female'",
+        "$.gender: expected 'male', got 'female'"
+      ]
+    },
+    {
+      "id": "MUT-03",
+      "resource": "Patient/1",
+      "description": "Modificar día en birthDate",
+      "detected": true,
+      "reasons": [
+        "birthDate mismatch: exp '1990-01-01', got '1990-01-02'",
+        "$.birthDate: expected '1990-01-01', got '1990-01-02'"
+      ]
+    },
+    {
+      "id": "MUT-04",
+      "resource": "Patient/1",
+      "description": "Corromper sistema de CURP",
+      "detected": true,
+      "reasons": [
+        "CURP system mismatch: exp 'urn:oid:2.16.840.1.113883.4.629', got 'urn:oid:9.99.999.invalid'",
+        "$.identifier[0].system: expected 'urn:oid:2.16.840.1.113883.4.629', got 'urn:oid:9.99.999.invalid'"
+      ]
+    },
+    {
+      "id": "MUT-05",
+      "resource": "Patient/1",
+      "description": "Alterar apellido paterno",
+      "detected": true,
+      "reasons": [
+        "Family name mismatch: exp 'Ramos Gómez', got 'Ramos Pérez'",
+        "$.name[0].family: expected 'Ramos Gómez', got 'Ramos Pérez'"
+      ]
+    },
+    {
+      "id": "MUT-06",
+      "resource": "Encounter/1",
+      "description": "Cambiar estado de finished a cancelled",
+      "detected": true,
+      "reasons": [
+        "Encounter status mismatch: exp 'finished', got 'cancelled'",
+        "$.status: expected 'finished', got 'cancelled'"
+      ]
+    },
+    {
+      "id": "MUT-07",
+      "resource": "Encounter/1",
+      "description": "Modificar código de clase de AMB a IMP",
+      "detected": true,
+      "reasons": [
+        "Encounter class.code mismatch: exp 'AMB', got 'IMP'",
+        "$.class.code: expected 'AMB', got 'IMP'"
+      ]
+    },
+    {
+      "id": "MUT-08",
+      "resource": "Encounter/1",
+      "description": "Alterar referencia de paciente (Patient/1 -> Patient/2)",
+      "detected": true,
+      "reasons": [
+        "Encounter subject reference mismatch: exp 'Patient/1', got 'Patient/2'",
+        "$.subject.reference: expected 'Patient/1', got 'Patient/2'"
+      ]
+    },
+    {
+      "id": "MUT-09",
+      "resource": "Encounter/1",
+      "description": "Alterar cédula profesional SEP del médico tratante",
+      "detected": true,
+      "reasons": [
+        "Cédula SEP mismatch: exp '8472910', got '9999999'",
+        "$.participant[0].individual.identifier.value: expected '8472910', got '9999999'"
+      ]
+    },
+    {
+      "id": "MUT-10",
+      "resource": "Encounter/1",
+      "description": "Alterar hora de inicio en period.start",
+      "detected": true,
+      "reasons": [
+        "Encounter period.start mismatch: exp '2026-09-18T15:15:00+00:00', got '2026-09-18T16:15:00+00:00'",
+        "$.period.start: expected '2026-09-18T15:15:00+00:00', got '2026-09-18T10:15:00'"
+      ]
+    },
+    {
+      "id": "MUT-11",
+      "resource": "Observation/bp-1",
+      "description": "Alterar código LOINC del panel (85354-9 -> 85353-1)",
+      "detected": true,
+      "reasons": [
+        "Observation code mismatch: exp '85354-9', got ['85353-1']",
+        "$.code.coding[0].code: expected '85354-9', got '85353-1'"
+      ]
+    },
+    {
+      "id": "MUT-12",
+      "resource": "Observation/bp-1",
+      "description": "Intercambiar código LOINC de sistólica por diastólica (8480-6 -> 8462-4)",
+      "detected": true,
+      "reasons": [
+        "Presión diastólica value mismatch: exp 85.0, got 130.0",
+        "Componente sistólica LOINC 8480-6 no encontrado",
+        "$.component[0].code.coding[0].code: expected '8480-6', got '8462-4'"
+      ]
+    },
+    {
+      "id": "MUT-13",
+      "resource": "Observation/bp-1",
+      "description": "Alterar valor de presión sistólica (130 -> 140)",
+      "detected": true,
+      "reasons": [
+        "Presión sistólica value mismatch: exp 130.0, got 140",
+        "$.component[0].valueQuantity.value: expected 130.0, got 140"
+      ]
+    },
+    {
+      "id": "MUT-14",
+      "resource": "Observation/temp-1",
+      "description": "Alterar código LOINC de temperatura (8310-5 -> 8311-3)",
+      "detected": true,
+      "reasons": [
+        "Observation code mismatch: exp '8310-5', got ['8311-3']",
+        "$.code.coding[0].code: expected '8310-5', got '8311-3'"
+      ]
+    },
+    {
+      "id": "MUT-15",
+      "resource": "Observation/temp-1",
+      "description": "Alterar unidad de temperatura de Cel a degF",
+      "detected": true,
+      "reasons": [
+        "valueQuantity.unit mismatch: exp 'Cel', got 'degF'",
+        "$.valueQuantity.unit: expected 'Cel', got 'degF'"
+      ]
+    },
+    {
+      "id": "MUT-16",
+      "resource": "Observation/temp-1",
+      "description": "Alterar valor de temperatura de 36.6 a 39.5",
+      "detected": true,
+      "reasons": [
+        "valueQuantity.value mismatch: exp 36.6, got 39.5",
+        "$.valueQuantity.value: expected 36.6, got 39.5"
+      ]
+    },
+    {
+      "id": "MUT-17",
+      "resource": "Observation/hr-1",
+      "description": "Alterar valor de frecuencia cardíaca de 76 a 120",
+      "detected": true,
+      "reasons": [
+        "valueQuantity.value mismatch: exp 76, got 120",
+        "$.valueQuantity.value: expected 76, got 120"
+      ]
+    },
+    {
+      "id": "MUT-18",
+      "resource": "Condition/1",
+      "description": "Alterar código CIE-10 (I10 -> E11.9)",
+      "detected": true,
+      "reasons": [
+        "Condition CIE-10 mismatch: exp 'I10', got ['E11.9']",
+        "$.code.coding[0].code: expected 'I10', got 'E11.9'"
+      ]
+    },
+    {
+      "id": "MUT-19",
+      "resource": "Condition/1",
+      "description": "Invertir verificationStatus de confirmed a provisional",
+      "detected": true,
+      "reasons": [
+        "verificationStatus code mismatch: exp 'confirmed', got 'provisional'",
+        "$.verificationStatus.coding[0].code: expected 'confirmed', got 'provisional'"
+      ]
+    },
+    {
+      "id": "MUT-20",
+      "resource": "Condition/3",
+      "description": "Inyectar indebidamente verificationStatus cuando era NULL (violación D-006)",
+      "detected": true,
+      "reasons": [
+        "verificationStatus code mismatch: exp 'confirmed', got 'provisional'",
+        "$.verificationStatus.coding[0].code: expected 'confirmed', got 'provisional'",
+        "$.verificationStatus.coding[0].display: missing projected field"
+      ]
+    }
+  ],
+  "status": "PASS",
+  "limitation": "Mutated independent expectations test oracle sensitivity, not middleware correctness"
+}

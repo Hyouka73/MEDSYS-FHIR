@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "519",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUXP051223MCSZXL79"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Carmen Guzman",
+      "family": "Guzman",
+      "given": [
+        "Paola",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614464393",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2005-12-23"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "234",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOXK930617MCSRXR64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Gloria Morales",
+      "family": "Morales",
+      "given": [
+        "Karla",
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611122620",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1993-06-17"
+}

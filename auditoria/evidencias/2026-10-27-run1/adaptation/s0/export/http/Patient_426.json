@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/426",
+  "started_utc": "2026-10-28T02:56:28.798667+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "460",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"426\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MECF731027HCSDHR76\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Francisco Rogelio Medina Chavez\",\n      \"family\": \"Medina Chavez\",\n      \"given\": [\n        \"Francisco\",\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1973-10-27\"\n}",
+  "body_bytes": 460,
+  "body_sha256": "181cca13d5d5704496132cbff2b1e8f12cc6117b9326b3e76d7ee20a329dd662",
+  "elapsed_seconds": 0.007719699991866946,
+  "resource": "Patient/426",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

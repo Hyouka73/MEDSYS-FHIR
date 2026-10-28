@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "145",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AARJ460809HCSLZR65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Mario Alvarez Ruiz",
+      "family": "Alvarez Ruiz",
+      "given": [
+        "Jorge",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615262401",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-08-09"
+}

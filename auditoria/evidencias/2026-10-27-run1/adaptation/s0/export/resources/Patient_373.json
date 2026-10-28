@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "373",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAXA610116HCSNXN23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Daniel Sanchez",
+      "family": "Sanchez",
+      "given": [
+        "Antonio",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615155546",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1961-01-16"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "742",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAMF011107MCSMNR32"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Carmen Ramos Mendez",
+      "family": "Ramos Mendez",
+      "given": [
+        "Fernanda",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611194124",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2001-11-07"
+}

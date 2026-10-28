@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/658",
+  "started_utc": "2026-10-28T02:56:29.523102+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "537",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"658\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEVM080511HCSNSN38\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Manuel Mendez Vasquez\",\n      \"family\": \"Mendez Vasquez\",\n      \"given\": [\n        \"Manuel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611923565\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2008-05-11\"\n}",
+  "body_bytes": 537,
+  "body_sha256": "7517d6e105b02c38c96886b293de99ccd2cf621465ea1bb831e669f50ca806ce",
+  "elapsed_seconds": 0.008864000032190233,
+  "resource": "Patient/658",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

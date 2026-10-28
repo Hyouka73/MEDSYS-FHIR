@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "2525",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "provisional",
+        "display": "Provisional"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "N39.0",
+        "display": "Infección de vías urinarias, sitio no especificado"
+      }
+    ],
+    "text": "Infección de vías urinarias, sitio no especificado"
+  },
+  "subject": {
+    "reference": "Patient/503"
+  },
+  "encounter": {
+    "reference": "Encounter/1834"
+  },
+  "recordedDate": "2026-02-04"
+}

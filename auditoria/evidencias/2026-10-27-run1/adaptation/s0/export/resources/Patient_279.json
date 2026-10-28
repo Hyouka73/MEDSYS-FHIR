@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "279",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUSR860613HCSZNL19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Luis Ruiz Sanchez",
+      "family": "Ruiz Sanchez",
+      "given": [
+        "Raul",
+        "Luis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612449868",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1986-06-13"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "967",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAJD620902HCSSRN77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniel Daniel Castro Juarez",
+      "family": "Castro Juarez",
+      "given": [
+        "Daniel",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618877115",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1962-09-02"
+}

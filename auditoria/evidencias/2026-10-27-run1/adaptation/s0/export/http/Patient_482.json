@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/482",
+  "started_utc": "2026-10-28T02:56:28.963788+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"482\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TOMB630211MCSRRT42\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Beatriz Gloria Torres Morales\",\n      \"family\": \"Torres Morales\",\n      \"given\": [\n        \"Beatriz\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617658134\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1963-02-11\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "25ad326fc2ce362e84f2a1c3b1ab7df8d2eade32bdd7c2304693ffe3b9fdc2bf",
+  "elapsed_seconds": 0.008809799968730658,
+  "resource": "Patient/482",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

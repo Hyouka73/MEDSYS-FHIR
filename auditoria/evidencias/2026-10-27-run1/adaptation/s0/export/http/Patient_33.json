@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/33",
+  "started_utc": "2026-10-28T02:56:28.501855+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "561",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"33\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MARD500730HCSRYV43\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"David Enrique Martinez Reyes\",\n      \"family\": \"Martinez Reyes\",\n      \"given\": [\n        \"David\",\n        \"Enrique\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612621875\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-07-30\"\n}",
+  "body_bytes": 561,
+  "body_sha256": "5ec54dcee83dade6178bdb21491072ad5dcc3853bbafd979a7047f1b72c4e8e7",
+  "elapsed_seconds": 0.007635899994056672,
+  "resource": "Patient/33",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

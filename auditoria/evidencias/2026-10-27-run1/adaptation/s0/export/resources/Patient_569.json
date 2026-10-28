@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "569",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUDS060314MCSGZL39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Fernanda Aguilar Diaz",
+      "family": "Aguilar Diaz",
+      "given": [
+        "Silvia",
+        "Fernanda"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2006-03-14"
+}

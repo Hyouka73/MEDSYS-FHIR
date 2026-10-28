@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "695",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAFL960719MCSMLC75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Elena Ramirez Flores",
+      "family": "Ramirez Flores",
+      "given": [
+        "Lucia",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613429482",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1996-07-19"
+}

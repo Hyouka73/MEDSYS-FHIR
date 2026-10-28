@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "538",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOVE511014HCSLRN98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Andres Flores Vargas",
+      "family": "Flores Vargas",
+      "given": [
+        "Enrique",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612547853",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1951-10-14"
+}

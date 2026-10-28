@@ -1,0 +1,24 @@
+{
+  "kind": "review_findings_instrument_regression",
+  "client_date": "2026-10-27",
+  "finished_utc": "2026-10-28T02:53:15.913582+00:00",
+  "review_source": "auditoria/evidencias/antigravity-review/instrumentos-20261025/REVIEW.md",
+  "baseline_scope": "Source inspection in independent review; no prior live adapt execution claimed",
+  "test_command": [
+    "C:\\Python313\\python.exe",
+    "scripts/test_experimental_evidence.py"
+  ],
+  "test_exit_code": 0,
+  "fault_exit1_after": "FAIL",
+  "required_fault_missing_after": "INCOMPLETE",
+  "s3_primary_keys_after": {
+    "Patient": "pac_id",
+    "Encounter": "con_id",
+    "Observation": "sig_id",
+    "Condition": "diag_id"
+  },
+  "scripts_sha256": {
+    "experimental_evidence.py": "04046a83dd059c1269a7ef1657c426c62202913ef0f99a7d664a38deb3421d43",
+    "test_experimental_evidence.py": "b274f7159dad31f539ed3ff396a207735082c70993dbae17c7921a55706c6786"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/325",
+  "started_utc": "2026-10-28T02:56:28.486504+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"325\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUGP800820HCSGRD65\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Pedro Juan Aguilar Garcia\",\n      \"family\": \"Aguilar Garcia\",\n      \"given\": [\n        \"Pedro\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618022010\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1980-08-20\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "1668dea68510b90972ebe293cef1762f9cdb8d9af82caf505a78fd309e7cbe2a",
+  "elapsed_seconds": 0.014915900013875216,
+  "resource": "Patient/325",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

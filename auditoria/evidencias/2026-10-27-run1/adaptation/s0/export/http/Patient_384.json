@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/384",
+  "started_utc": "2026-10-28T02:56:28.685830+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"384\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HECY000218MCSRSL34\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Lorena Herrera Castillo\",\n      \"family\": \"Herrera Castillo\",\n      \"given\": [\n        \"Yolanda\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615765728\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2000-02-18\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "d4203af88af69be4179b3028b0290aca3750fdf86a9b0a33d083f7a837f52a96",
+  "elapsed_seconds": 0.011720300011802465,
+  "resource": "Patient/384",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/633",
+  "started_utc": "2026-10-28T02:56:29.452914+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"633\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MACD760322MCSRHN13\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniela Carmen Martinez Chavez\",\n      \"family\": \"Martinez Chavez\",\n      \"given\": [\n        \"Daniela\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617589429\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-03-22\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "3438a436dd15fcd8200e5d47d8e25e8b2770d0903a94646d32eb723cc17502c6",
+  "elapsed_seconds": 0.011653200024738908,
+  "resource": "Patient/633",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

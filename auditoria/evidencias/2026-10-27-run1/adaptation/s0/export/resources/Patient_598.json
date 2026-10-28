@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "598",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEXF861219MCSRXR68"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Karla Hernandez",
+      "family": "Hernandez",
+      "given": [
+        "Fernanda",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617704737",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1986-12-19"
+}

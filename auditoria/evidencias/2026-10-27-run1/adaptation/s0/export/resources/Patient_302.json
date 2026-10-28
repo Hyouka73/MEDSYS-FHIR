@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "302",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIRG970620MCSMMD42"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Guadalupe Jimenez Ramos",
+      "family": "Jimenez Ramos",
+      "given": [
+        "Guadalupe",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616205068",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-06-20"
+}

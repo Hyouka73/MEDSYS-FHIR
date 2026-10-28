@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/713",
+  "started_utc": "2026-10-28T02:56:29.676703+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"713\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOFA690108HCSLLL93\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alberto David Flores Flores\",\n      \"family\": \"Flores Flores\",\n      \"given\": [\n        \"Alberto\",\n        \"David\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619719609\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1969-01-08\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "c79ee667895ff3e15b682d279b55be76b5168324743d9be33fc77a8a1abd3ece",
+  "elapsed_seconds": 0.005852999980561435,
+  "resource": "Patient/713",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "path": "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-invalid.json",
+    "resource": "Patient/invalid",
+    "sha256": "a5b530b1dcf89d04ae0fa5947bcdff20b9633269263da2f9fe68c31b7f3e4784"
+  },
+  {
+    "path": "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-valid.json",
+    "resource": "Patient/nominal",
+    "sha256": "5b82fba2383702b02c30a15a0c87ea22ad00c9223ad3c9309366ff40d7202e90"
+  }
+]

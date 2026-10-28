@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "12",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GASL630303MCSRNR22"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Laura Mariana Garcia Sanchez",
+      "family": "Garcia Sanchez",
+      "given": [
+        "Laura",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614287094",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-03-03"
+}

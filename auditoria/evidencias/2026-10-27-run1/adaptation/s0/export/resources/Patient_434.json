@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "434",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RERS980901HCSYYL84"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Salvador Armando Reyes Reyes",
+      "family": "Reyes Reyes",
+      "given": [
+        "Salvador",
+        "Armando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618618996",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1998-09-01"
+}

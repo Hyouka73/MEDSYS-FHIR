@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "765",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MELC771020HCSNPR55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Mendez Lopez",
+      "family": "Mendez Lopez",
+      "given": [
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614590171",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1977-10-20"
+}

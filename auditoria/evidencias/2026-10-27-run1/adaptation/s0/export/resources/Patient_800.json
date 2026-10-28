@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "800",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOTA630110MCSPRN90"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Elena Lopez Torres",
+      "family": "Lopez Torres",
+      "given": [
+        "Ana",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611045844",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-01-10"
+}

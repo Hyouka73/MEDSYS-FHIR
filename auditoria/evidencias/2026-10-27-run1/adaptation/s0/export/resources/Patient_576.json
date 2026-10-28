@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "576",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUMA900118HCSGRL46"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Miguel Aguilar Martinez",
+      "family": "Aguilar Martinez",
+      "given": [
+        "Alexis",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614433671",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1990-01-18"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/93",
+  "started_utc": "2026-10-28T02:56:30.379467+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "461",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"93\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEGR071107HCSDTB13\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Roberto Armando Medina Gutierrez\",\n      \"family\": \"Medina Gutierrez\",\n      \"given\": [\n        \"Roberto\",\n        \"Armando\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2007-11-07\"\n}",
+  "body_bytes": 461,
+  "body_sha256": "02b66f6f0bcf929f5384d25dfdb13723011bde5399e73f543b898e9d811122eb",
+  "elapsed_seconds": 0.009765600028913468,
+  "resource": "Patient/93",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

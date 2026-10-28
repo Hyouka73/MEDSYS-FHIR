@@ -51,62 +51,80 @@ impl DynamicFhirRepository {
         Ok(tx)
     }
 
-    /// Verifica activamente las reglas de integridad referencial declaradas en `parent_checks` (`T4`).
+    /// Comprueba los padres dentro de la misma instantánea que la lectura.
+    async fn verify_parent_checks_tx(
+        mapping: &ResourceMapping,
+        row: &Map<String, Value>,
+        tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
+        cache: &mut std::collections::BTreeMap<(String, String, i64), Value>,
+    ) -> Result<()> {
+        for rule in &mapping.parent_checks {
+            let fk_id = row
+                .get(&rule.foreign_key_column)
+                .and_then(|v| match v {
+                    Value::Number(n) => n.as_i64(),
+                    Value::String(s) => s.parse::<i64>().ok(),
+                    _ => None,
+                })
+                .ok_or_else(|| {
+                    MedSysError::ProcessingError(format!(
+                        "T4 Clave padre ausente o inválida: {}",
+                        rule.foreign_key_column
+                    ))
+                })?;
+            crate::query_builder::validate_table_identifier(&rule.parent_table)?;
+            crate::query_builder::validate_column_identifier(&rule.parent_pk)?;
+            let key = (rule.parent_table.clone(), rule.parent_pk.clone(), fk_id);
+            if let std::collections::btree_map::Entry::Vacant(entry) = cache.entry(key.clone()) {
+                let query = format!(
+                    "SELECT row_to_json(p)::text FROM {} p WHERE {} = $1 LIMIT 1",
+                    rule.parent_table, rule.parent_pk
+                );
+                let parent = sqlx::query_scalar::<_, String>(&query)
+                    .bind(fk_id)
+                    .fetch_optional(&mut **tx)
+                    .await
+                    .map_err(map_sqlx_error)?
+                    .ok_or_else(|| {
+                        MedSysError::ProcessingError(format!(
+                            "T4 Registro padre inexistente en {} con {}={fk_id}",
+                            rule.parent_table, rule.parent_pk
+                        ))
+                    })?;
+                let parent: Value = serde_json::from_str(&parent)
+                    .map_err(|e| MedSysError::DatabaseError(e.to_string()))?;
+                entry.insert(parent);
+            }
+            // La existencia de ambos padres no basta: el encuentro debe pertenecer
+            // al mismo paciente declarado por el hijo.
+            if matches!(rule.parent_pk.as_str(), "id_consulta" | "con_id") {
+                let child_patient = extract_i32(row, &["id_paciente", "pac_id"]);
+                let parent_patient = cache
+                    .get(&key)
+                    .and_then(Value::as_object)
+                    .and_then(|p| extract_i32(p, &["id_paciente", "pac_id"]));
+                if child_patient.is_none() || child_patient != parent_patient {
+                    return Err(MedSysError::ProcessingError(
+                        "T4 El encuentro no pertenece al paciente del recurso".into(),
+                    ));
+                }
+            }
+        }
+        Ok(())
+    }
+
+    /// API de comprobación explícita; las lecturas usan la variante con su propia transacción.
     pub async fn verify_parent_checks(
         &self,
         mapping: &ResourceMapping,
         row: &Map<String, Value>,
     ) -> Result<()> {
-        if mapping.parent_checks.is_empty() {
-            return Ok(());
-        }
-
         let mut tx = self.begin_readonly_tx().await?;
-
-        for rule in &mapping.parent_checks {
-            if let Some(val) = row.get(&rule.foreign_key_column) {
-                if val.is_null() {
-                    continue;
-                }
-
-                let id_val = match val {
-                    Value::Number(n) => n.as_i64(),
-                    Value::String(s) => s.parse::<i64>().ok(),
-                    _ => None,
-                };
-
-                if let Some(fk_id) = id_val {
-                    // Validar que la tabla y columna sean identificadores seguros
-                    crate::query_builder::validate_table_identifier(&rule.parent_table)?;
-                    crate::query_builder::validate_column_identifier(&rule.parent_pk)?;
-
-                    let query = format!(
-                        "SELECT EXISTS(SELECT 1 FROM {} WHERE {} = $1)",
-                        rule.parent_table, rule.parent_pk
-                    );
-
-                    let exists = sqlx::query_scalar::<_, bool>(&query)
-                        .bind(fk_id)
-                        .fetch_one(&mut *tx)
-                        .await
-                        .map_err(map_sqlx_error)?;
-
-                    if !exists {
-                        return Err(MedSysError::ProcessingError(format!(
-                            "T4 Violación de integridad referencial: registro padre inexistente en {} con {}={}",
-                            rule.parent_table, rule.parent_pk, fk_id
-                        )));
-                    }
-                }
-            }
-        }
-
-        tx.commit().await.map_err(map_sqlx_error)?;
-        Ok(())
+        Self::verify_parent_checks_tx(mapping, row, &mut tx, &mut Default::default()).await?;
+        tx.commit().await.map_err(map_sqlx_error)
     }
 
-    /// Busca un registro por su clave primaria construyendo la consulta dinámicamente.
-    /// Retorna `Ok(Some(row))` si existe, u `Ok(None)` si no existe.
+    /// Lee y comprueba padres en una única transacción REPEATABLE READ READ ONLY.
     pub async fn find_by_id_raw(
         &self,
         mapping: &ResourceMapping,
@@ -114,49 +132,42 @@ impl DynamicFhirRepository {
     ) -> Result<Option<Map<String, Value>>> {
         let sql = DynamicSqlBuilder::select_by_id(mapping);
         let mut tx = self.begin_readonly_tx().await?;
-
-        let maybe_row = sqlx::query(&sql)
+        let row = sqlx::query(&sql)
             .bind(id)
             .fetch_optional(&mut *tx)
             .await
             .map_err(map_sqlx_error)?;
-
-        tx.commit().await.map_err(map_sqlx_error)?;
-
-        match maybe_row {
+        let result = match row {
             Some(row) => {
                 let map = pg_row_to_json_map(&row)?;
-                Ok(Some(map))
+                Self::verify_parent_checks_tx(mapping, &map, &mut tx, &mut Default::default())
+                    .await?;
+                Some(map)
             }
-            None => Ok(None),
-        }
+            None => None,
+        };
+        tx.commit().await.map_err(map_sqlx_error)?;
+        Ok(result)
     }
 
-    /// Busca un registro por su clave primaria, ejecuta las verificaciones `parent_checks` (`T4`)
-    /// y retorna la fila como mapa JSON. Falla con `MedSysError::NotFound` si no existe.
     pub async fn find_by_id(
         &self,
         mapping: &ResourceMapping,
         id: i32,
     ) -> Result<Map<String, Value>> {
-        let row = self.find_by_id_raw(mapping, id).await?.ok_or_else(|| {
+        self.find_by_id_raw(mapping, id).await?.ok_or_else(|| {
             MedSysError::NotFound(format!(
                 "Recurso '{}' con identificador {id} no encontrado en la base de datos",
                 mapping.resource_type
             ))
-        })?;
-
-        self.verify_parent_checks(mapping, &row).await?;
-        Ok(row)
+        })
     }
 
-    /// Busca un registro por su clave primaria y lo transforma directamente al recurso FHIR canónico.
     pub async fn find_by_id_fhir(&self, mapping: &ResourceMapping, id: i32) -> Result<Value> {
         let row = self.find_by_id(mapping, id).await?;
         evaluate_resource_mapping(mapping, &row)
     }
 
-    /// Retorna una página de registros ordenada y paginada usando la consulta generada dinámicamente.
     pub async fn find_all_raw(
         &self,
         mapping: &ResourceMapping,
@@ -165,39 +176,36 @@ impl DynamicFhirRepository {
     ) -> Result<Vec<Map<String, Value>>> {
         let sql = DynamicSqlBuilder::select_all_paged(mapping);
         let mut tx = self.begin_readonly_tx().await?;
-
         let rows = sqlx::query(&sql)
             .bind(limit)
             .bind(offset)
             .fetch_all(&mut *tx)
             .await
             .map_err(map_sqlx_error)?;
-
-        tx.commit().await.map_err(map_sqlx_error)?;
-
         let mut results = Vec::with_capacity(rows.len());
+        let mut cache = Default::default();
         for row in rows {
-            results.push(pg_row_to_json_map(&row)?);
+            let map = pg_row_to_json_map(&row)?;
+            Self::verify_parent_checks_tx(mapping, &map, &mut tx, &mut cache).await?;
+            results.push(map);
         }
+        tx.commit().await.map_err(map_sqlx_error)?;
         Ok(results)
     }
 
-    /// Retorna una página de recursos transformados a FHIR JSON mediante evaluación declarativa.
     pub async fn find_all_fhir(
         &self,
         mapping: &ResourceMapping,
         limit: i64,
         offset: i64,
     ) -> Result<Vec<Value>> {
-        let rows = self.find_all_raw(mapping, limit, offset).await?;
-        let mut results = Vec::with_capacity(rows.len());
-        for row in rows {
-            results.push(evaluate_resource_mapping(mapping, &row)?);
-        }
-        Ok(results)
+        self.find_all_raw(mapping, limit, offset)
+            .await?
+            .iter()
+            .map(|r| evaluate_resource_mapping(mapping, r))
+            .collect()
     }
 
-    /// Retorna registros filtrados por columna foránea (e.g. `id_paciente`, `id_consulta`).
     pub async fn find_filtered_raw(
         &self,
         mapping: &ResourceMapping,
@@ -206,10 +214,18 @@ impl DynamicFhirRepository {
         limit: i64,
         offset: i64,
     ) -> Result<Vec<Map<String, Value>>> {
-        crate::query_builder::validate_column_identifier(filter_col)?;
-        let sql = DynamicSqlBuilder::select_by_foreign_key_paged(mapping, filter_col);
+        let target = match filter_col {
+            "id_paciente" => Some("subject.reference"),
+            "id_consulta" => Some("encounter.reference"),
+            _ => None,
+        };
+        let column = target
+            .and_then(|target| mapping.mappings.iter().find(|m| m.target_path == target))
+            .and_then(|m| m.source_column.as_deref())
+            .unwrap_or(filter_col);
+        crate::query_builder::validate_column_identifier(column)?;
+        let sql = DynamicSqlBuilder::select_by_foreign_key_paged(mapping, column);
         let mut tx = self.begin_readonly_tx().await?;
-
         let rows = sqlx::query(&sql)
             .bind(filter_val)
             .bind(limit)
@@ -217,17 +233,17 @@ impl DynamicFhirRepository {
             .fetch_all(&mut *tx)
             .await
             .map_err(map_sqlx_error)?;
-
-        tx.commit().await.map_err(map_sqlx_error)?;
-
         let mut results = Vec::with_capacity(rows.len());
+        let mut cache = Default::default();
         for row in rows {
-            results.push(pg_row_to_json_map(&row)?);
+            let map = pg_row_to_json_map(&row)?;
+            Self::verify_parent_checks_tx(mapping, &map, &mut tx, &mut cache).await?;
+            results.push(map);
         }
+        tx.commit().await.map_err(map_sqlx_error)?;
         Ok(results)
     }
 
-    /// Retorna registros filtrados por columna foránea transformados a FHIR JSON.
     pub async fn find_filtered_fhir(
         &self,
         mapping: &ResourceMapping,
@@ -236,14 +252,11 @@ impl DynamicFhirRepository {
         limit: i64,
         offset: i64,
     ) -> Result<Vec<Value>> {
-        let rows = self
-            .find_filtered_raw(mapping, filter_col, filter_val, limit, offset)
-            .await?;
-        let mut results = Vec::with_capacity(rows.len());
-        for row in rows {
-            results.push(evaluate_resource_mapping(mapping, &row)?);
-        }
-        Ok(results)
+        self.find_filtered_raw(mapping, filter_col, filter_val, limit, offset)
+            .await?
+            .iter()
+            .map(|r| evaluate_resource_mapping(mapping, r))
+            .collect()
     }
 }
 
@@ -305,16 +318,7 @@ pub fn pg_row_to_json_map(row: &PgRow) -> Result<Map<String, Value>> {
                 }
             },
             "NUMERIC" | "DECIMAL" => match row.try_get::<Option<Decimal>, _>(i) {
-                Ok(Some(v)) => {
-                    use rust_decimal::prelude::ToPrimitive;
-                    if let Some(f) = v.to_f64() {
-                        Number::from_f64(f)
-                            .map(Value::Number)
-                            .unwrap_or_else(|| Value::String(v.to_string()))
-                    } else {
-                        Value::String(v.to_string())
-                    }
-                }
+                Ok(Some(v)) => Value::String(v.to_string()),
                 Ok(None) => Value::Null,
                 Err(e) => {
                     return Err(MedSysError::DatabaseError(format!(
@@ -341,7 +345,7 @@ pub fn pg_row_to_json_map(row: &PgRow) -> Result<Map<String, Value>> {
                 }
             },
             "TIMESTAMP" => match row.try_get::<Option<NaiveDateTime>, _>(i) {
-                Ok(Some(dt)) => Value::String(dt.format("%Y-%m-%d %H:%M:%S").to_string()),
+                Ok(Some(dt)) => Value::String(dt.format("%Y-%m-%d %H:%M:%S%.f").to_string()),
                 Ok(None) => Value::Null,
                 Err(e) => {
                     return Err(MedSysError::DatabaseError(format!(
@@ -361,10 +365,21 @@ pub fn pg_row_to_json_map(row: &PgRow) -> Result<Map<String, Value>> {
             _ => match row.try_get::<Option<String>, _>(i) {
                 Ok(Some(s)) => Value::String(s),
                 Ok(None) => Value::Null,
-                Err(_) => Value::Null,
+                Err(e) => return Err(MedSysError::DatabaseError(format!(
+                    "Tipo SQL no soportado o error decodificando columna '{name}' ({type_name}): {e}"
+                ))),
             },
         };
         map.insert(name, val);
+    }
+    for (name, source) in &map {
+        if let Some(resolved) = name.strip_suffix("__source") {
+            if !source.is_null() && map.get(resolved).is_none_or(Value::is_null) {
+                return Err(MedSysError::ProcessingError(format!(
+                    "T3 Catálogo sin correspondencia para {resolved}"
+                )));
+            }
+        }
     }
     Ok(map)
 }
@@ -392,7 +407,7 @@ fn extract_opt_string(row: &Map<String, Value>, candidates: &[&str]) -> Option<S
             match val {
                 Value::String(s) => {
                     let trimmed = s.trim();
-                    if trimmed.is_empty() || trimmed.eq_ignore_ascii_case("null") {
+                    if trimmed.is_empty() {
                         return None;
                     }
                     return Some(trimmed.to_string());
@@ -412,7 +427,7 @@ fn extract_i32(row: &Map<String, Value>, candidates: &[&str]) -> Option<i32> {
             match val {
                 Value::Number(n) => {
                     if let Some(v) = n.as_i64() {
-                        return Some(v as i32);
+                        return i32::try_from(v).ok();
                     }
                 }
                 Value::String(s) => {
@@ -427,30 +442,18 @@ fn extract_i32(row: &Map<String, Value>, candidates: &[&str]) -> Option<i32> {
     None
 }
 
-fn extract_opt_i32(row: &Map<String, Value>, candidates: &[&str]) -> Option<i32> {
+fn extract_opt_i32(row: &Map<String, Value>, candidates: &[&str]) -> Result<Option<i32>> {
     for &key in candidates {
         if let Some(val) = row.get(key) {
-            match val {
-                Value::Null => return None,
-                Value::Number(n) => {
-                    if let Some(v) = n.as_i64() {
-                        return Some(v as i32);
-                    }
-                }
-                Value::String(s) => {
-                    let trimmed = s.trim();
-                    if trimmed.is_empty() || trimmed.eq_ignore_ascii_case("null") {
-                        return None;
-                    }
-                    if let Ok(v) = trimmed.parse::<i32>() {
-                        return Some(v);
-                    }
-                }
-                _ => {}
+            if val.is_null() {
+                return Ok(None);
             }
+            return extract_i32(row, &[key]).map(Some).ok_or_else(|| {
+                MedSysError::ProcessingError(format!("T2 Entero opcional inválido: {key}"))
+            });
         }
     }
-    None
+    Ok(None)
 }
 
 fn parse_flexible_date(s: &str) -> Option<NaiveDate> {
@@ -483,22 +486,81 @@ fn extract_naive_date(row: &Map<String, Value>, candidates: &[&str]) -> Option<N
 
 fn parse_flexible_datetime(s: &str) -> Option<NaiveDateTime> {
     let trimmed = s.trim();
-    if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S") {
+    if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M:%S%.f") {
         return Some(dt);
     }
     if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%d %H:%M") {
         return Some(dt);
     }
-    if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S") {
+    if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S%.f") {
         return Some(dt);
     }
     if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M") {
         return Some(dt);
     }
+    if let Ok(dt) = NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S%.f") {
+        return Some(dt);
+    }
     if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(trimmed) {
-        return Some(dt.naive_utc());
+        return Some(
+            dt.with_timezone(&chrono_tz::America::Mexico_City)
+                .naive_local(),
+        );
     }
     None
+}
+
+/// Canonicaliza instantes a reloj UTC antes del adaptador NaiveDateTime. Los
+/// timestamps sin offset se interpretan en la zona declarada. Un offset explícito
+/// conserva su instante aun durante una transición DST; no se elimina la zona.
+pub fn normalize_row_timezone(
+    mut row: Map<String, Value>,
+    timezone: &str,
+) -> Result<Map<String, Value>> {
+    use chrono::TimeZone;
+    let tz: chrono_tz::Tz = timezone
+        .parse()
+        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
+    for key in [
+        "fecha_hora_inicio",
+        "fecha_hora_fin",
+        "fecha_registro",
+        "fech_ini_txt",
+        "fech_fin_txt",
+        "fech_reg_txt",
+        "fech_sig_txt",
+    ] {
+        if let Some(Value::String(s)) = row.get(key).cloned() {
+            let utc = if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(s.trim()) {
+                dt.naive_utc()
+            } else if let Some(date) = parse_flexible_date(&s) {
+                // La hora cero es sólo un portador interno requerido por Legacy.
+                // El contexto obliga al servidor a emitir la fecha sin esa hora.
+                row.insert(
+                    format!("__date_precision_{key}"),
+                    Value::String(date.format("%Y-%m-%d").to_string()),
+                );
+                date.and_hms_opt(0, 0, 0).expect("valid midnight carrier")
+            } else {
+                let local = parse_flexible_datetime(&s).ok_or_else(|| {
+                    MedSysError::ProcessingError(format!("T2 Fecha/hora inválida: {key}"))
+                })?;
+                tz.from_local_datetime(&local)
+                    .single()
+                    .ok_or_else(|| {
+                        MedSysError::ProcessingError(format!(
+                            "T2 Fecha/hora ambigua o inexistente en {timezone}: {s}"
+                        ))
+                    })?
+                    .naive_utc()
+            };
+            row.insert(
+                key.into(),
+                Value::String(utc.format("%Y-%m-%d %H:%M:%S%.f").to_string()),
+            );
+        }
+    }
+    Ok(row)
 }
 
 fn extract_naive_datetime(row: &Map<String, Value>, candidates: &[&str]) -> Option<NaiveDateTime> {
@@ -522,7 +584,7 @@ fn extract_opt_naive_datetime(
                 Value::Null => return None,
                 Value::String(s) => {
                     let trimmed = s.trim();
-                    if trimmed.is_empty() || trimmed.eq_ignore_ascii_case("null") {
+                    if trimmed.is_empty() {
                         return None;
                     }
                     if let Some(dt) = parse_flexible_datetime(trimmed) {
@@ -573,7 +635,7 @@ fn extract_opt_decimal(row: &Map<String, Value>, candidates: &[&str]) -> Option<
                 }
                 Value::String(s) => {
                     let trimmed = s.trim();
-                    if trimmed.is_empty() || trimmed.eq_ignore_ascii_case("null") {
+                    if trimmed.is_empty() {
                         return None;
                     }
                     if let Ok(d) = Decimal::from_str(trimmed) {
@@ -628,8 +690,10 @@ pub fn row_to_legacy_paciente(row: &Map<String, Value>) -> Result<LegacyPaciente
             },
         )?;
 
-    let sexo_biologico =
-        extract_opt_string(row, &["sexo_biologico", "des_sexo", "sexo", "sexo_cod"]);
+    let sexo_biologico = extract_opt_string(
+        row,
+        &["sexo_biologico", "des_sexo", "sexo", "sexo_cod", "id_sexo"],
+    );
     let telefono_contacto =
         extract_opt_string(row, &["telefono_contacto", "tel_contacto", "telefono"]);
     let fecha_registro =
@@ -686,9 +750,14 @@ pub fn row_to_legacy_consulta(row: &Map<String, Value>) -> Result<LegacyConsulta
             "des_estado_consulta",
             "estado",
             "est_con",
+            "est_consulta",
+            "id_estado_consulta",
         ],
     )
-    .unwrap_or_else(|| "FINALIZADA".to_string());
+    .ok_or_else(|| MedSysError::MissingField {
+        field: "estado_consulta".into(),
+        resource: "LegacyConsulta".into(),
+    })?;
 
     let motivo_consulta = extract_string(row, &["motivo_consulta", "motivo", "mot_con"])
         .ok_or_else(|| MedSysError::MissingField {
@@ -712,7 +781,10 @@ pub fn row_to_legacy_consulta(row: &Map<String, Value>) -> Result<LegacyConsulta
 
     let fecha_hora_fin =
         extract_naive_datetime(row, &["fecha_hora_fin", "fech_fin_txt", "fecha_fin", "fin"])
-            .unwrap_or(fecha_hora_inicio);
+            .ok_or_else(|| MedSysError::MissingField {
+                field: "fecha_hora_fin".into(),
+                resource: "LegacyConsulta".into(),
+            })?;
 
     let unidad_medica = extract_opt_string(row, &["unidad_medica", "unidad", "clinica"]);
 
@@ -791,39 +863,32 @@ pub fn row_to_legacy_signo_vital(row: &Map<String, Value>) -> Result<LegacySigno
             resource: "LegacySignoVital".into(),
         })?;
 
-    let frecuencia_respiratoria = extract_opt_i32(row, &["frecuencia_respiratoria", "fr"]);
+    let frecuencia_respiratoria = extract_opt_i32(row, &["frecuencia_respiratoria", "fr"])?;
 
     // Temperatura: directa o conversión de Fahrenheit a Celsius
-    let temperatura_celsius =
-        if let Some(temp) = extract_decimal(row, &["temperatura_celsius", "temp_c", "temp"]) {
-            temp
-        } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
-            use rust_decimal::prelude::ToPrimitive;
-            let f = temp_f.to_f64().unwrap_or(98.6);
-            let c = (f - 32.0) * 5.0 / 9.0;
-            Decimal::from_f64(c)
-                .map(|d| d.round_dp(1))
-                .unwrap_or_else(|| Decimal::from_str("37.0").unwrap())
-        } else {
-            return Err(MedSysError::MissingField {
-                field: "temperatura_celsius".into(),
-                resource: "LegacySignoVital".into(),
-            });
-        };
+    let temperatura_celsius = if let Some(temp) = extract_decimal(
+        row,
+        &["temperatura_celsius", "temp_celsius", "temp_c", "temp"],
+    ) {
+        temp
+    } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
+        ((temp_f - Decimal::from(32)) * Decimal::from(5) / Decimal::from(9)).round_dp(1)
+    } else {
+        return Err(MedSysError::MissingField {
+            field: "temperatura_celsius".into(),
+            resource: "LegacySignoVital".into(),
+        });
+    };
 
     // Peso: directo o conversión de libras a kilogramos (factor 0.45359237)
     let peso_kg = if let Some(peso) = extract_opt_decimal(row, &["peso_kg", "peso"]) {
         Some(peso)
-    } else if let Some(peso_lb) = extract_opt_decimal(row, &["peso_libras", "peso_lb"]) {
-        use rust_decimal::prelude::ToPrimitive;
-        let lb = peso_lb.to_f64().unwrap_or(0.0);
-        let kg = lb * 0.45359237;
-        Decimal::from_f64(kg).map(|d| d.round_dp(2))
     } else {
-        None
+        extract_opt_decimal(row, &["peso_libras", "peso_lb"])
+            .map(|lb| (lb * Decimal::from_str("0.45359237").expect("fixed decimal")).round_dp(2))
     };
 
-    let talla_cm = extract_opt_i32(row, &["talla_cm", "talla", "estatura"]);
+    let talla_cm = extract_opt_i32(row, &["talla_cm", "talla", "estatura"])?;
 
     let fecha_registro = extract_naive_datetime(
         row,
@@ -871,11 +936,14 @@ pub fn row_to_legacy_diagnostico(row: &Map<String, Value>) -> Result<LegacyDiagn
             resource: "LegacyDiagnostico".into(),
         })?;
 
-    let codigo_cie10 = extract_string(row, &["codigo_cie10", "cie10", "diag_cod", "codigo"])
-        .ok_or_else(|| MedSysError::MissingField {
-            field: "codigo_cie10".into(),
-            resource: "LegacyDiagnostico".into(),
-        })?;
+    let codigo_cie10 = extract_string(
+        row,
+        &["codigo_cie10", "cie10", "diag_cod", "codigo", "id_cie10"],
+    )
+    .ok_or_else(|| MedSysError::MissingField {
+        field: "codigo_cie10".into(),
+        resource: "LegacyDiagnostico".into(),
+    })?;
 
     let descripcion_diagnostico = extract_string(
         row,
@@ -884,9 +952,13 @@ pub fn row_to_legacy_diagnostico(row: &Map<String, Value>) -> Result<LegacyDiagn
             "des_diagnostico",
             "descripcion",
             "diag_des",
+            "desc_diag",
         ],
     )
-    .unwrap_or_else(|| codigo_cie10.clone());
+    .ok_or_else(|| MedSysError::MissingField {
+        field: "descripcion_diagnostico".into(),
+        resource: "LegacyDiagnostico".into(),
+    })?;
 
     let tipo_diagnostico = extract_opt_string(
         row,
@@ -894,6 +966,7 @@ pub fn row_to_legacy_diagnostico(row: &Map<String, Value>) -> Result<LegacyDiagn
             "tipo_diagnostico",
             "des_tipo_diagnostico",
             "tipo_diag",
+            "id_tipo_diag",
             "tipo",
         ],
     );
@@ -1022,26 +1095,92 @@ mod tests {
     #[test]
     fn regression_s2_lookup_aliases_and_required_encounter_fields() {
         let mut patient = json!({"id_paciente":1,"curp":"ROMA900101HCSMNL09","primer_nombre":"Ana","apellido_paterno":"Ramos","fecha_nacimiento":"1990-01-01","id_sexo":"female"}).as_object().unwrap().clone();
-        assert_eq!(row_to_legacy_paciente(&patient).unwrap().sexo_biologico.as_deref(), Some("female"));
+        assert_eq!(
+            row_to_legacy_paciente(&patient)
+                .unwrap()
+                .sexo_biologico
+                .as_deref(),
+            Some("female")
+        );
         patient.insert("id_paciente".into(), json!(i64::MAX));
-        assert!(row_to_legacy_paciente(&patient).is_err(), "integer overflow must reject");
+        assert!(
+            row_to_legacy_paciente(&patient).is_err(),
+            "integer overflow must reject"
+        );
         let mut encounter = json!({"id_consulta":1,"id_paciente":1,"cedula_medico_tratante":"123","nombre_medico":"Ana","id_estado_consulta":"finished","motivo_consulta":"Control","fecha_hora_inicio":"2026-01-01 10:00:00","fecha_hora_fin":"2026-01-01 11:00:00"}).as_object().unwrap().clone();
-        assert_eq!(row_to_legacy_consulta(&encounter).unwrap().estado_consulta, "finished");
+        assert_eq!(
+            row_to_legacy_consulta(&encounter).unwrap().estado_consulta,
+            "finished"
+        );
         encounter.remove("id_estado_consulta");
-        assert!(row_to_legacy_consulta(&encounter).is_err(), "missing status must reject");
+        assert!(
+            row_to_legacy_consulta(&encounter).is_err(),
+            "missing status must reject"
+        );
         encounter.insert("estado_consulta".into(), json!("FINALIZADA"));
         encounter.insert("fecha_hora_fin".into(), json!("invalid"));
-        assert!(row_to_legacy_consulta(&encounter).is_err(), "invalid end must reject");
+        assert!(
+            row_to_legacy_consulta(&encounter).is_err(),
+            "invalid end must reject"
+        );
     }
 
     #[test]
     fn regression_s3_actual_columns_and_optional_corruption() {
         let mut row = json!({"sig_id":1,"pac_id":1,"con_id":1,"presion_arterial_txt":"120/80","fc":70,"fr":18,"temp_celsius":36.5,"fech_reg_txt":"2026-01-01 10:00:00"}).as_object().unwrap().clone();
-        assert_eq!(row_to_legacy_signo_vital(&row).unwrap().temperatura_celsius, Decimal::from_str("36.5").unwrap());
+        assert_eq!(
+            row_to_legacy_signo_vital(&row).unwrap().temperatura_celsius,
+            Decimal::from_str("36.5").unwrap()
+        );
         row.insert("fr".into(), json!("invalid"));
-        assert!(row_to_legacy_signo_vital(&row).is_err(), "optional corrupt value must not become absent");
+        assert!(
+            row_to_legacy_signo_vital(&row).is_err(),
+            "optional corrupt value must not become absent"
+        );
         let diag = json!({"diag_id":1,"pac_id":1,"con_id":1,"cie10":"E11.9","desc_diag":"Diabetes","fech_diag_txt":"2026-01-01"}).as_object().unwrap().clone();
-        assert_eq!(row_to_legacy_diagnostico(&diag).unwrap().descripcion_diagnostico, "Diabetes");
+        assert_eq!(
+            row_to_legacy_diagnostico(&diag)
+                .unwrap()
+                .descripcion_diagnostico,
+            "Diabetes"
+        );
     }
-
+    #[test]
+    fn regression_timestamps_preserve_instants_precision_and_dst() {
+        let naive = serde_json::json!({"fecha_hora_inicio":"2026-01-01 10:00:00.123456"})
+            .as_object()
+            .unwrap()
+            .clone();
+        let explicit = serde_json::json!({"fecha_hora_inicio":"2026-01-01T17:00:00.123456+01:00"})
+            .as_object()
+            .unwrap()
+            .clone();
+        let first = normalize_row_timezone(naive, "America/Mexico_City").unwrap();
+        let second = normalize_row_timezone(explicit, "America/Mexico_City").unwrap();
+        assert_eq!(first, second);
+        assert_eq!(first["fecha_hora_inicio"], "2026-01-01 16:00:00.123456");
+        let ambiguous = serde_json::json!({"fecha_registro":"2021-10-31 01:30:00"})
+            .as_object()
+            .unwrap()
+            .clone();
+        assert!(normalize_row_timezone(ambiguous, "America/Mexico_City").is_err());
+        let explicit = serde_json::json!({"fecha_registro":"2021-10-31T01:30:00-05:00"})
+            .as_object()
+            .unwrap()
+            .clone();
+        assert_eq!(
+            normalize_row_timezone(explicit, "America/Mexico_City").unwrap()["fecha_registro"],
+            "2021-10-31 06:30:00"
+        );
+    }
+    #[test]
+    fn regression_date_only_timestamps_preserve_source_precision() {
+        let row = json!({"fech_reg_txt":"01/01/2026"})
+            .as_object()
+            .unwrap()
+            .clone();
+        let normalized =
+            normalize_row_timezone(row, "America/Mexico_City").expect("YAML admite fecha sin hora");
+        assert_eq!(normalized["__date_precision_fech_reg_txt"], "2026-01-01");
+    }
 }

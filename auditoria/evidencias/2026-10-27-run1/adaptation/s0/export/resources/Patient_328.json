@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "328",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROXG460214MCSDXB68"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Lucia Rodriguez",
+      "family": "Rodriguez",
+      "given": [
+        "Gabriela",
+        "Lucia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611074410",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1946-02-14"
+}

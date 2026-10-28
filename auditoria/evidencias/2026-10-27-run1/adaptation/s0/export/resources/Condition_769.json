@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "769",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "R51",
+        "display": "Cefalea"
+      }
+    ],
+    "text": "Cefalea"
+  },
+  "subject": {
+    "reference": "Patient/880"
+  },
+  "encounter": {
+    "reference": "Encounter/769"
+  },
+  "recordedDate": "2025-04-13"
+}

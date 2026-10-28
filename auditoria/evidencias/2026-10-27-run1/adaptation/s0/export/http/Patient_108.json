@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/108",
+  "started_utc": "2026-10-28T02:56:27.776033+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"108\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUXA961127HCSGXL28\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro David Aguilar\",\n      \"family\": \"Aguilar\",\n      \"given\": [\n        \"Alejandro\",\n        \"David\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612339418\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1996-11-27\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "f4f6f6921ad18fd5977024ddf42093e5816ea27d07d7c719ffe1b93397dd3168",
+  "elapsed_seconds": 0.008330399985425174,
+  "resource": "Patient/108",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

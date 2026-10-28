@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/79",
+  "started_utc": "2026-10-28T02:56:29.903725+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "461",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"79\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUAM580525MCSTLN89\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Monica Silvia Gutierrez Alvarez\",\n      \"family\": \"Gutierrez Alvarez\",\n      \"given\": [\n        \"Monica\",\n        \"Silvia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1958-05-25\"\n}",
+  "body_bytes": 461,
+  "body_sha256": "199cd855433611736665cb849a72cd43b48f673b2d09d2e4ae717165a68b7599",
+  "elapsed_seconds": 0.04454909998457879,
+  "resource": "Patient/79",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

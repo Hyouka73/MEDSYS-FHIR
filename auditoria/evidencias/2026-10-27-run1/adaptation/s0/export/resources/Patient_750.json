@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "750",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAMP010403HCSMRD40"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Ramirez Moreno",
+      "family": "Ramirez Moreno",
+      "given": [
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616978910",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2001-04-03"
+}

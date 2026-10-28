@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "384",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "G43.9",
+        "display": "Migraña, no especificada"
+      }
+    ],
+    "text": "Migraña, no especificada"
+  },
+  "subject": {
+    "reference": "Patient/262"
+  },
+  "encounter": {
+    "reference": "Encounter/384"
+  },
+  "recordedDate": "2025-10-09"
+}

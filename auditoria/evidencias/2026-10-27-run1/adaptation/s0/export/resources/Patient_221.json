@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "221",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUXJ160511HCSNXR51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Gabriel Munoz",
+      "family": "Munoz",
+      "given": [
+        "Jorge",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618081627",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2016-05-11"
+}

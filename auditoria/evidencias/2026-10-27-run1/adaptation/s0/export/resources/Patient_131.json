@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "131",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GORG480921MCSNDB51"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Karla Gonzalez Rodriguez",
+      "family": "Gonzalez Rodriguez",
+      "given": [
+        "Gabriela",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613921386",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-09-21"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "509",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUAG120330MCSTGB69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Maria Gutierrez Aguilar",
+      "family": "Gutierrez Aguilar",
+      "given": [
+        "Gabriela",
+        "Maria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613222171",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-03-30"
+}

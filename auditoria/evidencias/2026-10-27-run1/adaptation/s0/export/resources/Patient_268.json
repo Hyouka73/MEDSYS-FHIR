@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "268",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MERG151101HCSDMB98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Daniel Medina Ramirez",
+      "family": "Medina Ramirez",
+      "given": [
+        "Gabriel",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611143563",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2015-11-01"
+}

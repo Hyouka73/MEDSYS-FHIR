@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "99",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VACA750201HCSRHL19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Luis Vargas Chavez",
+      "family": "Vargas Chavez",
+      "given": [
+        "Alejandro",
+        "Luis"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1975-02-01"
+}

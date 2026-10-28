@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/512",
+  "started_utc": "2026-10-28T02:56:29.056061+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"512\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAJB471223MCSRMT72\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Beatriz Vargas Jimenez\",\n      \"family\": \"Vargas Jimenez\",\n      \"given\": [\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611417768\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1947-12-23\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "607fd38b494a22506f8492136b818f23d6e80364634e1948ffc2e0031886651a",
+  "elapsed_seconds": 0.011851399962324649,
+  "resource": "Patient/512",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

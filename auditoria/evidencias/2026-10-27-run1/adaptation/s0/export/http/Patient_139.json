@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/139",
+  "started_utc": "2026-10-28T02:56:27.865292+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "432",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"139\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAXH670711HCSMXG59\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Hugo Hugo Ramirez\",\n      \"family\": \"Ramirez\",\n      \"given\": [\n        \"Hugo\",\n        \"Hugo\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1967-07-11\"\n}",
+  "body_bytes": 432,
+  "body_sha256": "172812f2894215e39b64d231c38f50cc885c6d9e6408a79975477bc05270d938",
+  "elapsed_seconds": 0.013944500009529293,
+  "resource": "Patient/139",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "867",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEGN460604MCSRRT67"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Natalia Guadalupe Herrera Garcia",
+      "family": "Herrera Garcia",
+      "given": [
+        "Natalia",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615833684",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1946-06-04"
+}

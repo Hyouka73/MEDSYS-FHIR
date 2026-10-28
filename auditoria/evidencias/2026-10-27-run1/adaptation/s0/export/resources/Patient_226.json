@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "226",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIMA670924HCSRRL56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Miguel Ortiz Moreno",
+      "family": "Ortiz Moreno",
+      "given": [
+        "Alejandro",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617897411",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1967-09-24"
+}

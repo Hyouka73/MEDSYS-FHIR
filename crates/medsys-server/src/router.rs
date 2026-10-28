@@ -5,7 +5,7 @@ use axum::Router;
 use tower_http::cors::{Any, CorsLayer};
 use tower_http::trace::TraceLayer;
 
-use crate::error::not_found_fallback;
+use crate::error::{not_found_fallback, ServerError};
 use crate::handlers::{
     get_condition, get_encounter, get_legacy_patient_full, get_observation, get_patient,
     health_check, list_conditions, list_encounters, list_legacy_patients, list_observations,
@@ -46,4 +46,5 @@ pub fn create_router(state: AppState) -> Router {
         .layer(TraceLayer::new_for_http())
         // Manejador fallback: cualquier ruta desconocida retorna OperationOutcome canónico (Tarea 4.2)
         .fallback(not_found_fallback)
+        .method_not_allowed_fallback(|| async { ServerError::MethodNotAllowed })
 }

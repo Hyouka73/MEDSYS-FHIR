@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "999",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAXA080820HCSNXL19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Carlos Sanchez",
+      "family": "Sanchez",
+      "given": [
+        "Alejandro",
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615192168",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2008-08-20"
+}

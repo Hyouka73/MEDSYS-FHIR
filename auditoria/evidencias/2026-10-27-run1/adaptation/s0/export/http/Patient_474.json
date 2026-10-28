@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/474",
+  "started_utc": "2026-10-28T02:56:28.938025+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"474\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAMF121206HCSRDR34\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernando Carlos Vargas Medina\",\n      \"family\": \"Vargas Medina\",\n      \"given\": [\n        \"Fernando\",\n        \"Carlos\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616736262\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2012-12-06\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "bda0f755ed4ebe6951a05f8a2df50ada6982de6fce83b2fb05518572d426635d",
+  "elapsed_seconds": 0.010118399979546666,
+  "resource": "Patient/474",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

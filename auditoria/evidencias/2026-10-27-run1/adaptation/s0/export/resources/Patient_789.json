@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "789",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUAA000802HCSRGL79"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto Arturo Juarez Aguilar",
+      "family": "Juarez Aguilar",
+      "given": [
+        "Alberto",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616137937",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2000-08-02"
+}

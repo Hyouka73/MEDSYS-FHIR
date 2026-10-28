@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/774",
+  "started_utc": "2026-10-28T02:56:29.849735+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"774\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MAGA691005HCSRRL64\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alberto Antonio Martinez Garcia\",\n      \"family\": \"Martinez Garcia\",\n      \"given\": [\n        \"Alberto\",\n        \"Antonio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618591077\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1969-10-05\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "9206f1f9659ea5b11b5d58484b6c614c7f622c40470ff3eb4e4852e8cd0b0d9b",
+  "elapsed_seconds": 0.015299500024411827,
+  "resource": "Patient/774",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

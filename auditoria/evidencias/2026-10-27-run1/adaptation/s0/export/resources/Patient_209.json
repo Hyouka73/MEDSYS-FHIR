@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "209",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOXC600529MCSRXR39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Alejandra Morales",
+      "family": "Morales",
+      "given": [
+        "Carmen",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611641713",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1960-05-29"
+}

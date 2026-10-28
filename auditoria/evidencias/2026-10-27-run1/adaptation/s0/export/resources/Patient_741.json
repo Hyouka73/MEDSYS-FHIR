@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "741",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUCM651127HCSGHR31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Salvador Aguilar Chavez",
+      "family": "Aguilar Chavez",
+      "given": [
+        "Mario",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618569402",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1965-11-27"
+}

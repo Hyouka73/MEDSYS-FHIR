@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "119",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOXS741025MCSPXL39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Carmen Lopez",
+      "family": "Lopez",
+      "given": [
+        "Silvia",
+        "Carmen"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1974-10-25"
+}

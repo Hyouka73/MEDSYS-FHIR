@@ -1,0 +1,500 @@
+{
+  "kind": "synthetic_source_generator_correction",
+  "finished_utc": "2026-10-26T03:49:18.567770+00:00",
+  "seed": 20260930,
+  "baseline_commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+  "baseline_generator_sha256": "757f9b683c698f91564a6b227a2838c85a7c7e92bdce05952193e43180fda544",
+  "new_generator_sha256": "d1eca974bc67ca01d31aae3059af2a35d10f1b526f6fbb2f4c012ee9229d6477",
+  "before_unique_patients_in_encounters": 905,
+  "after_unique_patients_in_encounters": 1000,
+  "encounter_counts_before_after": [
+    2500,
+    2500
+  ],
+  "patient_reference_changes": [
+    {
+      "encounter": 2399,
+      "previous_patient": 10,
+      "new_patient": 997
+    },
+    {
+      "encounter": 2400,
+      "previous_patient": 419,
+      "new_patient": 987
+    },
+    {
+      "encounter": 2401,
+      "previous_patient": 420,
+      "new_patient": 980
+    },
+    {
+      "encounter": 2402,
+      "previous_patient": 321,
+      "new_patient": 966
+    },
+    {
+      "encounter": 2403,
+      "previous_patient": 37,
+      "new_patient": 957
+    },
+    {
+      "encounter": 2404,
+      "previous_patient": 92,
+      "new_patient": 955
+    },
+    {
+      "encounter": 2405,
+      "previous_patient": 306,
+      "new_patient": 950
+    },
+    {
+      "encounter": 2406,
+      "previous_patient": 360,
+      "new_patient": 921
+    },
+    {
+      "encounter": 2407,
+      "previous_patient": 799,
+      "new_patient": 920
+    },
+    {
+      "encounter": 2408,
+      "previous_patient": 688,
+      "new_patient": 914
+    },
+    {
+      "encounter": 2410,
+      "previous_patient": 886,
+      "new_patient": 912
+    },
+    {
+      "encounter": 2411,
+      "previous_patient": 282,
+      "new_patient": 910
+    },
+    {
+      "encounter": 2413,
+      "previous_patient": 530,
+      "new_patient": 900
+    },
+    {
+      "encounter": 2414,
+      "previous_patient": 545,
+      "new_patient": 883
+    },
+    {
+      "encounter": 2415,
+      "previous_patient": 504,
+      "new_patient": 873
+    },
+    {
+      "encounter": 2416,
+      "previous_patient": 601,
+      "new_patient": 856
+    },
+    {
+      "encounter": 2417,
+      "previous_patient": 571,
+      "new_patient": 853
+    },
+    {
+      "encounter": 2418,
+      "previous_patient": 201,
+      "new_patient": 846
+    },
+    {
+      "encounter": 2419,
+      "previous_patient": 229,
+      "new_patient": 843
+    },
+    {
+      "encounter": 2420,
+      "previous_patient": 923,
+      "new_patient": 842
+    },
+    {
+      "encounter": 2421,
+      "previous_patient": 239,
+      "new_patient": 834
+    },
+    {
+      "encounter": 2422,
+      "previous_patient": 102,
+      "new_patient": 830
+    },
+    {
+      "encounter": 2423,
+      "previous_patient": 502,
+      "new_patient": 806
+    },
+    {
+      "encounter": 2424,
+      "previous_patient": 473,
+      "new_patient": 796
+    },
+    {
+      "encounter": 2425,
+      "previous_patient": 709,
+      "new_patient": 785
+    },
+    {
+      "encounter": 2426,
+      "previous_patient": 800,
+      "new_patient": 783
+    },
+    {
+      "encounter": 2427,
+      "previous_patient": 563,
+      "new_patient": 767
+    },
+    {
+      "encounter": 2428,
+      "previous_patient": 792,
+      "new_patient": 759
+    },
+    {
+      "encounter": 2429,
+      "previous_patient": 684,
+      "new_patient": 746
+    },
+    {
+      "encounter": 2430,
+      "previous_patient": 450,
+      "new_patient": 742
+    },
+    {
+      "encounter": 2432,
+      "previous_patient": 884,
+      "new_patient": 735
+    },
+    {
+      "encounter": 2433,
+      "previous_patient": 805,
+      "new_patient": 704
+    },
+    {
+      "encounter": 2434,
+      "previous_patient": 139,
+      "new_patient": 695
+    },
+    {
+      "encounter": 2435,
+      "previous_patient": 940,
+      "new_patient": 691
+    },
+    {
+      "encounter": 2436,
+      "previous_patient": 211,
+      "new_patient": 680
+    },
+    {
+      "encounter": 2437,
+      "previous_patient": 978,
+      "new_patient": 676
+    },
+    {
+      "encounter": 2438,
+      "previous_patient": 494,
+      "new_patient": 670
+    },
+    {
+      "encounter": 2439,
+      "previous_patient": 85,
+      "new_patient": 663
+    },
+    {
+      "encounter": 2440,
+      "previous_patient": 375,
+      "new_patient": 650
+    },
+    {
+      "encounter": 2441,
+      "previous_patient": 72,
+      "new_patient": 634
+    },
+    {
+      "encounter": 2442,
+      "previous_patient": 559,
+      "new_patient": 631
+    },
+    {
+      "encounter": 2443,
+      "previous_patient": 423,
+      "new_patient": 615
+    },
+    {
+      "encounter": 2444,
+      "previous_patient": 684,
+      "new_patient": 597
+    },
+    {
+      "encounter": 2445,
+      "previous_patient": 365,
+      "new_patient": 572
+    },
+    {
+      "encounter": 2446,
+      "previous_patient": 606,
+      "new_patient": 535
+    },
+    {
+      "encounter": 2447,
+      "previous_patient": 658,
+      "new_patient": 531
+    },
+    {
+      "encounter": 2448,
+      "previous_patient": 291,
+      "new_patient": 524
+    },
+    {
+      "encounter": 2449,
+      "previous_patient": 999,
+      "new_patient": 517
+    },
+    {
+      "encounter": 2450,
+      "previous_patient": 916,
+      "new_patient": 506
+    },
+    {
+      "encounter": 2451,
+      "previous_patient": 901,
+      "new_patient": 491
+    },
+    {
+      "encounter": 2453,
+      "previous_patient": 486,
+      "new_patient": 482
+    },
+    {
+      "encounter": 2454,
+      "previous_patient": 844,
+      "new_patient": 479
+    },
+    {
+      "encounter": 2455,
+      "previous_patient": 74,
+      "new_patient": 477
+    },
+    {
+      "encounter": 2456,
+      "previous_patient": 277,
+      "new_patient": 475
+    },
+    {
+      "encounter": 2457,
+      "previous_patient": 63,
+      "new_patient": 469
+    },
+    {
+      "encounter": 2458,
+      "previous_patient": 931,
+      "new_patient": 464
+    },
+    {
+      "encounter": 2459,
+      "previous_patient": 828,
+      "new_patient": 462
+    },
+    {
+      "encounter": 2460,
+      "previous_patient": 617,
+      "new_patient": 431
+    },
+    {
+      "encounter": 2461,
+      "previous_patient": 52,
+      "new_patient": 409
+    },
+    {
+      "encounter": 2462,
+      "previous_patient": 451,
+      "new_patient": 389
+    },
+    {
+      "encounter": 2463,
+      "previous_patient": 983,
+      "new_patient": 387
+    },
+    {
+      "encounter": 2464,
+      "previous_patient": 614,
+      "new_patient": 367
+    },
+    {
+      "encounter": 2465,
+      "previous_patient": 891,
+      "new_patient": 366
+    },
+    {
+      "encounter": 2466,
+      "previous_patient": 612,
+      "new_patient": 352
+    },
+    {
+      "encounter": 2467,
+      "previous_patient": 232,
+      "new_patient": 326
+    },
+    {
+      "encounter": 2468,
+      "previous_patient": 153,
+      "new_patient": 315
+    },
+    {
+      "encounter": 2469,
+      "previous_patient": 455,
+      "new_patient": 307
+    },
+    {
+      "encounter": 2470,
+      "previous_patient": 328,
+      "new_patient": 305
+    },
+    {
+      "encounter": 2471,
+      "previous_patient": 463,
+      "new_patient": 281
+    },
+    {
+      "encounter": 2472,
+      "previous_patient": 150,
+      "new_patient": 273
+    },
+    {
+      "encounter": 2473,
+      "previous_patient": 349,
+      "new_patient": 258
+    },
+    {
+      "encounter": 2474,
+      "previous_patient": 538,
+      "new_patient": 245
+    },
+    {
+      "encounter": 2476,
+      "previous_patient": 401,
+      "new_patient": 223
+    },
+    {
+      "encounter": 2477,
+      "previous_patient": 382,
+      "new_patient": 221
+    },
+    {
+      "encounter": 2478,
+      "previous_patient": 363,
+      "new_patient": 217
+    },
+    {
+      "encounter": 2479,
+      "previous_patient": 118,
+      "new_patient": 197
+    },
+    {
+      "encounter": 2480,
+      "previous_patient": 814,
+      "new_patient": 190
+    },
+    {
+      "encounter": 2481,
+      "previous_patient": 349,
+      "new_patient": 165
+    },
+    {
+      "encounter": 2482,
+      "previous_patient": 559,
+      "new_patient": 145
+    },
+    {
+      "encounter": 2483,
+      "previous_patient": 688,
+      "new_patient": 136
+    },
+    {
+      "encounter": 2484,
+      "previous_patient": 67,
+      "new_patient": 120
+    },
+    {
+      "encounter": 2485,
+      "previous_patient": 407,
+      "new_patient": 109
+    },
+    {
+      "encounter": 2486,
+      "previous_patient": 716,
+      "new_patient": 103
+    },
+    {
+      "encounter": 2487,
+      "previous_patient": 968,
+      "new_patient": 87
+    },
+    {
+      "encounter": 2488,
+      "previous_patient": 605,
+      "new_patient": 84
+    },
+    {
+      "encounter": 2489,
+      "previous_patient": 669,
+      "new_patient": 81
+    },
+    {
+      "encounter": 2490,
+      "previous_patient": 952,
+      "new_patient": 60
+    },
+    {
+      "encounter": 2491,
+      "previous_patient": 608,
+      "new_patient": 50
+    },
+    {
+      "encounter": 2493,
+      "previous_patient": 564,
+      "new_patient": 48
+    },
+    {
+      "encounter": 2494,
+      "previous_patient": 722,
+      "new_patient": 43
+    },
+    {
+      "encounter": 2496,
+      "previous_patient": 454,
+      "new_patient": 38
+    },
+    {
+      "encounter": 2497,
+      "previous_patient": 286,
+      "new_patient": 24
+    },
+    {
+      "encounter": 2498,
+      "previous_patient": 657,
+      "new_patient": 20
+    },
+    {
+      "encounter": 2499,
+      "previous_patient": 424,
+      "new_patient": 13
+    },
+    {
+      "encounter": 2500,
+      "previous_patient": 423,
+      "new_patient": 5
+    }
+  ],
+  "unrelated_encounter_fields_preserved": true,
+  "clinical_sign_values_preserved": true,
+  "diagnosis_values_preserved": true,
+  "new_bulk_sha256": {
+    "02_bulk_data.sql": "d1afabb5db73b9111e173f1c9fed6b3f04864896a45624f74a5b4d03f7e3b9d6",
+    "bulk_s1.sql": "a4c6a9600b2ab7acf2cdb24b4a33c6357629ea9b3d73a01be0551a568dc6411c",
+    "bulk_s2.sql": "b6294209208872016a6f94eed0f64b3ab6843d131f04fa0575887647cf59a3ca",
+    "bulk_s3.sql": "b7a4553672516751f61df920f3d79b2d2ed4f21a4f763867e1c851dc8fe51b4b"
+  }
+}

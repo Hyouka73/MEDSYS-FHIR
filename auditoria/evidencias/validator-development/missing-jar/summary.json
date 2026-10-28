@@ -1,0 +1,11 @@
+{
+  "kind": "CA-1",
+  "started_utc": "2026-10-21T05:25:20.666281+00:00",
+  "status": "BLOCKED",
+  "fhir_version": "4.0.1",
+  "terminology": "n/a",
+  "terminology_limit": "tx=n/a disables terminology server checks; structural conformance is not complete terminology validation",
+  "batches": [],
+  "error": "[WinError 2] El sistema no puede encontrar el archivo especificado: 'D:\\\\Proyectos X\\\\MedSys-FHIR\\\\tools\\\\experimental\\\\bin\\\\MISSING.jar'",
+  "finished_utc": "2026-10-21T05:25:20.666812+00:00"
+}

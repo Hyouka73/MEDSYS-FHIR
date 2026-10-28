@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/973",
+  "started_utc": "2026-10-28T02:56:30.500812+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"973\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AAMJ920928HCSLNS83\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jose Salvador Alvarez Mendez\",\n      \"family\": \"Alvarez Mendez\",\n      \"given\": [\n        \"Jose\",\n        \"Salvador\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616361326\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1992-09-28\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "a7bb02180680d440281a2e9a46e86dd1850d9e6b1950c5ffbe9ff08196708021",
+  "elapsed_seconds": 0.03656859998591244,
+  "resource": "Patient/973",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

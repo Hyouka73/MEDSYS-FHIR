@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "488",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "METF690725MCSNRR48"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Karla Mendoza Torres",
+      "family": "Mendoza Torres",
+      "given": [
+        "Fernanda",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613291277",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1969-07-25"
+}

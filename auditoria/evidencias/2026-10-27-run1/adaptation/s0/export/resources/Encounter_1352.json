@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1352",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1352"
+    }
+  ],
+  "status": "in-progress",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/113"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9481726"
+        },
+        "display": "Dr. Fernando Gómez Coutiño"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-01-26T14:42:00+00:00",
+    "end": "2025-01-26T15:14:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Control trimestral de hipertensión arterial"
+    }
+  ]
+}

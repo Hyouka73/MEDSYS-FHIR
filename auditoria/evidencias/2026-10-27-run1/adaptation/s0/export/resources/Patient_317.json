@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "317",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAGG780606MCSRNL57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Carmen Vargas Gonzalez",
+      "family": "Vargas Gonzalez",
+      "given": [
+        "Gloria",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614110121",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1978-06-06"
+}

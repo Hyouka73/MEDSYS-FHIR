@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/60",
+  "started_utc": "2026-10-28T02:56:29.350594+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "561",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"60\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAJM910516HCSSMR70\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mario Daniel Vasquez Jimenez\",\n      \"family\": \"Vasquez Jimenez\",\n      \"given\": [\n        \"Mario\",\n        \"Daniel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618942230\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1991-05-16\"\n}",
+  "body_bytes": 561,
+  "body_sha256": "e69bc9f8b4aba4c85fed3076abcc73bd525f101f3f6a3e55f38a7853c1d06d84",
+  "elapsed_seconds": 0.01594500005012378,
+  "resource": "Patient/60",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

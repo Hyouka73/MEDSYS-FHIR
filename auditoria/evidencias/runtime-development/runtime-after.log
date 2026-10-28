@@ -1,0 +1,140 @@
+   Compiling tokio v1.53.1
+   Compiling rust_decimal v1.43.0
+   Compiling chrono v0.4.45
+   Compiling icu_normalizer v2.3.0
+   Compiling idna_adapter v1.2.2
+   Compiling futures-channel v0.3.34
+   Compiling erased-serde v0.4.10
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling helios-serde-support v0.2.3
+   Compiling helios-fhirpath-support v0.2.3
+   Compiling tokio-stream v0.1.19
+   Compiling futures-intrusive v0.5.0
+   Compiling either v1.18.0
+   Compiling sqlx-core v0.8.6
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling helios-fhir v0.2.3
+   Compiling chrono-tz v0.9.0
+   Compiling sqlx-postgres v0.8.6
+   Compiling httpdate v1.0.3
+   Compiling sync_wrapper v1.0.2
+   Compiling hyper v1.11.1
+   Compiling sqlx v0.8.6
+   Compiling medsys-core v1.2.0 (D:\Proyectos X\MedSys-FHIR\crates\medsys-core)
+   Compiling lazy_static v1.5.0
+   Compiling sharded-slab v0.1.7
+   Compiling hyper-util v0.1.20
+   Compiling tower v0.5.3
+   Compiling axum-core v0.5.6
+   Compiling tracing-log v0.2.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling nu-ansi-term v0.50.3
+   Compiling serde_path_to_error v0.1.20
+   Compiling thread_local v1.1.10
+   Compiling matchit v0.8.4
+   Compiling axum v0.8.9
+   Compiling tracing-subscriber v0.3.23
+   Compiling medsys-db v1.2.0 (D:\Proyectos X\MedSys-FHIR\crates\medsys-db)
+   Compiling tower-http v0.6.11
+   Compiling medsys-server v1.2.0 (D:\Proyectos X\MedSys-FHIR\crates\medsys-server)
+    Finished `test` profile [unoptimized] target(s) in 9m 01s
+     Running unittests src\lib.rs (target\debug\deps\medsys_core-e1f9e9e2fc192c36.exe)
+
+running 35 tests
+test engine::evaluator::tests::test_evaluator_combine_with ... ok
+test engine::evaluator::tests::test_evaluator_parse_datetime_custom_formats ... ok
+test engine::evaluator::tests::test_evaluator_split_part_blood_pressure ... ok
+test engine::evaluator::tests::test_evaluator_unit_conversion_lb_to_kg ... ok
+test engine::tests::test_create_searchset_bundle_canonical ... ok
+test engine::tests::test_create_operation_outcome_canonical ... ok
+test engine::tests::test_encounter_resource_mappings ... ok
+test engine::tests::test_condition_resource_mappings ... ok
+test engine::tests::test_evaluator_mandatory_null_column_fails_closed ... ok
+test engine::tests::test_is_valid_curp ... ok
+test engine::tests::test_evaluator_observation_blood_pressure_declarative ... ok
+test engine::tests::test_evaluator_optional_corrupt_value_still_fails_closed ... ok
+test engine::tests::test_evaluator_optional_null_or_empty_is_omitted ... ok
+test engine::tests::test_evaluator_corrupted_date_fails_closed ... ok
+test engine::tests::test_evaluator_condition_declarative_null_tipo_diagnostico_is_omitted ... ok
+test engine::tests::test_multi_schema_s0_s1_s2_s3_semantic_equivalence ... ok
+test engine::tests::test_parse_embedded_specification_yaml ... ok
+test engine::tests::test_patient_invalid_curp_fails_closed ... ok
+test engine::tests::test_patient_resource_mappings ... ok
+test engine::tests::test_set_json_path_complex_nested_structures ... ok
+test engine::tests::test_observation_resource_mappings ... ok
+test engine::tests::test_parse_archetype_mapping_rules_s0_to_s3 ... ok
+test engine::tests::test_tarea_2_1_transform_patient_canonical ... ok
+test engine::tests::test_tarea_2_2_transform_encounter_canonical ... ok
+test engine::tests::test_transform_condition_fails_closed_when_tipo_diagnostico_invalid ... ok
+test engine::tests::test_transform_condition_maps_catalog_values ... ok
+test engine::tests::test_tarea_2_4_transform_condition_canonical ... ok
+test engine::tests::test_tarea_2_3_transform_observation_vital_signs ... ok
+test engine::tests::test_transform_condition_omits_verification_status_when_tipo_diagnostico_is_none ... ok
+test engine::tests::test_transform_encounter_corrupt_status_fails_closed ... ok
+test engine::tests::test_transform_observation_respiratory_rate_some_and_none ... ok
+test engine::tests::test_transform_condition_raw_corrupted_date_fails_closed ... ok
+test engine::tests::test_yaml_has_no_fallback_or_data_absent_reason ... ok
+test engine::tests::test_transform_patient_telecom_optional ... ok
+test engine::tests::test_transform_patient_corrupt_or_null_gender_fails_closed ... ok
+
+test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running unittests src\lib.rs (target\debug\deps\medsys_db-e7fad93108af681e.exe)
+
+running 33 tests
+test config::tests::test_default_db_config ... ok
+test config::tests::test_masked_url_obscures_password ... ok
+test dynamic_repo::tests::regression_s3_actual_columns_and_optional_corruption ... ok
+test config::tests::test_custom_durations ... ok
+test config::tests::test_masked_url_without_password ... ok
+test dynamic_repo::tests::regression_s2_lookup_aliases_and_required_encounter_fields ... ok
+test dynamic_repo::tests::regression_timestamps_preserve_instants_precision_and_dst ... ok
+test dynamic_repo::tests::test_row_to_legacy_diagnostico_s0_and_s2 ... ok
+test dynamic_repo::tests::test_row_to_legacy_paciente_s3_legacy_names_and_date ... ok
+test entities::tests::test_paciente_entity_conversion_roundtrip ... ok
+test entities::tests::test_signo_vital_entity_conversion_roundtrip ... ok
+test dynamic_repo::tests::test_row_to_legacy_signo_vital_s3_split_bp_and_units ... ok
+test dynamic_repo::tests::test_row_to_legacy_paciente_s0 ... ok
+test error::tests::test_map_pool_closed ... ok
+test entities::tests::test_consulta_entity_conversion_roundtrip ... ok
+test entities::tests::test_diagnostico_entity_conversion_roundtrip ... ok
+test pool::tests::test_create_pool_options ... ok
+test error::tests::test_map_row_not_found_to_medsys_error ... ok
+test error::tests::test_map_pool_timed_out ... ok
+test query_builder::tests::test_allowlist_rejection_of_sql_injection ... ok
+test query_builder::tests::test_dynamic_sql_builder_s2_left_join ... ok
+test query_builder::tests::test_is_valid_sql_identifier ... ok
+test pool::tests::test_from_pool_constructor ... ok
+test pool::tests::test_init_pool_lazy_and_db_manager ... ok
+test query_builder::tests::test_dynamic_sql_builder_s0_base ... ok
+test query_builder::tests::test_dynamic_sql_builder_s1_distinct_on ... ok
+test query_builder::tests::test_validate_rules_identifiers_allowlist ... ok
+test repository::diagnosticos::tests::test_sql_queries_safety ... ok
+test repository::pacientes::tests::test_sql_queries_syntax_and_safety ... ok
+test query_builder::tests::test_archetypes_s0_to_s3_allowlist_validation ... ok
+test repository::consultas::tests::test_sql_queries_safety ... ok
+test repository::signos_vitales::tests::test_sql_queries_safety ... ok
+test repository::tests::test_repositories_bundle_creation ... ok
+
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running unittests src\lib.rs (target\debug\deps\medsys_server-d03e6e245a931c60.exe)
+
+running 2 tests
+test handlers::common::tests::resource_page_total_and_links_are_global ... ok
+test handlers::common::tests::observation_projection_contains_all_adaptor_fields_s0_s3 ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests\regression_runtime_contract.rs (target\debug\deps\regression_runtime_contract-98f4c96f66700ae1.exe)
+
+running 5 tests
+test regression_datetime_requires_offset_and_preserves_fraction ... ok
+test regression_required_source_cannot_fall_back_to_constant ... ok
+test regression_condition_preserves_date_precision ... ok
+test regression_query_and_method_are_operation_outcome ... ok
+test regression_disconnected_health_is_service_unavailable ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+

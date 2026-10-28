@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/286",
+  "started_utc": "2026-10-28T02:56:28.353685+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"286\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIRA030826MCSRML26\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandra Ortiz Ramirez\",\n      \"family\": \"Ortiz Ramirez\",\n      \"given\": [\n        \"Alejandra\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615748155\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2003-08-26\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "84c87d4aecbfb22b33c66a2648e01481837b30b01fc585d2fdb58c12fcd11517",
+  "elapsed_seconds": 0.006676499964669347,
+  "resource": "Patient/286",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

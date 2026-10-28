@@ -1,0 +1,39 @@
+{
+  "resourceType": "Observation",
+  "id": "hr-2382",
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "8867-4",
+        "display": "Heart rate"
+      }
+    ],
+    "text": "Frecuencia cardíaca"
+  },
+  "subject": {
+    "reference": "Patient/69"
+  },
+  "encounter": {
+    "reference": "Encounter/2382"
+  },
+  "effectiveDateTime": "2025-07-25T06:02:00+00:00",
+  "valueQuantity": {
+    "value": 102,
+    "unit": "/min",
+    "system": "http://unitsofmeasure.org",
+    "code": "/min"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/65",
+  "started_utc": "2026-10-28T02:56:29.494013+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"65\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUXL140214MCSRXC75\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Elena Juarez\",\n      \"family\": \"Juarez\",\n      \"given\": [\n        \"Lucia\",\n        \"Elena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617321274\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2014-02-14\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "a55434b73f26c378edd118b3193b2fd641ebb5c923d2bbd0e6f876eb2a1de5a8",
+  "elapsed_seconds": 0.007707200013101101,
+  "resource": "Patient/65",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

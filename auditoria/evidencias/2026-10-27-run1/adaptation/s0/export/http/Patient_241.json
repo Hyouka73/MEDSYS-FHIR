@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/241",
+  "started_utc": "2026-10-28T02:56:28.191246+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "462",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"241\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GAMM511027MCSRRR71\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Martha Guadalupe Garcia Morales\",\n      \"family\": \"Garcia Morales\",\n      \"given\": [\n        \"Martha\",\n        \"Guadalupe\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1951-10-27\"\n}",
+  "body_bytes": 462,
+  "body_sha256": "6f1953c387f0b41df75548f978906f1949f359b628b0a5b5904f8dfdc441bb20",
+  "elapsed_seconds": 0.013611899979878217,
+  "resource": "Patient/241",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

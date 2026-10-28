@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "461",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUGM541108HCSTZG21"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Alexis Gutierrez Guzman",
+      "family": "Gutierrez Guzman",
+      "given": [
+        "Miguel",
+        "Alexis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618479293",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1954-11-08"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/671",
+  "started_utc": "2026-10-28T02:56:29.562390+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"671\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORL540719MCSMYR51\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Laura Claudia Gomez Reyes\",\n      \"family\": \"Gomez Reyes\",\n      \"given\": [\n        \"Laura\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617134971\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1954-07-19\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "f645b93ce2b090b76b3210ca433f83429be5e377d770af71bfc6b8375c288907",
+  "elapsed_seconds": 0.007410599966533482,
+  "resource": "Patient/671",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/684",
+  "started_utc": "2026-10-28T02:56:29.596789+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"684\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOHS060207HCSPRL64\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Salvador Mario Lopez Herrera\",\n      \"family\": \"Lopez Herrera\",\n      \"given\": [\n        \"Salvador\",\n        \"Mario\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612184848\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2006-02-07\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "684fea42eb28de23f46094d4de661d325900834c1357b960de03b9da9a86079b",
+  "elapsed_seconds": 0.00727619999088347,
+  "resource": "Patient/684",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

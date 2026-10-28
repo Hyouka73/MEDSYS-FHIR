@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1658",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1658"
+    }
+  ],
+  "status": "cancelled",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/432"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "9182374"
+        },
+        "display": "Dr. Roberto Mendoza Solís"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-05-25T21:05:00+00:00",
+    "end": "2025-05-25T21:42:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Cefalea persistente y mareos"
+    }
+  ]
+}

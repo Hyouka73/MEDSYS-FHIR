@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2157",
+  "started_utc": "2026-10-28T02:55:36.565571+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1076",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:36 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2157\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"provisional\",\n        \"display\": \"Provisional\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"J20.9\",\n        \"display\": \"Bronquitis aguda, no especificada\"\n      }\n    ],\n    \"text\": \"Bronquitis aguda, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/63\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/2157\"\n  },\n  \"recordedDate\": \"2025-02-20\"\n}",
+  "body_bytes": 1076,
+  "body_sha256": "74091c9b487b1efd682d5d84008923957fe1c73a7dcabb28cf2ec317d422e46b",
+  "elapsed_seconds": 0.012378899962641299,
+  "resource": "Condition/2157",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

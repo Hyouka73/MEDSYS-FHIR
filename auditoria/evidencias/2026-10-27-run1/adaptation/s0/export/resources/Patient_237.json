@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "237",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEAE530904HCSRGD67"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Francisco Herrera Aguilar",
+      "family": "Herrera Aguilar",
+      "given": [
+        "Eduardo",
+        "Francisco"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612911093",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1953-09-04"
+}

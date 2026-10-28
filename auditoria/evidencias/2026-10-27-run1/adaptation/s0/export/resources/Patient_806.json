@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "806",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIGL021208MCSZMT96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Gabriela Diaz Gomez",
+      "family": "Diaz Gomez",
+      "given": [
+        "Leticia",
+        "Gabriela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618792257",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2002-12-08"
+}

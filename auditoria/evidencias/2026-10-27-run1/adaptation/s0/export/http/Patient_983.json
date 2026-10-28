@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/983",
+  "started_utc": "2026-10-28T02:56:30.535012+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"983\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEMN740325MCSNNT93\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Natalia Mendez Mendoza\",\n      \"family\": \"Mendez Mendoza\",\n      \"given\": [\n        \"Natalia\",\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619081059\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1974-03-25\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "a1c4a6dff4d94168bc8addf605dd61d66e97aac85e69034b9cdaec937e9f0566",
+  "elapsed_seconds": 0.009522999986074865,
+  "resource": "Patient/983",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

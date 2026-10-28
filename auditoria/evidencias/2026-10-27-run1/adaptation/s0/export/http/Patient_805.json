@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/805",
+  "started_utc": "2026-10-28T02:56:29.963506+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"805\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOFN540915MCSLLT95\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Silvia Flores Flores\",\n      \"family\": \"Flores Flores\",\n      \"given\": [\n        \"Natalia\",\n        \"Silvia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617003340\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1954-09-15\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "b81c3436dcd355adecf1214150c96de573912c15636cb5651a5fb4c77bc6c63b",
+  "elapsed_seconds": 0.010103000036906451,
+  "resource": "Patient/805",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

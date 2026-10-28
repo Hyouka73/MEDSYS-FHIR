@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "355",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEMA661211MCSNRN95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Adriana Mendez Morales",
+      "family": "Mendez Morales",
+      "given": [
+        "Ana",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611301493",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-12-11"
+}

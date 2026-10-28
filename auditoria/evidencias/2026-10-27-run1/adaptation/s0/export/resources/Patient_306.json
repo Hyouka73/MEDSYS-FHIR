@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "306",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGF720428MCSNNR46"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Gabriela Mendez Gonzalez",
+      "family": "Mendez Gonzalez",
+      "given": [
+        "Fernanda",
+        "Gabriela"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1972-04-28"
+}

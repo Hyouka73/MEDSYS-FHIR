@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-890",
+  "started_utc": "2026-10-28T02:56:10.739837+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "772",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:10 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-890\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/46\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/890\"\n  },\n  \"effectiveDateTime\": \"2025-08-17T04:56:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 77,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 772,
+  "body_sha256": "8378696e4635e89be9224d53a52b7fab1b114564538e40c228b9c38e5202d317",
+  "elapsed_seconds": 0.008294200000818819,
+  "resource": "Observation/hr-890",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

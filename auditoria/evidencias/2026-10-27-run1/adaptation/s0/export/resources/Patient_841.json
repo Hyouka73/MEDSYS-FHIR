@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "841",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAJP920907MCSRML41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Karla Vargas Jimenez",
+      "family": "Vargas Jimenez",
+      "given": [
+        "Paola",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617929139",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-09-07"
+}

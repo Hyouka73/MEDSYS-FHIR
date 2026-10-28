@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "786",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROXA010905HCSDXL76"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto Rogelio Rodriguez",
+      "family": "Rodriguez",
+      "given": [
+        "Alberto",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615270927",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2001-09-05"
+}

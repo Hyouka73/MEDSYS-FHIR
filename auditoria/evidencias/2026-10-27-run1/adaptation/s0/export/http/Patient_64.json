@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/64",
+  "started_utc": "2026-10-28T02:56:29.463531+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "445",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"64\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIRA930423MCSRZN74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ana Patricia Ortiz Ruiz\",\n      \"family\": \"Ortiz Ruiz\",\n      \"given\": [\n        \"Ana\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1993-04-23\"\n}",
+  "body_bytes": 445,
+  "body_sha256": "527c5061bf035282755d8001c978d3698010abdab7cc9e0cdf652e41ebbeef67",
+  "elapsed_seconds": 0.01333450002130121,
+  "resource": "Patient/64",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

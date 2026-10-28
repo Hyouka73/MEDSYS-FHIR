@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/196",
+  "started_utc": "2026-10-28T02:56:28.031801+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"196\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HERL531214MCSRZT26\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Leticia Natalia Herrera Ruiz\",\n      \"family\": \"Herrera Ruiz\",\n      \"given\": [\n        \"Leticia\",\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615597424\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1953-12-14\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "a1335250a1a6e2ba0067ebea4d209789c2a3fec96f17457b70fec6e8c8ece270",
+  "elapsed_seconds": 0.011700900038704276,
+  "resource": "Patient/196",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

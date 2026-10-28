@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "746",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "REVA720509HCSYRL36"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Juan Reyes Vargas",
+      "family": "Reyes Vargas",
+      "given": [
+        "Alejandro",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612483752",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1972-05-09"
+}

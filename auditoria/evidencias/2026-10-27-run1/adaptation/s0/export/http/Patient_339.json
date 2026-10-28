@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/339",
+  "started_utc": "2026-10-28T02:56:28.536771+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"339\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CART620522MCSHZR79\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Teresa Guadalupe Chavez Ruiz\",\n      \"family\": \"Chavez Ruiz\",\n      \"given\": [\n        \"Teresa\",\n        \"Guadalupe\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619142020\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1962-05-22\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "a866a4bead0175bfd2fb4bd0a80d6f327ee459b9498bce73c9af0959b5f6fec5",
+  "elapsed_seconds": 0.010230700019747019,
+  "resource": "Patient/339",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

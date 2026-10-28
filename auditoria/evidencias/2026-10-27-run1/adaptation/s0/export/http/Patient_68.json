@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/68",
+  "started_utc": "2026-10-28T02:56:29.589510+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "457",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"68\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JURM031010MCSRDR78\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Maria Monica Juarez Rodriguez\",\n      \"family\": \"Juarez Rodriguez\",\n      \"given\": [\n        \"Maria\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2003-10-10\"\n}",
+  "body_bytes": 457,
+  "body_sha256": "b2c2f41fd42e961546774df253a4560779782dc9bf8b781a7ff4c55ef603229e",
+  "elapsed_seconds": 0.008448300010059029,
+  "resource": "Patient/68",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

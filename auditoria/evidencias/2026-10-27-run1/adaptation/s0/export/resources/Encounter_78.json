@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "78",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "78"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/188"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7102948"
+        },
+        "display": "Dra. Sofía Hernández Gordillo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-06-28T08:53:00+00:00",
+    "end": "2025-06-28T09:31:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Disuria y polaquiuria de inicio súbito"
+    }
+  ]
+}

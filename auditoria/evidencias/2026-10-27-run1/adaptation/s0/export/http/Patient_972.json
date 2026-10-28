@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/972",
+  "started_utc": "2026-10-28T02:56:30.500319+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"972\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROMG760731MCSDND82\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Guadalupe Karla Rodriguez Mendoza\",\n      \"family\": \"Rodriguez Mendoza\",\n      \"given\": [\n        \"Guadalupe\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617099875\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-07-31\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "2e44c0922508a0559ef9e27ccb93a892d56a344277988906e7ddd675c477d31e",
+  "elapsed_seconds": 0.011548699985723943,
+  "resource": "Patient/972",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

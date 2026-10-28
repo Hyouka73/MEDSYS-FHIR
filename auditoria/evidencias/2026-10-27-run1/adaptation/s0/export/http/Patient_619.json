@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/619",
+  "started_utc": "2026-10-28T02:56:29.411297+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"619\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TORL610110MCSRMR89\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lorena Patricia Torres Ramos\",\n      \"family\": \"Torres Ramos\",\n      \"given\": [\n        \"Lorena\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611884414\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-01-10\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "8302d05e88d09d9c1ced10447ea837cbb7d467729a4af5dc84aa3fcfcc37cea6",
+  "elapsed_seconds": 0.012422400002833456,
+  "resource": "Patient/619",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

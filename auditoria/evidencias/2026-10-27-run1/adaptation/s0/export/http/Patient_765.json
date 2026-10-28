@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/765",
+  "started_utc": "2026-10-28T02:56:29.821576+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "533",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"765\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MELC771020HCSNPR55\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carlos Mendez Lopez\",\n      \"family\": \"Mendez Lopez\",\n      \"given\": [\n        \"Carlos\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614590171\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1977-10-20\"\n}",
+  "body_bytes": 533,
+  "body_sha256": "1bf17b4392c156a0f54292a3e62c21dacc489988ca254bd4a01ab2c852fa202e",
+  "elapsed_seconds": 0.014444399974308908,
+  "resource": "Patient/765",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

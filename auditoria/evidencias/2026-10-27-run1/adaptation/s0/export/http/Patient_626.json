@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/626",
+  "started_utc": "2026-10-28T02:56:29.429710+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "554",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"626\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIDP520903HCSRZD96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Pedro Rogelio Ortiz Diaz\",\n      \"family\": \"Ortiz Diaz\",\n      \"given\": [\n        \"Pedro\",\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618977003\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-09-03\"\n}",
+  "body_bytes": 554,
+  "body_sha256": "003536b6727f29364cdf865d038a0b279fed56dee46c7c4d3d2bf9039b2b1014",
+  "elapsed_seconds": 0.007939700037240982,
+  "resource": "Patient/626",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

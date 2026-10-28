@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "788",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEJG460721HCSNMB78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Pedro Mendez Jimenez",
+      "family": "Mendez Jimenez",
+      "given": [
+        "Gabriel",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614779403",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-07-21"
+}

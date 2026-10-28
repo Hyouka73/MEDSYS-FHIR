@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/873",
+  "started_utc": "2026-10-28T02:56:30.198459+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "554",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"873\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOVA560111HCSPRL73\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Raul Lopez Vargas\",\n      \"family\": \"Lopez Vargas\",\n      \"given\": [\n        \"Alexis\",\n        \"Raul\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613497082\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1956-01-11\"\n}",
+  "body_bytes": 554,
+  "body_sha256": "07fef6b654abb451f6e193dcd86fe01b0a36dde216d27f01892e25d38d49a836",
+  "elapsed_seconds": 0.01706230000127107,
+  "resource": "Patient/873",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

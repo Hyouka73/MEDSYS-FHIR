@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "996",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAVA750611HCSMRN16"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Jose Ramos Vargas",
+      "family": "Ramos Vargas",
+      "given": [
+        "Antonio",
+        "Jose"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614253935",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1975-06-11"
+}

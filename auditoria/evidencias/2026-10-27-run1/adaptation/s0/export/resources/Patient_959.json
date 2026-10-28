@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "959",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HERR530203HCSRMB69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Eduardo Herrera Ramirez",
+      "family": "Herrera Ramirez",
+      "given": [
+        "Roberto",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616844467",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1953-02-03"
+}

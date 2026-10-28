@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "337",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEAJ980614HCSDLR77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Alberto Medina Alvarez",
+      "family": "Medina Alvarez",
+      "given": [
+        "Jorge",
+        "Alberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611611221",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1998-06-14"
+}

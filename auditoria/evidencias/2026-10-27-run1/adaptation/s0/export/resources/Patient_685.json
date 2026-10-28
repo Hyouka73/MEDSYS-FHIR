@@ -1,0 +1,24 @@
+{
+  "resourceType": "Patient",
+  "id": "685",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GARM850415HCSRMN65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Garcia Ramirez",
+      "family": "Garcia Ramirez",
+      "given": [
+        "Manuel"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1985-04-15"
+}

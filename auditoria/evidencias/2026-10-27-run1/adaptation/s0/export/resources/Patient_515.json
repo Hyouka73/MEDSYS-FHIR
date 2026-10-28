@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "515",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXY640822MCSDXL75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Lorena Medina",
+      "family": "Medina",
+      "given": [
+        "Yolanda",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617089774",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1964-08-22"
+}

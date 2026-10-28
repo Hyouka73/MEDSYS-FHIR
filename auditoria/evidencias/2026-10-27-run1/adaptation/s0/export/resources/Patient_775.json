@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "775",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOOC730703MCSPRR65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Guadalupe Lopez Ortiz",
+      "family": "Lopez Ortiz",
+      "given": [
+        "Carmen",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612087115",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1973-07-03"
+}

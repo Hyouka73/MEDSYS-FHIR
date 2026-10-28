@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "167",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAGY060213MCSSNL87"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Gabriela Castillo Gonzalez",
+      "family": "Castillo Gonzalez",
+      "given": [
+        "Yolanda",
+        "Gabriela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615187369",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2006-02-13"
+}

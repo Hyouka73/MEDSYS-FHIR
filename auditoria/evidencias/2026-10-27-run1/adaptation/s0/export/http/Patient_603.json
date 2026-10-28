@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/603",
+  "started_utc": "2026-10-28T02:56:29.357630+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"603\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUPR870825HCSTRL73\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Raul Alejandro Gutierrez Perez\",\n      \"family\": \"Gutierrez Perez\",\n      \"given\": [\n        \"Raul\",\n        \"Alejandro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618544490\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1987-08-25\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "10e9302c4698aa8daa0fe59d142ba7f07718435486e928ebf48cda712b3edf7d",
+  "elapsed_seconds": 0.01024979999056086,
+  "resource": "Patient/603",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

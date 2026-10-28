@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "858",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOCG700209MCSRSD58"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Fernanda Moreno Castillo",
+      "family": "Moreno Castillo",
+      "given": [
+        "Guadalupe",
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613222389",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1970-02-09"
+}

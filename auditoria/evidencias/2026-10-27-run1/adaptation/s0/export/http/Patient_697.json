@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/697",
+  "started_utc": "2026-10-28T02:56:29.636781+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"697\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CACG090413MCSSHB77\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Rosa Castillo Chavez\",\n      \"family\": \"Castillo Chavez\",\n      \"given\": [\n        \"Gabriela\",\n        \"Rosa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613106788\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2009-04-13\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "d71159cde375f7a9b6e0f3b10c890936faa9128a0f88bcd81c78c44133208717",
+  "elapsed_seconds": 0.006780700001399964,
+  "resource": "Patient/697",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

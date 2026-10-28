@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/829",
+  "started_utc": "2026-10-28T02:56:30.047984+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "442",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"829\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOXG610704HCSLXB29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriel Eduardo Flores\",\n      \"family\": \"Flores\",\n      \"given\": [\n        \"Gabriel\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1961-07-04\"\n}",
+  "body_bytes": 442,
+  "body_sha256": "1793268a4cb4a1657d9625cbbd8437efd2c8def86a234b3312b46970e1598226",
+  "elapsed_seconds": 0.008795200032182038,
+  "resource": "Patient/829",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "94",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOVP791226MCSLRL14"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Alejandra Flores Vargas",
+      "family": "Flores Vargas",
+      "given": [
+        "Paola",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611363644",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-12-26"
+}

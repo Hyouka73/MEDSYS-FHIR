@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "661",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "661"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/14"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7362915"
+        },
+        "display": "Dr. Alejandro Morales Domínguez"
+      }
+    }
+  ],
+  "period": {
+    "start": "2025-04-21T14:53:00+00:00",
+    "end": "2025-04-21T15:34:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Dolor epigástrico urente posprandial"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "960",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIGR690807MCSZNS70"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Lorena Diaz Gonzalez",
+      "family": "Diaz Gonzalez",
+      "given": [
+        "Rosa",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611749525",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1969-08-07"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/803",
+  "started_utc": "2026-10-28T02:56:29.957599+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"803\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CARL690912MCSHZC93\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Beatriz Chavez Ruiz\",\n      \"family\": \"Chavez Ruiz\",\n      \"given\": [\n        \"Lucia\",\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616192804\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1969-09-12\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "1883556b12258e0bb620ca18dc048421851d135d420bdc97b2223eb6944ea9cc",
+  "elapsed_seconds": 0.02998629998182878,
+  "resource": "Patient/803",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

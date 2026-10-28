@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "93",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGR071107HCSDTB13"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Armando Medina Gutierrez",
+      "family": "Medina Gutierrez",
+      "given": [
+        "Roberto",
+        "Armando"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2007-11-07"
+}

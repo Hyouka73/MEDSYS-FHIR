@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/756",
+  "started_utc": "2026-10-28T02:56:29.799892+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"756\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEMP090919MCSNRL46\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Lorena Mendez Moreno\",\n      \"family\": \"Mendez Moreno\",\n      \"given\": [\n        \"Paola\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619692588\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2009-09-19\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "aaea5d166bf2587c43cec64f78293c927b424aba466918505826f3aad8551612",
+  "elapsed_seconds": 0.006359899998642504,
+  "resource": "Patient/756",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

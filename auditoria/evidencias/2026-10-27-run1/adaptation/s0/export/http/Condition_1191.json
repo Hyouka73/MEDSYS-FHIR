@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1191",
+  "started_utc": "2026-10-28T02:55:32.611209+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1059",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:32 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1191\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"K29.7\",\n        \"display\": \"Gastritis, no especificada\"\n      }\n    ],\n    \"text\": \"Gastritis, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/965\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1191\"\n  },\n  \"recordedDate\": \"2026-03-10\"\n}",
+  "body_bytes": 1059,
+  "body_sha256": "07501702e79d960e7b531a8455ea90ce0e95d0840313a37f0a3f21e0176d18e5",
+  "elapsed_seconds": 0.018561100005172193,
+  "resource": "Condition/1191",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

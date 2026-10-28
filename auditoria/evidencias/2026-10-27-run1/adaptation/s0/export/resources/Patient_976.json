@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "976",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOVL610502HCSPSS86"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Antonio Lopez Vasquez",
+      "family": "Lopez Vasquez",
+      "given": [
+        "Luis",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611939254",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1961-05-02"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "362",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIGG660306HCSZMB12"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Alejandro Diaz Gomez",
+      "family": "Diaz Gomez",
+      "given": [
+        "Gabriel",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618775978",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1966-03-06"
+}

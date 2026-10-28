@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "357",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROHM840207MCSDRR97"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Maria Alejandra Rodriguez Herrera",
+      "family": "Rodriguez Herrera",
+      "given": [
+        "Maria",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611375435",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1984-02-07"
+}

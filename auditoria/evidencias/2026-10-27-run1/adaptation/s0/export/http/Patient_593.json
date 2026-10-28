@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/593",
+  "started_utc": "2026-10-28T02:56:29.325517+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "448",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"593\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOMR511101HCSNNL63\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Raul Juan Gonzalez Mendez\",\n      \"family\": \"Gonzalez Mendez\",\n      \"given\": [\n        \"Raul\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1951-11-01\"\n}",
+  "body_bytes": 448,
+  "body_sha256": "4eb8b2139f9abb8985d48c54a12583068c95a4bd1ddbe6f2060c5991d300fb52",
+  "elapsed_seconds": 0.01695699995616451,
+  "resource": "Patient/593",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

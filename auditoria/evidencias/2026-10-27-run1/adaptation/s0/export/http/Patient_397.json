@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/397",
+  "started_utc": "2026-10-28T02:56:28.720875+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"397\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOJA060102HCSPRN47\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Andres Roberto Lopez Juarez\",\n      \"family\": \"Lopez Juarez\",\n      \"given\": [\n        \"Andres\",\n        \"Roberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612066312\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2006-01-02\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "222261521e6a30e8f0e41be72f7daf881548fdb4c39c597ae270bf36c1f17524",
+  "elapsed_seconds": 0.006085100001655519,
+  "resource": "Patient/397",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

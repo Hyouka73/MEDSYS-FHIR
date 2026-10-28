@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "176",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUPP800401MCSNRT96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Patricia Monica Munoz Perez",
+      "family": "Munoz Perez",
+      "given": [
+        "Patricia",
+        "Monica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618179782",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1980-04-01"
+}

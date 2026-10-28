@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "1682",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "F41.9",
+        "display": "Trastorno de ansiedad, no especificado"
+      }
+    ],
+    "text": "Trastorno de ansiedad, no especificado"
+  },
+  "subject": {
+    "reference": "Patient/158"
+  },
+  "encounter": {
+    "reference": "Encounter/1682"
+  },
+  "recordedDate": "2025-06-22"
+}

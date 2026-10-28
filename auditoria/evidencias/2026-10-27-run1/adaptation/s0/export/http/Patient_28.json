@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/28",
+  "started_utc": "2026-10-28T02:56:28.333164+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "555",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"28\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VALP031101MCSRPL38\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Elena Vargas Lopez\",\n      \"family\": \"Vargas Lopez\",\n      \"given\": [\n        \"Paola\",\n        \"Elena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615220160\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2003-11-01\"\n}",
+  "body_bytes": 555,
+  "body_sha256": "3276c237bfac4e20e172c721284ab7714dd123ee968d091e51693d0f370de84e",
+  "elapsed_seconds": 0.008979700040072203,
+  "resource": "Patient/28",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "600",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROXE740912HCSDXN70"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Jose Rodriguez",
+      "family": "Rodriguez",
+      "given": [
+        "Enrique",
+        "Jose"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618067708",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1974-09-12"
+}

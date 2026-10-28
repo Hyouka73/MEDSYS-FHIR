@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "987",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAGS711119HCSSTL97"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Salvador Gabriel Castro Gutierrez",
+      "family": "Castro Gutierrez",
+      "given": [
+        "Salvador",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612214195",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1971-11-19"
+}

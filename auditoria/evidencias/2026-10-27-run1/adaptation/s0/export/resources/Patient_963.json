@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "963",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUMM790216HCSZRG73"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Alejandro Guzman Martinez",
+      "family": "Guzman Martinez",
+      "given": [
+        "Miguel",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613865168",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1979-02-16"
+}

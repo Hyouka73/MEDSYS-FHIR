@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "277",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIDJ471205HCSMZV17"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Salvador Jimenez Diaz",
+      "family": "Jimenez Diaz",
+      "given": [
+        "Javier",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618265383",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1947-12-05"
+}

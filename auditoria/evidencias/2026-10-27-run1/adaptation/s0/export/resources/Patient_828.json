@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "828",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOPM831110MCSPRR28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Claudia Lopez Perez",
+      "family": "Lopez Perez",
+      "given": [
+        "Martha",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611210186",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1983-11-10"
+}

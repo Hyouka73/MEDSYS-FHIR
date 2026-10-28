@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "702",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAMM981109HCSSRN82"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Jorge Vasquez Martinez",
+      "family": "Vasquez Martinez",
+      "given": [
+        "Manuel",
+        "Jorge"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617835642",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1998-11-09"
+}

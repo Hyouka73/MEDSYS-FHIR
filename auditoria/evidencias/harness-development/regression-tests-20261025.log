@@ -1,0 +1,20 @@
+test_ambiguous_local_time_is_flagged (__main__.EvidenceRegressions.test_ambiguous_local_time_is_flagged) ... ok
+test_consolidation_rejects_missing_criteria (__main__.EvidenceRegressions.test_consolidation_rejects_missing_criteria) ... ok
+test_consolidation_rejects_tampered_report (__main__.EvidenceRegressions.test_consolidation_rejects_tampered_report) ... ok
+test_ct_is_descriptive_not_binding (__main__.EvidenceRegressions.test_ct_is_descriptive_not_binding) ... ok
+test_different_timezone_instants_are_not_equal (__main__.EvidenceRegressions.test_different_timezone_instants_are_not_equal) ... ok
+test_equivalent_timezone_instants (__main__.EvidenceRegressions.test_equivalent_timezone_instants) ... ok
+test_fractional_precision_is_not_discarded (__main__.EvidenceRegressions.test_fractional_precision_is_not_discarded) ... ok
+test_historical_summer_offset (__main__.EvidenceRegressions.test_historical_summer_offset) ... ok
+test_invalid_numbers_do_not_compare_equal_to_zero (__main__.EvidenceRegressions.test_invalid_numbers_do_not_compare_equal_to_zero) ... ok
+test_missing_export_is_not_pass (__main__.EvidenceRegressions.test_missing_export_is_not_pass) ... ok
+test_nanoseconds_are_not_discarded (__main__.EvidenceRegressions.test_nanoseconds_are_not_discarded) ... ok
+test_nonexistent_local_time_is_flagged (__main__.EvidenceRegressions.test_nonexistent_local_time_is_flagged) ... ok
+test_one_schema_cannot_close_multischema_criterion (__main__.EvidenceRegressions.test_one_schema_cannot_close_multischema_criterion) ... ok
+test_previously_unchecked_text_field_detected (__main__.EvidenceRegressions.test_previously_unchecked_text_field_detected) ... ok
+test_twenty_original_mutations (__main__.EvidenceRegressions.test_twenty_original_mutations) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.309s
+
+OK

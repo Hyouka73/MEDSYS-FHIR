@@ -308,11 +308,7 @@ def run_hl7_validator(validator_jar: str, output_dir: str, batch_size: int = VAL
             flush=True,
         )
     else:
-        print(
-            "[OK] Sin incidencias Fatal ni Error. "
-            "Conformidad sintáctica 100% verificada (Objetivo Específico 3).",
-            flush=True,
-        )
+        print('[INFO] El parser histórico de consola no encontró incidencias críticas; esto no acredita conformidad exhaustiva. Conservar informes estructurados por recurso con el runner de evidencia primaria.', flush=True)
 
     return all_ok and not has_critical
 
@@ -475,8 +471,17 @@ def main():
     print("=" * 60, flush=True)
 
     if args.validate:
-        run_hl7_validator(args.validator_jar, output_dir)
+        validator_ok = run_hl7_validator(args.validator_jar, output_dir)
+    else:
+        validator_ok = True
+    missing = total_requests - total_exported - sum(omitted_counts.values())
+    if missing:
+        print(f'[FAIL] {missing} solicitudes sin recurso ni omisión registrada.', file=sys.stderr)
+    if args.export_all and total_exported != 16250:
+        print('[FAIL] Censo completo distinto de 16,250; no es una exportación completa.', file=sys.stderr)
+        return 1
+    return 0 if not missing and validator_ok else 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

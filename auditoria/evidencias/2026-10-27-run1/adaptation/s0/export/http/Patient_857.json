@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/857",
+  "started_utc": "2026-10-28T02:56:30.152673+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"857\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAXG540624MCSMXD57\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Guadalupe Carmen Ramirez\",\n      \"family\": \"Ramirez\",\n      \"given\": [\n        \"Guadalupe\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612919807\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1954-06-24\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "1042b6a32da9562247e7dab1c2b6652590527042fde0d5b206bd276a6b8cd80e",
+  "elapsed_seconds": 0.012543399992864579,
+  "resource": "Patient/857",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

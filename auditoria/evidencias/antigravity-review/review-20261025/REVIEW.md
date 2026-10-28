@@ -1,0 +1,148 @@
+# INFORME DE AUDITORÍA Y REVISIÓN INDEPENDIENTE MedSys-FHIR
+
+- **Task ID:** `AUD-R5-REVIEW-20261025`
+- **Rol:** `reviewer-auditor` (conforme a [agent.md](file:///D:/Proyectos%20X/MedSys-FHIR/.agents/agents/reviewer-auditor/agent.md))
+- **Commit Base:** `293396423cc993cc5b191d727ae0609e15a5aeb6`
+- **Fecha de Auditoría:** 2026-10-25T21:55:00-06:00
+- **Archivos Modificados/Creados por el Auditor:** **Ninguno (0)**. Modo de solo lectura e inspección estática/forense de evidencias.
+- **Dictamen General Preliminar:** **EVALUACIÓN EXPERIMENTAL NO APROBADA**. Ningún criterio vinculante (**CA-1** a **CA-5**) ni de caracterización técnica (**CT**) se encuentra aprobado ni cerrado. Se identifican defectos materiales en el runtime de `medsys-server`, contradicciones directas en los archivos de estado persistente y afirmaciones históricas no justificadas que deben sanearse antes de cualquier intento de congelamiento o certificación.
+
+---
+
+## 1. Resumen de Alcance Auditado
+
+Se realizó una inspección forense y estática exhaustiva sobre:
+1. **Diferencial de Runtime (`crates/`):** 23 archivos modificados o creados respecto al commit `2933964` en `crates/medsys-core`, `crates/medsys-db` y `crates/medsys-server` (incluyendo los archivos no rastreados [`common.rs`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/common.rs) y [`regression_runtime_contract.rs`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/tests/regression_runtime_contract.rs)).
+2. **Instrumentos y Scripts de Evidencia (`scripts/`, `tools/experimental/`):** Refactorizaciones en [`oracle_verifier.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/oracle_verifier.py), [`run_fault_corpus.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/run_fault_corpus.py), [`export_fhir_samples.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/export_fhir_samples.py), [`run_all_cap4_experiments.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/run_all_cap4_experiments.py), el nuevo colector [`experimental_evidence.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/experimental_evidence.py) y los runners [`evidence_runners.py`](file:///D:/Proyectos%20X/MedSys-FHIR/tools/experimental/evidence_runners.py) y [`aggregate_ct.py`](file:///D:/Proyectos%20X/MedSys-FHIR/tools/experimental/aggregate_ct.py).
+3. **Memoria Persistente y Documentación de Control:** [`STATE.md`](file:///D:/Proyectos%20X/MedSys-FHIR/STATE.md), [`BACKLOG.md`](file:///D:/Proyectos%20X/MedSys-FHIR/BACKLOG.md), [`DECISIONS.md`](file:///D:/Proyectos%20X/MedSys-FHIR/DECISIONS.md) y [`RESULTADOS_CAPITULO_IV.md`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/RESULTADOS_CAPITULO_IV.md).
+4. **Artefactos y Evidencias Primarias Registradas:** Registros de ejecución en `auditoria/evidencias/reanudacion/`, `auditoria/evidencias/harness-development/`, `auditoria/evidencias/lab-development/`, `auditoria/evidencias/validator-development/` y `auditoria/evidencias/runtime-development/`.
+
+---
+
+## 2. Clasificación Estricta: Ejecutado vs. Estático vs. Pendiente
+
+Es mandatorio separar las pruebas de arnés/instrumentos de la validación real del middleware compilado. **No se elevan nombres de autopruebas a cumplimiento experimental de la tesis.**
+
+| Componente / Prueba | Tipo de Evidencia | Estado Real | Registro / Evidencia Física | Impacto en Criterios |
+| :--- | :--- | :---: | :--- | :--- |
+| **Regresiones `medsys-db` S2/S3** | Ejecución Cargo unitaria | **`[v]` VERIFICADO** | [`regresiones-verificacion-coordinador.log`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/reanudacion/regresiones-verificacion-coordinador.log) (exit 0, 2/2) | Corrige panic de baseline (`regresiones-antes-sin-debug.log`, exit 101). **No valida el resto del workspace.** |
+| **Arnés Estructural Antigravity 2.0** | Script de inspección estática | **`[v]` VERIFICADO** | [`harness-orquestacion.log`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/reanudacion/harness-orquestacion.log) (33 componentes, 0 errores) | Integridad de rutas y reglas del orquestador. |
+| **Autopruebas de Instrumentos Python** | Ejecución unitaria unittest | **`[v]` VERIFICADO** | [`regression-tests-20261025.log`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/harness-development/regression-tests-20261025.log) (exit 0, 15/15) | Comprueba que el arnés Python detecta zonas horarias y mutaciones. **Cero evaluación de Rust.** |
+| **Sensibilidad de Mutaciones del Oráculo (S0–S3)** | Ejecución Python contra snapshot BD | **`[v]` VERIFICADO** | [`sources-20261025/commands.json`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/harness-development/sources-20261025/commands.json) (MUT-01 a MUT-20) | Prueba la agudeza del oráculo Python contra datos de BD. **No compara salidas HTTP de Rust.** |
+| **Control Fixture Validador HL7** | Ejecución Java de 2 recursos | **`[v]` VERIFICADO** | [`controlled-invalid/summary.json`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/validator-development/controlled-invalid/summary.json) (1 nominal, 1 broken gender) | Acredita que el runner detecta fallas aun con exit code 0 de Java. **No valida los 16,250 recursos de Rust.** |
+| **Laboratorio Persistente PostgreSQL (WSL)** | Conexión TCP y DDL/Bulk | **`[v]` VERIFICADO** | [`WINDOWS_VERIFICATION_25OCT.json`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/lab-development/WINDOWS_VERIFICATION_25OCT.json) (puerto 55432) | Bases sintéticas S0–S3 listas en ruta persistente dedicada. |
+| **Compilación y Tests Workspace Rust (`cargo test`)** | Ejecución Cargo | **`[!]` INTERRUMPIDO** | [`runtime-after.log`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/runtime-development/runtime-after.log) (detenido en línea 19) | **El workspace completo no tiene build/test exitoso acreditado.** |
+| **CA-1 (Validador HL7 en 16,250 recursos S0–S3)** | Validación oficial Java | **`[ ]` PENDIENTE** | Ninguno sobre Rust modificado | Criterio completamente abierto. |
+| **CA-2 (Oráculo Diferencial vs Salida HTTP Rust)** | Comparación HTTP exhaustiva | **`[ ]` PENDIENTE** | Ninguno sobre Rust modificado | Criterio completamente abierto. |
+| **CA-3 (Corpus 100 Fallas vía Inyección + HTTP)** | Inyección PostgreSQL + HTTP | **`[ ]` PENDIENTE** | `fault_corpus_report.json` es solo autoprueba en memoria | Criterio completamente abierto. |
+| **CA-4 / CA-5 (Congelamiento y Multi-Esquema)** | Hash binario e interop S0–S3 | **`[ ]` PENDIENTE** | Árbol dirty; sin hash congelado | Criterio completamente abierto. |
+| **CT (Benchmark k6 50 VUs + cgroups v2)** | Carga k6 3 réplicas + telemetría | **`[ ]` PENDIENTE** | Ninguno ejecutado | Criterio completamente abierto. |
+
+---
+
+## 3. Hallazgos Priorizados y Defectos Materiales
+
+### Hallazgo 1 (Defecto Material — Runtime / Rendimiento en CT)
+**Carga Completa en Memoria (`i64::MAX`) y Elusión de Filtrado y Paginación SQL en Colecciones HTTP.**
+- **Ubicación:** 
+  - [`crates/medsys-server/src/handlers/patient.rs#L63-L73`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/patient.rs#L63-L73)
+  - [`crates/medsys-server/src/handlers/encounter.rs#L65-L78`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/encounter.rs#L65-L78)
+  - [`crates/medsys-server/src/handlers/observation.rs#L122-L148`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/observation.rs#L122-L148)
+  - [`crates/medsys-server/src/handlers/condition.rs#L67-L96`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/condition.rs#L67-L96)
+- **Mecanismo:** En las cuatro rutas de colección (`/fhir/r4/Patient`, `/fhir/r4/Encounter`, `/fhir/r4/Observation`, `/fhir/r4/Condition`), los manejadores solicitan la totalidad de las filas de la tabla con `state.repositories.dynamic.find_all_raw(&mapping, i64::MAX, 0)`. Cada una de las miles de filas resultantes es convertida a JSON map, normalizada en zona horaria, transformada a recursos FHIR en el heap y filtrada/paginada en memoria mediante `bundle_page`.
+- **Impacto Material:**
+  1. En `crates/medsys-db/src/dynamic_repo.rs#L187-L190`, `find_all_raw` ejecuta `verify_parent_checks_tx` fila por fila. Para miles de observaciones o encuentros, esto genera una ráfaga masiva de validaciones y saturación de asignaciones en el heap de Rust.
+  2. Bajo la prueba de estrés de CT (50 Virtual Users concurrentes en `tests/k6/load_test.js`), este comportamiento provocará picos de latencia inaceptables ($p_{95} > 200\text{ ms}$) y consumo excesivo de memoria RAM, poniendo en riesgo el límite cgroups v2 ($p_{95} \le 150\text{ MiB}$).
+  3. `crates/medsys-db/src/dynamic_repo.rs#L209-L245` ya provee `find_filtered_raw` con cláusula SQL parametrizada (`select_by_foreign_key_paged`), pero los manejadores de `medsys-server` lo ignoran por completo.
+
+---
+
+### Hallazgo 2 (Defecto Material — Runtime / Estado de Compilación Incompleto)
+**Interrupción de Compilación del Workspace y Dependencia Estricta de Entorno en Pruebas de Integración.**
+- **Ubicación:**
+  - [`auditoria/evidencias/runtime-development/runtime-after.log#L1-L19`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/runtime-development/runtime-after.log#L1-L19)
+  - [`crates/medsys-server/tests/server_integration.rs#L17`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/tests/server_integration.rs#L17)
+  - [`crates/medsys-server/tests/e2e_interoperability.rs#L23,L401`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/tests/e2e_interoperability.rs#L23-L403)
+- **Mecanismo:** El log `runtime-after.log` evidencia que la última compilación completa del runtime en Rust se interrumpió en la línea 19 (tras compilar dependencias intermedias como `sqlx-postgres`). Por otro lado, en las pruebas de integración de `medsys-server` se sustituyó `DbConfig::default()` por `DbConfig::from_env().expect("Configuración de PostgreSQL sintético de pruebas")`.
+- **Impacto Material:**
+  1. No existe evidencia registrada de que `cargo test --workspace` ni `cargo clippy --workspace` compilen y aprueben de forma limpia sobre el árbol de trabajo actual.
+  2. Si `cargo test -p medsys-server` se lanza sin definir explícitamente variables de entorno (`DATABASE_URL` o `POSTGRES_*`), las pruebas de integración fallarán de inmediato por panic en el `expect()`.
+
+---
+
+### Hallazgo 3 (Defecto Material — Consistencia de Memoria Persistente)
+**Contradicción Interna Severa entre Reanudación Vigente y Metadatos Históricos en `STATE.md` y `BACKLOG.md`.**
+- **Ubicación:**
+  - [`STATE.md#L3-L14`](file:///D:/Proyectos%20X/MedSys-FHIR/STATE.md#L3-L14) vs [`STATE.md#L49-L78`](file:///D:/Proyectos%20X/MedSys-FHIR/STATE.md#L49-L78)
+  - [`BACKLOG.md#L7-L15`](file:///D:/Proyectos%20X/MedSys-FHIR/BACKLOG.md#L7-L15) vs [`BACKLOG.md#L41-L58`](file:///D:/Proyectos%20X/MedSys-FHIR/BACKLOG.md#L41-L58)
+- **Mecanismo:**
+  - Al inicio de `STATE.md`, la sección "Reanudación vigente — 2026-10-25" declara que la evaluación CA-1–CA-5/CT sigue abierta y que solo se han verificado 2 regresiones unitarias.
+  - Sin embargo, a partir de la línea 49, la sección "Metadatos de Control Operativo" afirma textualmente:
+    - `Progreso Global: 40 / 40 tareas completadas (100.0%)`
+    - `Tarea en Curso ([/]): Ninguna (Proyecto y Evaluación Experimental Finalizados)`
+    - `Estado de Verificación / Build: ALL_TESTS_PASSING (91/91 pruebas Rust, clippy 0 warnings, oráculo 100%, corpus 100%)`
+    - `Cómo Continuar: El sistema se encuentra 100 % completado y verificado empíricamente. Para re-evaluar: python scripts/run_all_cap4_experiments.py`
+  - En `BACKLOG.md`, las Tareas 10.1 a 10.4 están marcadas como `[x]` (Completadas), afirmando que el orquestador maestro corrió en 0.51s y que el informe final fue verificado.
+- **Impacto Material:**
+  Inconsistencia frontal de la Fuente de Verdad. El comando indicado (`python scripts/run_all_cap4_experiments.py`) ahora falla con código 2 si no se suministran `--manifest` y `--output`. Los bloques inferiores de `STATE.md` y `BACKLOG.md` no reflejan el estado real del proyecto y constituyen afirmaciones no justificadas.
+
+---
+
+### Hallazgo 4 (Afirmación No Justificada — Documentación y Reportes Históricos)
+**Conservación de Cifras Ficticias y Aprobación 100% en `RESULTADOS_CAPITULO_IV.md` y `resultados_cap4.json`.**
+- **Ubicación:**
+  - [`auditoria/RESULTADOS_CAPITULO_IV.md#L11-L21`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/RESULTADOS_CAPITULO_IV.md#L11-L21)
+  - `output/resultados_cap4.json`
+- **Mecanismo:** Los documentos afirman un cumplimiento del 100.0% de CA-1 a CA-5 y CT con $p_{95} = 3.38\text{ ms}$ y 0 errores en 16,250 recursos. Como atestigua [`auditoria/evidencias/validator-development/STATUS_25OCT.md#L30`](file:///D:/Proyectos%20X/MedSys-FHIR/auditoria/evidencias/validator-development/STATUS_25OCT.md#L30), dichas cifras proceden del generador simulado previo y no corresponden a ninguna ejecución física del validador oficial ni de k6 sobre el artefacto actual.
+- **Impacto:** Mantener estos reportes sin un rótulo visible de "ANTECEDENTE HISTÓRICO NO VINCULANTE" induce a error sobre el estado del proyecto y viola el principio de integridad académica.
+
+---
+
+### Hallazgo 5 (Defecto Menor — Robustez Fail-Closed en SQL)
+**Coerción Silenciosa a `Value::Null` ante Tipos Desconocidos en `pg_row_to_json_map`.**
+- **Ubicación:** [`crates/medsys-db/src/dynamic_repo.rs#L365-L369`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-db/src/dynamic_repo.rs#L365-L369)
+- **Mecanismo:**
+  ```rust
+  _ => match row.try_get::<Option<String>, _>(i) {
+      Ok(Some(s)) => Value::String(s),
+      Ok(None) => Value::Null,
+      Err(_) => Value::Null, // <-- Coerción silenciosa
+  },
+  ```
+- **Impacto:** Si una columna no soportada o con bytes corruptos genera un error en la decodificación de texto, el error se suprime y se convierte en `null`. En estricto apego al principio *Fail-Closed* (T2/T3), un fallo de decodificación en columnas clínicas obligatorias debe propagar `MedSysError::DatabaseError` o `ProcessingError`, no un valor ausente silencioso.
+
+---
+
+### Hallazgo 6 (Observación Técnica — Consistencia de Zona Horaria)
+**Discrepancia de Formato de Offset entre el Pipeline HTTP Axum (`+00:00`) y Pruebas Unitarias Aisladas (`-06:00`).**
+- **Ubicación:**
+  - [`crates/medsys-db/src/dynamic_repo.rs#L514-L550`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-db/src/dynamic_repo.rs#L514-L550) (`normalize_row_timezone`)
+  - [`crates/medsys-server/src/handlers/common.rs#L89-L95`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/common.rs#L89-L95) (`output_rules`)
+  - [`crates/medsys-server/tests/regression_runtime_contract.rs#L29-L37`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/tests/regression_runtime_contract.rs#L29-L37)
+- **Mecanismo:** En el servidor HTTP, `normalize_row_timezone` convierte timestamps locales de México a UTC naive y `output_rules` fija la zona en `"UTC"`, emitiendo fechas con offset `+00:00` (o `Z`). En cambio, en la prueba aislada `regression_datetime_requires_offset_and_preserves_fraction`, se invoca `fhir_datetime` directamente y se valida que termine en `-06:00`.
+- **Impacto:** Ambos representan el mismo instante físico (comprobado en `test_equivalent_timezone_instants`), pero existe una divergencia de formato entre la salida serializada por el servidor HTTP Axum y las expectativas de helpers unitarios de `medsys-core`.
+
+---
+
+## 4. Auditoría de Instrumentos y Límites de Cobertura
+
+1. **Desacoplamiento de Autopruebas:** Los 15 tests en [`test_experimental_evidence.py`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/test_experimental_evidence.py) acreditan que el arnés Python es matemáticamente riguroso (manejo de fracciones de segundo, reglas históricas de horario de verano en `America/Mexico_City`, y detección de discrepancias en `Encounter.reasonCode[0].text`). **No constituyen evidencia empírica de Rust.**
+2. **Asimetría del Corpus de Fallas (CA-3):** Conforme a [`EXPERIMENTAL_EVIDENCE.md#L59`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/EXPERIMENTAL_EVIDENCE.md#L59), el archivo `fault_corpus_100.json` original consta de 97 casos para `S0` y 3 casos para `S3`, con **0 casos para `S1` y `S2`**. La ejecución de este corpus no acredita rechazo seguro en esquemas de sábana plana (`S1`) ni normalizados con catálogos (`S2`).
+3. **Omisión Deliberada de `body_weight` en S3:** En [`crates/medsys-server/src/handlers/common.rs#L22-L24`](file:///D:/Proyectos%20X/MedSys-FHIR/crates/medsys-server/src/handlers/common.rs#L22-L24), `body_weight` se excluye intencionalmente del enrutador dinámico de `Observation`. Este recurso no forma parte del censo de 16,250 y debe permanecer expresamente documentado como fuera del alcance HTTP evaluado.
+4. **Estado de la Alternativa Nativa CT (Windows/WSL):** Conforme a [`tools/experimental/README.md#L35`](file:///D:/Proyectos%20X/MedSys-FHIR/tools/experimental/README.md#L35), la alternativa de benchmark sin Docker emite inherentemente `status: INCOMPLETE` debido a la imposibilidad de emular cgroups v2 y el sesgo de suma de RSS en procesos concurrentes. **No sustituye el protocolo CT original.**
+
+---
+
+## 5. Condiciones Mandatorias de Desbloqueo y Conclusión
+
+Para avanzar hacia la evaluación vinculante, el Coordinador e Implementadores deben atender las siguientes condiciones:
+
+1. **Reconciliar `STATE.md` y `BACKLOG.md`:** Purgar o reetiquetar los bloques inferiores de Sprint 10 y progreso 40/40 como antecedentes históricos obsoletos, alineándolos con el estado real de reverificación abierta.
+2. **Optimizar Consultas de Colección en `medsys-server`:** Delegar la paginación y filtros a nivel SQL (`select_all_paged`, `find_filtered_raw`) en lugar de extraer `i64::MAX` filas para paginar en memoria de Rust.
+3. **Completar Build Limpio y Pruebas Unitarias de Rust:** Compilar y ejecutar exitosamente `cargo test --workspace` (con perfil `-j1` y sin debug si la memoria es limitada) registrando el log consolidado de salida.
+4. **Congelamiento Formal del Binario (`CA-4`):** Generar el ejecutable optimizado de producción, calcular su hash SHA-256 e identificarlo antes de exportar recursos hacia el validador oficial HL7 y k6.
+5. **Ejecución y Manifiesto de Evidencia Primaria:** Ejecutar los censos reales sobre PostgreSQL en WSL (`experimental_evidence.py export/compare`), correr el validador Java oficial sobre los 16,250 recursos por esquema, y alimentar el consolidador [`run_all_cap4_experiments.py --manifest`](file:///D:/Proyectos%20X/MedSys-FHIR/scripts/run_all_cap4_experiments.py).
+
+> [!IMPORTANT]
+> **Dictamen Final del Auditor:** No se certifica ningún criterio de aceptación de la tesis en este checkpoint. Los instrumentos de medición han sido saneados y robustecidos, pero el software bajo prueba (middleware Rust) y sus reportes de ejecución permanecen en estado pendiente y con defectos de arquitectura de datos en memoria.
+

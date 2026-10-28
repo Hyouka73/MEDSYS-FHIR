@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "449",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORP110324HCSRYD99"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Moreno Reyes",
+      "family": "Moreno Reyes",
+      "given": [
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611217220",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2011-03-24"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/702",
+  "started_utc": "2026-10-28T02:56:29.653979+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"702\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAMM981109HCSSRN82\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Manuel Jorge Vasquez Martinez\",\n      \"family\": \"Vasquez Martinez\",\n      \"given\": [\n        \"Manuel\",\n        \"Jorge\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617835642\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1998-11-09\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "e1947c8a88900384983de192e81f2280c8a4511405c73f931ba25efabd5bcdd1",
+  "elapsed_seconds": 0.007811599993146956,
+  "resource": "Patient/702",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

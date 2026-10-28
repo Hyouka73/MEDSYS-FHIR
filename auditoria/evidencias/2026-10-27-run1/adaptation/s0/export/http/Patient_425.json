@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/425",
+  "started_utc": "2026-10-28T02:56:28.798259+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "539",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"425\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PEMF940716MCSRNR75\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Perez Mendez\",\n      \"family\": \"Perez Mendez\",\n      \"given\": [\n        \"Fernanda\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617857590\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1994-07-16\"\n}",
+  "body_bytes": 539,
+  "body_sha256": "0cbfcf1b7801be288364df552df25b04077217b13f9c437206a5e1027b43a41f",
+  "elapsed_seconds": 0.008978000027127564,
+  "resource": "Patient/425",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

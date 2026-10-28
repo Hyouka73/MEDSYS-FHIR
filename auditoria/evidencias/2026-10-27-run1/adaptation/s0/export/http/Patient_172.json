@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/172",
+  "started_utc": "2026-10-28T02:56:27.956872+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"172\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MUCG600131HCSNSB92\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriel Carlos Munoz Castillo\",\n      \"family\": \"Munoz Castillo\",\n      \"given\": [\n        \"Gabriel\",\n        \"Carlos\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612021787\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1960-01-31\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "1f3b700caeaa1a918a7193bce87363ab0537e64f3ab32bc7a54489120cd52d24",
+  "elapsed_seconds": 0.006990600028075278,
+  "resource": "Patient/172",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

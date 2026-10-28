@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/516",
+  "started_utc": "2026-10-28T02:56:29.072130+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "539",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"516\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AAMJ991215HCSLNV76\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Alvarez Mendoza\",\n      \"family\": \"Alvarez Mendoza\",\n      \"given\": [\n        \"Javier\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619405666\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1999-12-15\"\n}",
+  "body_bytes": 539,
+  "body_sha256": "78b8d6d390eef26d07a5356c00531aaed51377e0a64a8dbcce47d26c1a2bcb30",
+  "elapsed_seconds": 0.009754400001838803,
+  "resource": "Patient/516",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

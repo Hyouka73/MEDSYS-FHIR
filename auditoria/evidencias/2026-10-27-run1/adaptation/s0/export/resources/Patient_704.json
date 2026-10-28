@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "704",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOHS890114MCSMRL84"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Leticia Gomez Herrera",
+      "family": "Gomez Herrera",
+      "given": [
+        "Silvia",
+        "Leticia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615710921",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1989-01-14"
+}

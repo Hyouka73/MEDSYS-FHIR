@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "325",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUGP800820HCSGRD65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Juan Aguilar Garcia",
+      "family": "Aguilar Garcia",
+      "given": [
+        "Pedro",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618022010",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1980-08-20"
+}

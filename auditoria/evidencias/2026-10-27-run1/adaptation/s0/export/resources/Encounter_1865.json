@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "1865",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "1865"
+    }
+  ],
+  "status": "cancelled",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/692"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "5918273"
+        },
+        "display": "Dr. Jorge Luis Vázquez Toledo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-03-23T10:49:00+00:00",
+    "end": "2026-03-23T11:19:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Dolor epigástrico urente posprandial"
+    }
+  ]
+}

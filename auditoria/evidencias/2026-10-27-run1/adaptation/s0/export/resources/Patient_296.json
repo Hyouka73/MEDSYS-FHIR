@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "296",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CALL010923MCSSPC36"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Veronica Castillo Lopez",
+      "family": "Castillo Lopez",
+      "given": [
+        "Lucia",
+        "Veronica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617417380",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2001-09-23"
+}

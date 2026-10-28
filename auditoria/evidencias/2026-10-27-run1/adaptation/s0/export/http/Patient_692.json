@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/692",
+  "started_utc": "2026-10-28T02:56:29.624782+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"692\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOME941110MCSRNL72\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Paola Morales Mendoza\",\n      \"family\": \"Morales Mendoza\",\n      \"given\": [\n        \"Elena\",\n        \"Paola\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617320259\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1994-11-10\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "6e66453f62c19c22631046ee1d8441841f65f5c47fab69d7cf39ff6d039ab145",
+  "elapsed_seconds": 0.022857600008137524,
+  "resource": "Patient/692",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

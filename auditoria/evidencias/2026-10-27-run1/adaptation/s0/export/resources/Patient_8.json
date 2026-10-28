@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "8",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAJF901124MCSHMR18"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Daniela Chavez Jimenez",
+      "family": "Chavez Jimenez",
+      "given": [
+        "Fernanda",
+        "Daniela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617713827",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1990-11-24"
+}

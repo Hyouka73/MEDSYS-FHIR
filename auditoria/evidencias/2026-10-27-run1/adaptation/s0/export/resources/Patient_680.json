@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "680",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAMG500305MCSLDB60"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Beatriz Alvarez Medina",
+      "family": "Alvarez Medina",
+      "given": [
+        "Gabriela",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611734855",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1950-03-05"
+}

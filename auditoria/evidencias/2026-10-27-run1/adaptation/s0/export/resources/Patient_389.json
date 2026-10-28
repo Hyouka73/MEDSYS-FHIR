@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "389",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIJF500703HCSMRR39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Antonio Jimenez Juarez",
+      "family": "Jimenez Juarez",
+      "given": [
+        "Francisco",
+        "Antonio"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1950-07-03"
+}

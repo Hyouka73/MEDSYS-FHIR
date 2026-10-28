@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/763",
+  "started_utc": "2026-10-28T02:56:29.820817+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"763\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERF610519MCSNMR53\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Beatriz Mendoza Ramirez\",\n      \"family\": \"Mendoza Ramirez\",\n      \"given\": [\n        \"Fernanda\",\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612291763\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-05-19\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "b05f1268327faf5f462eb83921b8c59fb68e143077cc1d0fdc9f1f779fb37fbc",
+  "elapsed_seconds": 0.013809300027787685,
+  "resource": "Patient/763",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

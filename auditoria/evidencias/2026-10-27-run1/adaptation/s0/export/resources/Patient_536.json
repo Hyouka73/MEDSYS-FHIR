@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "536",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAFM061104HCSSLG96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Miguel Vasquez Flores",
+      "family": "Vasquez Flores",
+      "given": [
+        "Miguel",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616785744",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2006-11-04"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "85",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGY710927MCSNML95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Adriana Mendez Gomez",
+      "family": "Mendez Gomez",
+      "given": [
+        "Yolanda",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616571780",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1971-09-27"
+}

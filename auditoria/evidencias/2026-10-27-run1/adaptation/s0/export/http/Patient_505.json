@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/505",
+  "started_utc": "2026-10-28T02:56:29.037745+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"505\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GALJ880225HCSRPR65\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jorge Arturo Garcia Lopez\",\n      \"family\": \"Garcia Lopez\",\n      \"given\": [\n        \"Jorge\",\n        \"Arturo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616136198\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1988-02-25\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "73e68062c8b210346e83db9ca2a009b2775e6bb8817f7ef3d8da88d6673b66cd",
+  "elapsed_seconds": 0.010281700000632554,
+  "resource": "Patient/505",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/930",
+  "started_utc": "2026-10-28T02:56:30.379966+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "464",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"930\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAMD740311MCSSRN40\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniela Martha Castillo Martinez\",\n      \"family\": \"Castillo Martinez\",\n      \"given\": [\n        \"Daniela\",\n        \"Martha\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1974-03-11\"\n}",
+  "body_bytes": 464,
+  "body_sha256": "c4aed095679933b4d1ddf096ff0aac9c5d97c3403eb3c94158877999be9dc64a",
+  "elapsed_seconds": 0.007940899988170713,
+  "resource": "Patient/930",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

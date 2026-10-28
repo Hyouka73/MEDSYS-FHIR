@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "356",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEOA670426MCSRRL96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Adriana Perez Ortiz",
+      "family": "Perez Ortiz",
+      "given": [
+        "Alejandra",
+        "Adriana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615191203",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1967-04-26"
+}

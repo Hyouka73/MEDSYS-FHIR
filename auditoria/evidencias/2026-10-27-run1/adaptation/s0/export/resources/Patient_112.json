@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "112",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JITJ610410HCSMRR32"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Francisco Jimenez Torres",
+      "family": "Jimenez Torres",
+      "given": [
+        "Jorge",
+        "Francisco"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617761092",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1961-04-10"
+}

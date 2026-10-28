@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "51",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CACA730123HCSHSL61"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Miguel Chavez Castro",
+      "family": "Chavez Castro",
+      "given": [
+        "Alejandro",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613465423",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1973-01-23"
+}

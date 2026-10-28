@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "856",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEOC140420MCSDRL56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Sofia Medina Ortiz",
+      "family": "Medina Ortiz",
+      "given": [
+        "Claudia",
+        "Sofia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2014-04-20"
+}

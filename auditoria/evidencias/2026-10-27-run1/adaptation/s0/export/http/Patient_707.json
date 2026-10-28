@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/707",
+  "started_utc": "2026-10-28T02:56:29.660041+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"707\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"DIPR750118MCSZRS87\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rosa Alejandra Diaz Perez\",\n      \"family\": \"Diaz Perez\",\n      \"given\": [\n        \"Rosa\",\n        \"Alejandra\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612858711\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1975-01-18\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "6f7f1445307c76370506a7608e0b26beceae88f79677996433e454a42220b31b",
+  "elapsed_seconds": 0.006631400028709322,
+  "resource": "Patient/707",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

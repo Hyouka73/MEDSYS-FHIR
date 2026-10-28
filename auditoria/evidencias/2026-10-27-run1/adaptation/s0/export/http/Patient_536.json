@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/536",
+  "started_utc": "2026-10-28T02:56:29.125177+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"536\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAFM061104HCSSLG96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Miguel Vasquez Flores\",\n      \"family\": \"Vasquez Flores\",\n      \"given\": [\n        \"Miguel\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616785744\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2006-11-04\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "26fc4490fc647ebdf32f303b3f1487fc7391a8646ced33830504b0a127b38218",
+  "elapsed_seconds": 0.007583900005556643,
+  "resource": "Patient/536",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

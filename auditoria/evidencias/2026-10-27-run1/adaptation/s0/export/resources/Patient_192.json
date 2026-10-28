@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "192",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOHJ110509HCSMRN22"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Alberto Gomez Hernandez",
+      "family": "Gomez Hernandez",
+      "given": [
+        "Juan",
+        "Alberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618438387",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2011-05-09"
+}

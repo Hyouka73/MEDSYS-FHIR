@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "484",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VARA530630HCSSDL44"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Pedro Vasquez Rodriguez",
+      "family": "Vasquez Rodriguez",
+      "given": [
+        "Alejandro",
+        "Pedro"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1953-06-30"
+}

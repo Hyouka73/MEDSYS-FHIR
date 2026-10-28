@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "411",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUMB590504MCSZNT61"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Monica Ruiz Munoz",
+      "family": "Ruiz Munoz",
+      "given": [
+        "Beatriz",
+        "Monica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611519046",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1959-05-04"
+}

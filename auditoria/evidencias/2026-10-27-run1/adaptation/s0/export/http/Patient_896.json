@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/896",
+  "started_utc": "2026-10-28T02:56:30.283251+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "440",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"896\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUXS050804MCSZXL96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Silvia Carmen Guzman\",\n      \"family\": \"Guzman\",\n      \"given\": [\n        \"Silvia\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2005-08-04\"\n}",
+  "body_bytes": 440,
+  "body_sha256": "64080c1a9e505fd37b4b3136b4695bd74e09655308cd103da2b2e70d70034a83",
+  "elapsed_seconds": 0.008030799974221736,
+  "resource": "Patient/896",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

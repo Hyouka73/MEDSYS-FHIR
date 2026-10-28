@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/49",
+  "started_utc": "2026-10-28T02:56:28.981106+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "561",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"49\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JURR670714HCSRMC59\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ricardo Ricardo Juarez Ramos\",\n      \"family\": \"Juarez Ramos\",\n      \"given\": [\n        \"Ricardo\",\n        \"Ricardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618024303\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1967-07-14\"\n}",
+  "body_bytes": 561,
+  "body_sha256": "71307e7f585a98937bde7c223f0efce40bf0d9e86bef78d570fc0a35549b00ba",
+  "elapsed_seconds": 0.007872399990446866,
+  "resource": "Patient/49",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

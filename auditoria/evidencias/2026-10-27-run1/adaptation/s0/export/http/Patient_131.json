@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/131",
+  "started_utc": "2026-10-28T02:56:27.846793+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"131\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORG480921MCSNDB51\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Karla Gonzalez Rodriguez\",\n      \"family\": \"Gonzalez Rodriguez\",\n      \"given\": [\n        \"Gabriela\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613921386\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1948-09-21\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "828a7967fc33e46c818646b05338c76412ea7e3b036eb8929f16d82d0ad222be",
+  "elapsed_seconds": 0.014689100033137947,
+  "resource": "Patient/131",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

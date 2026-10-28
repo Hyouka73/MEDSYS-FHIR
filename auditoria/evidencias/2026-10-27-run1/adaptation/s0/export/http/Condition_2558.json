@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2558",
+  "started_utc": "2026-10-28T02:55:38.209176+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1119",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:38 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2558\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"provisional\",\n        \"display\": \"Provisional\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"A09\",\n        \"display\": \"Diarrea y gastroenteritis de presunto origen infeccioso\"\n      }\n    ],\n    \"text\": \"Diarrea y gastroenteritis de presunto origen infeccioso\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/277\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1922\"\n  },\n  \"recordedDate\": \"2025-11-07\"\n}",
+  "body_bytes": 1119,
+  "body_sha256": "5d9050493f6e0d07d1d2b4c97e8cc4dc76e476e44e873f535e21a6058ec647d3",
+  "elapsed_seconds": 0.021604300010949373,
+  "resource": "Condition/2558",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

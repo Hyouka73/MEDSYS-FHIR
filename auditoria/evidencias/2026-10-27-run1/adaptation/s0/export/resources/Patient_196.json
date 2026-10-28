@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "196",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HERL531214MCSRZT26"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Natalia Herrera Ruiz",
+      "family": "Herrera Ruiz",
+      "given": [
+        "Leticia",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615597424",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1953-12-14"
+}

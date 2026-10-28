@@ -1,5 +1,9 @@
 # REGISTRO DE DECISIONES TÉCNICAS Y SUPUESTOS DE ADAPTACIÓN (`DECISIONS.md`)
 
+## DEC-006 — 2026-10-25 — Identidad de evaluación y delegación CLI
+
+Se conserva el baseline fallido de las dos regresiones y su verificación posterior2/2; los hallazgosR5 y criterios experimentales requieren evidencia adicional. El censo real de S1 reveló905pacientes; se preserva ese resultado negativo y se prepara generador/datosv2 sin reducir el denominador1000 ni reemplazar bases anteriores. Por instrucción explícita del usuario se instaló AntigravityCLI1.4.7, se autenticó por interacción del usuario y se configuró Flash3.8High sin solicitudes de autorización de herramientas. El coordinador usa contratos disjuntos, conserva resultados y revisa sus conclusiones; no se otorga significado experimental a una respuesta de agente. No se publican cambios ni se crea la etiqueta histórica ausente.
+
 ## DEC-005 — 2026-10-20 — Reverificación experimental y detención solicitada
 
 La instrucción actual reabre la evaluación previamente declarada completa: STATE/BACKLOG históricos y números asignados por scripts no sustituyen evidencia primaria. Se conservan los umbrales originales leídos en Drive y no se crea la etiqueta histórica ausente. Las correcciones futuras identifican un artefacto nuevo y no validan retroactivamente el anterior. El usuario pidió «termina» durante la inspección y preparación; se detiene el trabajo conservando cambios parciales revisables. No se modificaron documentos Drive, no se publicó ni se hizo push. El motor Docker falló durante arranque por acceso a un socket de telemetría; no se autoriza inferir ensayos aprobados a partir de ese bloqueo. El trámite ético sigue dependiendo de determinación institucional.

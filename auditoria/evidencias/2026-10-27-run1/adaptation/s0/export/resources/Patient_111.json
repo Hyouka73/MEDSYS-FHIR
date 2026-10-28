@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "111",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MERL121024MCSNMT31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Leticia Patricia Mendez Ramirez",
+      "family": "Mendez Ramirez",
+      "given": [
+        "Leticia",
+        "Patricia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614731995",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-10-24"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/753",
+  "started_utc": "2026-10-28T02:56:29.790760+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"753\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"FOSG861122MCSLNB43\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Flores Sanchez\",\n      \"family\": \"Flores Sanchez\",\n      \"given\": [\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612854259\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1986-11-22\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "253e79b9275ee8588c60a87f0ae8648363512bb00281066a370d87a971ef55f9",
+  "elapsed_seconds": 0.022214500000700355,
+  "resource": "Patient/753",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

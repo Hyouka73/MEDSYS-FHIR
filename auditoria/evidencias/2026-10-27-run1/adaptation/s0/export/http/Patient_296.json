@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/296",
+  "started_utc": "2026-10-28T02:56:28.384632+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"296\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CALL010923MCSSPC36\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Veronica Castillo Lopez\",\n      \"family\": \"Castillo Lopez\",\n      \"given\": [\n        \"Lucia\",\n        \"Veronica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617417380\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2001-09-23\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "82c193e204b1d3ceef71d637e62922f9fb00f7ed04b4af12aa814933fbb85734",
+  "elapsed_seconds": 0.024681200040504336,
+  "resource": "Patient/296",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

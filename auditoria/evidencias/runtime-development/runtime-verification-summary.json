@@ -1,0 +1,20 @@
+{
+  "captured_utc": "2026-10-26T04:02:45.092523+00:00",
+  "commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+  "command": "cargo test -j1 --workspace -- --nocapture",
+  "build_command": "cargo build -j1 -p medsys-server --bin medsys-server",
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "DATABASE_URL": "postgres://medsys_ro@127.0.0.1:55432/medsys_eval_unit"
+  },
+  "profile": "dev/test unoptimized, debug symbols disabled",
+  "passed": 104,
+  "failed": 0,
+  "ignored": 0,
+  "test_exit": 0,
+  "build_exit": 0,
+  "binary": "target/debug/medsys-server.exe",
+  "binary_sha256": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "caveat": "Rust/Tower tests are not the complete experimental CA-1..CA-5/CT evaluation. External official validator and HTTP census remain root responsibilities."
+}

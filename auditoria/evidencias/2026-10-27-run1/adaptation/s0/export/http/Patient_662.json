@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/662",
+  "started_utc": "2026-10-28T02:56:29.538533+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "531",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"662\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PERM981116MCSRYR42\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Maria Perez Reyes\",\n      \"family\": \"Perez Reyes\",\n      \"given\": [\n        \"Maria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617965814\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1998-11-16\"\n}",
+  "body_bytes": 531,
+  "body_sha256": "e1ee31d6e450d330912a2a0138e8b146c2c4853ada3fd66e7e8aa6f9faa2ec0d",
+  "elapsed_seconds": 0.007522400002926588,
+  "resource": "Patient/662",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

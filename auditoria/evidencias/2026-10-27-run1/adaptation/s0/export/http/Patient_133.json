@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/133",
+  "started_utc": "2026-10-28T02:56:27.848496+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"133\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"PEVR610727MCSRRS53\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rosa Carmen Perez Vargas\",\n      \"family\": \"Perez Vargas\",\n      \"given\": [\n        \"Rosa\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614548071\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-07-27\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "4205bc4fdbbeb32297f69b0d55ef3131ce168dbbc267504aed0af5a4e25d689e",
+  "elapsed_seconds": 0.011246100009884685,
+  "resource": "Patient/133",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

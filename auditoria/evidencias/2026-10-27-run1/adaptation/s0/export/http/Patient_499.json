@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/499",
+  "started_utc": "2026-10-28T02:56:29.008942+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"499\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RURV560213MCSZMR59\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Monica Ruiz Ramos\",\n      \"family\": \"Ruiz Ramos\",\n      \"given\": [\n        \"Veronica\",\n        \"Monica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616704199\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1956-02-13\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "35eeed6692aca9f215ed7f3d0f11b5663b2fc599b7c1d8266b7a992851492512",
+  "elapsed_seconds": 0.009282499959226698,
+  "resource": "Patient/499",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

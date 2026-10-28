@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/716",
+  "started_utc": "2026-10-28T02:56:29.685929+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "537",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"716\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORG700316MCSMYB96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Gomez Reyes\",\n      \"family\": \"Gomez Reyes\",\n      \"given\": [\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612474939\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1970-03-16\"\n}",
+  "body_bytes": 537,
+  "body_sha256": "b92024a0dea2fd84ef5d2cd368c93f26d0bf5ff70b3986c24564a2598ac2403d",
+  "elapsed_seconds": 0.009195599996019155,
+  "resource": "Patient/716",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1464",
+  "started_utc": "2026-10-28T02:55:33.542479+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "834",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:33 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1464\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"K30\",\n        \"display\": \"Dispepsia funcional\"\n      }\n    ],\n    \"text\": \"Dispepsia funcional\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/532\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1464\"\n  },\n  \"recordedDate\": \"2025-10-26\"\n}",
+  "body_bytes": 834,
+  "body_sha256": "f3728f46fbad428965e99c0c4e280d2062cd108d833129966d18466cd70e9a92",
+  "elapsed_seconds": 0.00906000001123175,
+  "resource": "Condition/1464",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

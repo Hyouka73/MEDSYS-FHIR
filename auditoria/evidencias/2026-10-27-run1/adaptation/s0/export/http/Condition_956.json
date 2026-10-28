@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/956",
+  "started_utc": "2026-10-28T02:55:42.677447+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "808",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:42 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"956\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"R51\",\n        \"display\": \"Cefalea\"\n      }\n    ],\n    \"text\": \"Cefalea\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/589\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/956\"\n  },\n  \"recordedDate\": \"2025-08-15\"\n}",
+  "body_bytes": 808,
+  "body_sha256": "e85be947189e4556363c9beb726f6fced9f68260aecb5cd69e3239904c0356f5",
+  "elapsed_seconds": 0.018599400005768985,
+  "resource": "Condition/956",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

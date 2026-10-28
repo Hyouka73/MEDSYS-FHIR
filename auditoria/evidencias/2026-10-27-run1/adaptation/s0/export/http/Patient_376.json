@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/376",
+  "started_utc": "2026-10-28T02:56:28.665662+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"376\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RECE020414MCSYSL26\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Guadalupe Reyes Castro\",\n      \"family\": \"Reyes Castro\",\n      \"given\": [\n        \"Elena\",\n        \"Guadalupe\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615017966\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2002-04-14\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "8df3fc97d58702db484a3f1fdc9ea58d39e3cb56636a558c38e5e910253d007f",
+  "elapsed_seconds": 0.006719400000292808,
+  "resource": "Patient/376",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "47",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGK101001MCSDTR57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Leticia Medina Gutierrez",
+      "family": "Medina Gutierrez",
+      "given": [
+        "Karla",
+        "Leticia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618035868",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2010-10-01"
+}

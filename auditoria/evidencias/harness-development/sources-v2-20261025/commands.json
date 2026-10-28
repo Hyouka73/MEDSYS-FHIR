@@ -1,0 +1,129 @@
+{
+  "kind": "source_and_oracle_sensitivity_only",
+  "cohort": "v2 minimal patient coverage correction",
+  "finished_utc": "2026-10-26T03:53:56.519168+00:00",
+  "commands": [
+    {
+      "schema": "s0",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s0",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s0-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s0",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s0-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s0-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s1",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s1",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s1-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s1",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s1-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s1-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s2",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s2",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s2-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s2",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s2-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s2-mutations.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s3",
+      "phase": "snapshot",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "snapshot",
+        "--schema",
+        "s3",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s3-source.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "schema": "s3",
+      "phase": "mutations",
+      "command": [
+        "C:\\Python313\\python.exe",
+        "scripts/experimental_evidence.py",
+        "mutations",
+        "--source",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s3-source.json",
+        "--output",
+        "auditoria\\evidencias\\harness-development\\sources-v2-20261025\\s3-mutations.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "files_sha256": {
+    "s0-mutations.json": "d3d26e45d8f0a64a0421d2882ac820af15ceb66a879f9cce7c7e2f3d7321f587",
+    "s0-source.json": "5515525341ff60fa15f6ac1ef5b08a980c848e281ae55b68a0f39345624f8d5c",
+    "s1-mutations.json": "afe0e4351cf3a72f15ccc57e7ec474bd1385454549f068a95e3421a7ae4cde1b",
+    "s1-source.json": "de61a16136dd92b57a6aad2b5857271a3c1db5fada6ab9fc6396d1b5d0eaaa26",
+    "s2-mutations.json": "1338d1831a2060504eedb231bbeaa7f768492a936e6ac563518f72ad3a9d8466",
+    "s2-source.json": "fae4ba3087f05fdeeaf6c1ea2fa331476776e34b28a9b12350e0b06f2d447ccd",
+    "s3-mutations.json": "c9e1d882a1f9a5f113f3f25256fddee814f65862a69c4722ea09af4ad3020467",
+    "s3-source.json": "eef2a92eab1e79147d108880c98923e26a8a5e1e7e7e0684169b0a9e3c683a8c"
+  }
+}

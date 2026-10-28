@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "463",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOGA650126HCSRML23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Javier Moreno Gomez",
+      "family": "Moreno Gomez",
+      "given": [
+        "Alexis",
+        "Javier"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611034561",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1965-01-26"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "412",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUDS120504HCSNZL62"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Salvador Carlos Munoz Diaz",
+      "family": "Munoz Diaz",
+      "given": [
+        "Salvador",
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614262809",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2012-05-04"
+}

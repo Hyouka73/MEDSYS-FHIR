@@ -1,0 +1,4 @@
+# PostgreSQL evidence collector; no production credentials are required.
+psycopg[binary]==3.3.6
+# Windows does not bundle an IANA timezone database.
+tzdata==2025.1

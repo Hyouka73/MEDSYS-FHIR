@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "900",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIMK510308MCSMNR10"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Jimenez Mendoza",
+      "family": "Jimenez Mendoza",
+      "given": [
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614903867",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1951-03-08"
+}

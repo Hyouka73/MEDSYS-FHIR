@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "766",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOGM010915HCSMMN56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Manuel Salvador Gomez Gomez",
+      "family": "Gomez Gomez",
+      "given": [
+        "Manuel",
+        "Salvador"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2001-09-15"
+}

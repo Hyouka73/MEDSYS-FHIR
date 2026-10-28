@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "376",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RECE020414MCSYSL26"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Guadalupe Reyes Castro",
+      "family": "Reyes Castro",
+      "given": [
+        "Elena",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615017966",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2002-04-14"
+}

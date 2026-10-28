@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/686",
+  "started_utc": "2026-10-28T02:56:29.607283+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "544",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"686\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAXM970817MCSSXR66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Maria Karla Castro\",\n      \"family\": \"Castro\",\n      \"given\": [\n        \"Maria\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613419106\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1997-08-17\"\n}",
+  "body_bytes": 544,
+  "body_sha256": "9a5dd761c481cf0ab65a8f92a81a8b48888a22968f117e4fbd8b87d18c156ae7",
+  "elapsed_seconds": 0.014834700035862625,
+  "resource": "Patient/686",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

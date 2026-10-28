@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "438",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOVC990313MCSRRL88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Karla Torres Vargas",
+      "family": "Torres Vargas",
+      "given": [
+        "Claudia",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618425752",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1999-03-13"
+}

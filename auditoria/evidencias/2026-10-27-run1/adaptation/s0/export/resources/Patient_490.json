@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "490",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEGP471102MCSNTT50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Patricia Ana Mendoza Gutierrez",
+      "family": "Mendoza Gutierrez",
+      "given": [
+        "Patricia",
+        "Ana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611798991",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1947-11-02"
+}

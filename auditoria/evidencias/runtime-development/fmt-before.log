@@ -1,0 +1,1476 @@
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:169:
+         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%S%.f"))
+         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y-%m-%dT%H:%M:%SZ"))
+         .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%Y/%m/%d %H:%M:%S"))
+-        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S"))
+-        ;
++        .or_else(|_| NaiveDateTime::parse_from_str(trimmed, "%d/%m/%Y %H:%M:%S"));
+ 
+     match parsed_dt {
+         Ok(dt) => {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:177:
+             let tz = Mexico_City;
+             let dt_with_tz = match tz.from_local_datetime(&dt) {
+                 chrono::LocalResult::Single(dt_tz) => dt_tz,
+-                _ => return Err(MedSysError::ProcessingError("T2 Fecha/hora local ambigua o inexistente".into())),
++                _ => {
++                    return Err(MedSysError::ProcessingError(
++                        "T2 Fecha/hora local ambigua o inexistente".into(),
++                    ))
++                }
+             };
+             Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false))
+         }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:269:
+     }
+ 
+     let tz_name = default_tz.unwrap_or("America/Mexico_City");
+-    let tz: chrono_tz::Tz = tz_name.parse().map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {tz_name}")))?;
++    let tz: chrono_tz::Tz = tz_name
++        .parse()
++        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {tz_name}")))?;
+ 
+     let formats = formats_spec
+         .split('|')
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:286:
+         if let Ok(naive_dt) = NaiveDateTime::parse_from_str(trimmed, fmt) {
+             let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
+                 chrono::LocalResult::Single(dt) => dt,
+-                _ => return Err(MedSysError::ProcessingError("T2 Fecha/hora local ambigua o inexistente".into())),
++                _ => {
++                    return Err(MedSysError::ProcessingError(
++                        "T2 Fecha/hora local ambigua o inexistente".into(),
++                    ))
++                }
+             };
+             return Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
+         }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:305:
+                     let naive_dt = NaiveDateTime::new(naive_date, naive_time);
+                     let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
+                         chrono::LocalResult::Single(dt) => dt,
+-                        _ => return Err(MedSysError::ProcessingError("T2 Fecha/hora local ambigua o inexistente".into())),
++                        _ => {
++                            return Err(MedSysError::ProcessingError(
++                                "T2 Fecha/hora local ambigua o inexistente".into(),
++                            ))
++                        }
+                     };
+                     return Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
+                 } else if !fmt.contains("%H") && !fmt.contains("%M") && !fmt.contains("%S") {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:314:
+                     let naive_dt = naive_date.and_hms_opt(0, 0, 0).unwrap();
+                     let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
+                         chrono::LocalResult::Single(dt) => dt,
+-                        _ => return Err(MedSysError::ProcessingError("T2 Fecha/hora local ambigua o inexistente".into())),
++                        _ => {
++                            return Err(MedSysError::ProcessingError(
++                                "T2 Fecha/hora local ambigua o inexistente".into(),
++                            ))
++                        }
+                     };
+                     return Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
+                 }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:328:
+             } else if let Some(naive_dt) = naive_d.and_hms_opt(0, 0, 0) {
+                 let dt_with_tz = match tz.from_local_datetime(&naive_dt) {
+                     chrono::LocalResult::Single(dt) => dt,
+-                    _ => return Err(MedSysError::ProcessingError("T2 Fecha/hora local ambigua o inexistente".into())),
++                    _ => {
++                        return Err(MedSysError::ProcessingError(
++                            "T2 Fecha/hora local ambigua o inexistente".into(),
++                        ))
++                    }
+                 };
+                 return Ok(dt_with_tz.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false));
+             }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\evaluator.rs:400:
+             None => {
+                 if rule.is_optional() {
+                     None
+-
+                 } else {
+                     return Err(MedSysError::ProcessingError(format!(
+                         "Data corruption: Campo crítico obligatorio '{col}' ausente o nulo para el recurso '{resource_type}'"
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:10:
+ use crate::engine::evaluator::parse_date_iso8601;
+ use crate::error::{MedSysError, Result};
+ use crate::model::fhir_helpers::{
+-    fhir_code, fhir_concept, fhir_date, fhir_date_as_datetime, fhir_datetime_in_timezone, fhir_decimal, fhir_identifier,
+-    fhir_reference, fhir_string, fhir_uri,
++    fhir_code, fhir_concept, fhir_date, fhir_date_as_datetime, fhir_datetime_in_timezone,
++    fhir_decimal, fhir_identifier, fhir_reference, fhir_string, fhir_uri,
+ };
+ use crate::model::legacy::{LegacyConsulta, LegacyDiagnostico, LegacyPaciente, LegacySignoVital};
+ use crate::model::mapping::{MappingRules, SupportedResource};
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:292:
+     let period = Period {
+         id: None,
+         extension: None,
+-        start: Some(fhir_datetime_in_timezone(consulta.fecha_hora_inicio, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?),
+-        end: Some(fhir_datetime_in_timezone(consulta.fecha_hora_fin, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?),
++        start: Some(fhir_datetime_in_timezone(
++            consulta.fecha_hora_inicio,
++            rules
++                .map(|r| r.timezone_default.as_str())
++                .unwrap_or("America/Mexico_City"),
++        )?),
++        end: Some(fhir_datetime_in_timezone(
++            consulta.fecha_hora_fin,
++            rules
++                .map(|r| r.timezone_default.as_str())
++                .unwrap_or("America/Mexico_City"),
++        )?),
+     };
+ 
+     // Médico tratante con su Cédula Profesional SEP
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:385:
+     signo: &LegacySignoVital,
+     rules: Option<&MappingRules>,
+ ) -> Result<Observation> {
+-    let effective_dt = fhir_datetime_in_timezone(signo.fecha_registro, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?;
++    let effective_dt = fhir_datetime_in_timezone(
++        signo.fecha_registro,
++        rules
++            .map(|r| r.timezone_default.as_str())
++            .unwrap_or("America/Mexico_City"),
++    )?;
+ 
+     let bp_mapping = rules.and_then(|r| {
+         r.resources
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:607:
+     signo: &LegacySignoVital,
+     rules: Option<&MappingRules>,
+ ) -> Result<Observation> {
+-    let effective_dt = fhir_datetime_in_timezone(signo.fecha_registro, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?;
++    let effective_dt = fhir_datetime_in_timezone(
++        signo.fecha_registro,
++        rules
++            .map(|r| r.timezone_default.as_str())
++            .unwrap_or("America/Mexico_City"),
++    )?;
+ 
+     let category = vec![fhir_concept(
+         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:681:
+     signo: &LegacySignoVital,
+     rules: Option<&MappingRules>,
+ ) -> Result<Observation> {
+-    let effective_dt = fhir_datetime_in_timezone(signo.fecha_registro, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?;
++    let effective_dt = fhir_datetime_in_timezone(
++        signo.fecha_registro,
++        rules
++            .map(|r| r.timezone_default.as_str())
++            .unwrap_or("America/Mexico_City"),
++    )?;
+ 
+     let category = vec![fhir_concept(
+         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\engine\transform.rs:765:
+         ));
+     }
+ 
+-    let effective_dt = fhir_datetime_in_timezone(signo.fecha_registro, rules.map(|r| r.timezone_default.as_str()).unwrap_or("America/Mexico_City"))?;
++    let effective_dt = fhir_datetime_in_timezone(
++        signo.fecha_registro,
++        rules
++            .map(|r| r.timezone_default.as_str())
++            .unwrap_or("America/Mexico_City"),
++    )?;
+ 
+     let category = vec![fhir_concept(
+         Some("http://terminology.hl7.org/CodeSystem/observation-category"),
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\model\fhir_helpers.rs:65:
+ 
+ /// Interpreta el reloj de origen en la zona declarada; no adivina en cambios DST.
+ pub fn fhir_datetime_in_timezone(dt: NaiveDateTime, timezone: &str) -> Result<DateTime> {
+-    let tz: chrono_tz::Tz = timezone.parse().map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
+-    let instant = tz.from_local_datetime(&dt).single().ok_or_else(|| MedSysError::ProcessingError(format!(
+-        "T2 Fecha/hora local ambigua o inexistente en {timezone}: {dt}"
+-    )))?;
++    let tz: chrono_tz::Tz = timezone
++        .parse()
++        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
++    let instant = tz.from_local_datetime(&dt).single().ok_or_else(|| {
++        MedSysError::ProcessingError(format!(
++            "T2 Fecha/hora local ambigua o inexistente en {timezone}: {dt}"
++        ))
++    })?;
+     let iso_str = instant.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false);
+-    let precision_dt = PrecisionDateTime::parse(&iso_str).ok_or_else(|| MedSysError::TransformationError(format!("Fecha/hora FHIR inválida: {iso_str}")))?;
+-    Ok(Element { id: None, extension: None, value: Some(precision_dt) })
++    let precision_dt = PrecisionDateTime::parse(&iso_str).ok_or_else(|| {
++        MedSysError::TransformationError(format!("Fecha/hora FHIR inválida: {iso_str}"))
++    })?;
++    Ok(Element {
++        id: None,
++        extension: None,
++        value: Some(precision_dt),
++    })
+ }
+ 
+ /// Una fecha observada sin hora conserva su precisión en un campo FHIR dateTime.
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-core\src\model\fhir_helpers.rs:78:
+ pub fn fhir_date_as_datetime(date: NaiveDate) -> Result<DateTime> {
+     let text = date.format("%Y-%m-%d").to_string();
+-    let value = PrecisionDateTime::parse(&text).ok_or_else(|| MedSysError::TransformationError(format!("Fecha FHIR inválida: {text}")))?;
+-    Ok(Element { id: None, extension: None, value: Some(value) })
++    let value = PrecisionDateTime::parse(&text)
++        .ok_or_else(|| MedSysError::TransformationError(format!("Fecha FHIR inválida: {text}")))?;
++    Ok(Element {
++        id: None,
++        extension: None,
++        value: Some(value),
++    })
+ }
+ 
+ /// Crea un elemento numérico de alta precisión `Decimal` de FHIR.
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:59:
+         cache: &mut std::collections::BTreeMap<(String, String, i64), Value>,
+     ) -> Result<()> {
+         for rule in &mapping.parent_checks {
+-            let fk_id = row.get(&rule.foreign_key_column).and_then(|v| match v {
+-                Value::Number(n) => n.as_i64(),
+-                Value::String(s) => s.parse::<i64>().ok(),
+-                _ => None,
+-            }).ok_or_else(|| MedSysError::ProcessingError(format!(
+-                "T4 Clave padre ausente o inválida: {}", rule.foreign_key_column
+-            )))?;
++            let fk_id = row
++                .get(&rule.foreign_key_column)
++                .and_then(|v| match v {
++                    Value::Number(n) => n.as_i64(),
++                    Value::String(s) => s.parse::<i64>().ok(),
++                    _ => None,
++                })
++                .ok_or_else(|| {
++                    MedSysError::ProcessingError(format!(
++                        "T4 Clave padre ausente o inválida: {}",
++                        rule.foreign_key_column
++                    ))
++                })?;
+             crate::query_builder::validate_table_identifier(&rule.parent_table)?;
+             crate::query_builder::validate_column_identifier(&rule.parent_pk)?;
+             let key = (rule.parent_table.clone(), rule.parent_pk.clone(), fk_id);
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:72:
+             if !cache.contains_key(&key) {
+-                let query = format!("SELECT row_to_json(p)::text FROM {} p WHERE {} = $1 LIMIT 1", rule.parent_table, rule.parent_pk);
+-                let parent = sqlx::query_scalar::<_, String>(&query).bind(fk_id)
+-                    .fetch_optional(&mut **tx).await.map_err(map_sqlx_error)?
+-                    .ok_or_else(|| MedSysError::ProcessingError(format!(
+-                        "T4 Registro padre inexistente en {} con {}={fk_id}", rule.parent_table, rule.parent_pk
+-                    )))?;
+-                let parent: Value = serde_json::from_str(&parent).map_err(|e| MedSysError::DatabaseError(e.to_string()))?;
++                let query = format!(
++                    "SELECT row_to_json(p)::text FROM {} p WHERE {} = $1 LIMIT 1",
++                    rule.parent_table, rule.parent_pk
++                );
++                let parent = sqlx::query_scalar::<_, String>(&query)
++                    .bind(fk_id)
++                    .fetch_optional(&mut **tx)
++                    .await
++                    .map_err(map_sqlx_error)?
++                    .ok_or_else(|| {
++                        MedSysError::ProcessingError(format!(
++                            "T4 Registro padre inexistente en {} con {}={fk_id}",
++                            rule.parent_table, rule.parent_pk
++                        ))
++                    })?;
++                let parent: Value = serde_json::from_str(&parent)
++                    .map_err(|e| MedSysError::DatabaseError(e.to_string()))?;
+                 cache.insert(key.clone(), parent);
+             }
+             // La existencia de ambos padres no basta: el encuentro debe pertenecer
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:83:
+             // al mismo paciente declarado por el hijo.
+             if matches!(rule.parent_pk.as_str(), "id_consulta" | "con_id") {
+                 let child_patient = extract_i32(row, &["id_paciente", "pac_id"]);
+-                let parent_patient = cache.get(&key).and_then(Value::as_object)
++                let parent_patient = cache
++                    .get(&key)
++                    .and_then(Value::as_object)
+                     .and_then(|p| extract_i32(p, &["id_paciente", "pac_id"]));
+                 if child_patient.is_none() || child_patient != parent_patient {
+-                    return Err(MedSysError::ProcessingError("T4 El encuentro no pertenece al paciente del recurso".into()));
++                    return Err(MedSysError::ProcessingError(
++                        "T4 El encuentro no pertenece al paciente del recurso".into(),
++                    ));
+                 }
+             }
+         }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:94:
+     }
+ 
+     /// API de comprobación explícita; las lecturas usan la variante con su propia transacción.
+-    pub async fn verify_parent_checks(&self, mapping: &ResourceMapping, row: &Map<String, Value>) -> Result<()> {
++    pub async fn verify_parent_checks(
++        &self,
++        mapping: &ResourceMapping,
++        row: &Map<String, Value>,
++    ) -> Result<()> {
+         let mut tx = self.begin_readonly_tx().await?;
+         Self::verify_parent_checks_tx(mapping, row, &mut tx, &mut Default::default()).await?;
+         tx.commit().await.map_err(map_sqlx_error)
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:101:
+     }
+ 
+     /// Lee y comprueba padres en una única transacción REPEATABLE READ READ ONLY.
+-    pub async fn find_by_id_raw(&self, mapping: &ResourceMapping, id: i32) -> Result<Option<Map<String, Value>>> {
++    pub async fn find_by_id_raw(
++        &self,
++        mapping: &ResourceMapping,
++        id: i32,
++    ) -> Result<Option<Map<String, Value>>> {
+         let sql = DynamicSqlBuilder::select_by_id(mapping);
+         let mut tx = self.begin_readonly_tx().await?;
+-        let row = sqlx::query(&sql).bind(id).fetch_optional(&mut *tx).await.map_err(map_sqlx_error)?;
++        let row = sqlx::query(&sql)
++            .bind(id)
++            .fetch_optional(&mut *tx)
++            .await
++            .map_err(map_sqlx_error)?;
+         let result = match row {
+             Some(row) => {
+                 let map = pg_row_to_json_map(&row)?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:111:
+-                Self::verify_parent_checks_tx(mapping, &map, &mut tx, &mut Default::default()).await?;
++                Self::verify_parent_checks_tx(mapping, &map, &mut tx, &mut Default::default())
++                    .await?;
+                 Some(map)
+             }
+             None => None,
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:117:
+         Ok(result)
+     }
+ 
+-    pub async fn find_by_id(&self, mapping: &ResourceMapping, id: i32) -> Result<Map<String, Value>> {
+-        self.find_by_id_raw(mapping, id).await?.ok_or_else(|| MedSysError::NotFound(format!(
+-            "Recurso '{}' con identificador {id} no encontrado en la base de datos", mapping.resource_type
+-        )))
++    pub async fn find_by_id(
++        &self,
++        mapping: &ResourceMapping,
++        id: i32,
++    ) -> Result<Map<String, Value>> {
++        self.find_by_id_raw(mapping, id).await?.ok_or_else(|| {
++            MedSysError::NotFound(format!(
++                "Recurso '{}' con identificador {id} no encontrado en la base de datos",
++                mapping.resource_type
++            ))
++        })
+     }
+ 
+     pub async fn find_by_id_fhir(&self, mapping: &ResourceMapping, id: i32) -> Result<Value> {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:128:
+         evaluate_resource_mapping(mapping, &row)
+     }
+ 
+-    pub async fn find_all_raw(&self, mapping: &ResourceMapping, limit: i64, offset: i64) -> Result<Vec<Map<String, Value>>> {
++    pub async fn find_all_raw(
++        &self,
++        mapping: &ResourceMapping,
++        limit: i64,
++        offset: i64,
++    ) -> Result<Vec<Map<String, Value>>> {
+         let sql = DynamicSqlBuilder::select_all_paged(mapping);
+         let mut tx = self.begin_readonly_tx().await?;
+-        let rows = sqlx::query(&sql).bind(limit).bind(offset).fetch_all(&mut *tx).await.map_err(map_sqlx_error)?;
++        let rows = sqlx::query(&sql)
++            .bind(limit)
++            .bind(offset)
++            .fetch_all(&mut *tx)
++            .await
++            .map_err(map_sqlx_error)?;
+         let mut results = Vec::with_capacity(rows.len());
+         let mut cache = Default::default();
+         for row in rows {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:143:
+         Ok(results)
+     }
+ 
+-    pub async fn find_all_fhir(&self, mapping: &ResourceMapping, limit: i64, offset: i64) -> Result<Vec<Value>> {
+-        self.find_all_raw(mapping, limit, offset).await?.iter().map(|r| evaluate_resource_mapping(mapping, r)).collect()
++    pub async fn find_all_fhir(
++        &self,
++        mapping: &ResourceMapping,
++        limit: i64,
++        offset: i64,
++    ) -> Result<Vec<Value>> {
++        self.find_all_raw(mapping, limit, offset)
++            .await?
++            .iter()
++            .map(|r| evaluate_resource_mapping(mapping, r))
++            .collect()
+     }
+ 
+-    pub async fn find_filtered_raw(&self, mapping: &ResourceMapping, filter_col: &str, filter_val: i32, limit: i64, offset: i64) -> Result<Vec<Map<String, Value>>> {
+-        let target = match filter_col { "id_paciente" => Some("subject.reference"), "id_consulta" => Some("encounter.reference"), _ => None };
+-        let column = target.and_then(|target| mapping.mappings.iter().find(|m| m.target_path == target))
+-            .and_then(|m| m.source_column.as_deref()).unwrap_or(filter_col);
++    pub async fn find_filtered_raw(
++        &self,
++        mapping: &ResourceMapping,
++        filter_col: &str,
++        filter_val: i32,
++        limit: i64,
++        offset: i64,
++    ) -> Result<Vec<Map<String, Value>>> {
++        let target = match filter_col {
++            "id_paciente" => Some("subject.reference"),
++            "id_consulta" => Some("encounter.reference"),
++            _ => None,
++        };
++        let column = target
++            .and_then(|target| mapping.mappings.iter().find(|m| m.target_path == target))
++            .and_then(|m| m.source_column.as_deref())
++            .unwrap_or(filter_col);
+         crate::query_builder::validate_column_identifier(column)?;
+         let sql = DynamicSqlBuilder::select_by_foreign_key_paged(mapping, column);
+         let mut tx = self.begin_readonly_tx().await?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:157:
+-        let rows = sqlx::query(&sql).bind(filter_val).bind(limit).bind(offset).fetch_all(&mut *tx).await.map_err(map_sqlx_error)?;
++        let rows = sqlx::query(&sql)
++            .bind(filter_val)
++            .bind(limit)
++            .bind(offset)
++            .fetch_all(&mut *tx)
++            .await
++            .map_err(map_sqlx_error)?;
+         let mut results = Vec::with_capacity(rows.len());
+         let mut cache = Default::default();
+         for row in rows {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:166:
+         Ok(results)
+     }
+ 
+-    pub async fn find_filtered_fhir(&self, mapping: &ResourceMapping, filter_col: &str, filter_val: i32, limit: i64, offset: i64) -> Result<Vec<Value>> {
+-        self.find_filtered_raw(mapping, filter_col, filter_val, limit, offset).await?.iter().map(|r| evaluate_resource_mapping(mapping, r)).collect()
++    pub async fn find_filtered_fhir(
++        &self,
++        mapping: &ResourceMapping,
++        filter_col: &str,
++        filter_val: i32,
++        limit: i64,
++        offset: i64,
++    ) -> Result<Vec<Value>> {
++        self.find_filtered_raw(mapping, filter_col, filter_val, limit, offset)
++            .await?
++            .iter()
++            .map(|r| evaluate_resource_mapping(mapping, r))
++            .collect()
+     }
+-
+ }
+ 
+ /// Extrae de forma dinámica todas las columnas de una `PgRow` hacia un `Map<String, Value>`.
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:285:
+     for (name, source) in &map {
+         if let Some(resolved) = name.strip_suffix("__source") {
+             if !source.is_null() && map.get(resolved).is_none_or(Value::is_null) {
+-                return Err(MedSysError::ProcessingError(format!("T3 Catálogo sin correspondencia para {resolved}")));
++                return Err(MedSysError::ProcessingError(format!(
++                    "T3 Catálogo sin correspondencia para {resolved}"
++                )));
+             }
+         }
+     }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:353:
+ fn extract_opt_i32(row: &Map<String, Value>, candidates: &[&str]) -> Result<Option<i32>> {
+     for &key in candidates {
+         if let Some(val) = row.get(key) {
+-            if val.is_null() { return Ok(None); }
+-            return extract_i32(row, &[key]).map(Some).ok_or_else(|| MedSysError::ProcessingError(format!("T2 Entero opcional inválido: {key}")));
++            if val.is_null() {
++                return Ok(None);
++            }
++            return extract_i32(row, &[key]).map(Some).ok_or_else(|| {
++                MedSysError::ProcessingError(format!("T2 Entero opcional inválido: {key}"))
++            });
+         }
+     }
+     Ok(None)
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:406:
+         return Some(dt);
+     }
+     if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(trimmed) {
+-        return Some(dt.with_timezone(&chrono_tz::America::Mexico_City).naive_local());
++        return Some(
++            dt.with_timezone(&chrono_tz::America::Mexico_City)
++                .naive_local(),
++        );
+     }
+     None
+ }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:414:
+ /// Canonicaliza instantes a reloj UTC antes del adaptador NaiveDateTime. Los
+ /// timestamps sin offset se interpretan en la zona declarada. Un offset explícito
+ /// conserva su instante aun durante una transición DST; no se elimina la zona.
+-pub fn normalize_row_timezone(mut row: Map<String, Value>, timezone: &str) -> Result<Map<String, Value>> {
++pub fn normalize_row_timezone(
++    mut row: Map<String, Value>,
++    timezone: &str,
++) -> Result<Map<String, Value>> {
+     use chrono::TimeZone;
+-    let tz: chrono_tz::Tz = timezone.parse().map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
+-    for key in ["fecha_hora_inicio", "fecha_hora_fin", "fecha_registro", "fech_ini_txt", "fech_fin_txt", "fech_reg_txt", "fech_sig_txt"] {
++    let tz: chrono_tz::Tz = timezone
++        .parse()
++        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
++    for key in [
++        "fecha_hora_inicio",
++        "fecha_hora_fin",
++        "fecha_registro",
++        "fech_ini_txt",
++        "fech_fin_txt",
++        "fech_reg_txt",
++        "fech_sig_txt",
++    ] {
+         if let Some(Value::String(s)) = row.get(key) {
+             let utc = if let Ok(dt) = chrono::DateTime::parse_from_rfc3339(s.trim()) {
+                 dt.naive_utc()
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:424:
+             } else {
+-                let local = parse_flexible_datetime(s).ok_or_else(|| MedSysError::ProcessingError(format!("T2 Fecha/hora inválida: {key}")))?;
+-                tz.from_local_datetime(&local).single().ok_or_else(|| MedSysError::ProcessingError(format!("T2 Fecha/hora ambigua o inexistente en {timezone}: {s}")))?.naive_utc()
++                let local = parse_flexible_datetime(s).ok_or_else(|| {
++                    MedSysError::ProcessingError(format!("T2 Fecha/hora inválida: {key}"))
++                })?;
++                tz.from_local_datetime(&local)
++                    .single()
++                    .ok_or_else(|| {
++                        MedSysError::ProcessingError(format!(
++                            "T2 Fecha/hora ambigua o inexistente en {timezone}: {s}"
++                        ))
++                    })?
++                    .naive_utc()
+             };
+-            row.insert(key.into(), Value::String(utc.format("%Y-%m-%d %H:%M:%S%.f").to_string()));
++            row.insert(
++                key.into(),
++                Value::String(utc.format("%Y-%m-%d %H:%M:%S%.f").to_string()),
++            );
+         }
+     }
+     Ok(row)
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:558:
+             },
+         )?;
+ 
+-    let sexo_biologico =
+-        extract_opt_string(row, &["sexo_biologico", "des_sexo", "sexo", "sexo_cod", "id_sexo"]);
++    let sexo_biologico = extract_opt_string(
++        row,
++        &["sexo_biologico", "des_sexo", "sexo", "sexo_cod", "id_sexo"],
++    );
+     let telefono_contacto =
+         extract_opt_string(row, &["telefono_contacto", "tel_contacto", "telefono"]);
+     let fecha_registro =
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:620:
+             "id_estado_consulta",
+         ],
+     )
+-    .ok_or_else(|| MedSysError::MissingField { field: "estado_consulta".into(), resource: "LegacyConsulta".into() })?;
++    .ok_or_else(|| MedSysError::MissingField {
++        field: "estado_consulta".into(),
++        resource: "LegacyConsulta".into(),
++    })?;
+ 
+     let motivo_consulta = extract_string(row, &["motivo_consulta", "motivo", "mot_con"])
+         .ok_or_else(|| MedSysError::MissingField {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:644:
+ 
+     let fecha_hora_fin =
+         extract_naive_datetime(row, &["fecha_hora_fin", "fech_fin_txt", "fecha_fin", "fin"])
+-            .ok_or_else(|| MedSysError::MissingField { field: "fecha_hora_fin".into(), resource: "LegacyConsulta".into() })?;
++            .ok_or_else(|| MedSysError::MissingField {
++                field: "fecha_hora_fin".into(),
++                resource: "LegacyConsulta".into(),
++            })?;
+ 
+     let unidad_medica = extract_opt_string(row, &["unidad_medica", "unidad", "clinica"]);
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:726:
+     let frecuencia_respiratoria = extract_opt_i32(row, &["frecuencia_respiratoria", "fr"])?;
+ 
+     // Temperatura: directa o conversión de Fahrenheit a Celsius
+-    let temperatura_celsius =
+-        if let Some(temp) = extract_decimal(row, &["temperatura_celsius", "temp_celsius", "temp_c", "temp"]) {
+-            temp
+-        } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
+-            ((temp_f - Decimal::from(32)) * Decimal::from(5) / Decimal::from(9)).round_dp(1)
+-        } else {
+-            return Err(MedSysError::MissingField {
+-                field: "temperatura_celsius".into(),
+-                resource: "LegacySignoVital".into(),
+-            });
+-        };
++    let temperatura_celsius = if let Some(temp) = extract_decimal(
++        row,
++        &["temperatura_celsius", "temp_celsius", "temp_c", "temp"],
++    ) {
++        temp
++    } else if let Some(temp_f) = extract_decimal(row, &["temperatura_f", "temp_farenheit"]) {
++        ((temp_f - Decimal::from(32)) * Decimal::from(5) / Decimal::from(9)).round_dp(1)
++    } else {
++        return Err(MedSysError::MissingField {
++            field: "temperatura_celsius".into(),
++            resource: "LegacySignoVital".into(),
++        });
++    };
+ 
+     // Peso: directo o conversión de libras a kilogramos (factor 0.45359237)
+     let peso_kg = if let Some(peso) = extract_opt_decimal(row, &["peso_kg", "peso"]) {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:794:
+             resource: "LegacyDiagnostico".into(),
+         })?;
+ 
+-    let codigo_cie10 = extract_string(row, &["codigo_cie10", "cie10", "diag_cod", "codigo", "id_cie10"])
+-        .ok_or_else(|| MedSysError::MissingField {
+-            field: "codigo_cie10".into(),
+-            resource: "LegacyDiagnostico".into(),
+-        })?;
++    let codigo_cie10 = extract_string(
++        row,
++        &["codigo_cie10", "cie10", "diag_cod", "codigo", "id_cie10"],
++    )
++    .ok_or_else(|| MedSysError::MissingField {
++        field: "codigo_cie10".into(),
++        resource: "LegacyDiagnostico".into(),
++    })?;
+ 
+     let descripcion_diagnostico = extract_string(
+         row,
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:810:
+             "desc_diag",
+         ],
+     )
+-    .ok_or_else(|| MedSysError::MissingField { field: "descripcion_diagnostico".into(), resource: "LegacyDiagnostico".into() })?;
++    .ok_or_else(|| MedSysError::MissingField {
++        field: "descripcion_diagnostico".into(),
++        resource: "LegacyDiagnostico".into(),
++    })?;
+ 
+     let tipo_diagnostico = extract_opt_string(
+         row,
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:947:
+     #[test]
+     fn regression_s2_lookup_aliases_and_required_encounter_fields() {
+         let mut patient = json!({"id_paciente":1,"curp":"ROMA900101HCSMNL09","primer_nombre":"Ana","apellido_paterno":"Ramos","fecha_nacimiento":"1990-01-01","id_sexo":"female"}).as_object().unwrap().clone();
+-        assert_eq!(row_to_legacy_paciente(&patient).unwrap().sexo_biologico.as_deref(), Some("female"));
++        assert_eq!(
++            row_to_legacy_paciente(&patient)
++                .unwrap()
++                .sexo_biologico
++                .as_deref(),
++            Some("female")
++        );
+         patient.insert("id_paciente".into(), json!(i64::MAX));
+-        assert!(row_to_legacy_paciente(&patient).is_err(), "integer overflow must reject");
++        assert!(
++            row_to_legacy_paciente(&patient).is_err(),
++            "integer overflow must reject"
++        );
+         let mut encounter = json!({"id_consulta":1,"id_paciente":1,"cedula_medico_tratante":"123","nombre_medico":"Ana","id_estado_consulta":"finished","motivo_consulta":"Control","fecha_hora_inicio":"2026-01-01 10:00:00","fecha_hora_fin":"2026-01-01 11:00:00"}).as_object().unwrap().clone();
+-        assert_eq!(row_to_legacy_consulta(&encounter).unwrap().estado_consulta, "finished");
++        assert_eq!(
++            row_to_legacy_consulta(&encounter).unwrap().estado_consulta,
++            "finished"
++        );
+         encounter.remove("id_estado_consulta");
+-        assert!(row_to_legacy_consulta(&encounter).is_err(), "missing status must reject");
++        assert!(
++            row_to_legacy_consulta(&encounter).is_err(),
++            "missing status must reject"
++        );
+         encounter.insert("estado_consulta".into(), json!("FINALIZADA"));
+         encounter.insert("fecha_hora_fin".into(), json!("invalid"));
+-        assert!(row_to_legacy_consulta(&encounter).is_err(), "invalid end must reject");
++        assert!(
++            row_to_legacy_consulta(&encounter).is_err(),
++            "invalid end must reject"
++        );
+     }
+ 
+     #[test]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\dynamic_repo.rs:963:
+     fn regression_s3_actual_columns_and_optional_corruption() {
+         let mut row = json!({"sig_id":1,"pac_id":1,"con_id":1,"presion_arterial_txt":"120/80","fc":70,"fr":18,"temp_celsius":36.5,"fech_reg_txt":"2026-01-01 10:00:00"}).as_object().unwrap().clone();
+-        assert_eq!(row_to_legacy_signo_vital(&row).unwrap().temperatura_celsius, Decimal::from_str("36.5").unwrap());
++        assert_eq!(
++            row_to_legacy_signo_vital(&row).unwrap().temperatura_celsius,
++            Decimal::from_str("36.5").unwrap()
++        );
+         row.insert("fr".into(), json!("invalid"));
+-        assert!(row_to_legacy_signo_vital(&row).is_err(), "optional corrupt value must not become absent");
++        assert!(
++            row_to_legacy_signo_vital(&row).is_err(),
++            "optional corrupt value must not become absent"
++        );
+         let diag = json!({"diag_id":1,"pac_id":1,"con_id":1,"cie10":"E11.9","desc_diag":"Diabetes","fech_diag_txt":"2026-01-01"}).as_object().unwrap().clone();
+-        assert_eq!(row_to_legacy_diagnostico(&diag).unwrap().descripcion_diagnostico, "Diabetes");
++        assert_eq!(
++            row_to_legacy_diagnostico(&diag)
++                .unwrap()
++                .descripcion_diagnostico,
++            "Diabetes"
++        );
+     }
+-
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-db\src\lib.rs:14:
+ 
+ pub use config::DbConfig;
+ pub use dynamic_repo::{
+-    normalize_row_timezone, pg_row_to_json_map, row_to_legacy_consulta, row_to_legacy_diagnostico, row_to_legacy_paciente,
+-    row_to_legacy_signo_vital, DynamicFhirRepository,
++    normalize_row_timezone, pg_row_to_json_map, row_to_legacy_consulta, row_to_legacy_diagnostico,
++    row_to_legacy_paciente, row_to_legacy_signo_vital, DynamicFhirRepository,
+ };
+ pub use entities::{ConsultaEntity, DiagnosticoEntity, PacienteEntity, SignoVitalEntity};
+ pub use error::{map_sqlx_error, DbError};
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\error.rs:55:
+                 "processing",
+                 format!("Error de procesamiento o corrupción de datos clínicos: {msg}"),
+             ),
+-            ServerError::MethodNotAllowed => (StatusCode::METHOD_NOT_ALLOWED, "not-supported", "Método HTTP no admitido para esta ruta".into()),
++            ServerError::MethodNotAllowed => (
++                StatusCode::METHOD_NOT_ALLOWED,
++                "not-supported",
++                "Método HTTP no admitido para esta ruta".into(),
++            ),
+             ServerError::InvalidPath(msg) => (StatusCode::BAD_REQUEST, "invalid", msg.clone()),
+             ServerError::Domain(MedSysError::DatabaseError(msg)) => (
+                 StatusCode::SERVICE_UNAVAILABLE,
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:1:
+ //! Contrato de lectura FHIR común a S0–S3.
+-use axum::{extract::{Query, rejection::QueryRejection}, http::Uri};
++use crate::{error::ServerError, response::FhirResponse, state::AppState};
++use axum::{
++    extract::{rejection::QueryRejection, Query},
++    http::Uri,
++};
+ use helios_fhir::r4::{BundleLink, Resource};
+-use medsys_core::{create_searchset_bundle, ParentCheckRule, ResourceMapping};
+ use medsys_core::model::fhir_helpers::{fhir_string, fhir_uri};
+-use crate::{error::ServerError, response::FhirResponse, state::AppState};
++use medsys_core::{create_searchset_bundle, ParentCheckRule, ResourceMapping};
+ 
+ pub fn parse_query<T>(query: Result<Query<T>, QueryRejection>) -> Result<T, ServerError> {
+-    query.map(|Query(params)| params).map_err(|e| ServerError::InvalidPath(e.body_text()))
++    query
++        .map(|Query(params)| params)
++        .map_err(|e| ServerError::InvalidPath(e.body_text()))
+ }
+ 
+ /// Proyecta todas las columnas consumidas por el adaptador tipado. La unión de
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:13:
+ /// Observation incluye los cuatro subtipos expuestos; body_weight no se expone.
+ pub fn read_mapping(state: &AppState, resource_type: &str) -> Result<ResourceMapping, ServerError> {
+     let mut mappings = state.mapping_rules.resources.iter().filter(|m| {
+-        m.resource_type == resource_type && (resource_type != "Observation" || m.observation_type.as_deref() != Some("body_weight"))
++        m.resource_type == resource_type
++            && (resource_type != "Observation"
++                || m.observation_type.as_deref() != Some("body_weight"))
+     });
+-    let mut result = mappings.next().cloned().ok_or_else(|| medsys_core::MedSysError::InvalidRule(format!("Falta mapeo {resource_type}")))?;
++    let mut result = mappings.next().cloned().ok_or_else(|| {
++        medsys_core::MedSysError::InvalidRule(format!("Falta mapeo {resource_type}"))
++    })?;
+     if resource_type == "Observation" {
+         result.filter_not_null = None;
+         for other in mappings {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:22:
+-            if other.source_table != result.source_table || other.primary_key != result.primary_key {
++            if other.source_table != result.source_table || other.primary_key != result.primary_key
++            {
+                 return Err(medsys_core::MedSysError::InvalidRule("Los subtipos Observation requieren tabla y clave comunes para el adaptador tipado".into()).into());
+             }
+             for field in &other.mappings {
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:26:
+-                if !result.mappings.contains(field) { result.mappings.push(field.clone()); }
++                if !result.mappings.contains(field) {
++                    result.mappings.push(field.clone());
++                }
+             }
+             for parent in &other.parent_checks {
+-                if !result.parent_checks.contains(parent) { result.parent_checks.push(parent.clone()); }
++                if !result.parent_checks.contains(parent) {
++                    result.parent_checks.push(parent.clone());
++                }
+             }
+         }
+     }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:33:
+     // Las referencias declaradas también se comprueban cuando el DDL carece de FK.
+-    for (target, parent_type) in [("subject.reference", "Patient"), ("encounter.reference", "Encounter")] {
+-        if let Some(child_column) = result.mappings.iter().find(|f| f.target_path == target).and_then(|f| f.source_column.clone()) {
+-            let parent = state.mapping_rules.resources.iter().find(|m| m.resource_type == parent_type)
+-                .ok_or_else(|| medsys_core::MedSysError::InvalidRule(format!("Falta padre {parent_type}")))?;
+-            let rule = ParentCheckRule { foreign_key_column: child_column, parent_table: parent.source_table.clone(), parent_pk: parent.primary_key.clone() };
+-            if !result.parent_checks.contains(&rule) { result.parent_checks.push(rule); }
++    for (target, parent_type) in [
++        ("subject.reference", "Patient"),
++        ("encounter.reference", "Encounter"),
++    ] {
++        if let Some(child_column) = result
++            .mappings
++            .iter()
++            .find(|f| f.target_path == target)
++            .and_then(|f| f.source_column.clone())
++        {
++            let parent = state
++                .mapping_rules
++                .resources
++                .iter()
++                .find(|m| m.resource_type == parent_type)
++                .ok_or_else(|| {
++                    medsys_core::MedSysError::InvalidRule(format!("Falta padre {parent_type}"))
++                })?;
++            let rule = ParentCheckRule {
++                foreign_key_column: child_column,
++                parent_table: parent.source_table.clone(),
++                parent_pk: parent.primary_key.clone(),
++            };
++            if !result.parent_checks.contains(&rule) {
++                result.parent_checks.push(rule);
++            }
+         }
+     }
+     Ok(result)
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:43:
+ }
+ 
+-pub fn normalize_row(state: &AppState, row: serde_json::Map<String, serde_json::Value>) -> Result<serde_json::Map<String, serde_json::Value>, ServerError> {
+-    Ok(medsys_db::normalize_row_timezone(row, &state.mapping_rules.timezone_default)?)
++pub fn normalize_row(
++    state: &AppState,
++    row: serde_json::Map<String, serde_json::Value>,
++) -> Result<serde_json::Map<String, serde_json::Value>, ServerError> {
++    Ok(medsys_db::normalize_row_timezone(
++        row,
++        &state.mapping_rules.timezone_default,
++    )?)
+ }
+ 
+ /// Los adaptadores recibieron relojes UTC; los constructores deben conservar
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:57:
+ /// Pagina recursos, no filas SQL. total cuenta todas las coincidencias antes de paginar.
+ pub fn bundle_page(resources: Vec<Resource>, limit: i64, offset: i64, uri: &Uri) -> FhirResponse {
+     let total = resources.len();
+-    let page = resources.into_iter().skip(offset as usize).take(limit as usize).collect();
++    let page = resources
++        .into_iter()
++        .skip(offset as usize)
++        .take(limit as usize)
++        .collect();
+     let mut bundle = create_searchset_bundle(None, page, Some(total));
+-    let base_params: Vec<_> = uri.query().unwrap_or("").split('&').filter(|part| {
+-        let key = part.split('=').next().unwrap_or("");
+-        !part.is_empty() && key != "limit" && key != "offset"
+-    }).collect();
++    let base_params: Vec<_> = uri
++        .query()
++        .unwrap_or("")
++        .split('&')
++        .filter(|part| {
++            let key = part.split('=').next().unwrap_or("");
++            !part.is_empty() && key != "limit" && key != "offset"
++        })
++        .collect();
+     let link = |relation: &str, start: i64| {
+         let mut params = base_params.clone();
+         let count = format!("limit={limit}");
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:69:
+         let page = format!("offset={start}");
+-        params.push(&count); params.push(&page);
+-        BundleLink { relation: fhir_string(relation), url: fhir_uri(format!("{}?{}", uri.path(), params.join("&"))), ..Default::default() }
++        params.push(&count);
++        params.push(&page);
++        BundleLink {
++            relation: fhir_string(relation),
++            url: fhir_uri(format!("{}?{}", uri.path(), params.join("&"))),
++            ..Default::default()
++        }
+     };
+     let mut links = vec![link("self", offset)];
+-    if offset.saturating_add(limit) < total as i64 { links.push(link("next", offset + limit)); }
+-    if offset > 0 { links.push(link("previous", offset.saturating_sub(limit).max(0))); }
++    if offset.saturating_add(limit) < total as i64 {
++        links.push(link("next", offset + limit));
++    }
++    if offset > 0 {
++        links.push(link("previous", offset.saturating_sub(limit).max(0)));
++    }
+     bundle.link = Some(links);
+     FhirResponse(Resource::Bundle(Box::new(bundle)))
+ }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:80:
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use medsys_db::{DbConfig, init_pool_lazy, MedsysRepositories, DynamicSqlBuilder};
++    use medsys_db::{init_pool_lazy, DbConfig, DynamicSqlBuilder, MedsysRepositories};
+     #[tokio::test]
+     async fn observation_projection_contains_all_adaptor_fields_s0_s3() {
+         for (yaml, expected) in [
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:87:
+-            (include_str!("../../../../config/mapping_rules_s0.yaml"), ["presion_sistolica", "frecuencia_cardiaca", "temperatura_celsius", "frecuencia_respiratoria"]),
+-            (include_str!("../../../../config/mapping_rules_s1.yaml"), ["presion_sistolica", "frecuencia_cardiaca", "temperatura_celsius", "frecuencia_respiratoria"]),
+-            (include_str!("../../../../config/mapping_rules_s2.yaml"), ["presion_sistolica", "frecuencia_cardiaca", "temperatura_celsius", "frecuencia_respiratoria"]),
+-            (include_str!("../../../../config/mapping_rules_s3.yaml"), ["presion_arterial_txt", "fc", "temp_celsius", "fr"]),
++            (
++                include_str!("../../../../config/mapping_rules_s0.yaml"),
++                [
++                    "presion_sistolica",
++                    "frecuencia_cardiaca",
++                    "temperatura_celsius",
++                    "frecuencia_respiratoria",
++                ],
++            ),
++            (
++                include_str!("../../../../config/mapping_rules_s1.yaml"),
++                [
++                    "presion_sistolica",
++                    "frecuencia_cardiaca",
++                    "temperatura_celsius",
++                    "frecuencia_respiratoria",
++                ],
++            ),
++            (
++                include_str!("../../../../config/mapping_rules_s2.yaml"),
++                [
++                    "presion_sistolica",
++                    "frecuencia_cardiaca",
++                    "temperatura_celsius",
++                    "frecuencia_respiratoria",
++                ],
++            ),
++            (
++                include_str!("../../../../config/mapping_rules_s3.yaml"),
++                ["presion_arterial_txt", "fc", "temp_celsius", "fr"],
++            ),
+         ] {
+-            let pool=init_pool_lazy(&DbConfig::default()).unwrap();
+-            let state=AppState::new(MedsysRepositories::new(pool.clone()),medsys_core::parse_mapping_rules(yaml).unwrap(),pool);
+-            let mapping=read_mapping(&state,"Observation").unwrap();
+-            let sql=DynamicSqlBuilder::select_by_id(&mapping);
+-            println!("{}: {sql}",mapping.source_table);
+-            for column in expected { assert!(sql.contains(&format!("t0.{column}")), "missing {column}: {sql}"); }
++            let pool = init_pool_lazy(&DbConfig::default()).unwrap();
++            let state = AppState::new(
++                MedsysRepositories::new(pool.clone()),
++                medsys_core::parse_mapping_rules(yaml).unwrap(),
++                pool,
++            );
++            let mapping = read_mapping(&state, "Observation").unwrap();
++            let sql = DynamicSqlBuilder::select_by_id(&mapping);
++            println!("{}: {sql}", mapping.source_table);
++            for column in expected {
++                assert!(
++                    sql.contains(&format!("t0.{column}")),
++                    "missing {column}: {sql}"
++                );
++            }
+             assert!(!sql.contains("peso_libras"));
+             assert!(!sql.contains("IS NOT NULL"));
+-            assert_eq!(mapping.parent_checks.len(),2);
++            assert_eq!(mapping.parent_checks.len(), 2);
+         }
+     }
+     #[test]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\common.rs:104:
+     fn resource_page_total_and_links_are_global() {
+-        let resources=(0..5).map(|_| Resource::Bundle(Box::default())).collect();
+-        let FhirResponse(Resource::Bundle(bundle))=bundle_page(resources,2,2,&"/fhir/r4/Observation?patient=1&limit=2&offset=2".parse().unwrap()) else { panic!("bundle"); };
+-        let v=serde_json::to_value(bundle).unwrap();
+-        assert_eq!(v["total"],5);
+-        assert_eq!(v["entry"].as_array().unwrap().len(),2);
+-        assert_eq!(v["link"][1]["url"],"/fhir/r4/Observation?patient=1&limit=2&offset=4");
++        let resources = (0..5).map(|_| Resource::Bundle(Box::default())).collect();
++        let FhirResponse(Resource::Bundle(bundle)) = bundle_page(
++            resources,
++            2,
++            2,
++            &"/fhir/r4/Observation?patient=1&limit=2&offset=2"
++                .parse()
++                .unwrap(),
++        ) else {
++            panic!("bundle");
++        };
++        let v = serde_json::to_value(bundle).unwrap();
++        assert_eq!(v["total"], 5);
++        assert_eq!(v["entry"].as_array().unwrap().len(), 2);
++        assert_eq!(
++            v["link"][1]["url"],
++            "/fhir/r4/Observation?patient=1&limit=2&offset=4"
++        );
+     }
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\condition.rs:1:
+ //! Manejadores HTTP para el recurso FHIR `Condition` (Diagnósticos CIE-10).
+ 
+-use axum::extract::{Path, Query, State, OriginalUri, rejection::QueryRejection};
++use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
+ use helios_fhir::r4::Resource;
+-use medsys_core::{ transform_condition};
++use medsys_core::transform_condition;
+ use serde::Deserialize;
+ 
++use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
+ use crate::error::ServerError;
+ use crate::response::FhirResponse;
+ use crate::state::AppState;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\condition.rs:11:
+-use super::common::{read_mapping, normalize_row, parse_query, bundle_page, output_rules};
+ 
+ /// Parámetros de consulta para búsqueda de diagnósticos.
+ #[derive(Debug, Deserialize, Default)]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\condition.rs:64:
+     let params = parse_query(query)?;
+     let rules = output_rules(&state);
+     let mapping = read_mapping(&state, "Condition")?;
+-    let rows = state.repositories.dynamic.find_all_raw(&mapping, i64::MAX, 0).await?;
++    let rows = state
++        .repositories
++        .dynamic
++        .find_all_raw(&mapping, i64::MAX, 0)
++        .await?;
+     let mut resources = Vec::new();
+     for row in rows {
+         let diagnostico = medsys_db::row_to_legacy_diagnostico(&normalize_row(&state, row)?)?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\condition.rs:71:
+-        if params.patient.is_some_and(|id| diagnostico.id_paciente != id) { continue; }
+-        if params.encounter.is_some_and(|id| diagnostico.id_consulta != id) { continue; }
+-        if params.code.as_ref().is_some_and(|code| diagnostico.codigo_cie10 != *code) { continue; }
++        if params
++            .patient
++            .is_some_and(|id| diagnostico.id_paciente != id)
++        {
++            continue;
++        }
++        if params
++            .encounter
++            .is_some_and(|id| diagnostico.id_consulta != id)
++        {
++            continue;
++        }
++        if params
++            .code
++            .as_ref()
++            .is_some_and(|code| diagnostico.codigo_cie10 != *code)
++        {
++            continue;
++        }
+         let value = transform_condition(&diagnostico, Some(&rules))?;
+         resources.push(Resource::Condition(Box::new(value)));
+     }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\condition.rs:77:
+-    Ok(bundle_page(resources, params.limit(), params.offset(), &uri))
++    Ok(bundle_page(
++        resources,
++        params.limit(),
++        params.offset(),
++        &uri,
++    ))
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\encounter.rs:1:
+ //! Manejadores HTTP para el recurso FHIR `Encounter`.
+ 
+-use axum::extract::{Path, Query, State, OriginalUri, rejection::QueryRejection};
++use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
+ use helios_fhir::r4::Resource;
+-use medsys_core::{ transform_encounter};
++use medsys_core::transform_encounter;
+ use serde::Deserialize;
+ 
++use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
+ use crate::error::ServerError;
+ use crate::response::FhirResponse;
+ use crate::state::AppState;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\encounter.rs:11:
+-use super::common::{read_mapping, normalize_row, parse_query, bundle_page, output_rules};
+ 
+ /// Parámetros de consulta para búsqueda de encuentros.
+ #[derive(Debug, Deserialize, Default)]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\encounter.rs:62:
+     let params = parse_query(query)?;
+     let rules = output_rules(&state);
+     let mapping = read_mapping(&state, "Encounter")?;
+-    let rows = state.repositories.dynamic.find_all_raw(&mapping, i64::MAX, 0).await?;
++    let rows = state
++        .repositories
++        .dynamic
++        .find_all_raw(&mapping, i64::MAX, 0)
++        .await?;
+     let mut resources = Vec::new();
+     for row in rows {
+         let consulta = medsys_db::row_to_legacy_consulta(&normalize_row(&state, row)?)?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\encounter.rs:69:
+-        if params.patient.is_some_and(|id| consulta.id_paciente != id) { continue; }
++        if params.patient.is_some_and(|id| consulta.id_paciente != id) {
++            continue;
++        }
+         let value = transform_encounter(&consulta, Some(&rules))?;
+         resources.push(Resource::Encounter(Box::new(value)));
+     }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\encounter.rs:73:
+-    Ok(bundle_page(resources, params.limit(), params.offset(), &uri))
++    Ok(bundle_page(
++        resources,
++        params.limit(),
++        params.offset(),
++        &uri,
++    ))
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\health.rs:1:
+ //! Manejadores HTTP para monitoreo de salud del servidor y la base de datos.
+ 
+ use axum::extract::State;
+-use axum::{Json, http::StatusCode};
++use axum::{http::StatusCode, Json};
+ use serde::Serialize;
+ 
+ use crate::state::AppState;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\health.rs:21:
+ pub async fn health_check(State(state): State<AppState>) -> (StatusCode, Json<HealthResponse>) {
+     let db_ok = sqlx::query("SELECT 1").execute(&state.pool).await.is_ok();
+ 
+-    (if db_ok { StatusCode::OK } else { StatusCode::SERVICE_UNAVAILABLE }, Json(HealthResponse {
+-        status: if db_ok { "ok" } else { "degraded" },
+-        server_name: "MedSys-FHIR",
+-        server_version: env!("CARGO_PKG_VERSION"),
+-        uptime_seconds: state.uptime_secs(),
+-        database_status: if db_ok { "connected" } else { "disconnected" },
+-        fhir_version: "R4 (4.0.1)",
+-    }))
++    (
++        if db_ok {
++            StatusCode::OK
++        } else {
++            StatusCode::SERVICE_UNAVAILABLE
++        },
++        Json(HealthResponse {
++            status: if db_ok { "ok" } else { "degraded" },
++            server_name: "MedSys-FHIR",
++            server_version: env!("CARGO_PKG_VERSION"),
++            uptime_seconds: state.uptime_secs(),
++            database_status: if db_ok { "connected" } else { "disconnected" },
++            fhir_version: "R4 (4.0.1)",
++        }),
++    )
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:1:
+ //! Manejadores HTTP para el recurso FHIR `Observation`.
+ //! Implementa el desacoplamiento canónico de signos vitales (Presión Arterial, Temperatura, Frecuencia Cardíaca y Frecuencia Respiratoria).
+ 
+-use axum::extract::{Path, Query, State, OriginalUri, rejection::QueryRejection};
++use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
+ use helios_fhir::r4::Resource;
+ use medsys_core::{
+-    transform_observation_blood_pressure,
+-    transform_observation_heart_rate, transform_observation_respiratory_rate,
+-    transform_observation_temperature,
++    transform_observation_blood_pressure, transform_observation_heart_rate,
++    transform_observation_respiratory_rate, transform_observation_temperature,
+ };
+ use serde::Deserialize;
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:13:
++use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
+ use crate::error::ServerError;
+ use crate::response::FhirResponse;
+ use crate::state::AppState;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:16:
+-use super::common::{read_mapping, normalize_row, parse_query, bundle_page, output_rules};
+ 
+ /// Parámetros de consulta para búsqueda de observaciones clínicas.
+ #[derive(Debug, Deserialize, Default)]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:120:
+     let params = parse_query(query)?;
+     let rules = output_rules(&state);
+     let mapping = read_mapping(&state, "Observation")?;
+-    let rows = state.repositories.dynamic.find_all_raw(&mapping, i64::MAX, 0).await?;
++    let rows = state
++        .repositories
++        .dynamic
++        .find_all_raw(&mapping, i64::MAX, 0)
++        .await?;
+     let mut resources = Vec::new();
+     for row in rows {
+         let s = medsys_db::row_to_legacy_signo_vital(&normalize_row(&state, row)?)?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:127:
+-        if params.patient.is_some_and(|id| s.id_paciente != id) { continue; }
+-        if params.encounter.is_some_and(|id| s.id_consulta != id) { continue; }
+-        resources.push(Resource::Observation(Box::new(transform_observation_blood_pressure(&s, Some(&rules))?)));
+-        resources.push(Resource::Observation(Box::new(transform_observation_temperature(&s, Some(&rules))?)));
+-        resources.push(Resource::Observation(Box::new(transform_observation_heart_rate(&s, Some(&rules))?)));
++        if params.patient.is_some_and(|id| s.id_paciente != id) {
++            continue;
++        }
++        if params.encounter.is_some_and(|id| s.id_consulta != id) {
++            continue;
++        }
++        resources.push(Resource::Observation(Box::new(
++            transform_observation_blood_pressure(&s, Some(&rules))?,
++        )));
++        resources.push(Resource::Observation(Box::new(
++            transform_observation_temperature(&s, Some(&rules))?,
++        )));
++        resources.push(Resource::Observation(Box::new(
++            transform_observation_heart_rate(&s, Some(&rules))?,
++        )));
+         if let Some(obs) = transform_observation_respiratory_rate(&s, Some(&rules))? {
+             resources.push(Resource::Observation(Box::new(obs)));
+         }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\observation.rs:135:
+     }
+-    Ok(bundle_page(resources, params.limit(), params.offset(), &uri))
++    Ok(bundle_page(
++        resources,
++        params.limit(),
++        params.offset(),
++        &uri,
++    ))
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\patient.rs:1:
+ //! Manejadores HTTP para el recurso FHIR `Patient`.
+ 
+-use axum::extract::{Path, Query, State, OriginalUri, rejection::QueryRejection};
++use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
+ use helios_fhir::r4::Resource;
+-use medsys_core::{ transform_patient};
++use medsys_core::transform_patient;
+ use serde::Deserialize;
+ 
++use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
+ use crate::error::ServerError;
+ use crate::response::FhirResponse;
+ use crate::state::AppState;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\patient.rs:11:
+-use super::common::{read_mapping, normalize_row, parse_query, bundle_page, output_rules};
+ 
+ /// Parámetros opcionales de paginación para consultas de colección.
+ #[derive(Debug, Deserialize, Default)]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\patient.rs:60:
+     let params = parse_query(query)?;
+     let rules = output_rules(&state);
+     let mapping = read_mapping(&state, "Patient")?;
+-    let rows = state.repositories.dynamic.find_all_raw(&mapping, i64::MAX, 0).await?;
++    let rows = state
++        .repositories
++        .dynamic
++        .find_all_raw(&mapping, i64::MAX, 0)
++        .await?;
+     let mut resources = Vec::new();
+     for row in rows {
+         let paciente = medsys_db::row_to_legacy_paciente(&normalize_row(&state, row)?)?;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\src\handlers\patient.rs:67:
+         let value = transform_patient(&paciente, Some(&rules))?;
+         resources.push(Resource::Patient(Box::new(value)));
+     }
+-    Ok(bundle_page(resources, params.limit(), params.offset(), &uri))
++    Ok(bundle_page(
++        resources,
++        params.limit(),
++        params.offset(),
++        &uri,
++    ))
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\e2e_interoperability.rs:398:
+ 
+     for (name, yaml_content) in configs {
+         let config = DbConfig::default();
+-        let pool = init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
++        let pool =
++            init_pool_lazy(&config).expect("Inicialización de pool de prueba debe tener éxito");
+         let repos = MedsysRepositories::new(pool.clone());
+         let mapping_rules = parse_mapping_rules(yaml_content)
+             .unwrap_or_else(|e| panic!("Reglas YAML {name} deben ser válidas: {e}"));
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\e2e_interoperability.rs:406:
+         let app = create_router(state);
+ 
+         // Validar endpoint de salud
+-        let req_health = Request::builder().uri("/health").body(Body::empty()).unwrap();
++        let req_health = Request::builder()
++            .uri("/health")
++            .body(Body::empty())
++            .unwrap();
+         let res_health = app.clone().oneshot(req_health).await.unwrap();
+         assert_eq!(res_health.status(), StatusCode::OK);
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\e2e_interoperability.rs:418:
+         let res_bad = app.oneshot(req_bad).await.unwrap();
+         assert_eq!(res_bad.status(), StatusCode::BAD_REQUEST);
+         let body_bad = body_to_string(res_bad).await;
+-        assert!(body_bad.contains("\"resourceType\": \"OperationOutcome\""), "Error en {name}");
++        assert!(
++            body_bad.contains("\"resourceType\": \"OperationOutcome\""),
++            "Error en {name}"
++        );
+     }
+ }
+-
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:1:
+-use axum::{body::Body, http::{Request, StatusCode}};
++use axum::{
++    body::Body,
++    http::{Request, StatusCode},
++};
+ use chrono::NaiveDate;
+ use http_body_util::BodyExt;
+-use medsys_core::{parse_mapping_rules, transform_condition, LegacyDiagnostico};
+ use medsys_core::model::fhir_helpers::fhir_datetime;
++use medsys_core::{parse_mapping_rules, transform_condition, LegacyDiagnostico};
+ use medsys_db::{init_pool_lazy, DbConfig, MedsysRepositories};
+ use medsys_server::{create_router, AppState};
+ use tower::ServiceExt;
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:9:
+ 
+ fn disconnected_app() -> axum::Router {
+-    let cfg = DbConfig { database_url: "postgres://synthetic:synthetic@127.0.0.1:9/synthetic".into(), acquire_timeout_secs: 1, min_connections: 0, ..Default::default() };
++    let cfg = DbConfig {
++        database_url: "postgres://synthetic:synthetic@127.0.0.1:9/synthetic".into(),
++        acquire_timeout_secs: 1,
++        min_connections: 0,
++        ..Default::default()
++    };
+     let pool = init_pool_lazy(&cfg).unwrap();
+-    create_router(AppState::new(MedsysRepositories::new(pool.clone()), parse_mapping_rules(include_str!("../../../config/mapping_rules_s0.yaml")).unwrap(), pool))
++    create_router(AppState::new(
++        MedsysRepositories::new(pool.clone()),
++        parse_mapping_rules(include_str!("../../../config/mapping_rules_s0.yaml")).unwrap(),
++        pool,
++    ))
+ }
+ 
+ #[test]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:17:
+ fn regression_datetime_requires_offset_and_preserves_fraction() {
+-    let dt = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap().and_hms_nano_opt(10, 0, 0, 123_456_000).unwrap();
++    let dt = NaiveDate::from_ymd_opt(2026, 1, 1)
++        .unwrap()
++        .and_hms_nano_opt(10, 0, 0, 123_456_000)
++        .unwrap();
+     let value = serde_json::to_value(fhir_datetime(dt).unwrap()).unwrap();
+     let text = value.as_str().unwrap();
+     assert!(text.ends_with("-06:00"), "observed {text}");
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:22:
+     assert!(text.contains(".123456"), "observed {text}");
+-    let ambiguous = NaiveDate::from_ymd_opt(2021, 10, 31).unwrap().and_hms_opt(1, 30, 0).unwrap();
+-    assert!(fhir_datetime(ambiguous).is_err(), "ambiguous local clock must reject");
++    let ambiguous = NaiveDate::from_ymd_opt(2021, 10, 31)
++        .unwrap()
++        .and_hms_opt(1, 30, 0)
++        .unwrap();
++    assert!(
++        fhir_datetime(ambiguous).is_err(),
++        "ambiguous local clock must reject"
++    );
+ }
+ 
+ #[test]
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:28:
+ fn regression_condition_preserves_date_precision() {
+-    let d = LegacyDiagnostico { id_diagnostico: 1, id_consulta: 1, id_paciente: 1, codigo_cie10: "E11.9".into(), descripcion_diagnostico: "Diabetes".into(), tipo_diagnostico: None, fecha_diagnostico: NaiveDate::from_ymd_opt(2026,1,1).unwrap() };
+-    let v=serde_json::to_value(transform_condition(&d, None).unwrap()).unwrap();
++    let d = LegacyDiagnostico {
++        id_diagnostico: 1,
++        id_consulta: 1,
++        id_paciente: 1,
++        codigo_cie10: "E11.9".into(),
++        descripcion_diagnostico: "Diabetes".into(),
++        tipo_diagnostico: None,
++        fecha_diagnostico: NaiveDate::from_ymd_opt(2026, 1, 1).unwrap(),
++    };
++    let v = serde_json::to_value(transform_condition(&d, None).unwrap()).unwrap();
+     assert_eq!(v["recordedDate"], "2026-01-01");
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:34:
+ #[tokio::test]
+ async fn regression_query_and_method_are_operation_outcome() {
+-    for (method, uri, status) in [("GET", "/fhir/r4/Patient?limit=wrong", StatusCode::BAD_REQUEST), ("POST", "/fhir/r4/Patient", StatusCode::METHOD_NOT_ALLOWED)] {
+-        let res=disconnected_app().oneshot(Request::builder().method(method).uri(uri).body(Body::empty()).unwrap()).await.unwrap();
++    for (method, uri, status) in [
++        (
++            "GET",
++            "/fhir/r4/Patient?limit=wrong",
++            StatusCode::BAD_REQUEST,
++        ),
++        ("POST", "/fhir/r4/Patient", StatusCode::METHOD_NOT_ALLOWED),
++    ] {
++        let res = disconnected_app()
++            .oneshot(
++                Request::builder()
++                    .method(method)
++                    .uri(uri)
++                    .body(Body::empty())
++                    .unwrap(),
++            )
++            .await
++            .unwrap();
+         assert_eq!(res.status(), status);
+-        assert!(res.headers()["content-type"].to_str().unwrap().starts_with("application/fhir+json"));
+-        let bytes=res.into_body().collect().await.unwrap().to_bytes();
+-        let v:serde_json::Value=serde_json::from_slice(&bytes).unwrap();
++        assert!(res.headers()["content-type"]
++            .to_str()
++            .unwrap()
++            .starts_with("application/fhir+json"));
++        let bytes = res.into_body().collect().await.unwrap().to_bytes();
++        let v: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
+         assert_eq!(v["resourceType"], "OperationOutcome");
+     }
+ }
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:45:
+ 
+ #[tokio::test]
+ async fn regression_disconnected_health_is_service_unavailable() {
+-    let res=disconnected_app().oneshot(Request::builder().uri("/health").body(Body::empty()).unwrap()).await.unwrap();
++    let res = disconnected_app()
++        .oneshot(
++            Request::builder()
++                .uri("/health")
++                .body(Body::empty())
++                .unwrap(),
++        )
++        .await
++        .unwrap();
+     assert_eq!(res.status(), StatusCode::SERVICE_UNAVAILABLE);
+-    let bytes=res.into_body().collect().await.unwrap().to_bytes();
+-    let v:serde_json::Value=serde_json::from_slice(&bytes).unwrap();
++    let bytes = res.into_body().collect().await.unwrap().to_bytes();
++    let v: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
+     assert_eq!(v["status"], "degraded");
+ }
+ 
+Diff in \\?\D:\Proyectos X\MedSys-FHIR\crates\medsys-server\tests\regression_runtime_contract.rs:55:
+ #[test]
+ fn regression_required_source_cannot_fall_back_to_constant() {
+-    let rule=medsys_core::FieldMapping { source_column: Some("observed".into()), constant_value: Some("invented".into()), target_path: "status".into(), ..Default::default() };
+-    let mut target=serde_json::json!({});
+-    assert!(medsys_core::evaluate_field_mapping(&rule,"Observation",&serde_json::Map::new(),&mut target).is_err());
++    let rule = medsys_core::FieldMapping {
++        source_column: Some("observed".into()),
++        constant_value: Some("invented".into()),
++        target_path: "status".into(),
++        ..Default::default()
++    };
++    let mut target = serde_json::json!({});
++    assert!(medsys_core::evaluate_field_mapping(
++        &rule,
++        "Observation",
++        &serde_json::Map::new(),
++        &mut target
++    )
++    .is_err());
+ }
+ 

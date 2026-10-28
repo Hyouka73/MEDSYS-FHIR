@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "464",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXC630522MCSSXL24"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Daniela Castro",
+      "family": "Castro",
+      "given": [
+        "Claudia",
+        "Daniela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616915042",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-05-22"
+}

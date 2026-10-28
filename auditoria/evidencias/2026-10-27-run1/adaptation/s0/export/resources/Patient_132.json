@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "132",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEGE040124HCSRND52"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Gabriel Hernandez Gonzalez",
+      "family": "Hernandez Gonzalez",
+      "given": [
+        "Eduardo",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616827230",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2004-01-24"
+}

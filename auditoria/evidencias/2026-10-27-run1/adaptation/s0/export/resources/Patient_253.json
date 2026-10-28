@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "253",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUJT000620MCSTMR83"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Teresa Maria Gutierrez Jimenez",
+      "family": "Gutierrez Jimenez",
+      "given": [
+        "Teresa",
+        "Maria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613719179",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2000-06-20"
+}

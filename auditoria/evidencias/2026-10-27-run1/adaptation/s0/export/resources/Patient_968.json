@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "968",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOOG500910MCSPRD78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Gabriela Lopez Ortiz",
+      "family": "Lopez Ortiz",
+      "given": [
+        "Guadalupe",
+        "Gabriela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613245824",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1950-09-10"
+}

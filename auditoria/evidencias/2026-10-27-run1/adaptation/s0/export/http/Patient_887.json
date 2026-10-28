@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/887",
+  "started_utc": "2026-10-28T02:56:30.240826+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "531",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"887\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REPM981231HCSYRG87\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Reyes Perez\",\n      \"family\": \"Reyes Perez\",\n      \"given\": [\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614723381\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1998-12-31\"\n}",
+  "body_bytes": 531,
+  "body_sha256": "87d44d3d57d66d3bab8f7e84ded12a7ff45dfc5efc44762d956a4c6eafea141d",
+  "elapsed_seconds": 0.0057694000424817204,
+  "resource": "Patient/887",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1313",
+  "started_utc": "2026-10-28T02:55:33.019369+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1075",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:33 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1313\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"provisional\",\n        \"display\": \"Provisional\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"I10\",\n        \"display\": \"Hipertensión esencial (primaria)\"\n      }\n    ],\n    \"text\": \"Hipertensión esencial (primaria)\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/630\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1313\"\n  },\n  \"recordedDate\": \"2025-02-18\"\n}",
+  "body_bytes": 1075,
+  "body_sha256": "c119515d76204860f7277ef0d0bb256ed0e63ad9251106b6269208c686a3679a",
+  "elapsed_seconds": 0.016838799987453967,
+  "resource": "Condition/1313",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

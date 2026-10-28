@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "271",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORM910215HCSRYR11"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Carlos Morales Reyes",
+      "family": "Morales Reyes",
+      "given": [
+        "Mario",
+        "Carlos"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1991-02-15"
+}

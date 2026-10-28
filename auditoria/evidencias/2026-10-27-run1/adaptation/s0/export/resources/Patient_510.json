@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "510",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAMG040216HCSRNB70"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Andres Vargas Mendez",
+      "family": "Vargas Mendez",
+      "given": [
+        "Gabriel",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612298305",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2004-02-16"
+}

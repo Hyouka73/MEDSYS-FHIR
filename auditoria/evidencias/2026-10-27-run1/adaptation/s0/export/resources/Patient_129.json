@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "129",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAHA471217HCSNRR49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Salvador Sanchez Hernandez",
+      "family": "Sanchez Hernandez",
+      "given": [
+        "Armando",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614639066",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1947-12-17"
+}

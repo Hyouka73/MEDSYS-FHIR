@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/801",
+  "started_utc": "2026-10-28T02:56:29.956584+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "529",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"801\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GAGR781121HCSRML91\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Raul Garcia Gomez\",\n      \"family\": \"Garcia Gomez\",\n      \"given\": [\n        \"Raul\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611272542\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1978-11-21\"\n}",
+  "body_bytes": 529,
+  "body_sha256": "5c514ef50b5c6af60ce828f934a8599a963a4b2314c7335aa4feb79507b9131b",
+  "elapsed_seconds": 0.028128599980846047,
+  "resource": "Patient/801",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

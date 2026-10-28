@@ -1,0 +1,51 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 1000,
+  "link": [
+    {
+      "relation": "self",
+      "url": "/fhir/r4/Patient?limit=1&offset=0"
+    },
+    {
+      "relation": "next",
+      "url": "/fhir/r4/Patient?limit=1&offset=1"
+    }
+  ],
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1",
+        "identifier": [
+          {
+            "use": "official",
+            "system": "urn:oid:2.16.840.1.113883.4.629",
+            "value": "ROMA900101HCSMNL09"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "Alberto Manuel Ramos Gómez",
+            "family": "Ramos Gómez",
+            "given": [
+              "Alberto",
+              "Manuel"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "9611234567",
+            "use": "mobile"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1990-01-01"
+      }
+    }
+  ]
+}

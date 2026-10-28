@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/117",
+  "started_utc": "2026-10-28T02:55:32.552776+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "858",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:32 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"117\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"E78.5\",\n        \"display\": \"Hiperlipidemia, no especificada\"\n      }\n    ],\n    \"text\": \"Hiperlipidemia, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/478\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/117\"\n  },\n  \"recordedDate\": \"2025-02-15\"\n}",
+  "body_bytes": 858,
+  "body_sha256": "41995f71f8f24fcc454a021133b89cff14a3d465e804b825ade818409f6a8051",
+  "elapsed_seconds": 0.008035700011532754,
+  "resource": "Condition/117",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

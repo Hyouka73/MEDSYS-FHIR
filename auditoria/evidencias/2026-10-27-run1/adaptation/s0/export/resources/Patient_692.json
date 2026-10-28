@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "692",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOME941110MCSRNL72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Paola Morales Mendoza",
+      "family": "Morales Mendoza",
+      "given": [
+        "Elena",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617320259",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1994-11-10"
+}

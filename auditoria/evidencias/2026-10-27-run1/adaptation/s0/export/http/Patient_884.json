@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/884",
+  "started_utc": "2026-10-28T02:56:30.232673+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "448",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"884\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAMM021105HCSSNN84\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Manuel Hugo Castro Mendez\",\n      \"family\": \"Castro Mendez\",\n      \"given\": [\n        \"Manuel\",\n        \"Hugo\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2002-11-05\"\n}",
+  "body_bytes": 448,
+  "body_sha256": "7bd9b38df1f07901c0d5e4c770d8b3bd3f234506306d61289ee40899f1cd9abf",
+  "elapsed_seconds": 0.02127570001175627,
+  "resource": "Patient/884",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

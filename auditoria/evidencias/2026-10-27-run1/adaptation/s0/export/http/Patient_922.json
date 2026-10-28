@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/922",
+  "started_utc": "2026-10-28T02:56:30.356691+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "525",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"922\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"DIDR020803MCSZZS32\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rosa Diaz Diaz\",\n      \"family\": \"Diaz Diaz\",\n      \"given\": [\n        \"Rosa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619611730\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2002-08-03\"\n}",
+  "body_bytes": 525,
+  "body_sha256": "a9e5eae45e561493374614859605a83d981c6622ede6ab6c17d888d3702c0846",
+  "elapsed_seconds": 0.009498200030066073,
+  "resource": "Patient/922",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

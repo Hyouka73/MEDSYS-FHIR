@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/5",
+  "started_utc": "2026-10-28T02:56:29.010636+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"5\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"DIRG110213MCSZML15\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gloria Paola Diaz Ramirez\",\n      \"family\": \"Diaz Ramirez\",\n      \"given\": [\n        \"Gloria\",\n        \"Paola\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612863318\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2011-02-13\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "d6ac668a4c35799d4215c264ff6a67b7bbb5bee31f4ff451f5368361da8a9ed0",
+  "elapsed_seconds": 0.02219739998690784,
+  "resource": "Patient/5",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

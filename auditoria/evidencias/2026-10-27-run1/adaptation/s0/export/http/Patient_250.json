@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/250",
+  "started_utc": "2026-10-28T02:56:28.233442+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"250\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROPA000622HCSDRR80\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Armando Salvador Rodriguez Perez\",\n      \"family\": \"Rodriguez Perez\",\n      \"given\": [\n        \"Armando\",\n        \"Salvador\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612679778\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2000-06-22\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "cdfc1caec227062addad0812a1b044ba62d9d6845bf0e24482e7cfe70941fd4b",
+  "elapsed_seconds": 0.020651500031817704,
+  "resource": "Patient/250",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

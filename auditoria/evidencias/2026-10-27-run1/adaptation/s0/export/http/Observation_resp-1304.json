@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/resp-1304",
+  "started_utc": "2026-10-28T02:56:30.966333+00:00",
+  "status": 404,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "591",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"OperationOutcome\",\n  \"id\": \"outcome-1793156190989\",\n  \"language\": \"es\",\n  \"issue\": [\n    {\n      \"severity\": \"error\",\n      \"code\": \"not-found\",\n      \"details\": {\n        \"coding\": [\n          {\n            \"system\": \"http://hl7.org/fhir/issue-type\",\n            \"code\": \"not-found\"\n          }\n        ],\n        \"text\": \"La consulta de signos vitales 'resp-1304' no registra frecuencia respiratoria (campo opcional NULL).\"\n      },\n      \"diagnostics\": \"La consulta de signos vitales 'resp-1304' no registra frecuencia respiratoria (campo opcional NULL).\"\n    }\n  ]\n}",
+  "body_bytes": 591,
+  "body_sha256": "941070fa956b733c7c518a9ad6ec53601011c24ace117b1377bd5802c6cbc45b",
+  "elapsed_seconds": 0.024644099990837276,
+  "resource": "Observation/resp-1304",
+  "expected_status": 404,
+  "invalid_content_type": false,
+  "omission_outcome_valid": true
+}

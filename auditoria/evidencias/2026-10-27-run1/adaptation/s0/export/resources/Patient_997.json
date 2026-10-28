@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "997",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SACC160421HCSNSR17"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carlos Roberto Sanchez Castillo",
+      "family": "Sanchez Castillo",
+      "given": [
+        "Carlos",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614383260",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2016-04-21"
+}

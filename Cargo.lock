@@ -1340,6 +1340,7 @@ name = "medsys-db"
 version = "1.2.0"
 dependencies = [
  "chrono",
+ "chrono-tz",
  "dotenvy",
  "helios-fhir",
  "medsys-core",

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "138",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUGA700404HCSRTN58"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Daniel Juarez Gutierrez",
+      "family": "Juarez Gutierrez",
+      "given": [
+        "Andres",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614519403",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1970-04-04"
+}

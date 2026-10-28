@@ -1,4 +1,4 @@
-use chrono::{Datelike, NaiveDate, NaiveDateTime};
+use chrono::{Datelike, NaiveDate, NaiveDateTime, TimeZone};
 use helios_fhir::r4::{
     Code, CodeableConcept, Coding, Date, DateTime, Decimal, Extension, Id, Identifier, Reference,
     String as FhirString, Uri,
@@ -60,17 +60,39 @@ pub fn fhir_date(date: NaiveDate) -> Result<Date> {
 
 /// Crea un elemento primitivo `DateTime` de FHIR a partir de un `NaiveDateTime` de Chrono.
 pub fn fhir_datetime(dt: NaiveDateTime) -> Result<DateTime> {
-    let iso_str = dt.format("%Y-%m-%dT%H:%M:%S").to_string();
-    let precision_dt = PrecisionDateTime::parse(&iso_str).ok_or_else(|| {
-        MedSysError::TransformationError(format!(
-            "No se pudo parsear la fecha/hora en formato FHIR: {iso_str}"
+    fhir_datetime_in_timezone(dt, "America/Mexico_City")
+}
+
+/// Interpreta el reloj de origen en la zona declarada; no adivina en cambios DST.
+pub fn fhir_datetime_in_timezone(dt: NaiveDateTime, timezone: &str) -> Result<DateTime> {
+    let tz: chrono_tz::Tz = timezone
+        .parse()
+        .map_err(|_| MedSysError::InvalidRule(format!("Zona horaria inválida: {timezone}")))?;
+    let instant = tz.from_local_datetime(&dt).single().ok_or_else(|| {
+        MedSysError::ProcessingError(format!(
+            "T2 Fecha/hora local ambigua o inexistente en {timezone}: {dt}"
         ))
     })?;
-
+    let iso_str = instant.to_rfc3339_opts(chrono::SecondsFormat::AutoSi, false);
+    let precision_dt = PrecisionDateTime::parse(&iso_str).ok_or_else(|| {
+        MedSysError::TransformationError(format!("Fecha/hora FHIR inválida: {iso_str}"))
+    })?;
     Ok(Element {
         id: None,
         extension: None,
         value: Some(precision_dt),
+    })
+}
+
+/// Una fecha observada sin hora conserva su precisión en un campo FHIR dateTime.
+pub fn fhir_date_as_datetime(date: NaiveDate) -> Result<DateTime> {
+    let text = date.format("%Y-%m-%d").to_string();
+    let value = PrecisionDateTime::parse(&text)
+        .ok_or_else(|| MedSysError::TransformationError(format!("Fecha FHIR inválida: {text}")))?;
+    Ok(Element {
+        id: None,
+        extension: None,
+        value: Some(value),
     })
 }
 

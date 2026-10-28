@@ -1,0 +1,2 @@
+✗ Failed to stop Docker Desktop
+stopping Docker Desktop: stopping Docker Desktop: processes still running: wsl.exe (12096) wsl.exe (5736): context deadline exceeded

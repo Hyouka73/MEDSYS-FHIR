@@ -1,0 +1,11 @@
+{
+  "kind": "CA-1",
+  "schema": "s0",
+  "status": "INCOMPLETE",
+  "expected_count": 16250,
+  "stopped_utc": "2026-10-28T03:01:13.017499+00:00",
+  "stop_reason": "Explicit user stop during input scan; no Java census subprocess was observed launched",
+  "report_resource_count": 0,
+  "batches": [],
+  "limitation": "Not a completed validation of Rust. Resume in a new output directory after authorization."
+}

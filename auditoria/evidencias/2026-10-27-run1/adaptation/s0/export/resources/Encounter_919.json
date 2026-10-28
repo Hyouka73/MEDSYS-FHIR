@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "919",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "919"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/213"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "5918273"
+        },
+        "display": "Dr. Jorge Luis Vázquez Toledo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-02-01T19:33:00+00:00",
+    "end": "2026-02-01T20:16:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Fiebre y dolor faríngeo de 3 días de evolución"
+    }
+  ]
+}

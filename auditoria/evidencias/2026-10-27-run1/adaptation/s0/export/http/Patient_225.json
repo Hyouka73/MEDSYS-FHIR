@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/225",
+  "started_utc": "2026-10-28T02:56:28.130106+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"225\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUJJ061215HCSZMR55\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jorge Armando Guzman Jimenez\",\n      \"family\": \"Guzman Jimenez\",\n      \"given\": [\n        \"Jorge\",\n        \"Armando\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619641387\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2006-12-15\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "555f6bfdd8f19704bc35698e60efacd9c5d56d6c64fce397ddaf5b13f8e34d66",
+  "elapsed_seconds": 0.009777900006156415,
+  "resource": "Patient/225",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

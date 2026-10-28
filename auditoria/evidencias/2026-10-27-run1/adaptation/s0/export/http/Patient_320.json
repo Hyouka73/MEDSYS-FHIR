@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/320",
+  "started_utc": "2026-10-28T02:56:28.465293+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"320\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GALT010216MCSRPR60\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Teresa Claudia Garcia Lopez\",\n      \"family\": \"Garcia Lopez\",\n      \"given\": [\n        \"Teresa\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616958743\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2001-02-16\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "cf11d7fec5cc77808809aff45e395926225ca011394eccdda854ef7c19dfc640",
+  "elapsed_seconds": 0.011181299982126802,
+  "resource": "Patient/320",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

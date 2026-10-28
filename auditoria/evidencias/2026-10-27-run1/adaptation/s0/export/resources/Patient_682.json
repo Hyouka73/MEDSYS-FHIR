@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "682",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXL121110HCSDXS62"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Enrique Medina",
+      "family": "Medina",
+      "given": [
+        "Luis",
+        "Enrique"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612927833",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2012-11-10"
+}

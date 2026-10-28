@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/258",
+  "started_utc": "2026-10-28T02:56:28.260505+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"258\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SACF100619HCSNSR88\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernando Eduardo Sanchez Castro\",\n      \"family\": \"Sanchez Castro\",\n      \"given\": [\n        \"Fernando\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614074558\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2010-06-19\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "5fe3e7850843f2c56f2f4300a761f0ae9d4482678b09842bd0465a68029b9fc8",
+  "elapsed_seconds": 0.01563229999737814,
+  "resource": "Patient/258",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

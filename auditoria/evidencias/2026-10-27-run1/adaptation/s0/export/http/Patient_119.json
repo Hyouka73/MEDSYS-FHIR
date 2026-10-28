@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/119",
+  "started_utc": "2026-10-28T02:56:27.809767+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "438",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"119\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOXS741025MCSPXL39\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Silvia Carmen Lopez\",\n      \"family\": \"Lopez\",\n      \"given\": [\n        \"Silvia\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1974-10-25\"\n}",
+  "body_bytes": 438,
+  "body_sha256": "6ed6f3de1801103771b7ff64dbfa5382f4db633f34552238e3ee1ab59e9e1c01",
+  "elapsed_seconds": 0.018628699996042997,
+  "resource": "Patient/119",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

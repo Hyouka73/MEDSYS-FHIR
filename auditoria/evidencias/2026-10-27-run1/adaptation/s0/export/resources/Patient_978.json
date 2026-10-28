@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "978",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PECA581229MCSRHL88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Patricia Perez Chavez",
+      "family": "Perez Chavez",
+      "given": [
+        "Alejandra",
+        "Patricia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614758399",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1958-12-29"
+}

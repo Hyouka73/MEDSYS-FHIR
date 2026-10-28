@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1785",
+  "started_utc": "2026-10-28T02:55:35.029025+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1069",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:35 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1785\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"E78.5\",\n        \"display\": \"Hiperlipidemia, no especificada\"\n      }\n    ],\n    \"text\": \"Hiperlipidemia, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/249\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1785\"\n  },\n  \"recordedDate\": \"2025-12-26\"\n}",
+  "body_bytes": 1069,
+  "body_sha256": "df531b4d6247fbf152f190004ac934f5103335cbac4d74004228c14c6ecbdc06",
+  "elapsed_seconds": 0.015263200039044023,
+  "resource": "Condition/1785",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

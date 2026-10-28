@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "2716",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "J20.9",
+        "display": "Bronquitis aguda, no especificada"
+      }
+    ],
+    "text": "Bronquitis aguda, no especificada"
+  },
+  "subject": {
+    "reference": "Patient/669"
+  },
+  "encounter": {
+    "reference": "Encounter/984"
+  },
+  "recordedDate": "2026-06-22"
+}

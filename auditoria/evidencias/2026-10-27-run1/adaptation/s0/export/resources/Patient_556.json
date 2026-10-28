@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "556",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAXA140713MCSNXL26"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Paola Sanchez",
+      "family": "Sanchez",
+      "given": [
+        "Alejandra",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612595852",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2014-07-13"
+}

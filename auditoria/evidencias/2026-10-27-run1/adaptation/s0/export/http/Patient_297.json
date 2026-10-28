@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/297",
+  "started_utc": "2026-10-28T02:56:28.388032+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "537",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"297\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOCS610522MCSPSF37\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Lopez Castillo\",\n      \"family\": \"Lopez Castillo\",\n      \"given\": [\n        \"Sofia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612438475\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1961-05-22\"\n}",
+  "body_bytes": 537,
+  "body_sha256": "2f32b55b8d2ed2df7c6eb8496a96025e3c54003f1cfe322df5fa813c8cf8553f",
+  "elapsed_seconds": 0.006169699947349727,
+  "resource": "Patient/297",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

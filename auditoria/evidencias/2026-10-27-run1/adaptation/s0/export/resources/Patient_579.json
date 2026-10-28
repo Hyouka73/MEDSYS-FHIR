@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "579",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAHL060720MCSNRR49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Fernanda Sanchez Herrera",
+      "family": "Sanchez Herrera",
+      "given": [
+        "Lorena",
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617625395",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2006-07-20"
+}

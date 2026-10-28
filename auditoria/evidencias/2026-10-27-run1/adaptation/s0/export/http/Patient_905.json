@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/905",
+  "started_utc": "2026-10-28T02:56:30.310086+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "545",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"905\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RORG490831MCSDYB15\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Rodriguez Reyes\",\n      \"family\": \"Rodriguez Reyes\",\n      \"given\": [\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611971594\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1949-08-31\"\n}",
+  "body_bytes": 545,
+  "body_sha256": "277cac889fc230a34266159c792610fef06c09a423c172e6fb925939ccf7079f",
+  "elapsed_seconds": 0.007232500007376075,
+  "resource": "Patient/905",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

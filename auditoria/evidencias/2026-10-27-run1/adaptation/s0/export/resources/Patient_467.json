@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "467",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUMR021026HCSZNL27"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Jorge Ruiz Munoz",
+      "family": "Ruiz Munoz",
+      "given": [
+        "Raul",
+        "Jorge"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611798522",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2002-10-26"
+}

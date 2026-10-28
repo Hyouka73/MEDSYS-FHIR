@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/306",
+  "started_utc": "2026-10-28T02:56:28.413881+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "466",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"306\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEGF720428MCSNNR46\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Gabriela Mendez Gonzalez\",\n      \"family\": \"Mendez Gonzalez\",\n      \"given\": [\n        \"Fernanda\",\n        \"Gabriela\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1972-04-28\"\n}",
+  "body_bytes": 466,
+  "body_sha256": "c6743406904653f767d6ee161b5e25f203c3b36e1cf29d2023cb1b4785802c73",
+  "elapsed_seconds": 0.010219499992672354,
+  "resource": "Patient/306",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

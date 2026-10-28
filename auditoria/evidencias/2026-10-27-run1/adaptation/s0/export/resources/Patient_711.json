@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "711",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUFA930222HCSRLL91"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Francisco Juarez Flores",
+      "family": "Juarez Flores",
+      "given": [
+        "Alexis",
+        "Francisco"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611038845",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1993-02-22"
+}

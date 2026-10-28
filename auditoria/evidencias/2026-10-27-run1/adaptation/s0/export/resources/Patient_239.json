@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "239",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEFD771006HCSRLN69"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniel Mario Herrera Flores",
+      "family": "Herrera Flores",
+      "given": [
+        "Daniel",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612015702",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1977-10-06"
+}

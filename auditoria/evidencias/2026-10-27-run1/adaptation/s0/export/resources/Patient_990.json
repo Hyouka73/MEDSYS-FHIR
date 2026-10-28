@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "990",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MORP820927HCSRMD10"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Juan Moreno Ramirez",
+      "family": "Moreno Ramirez",
+      "given": [
+        "Pedro",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617517081",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1982-09-27"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "926",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUXM771110HCSZXG36"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Raul Ruiz",
+      "family": "Ruiz",
+      "given": [
+        "Miguel",
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617034063",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1977-11-10"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/117",
+  "started_utc": "2026-10-28T02:56:27.798650+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"117\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORA581113HCSNMR37\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Armando Roberto Gonzalez Ramirez\",\n      \"family\": \"Gonzalez Ramirez\",\n      \"given\": [\n        \"Armando\",\n        \"Roberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619180133\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1958-11-13\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "b5d27ef5ac287e37e5392e8f94abd1ee4bd9478b703067b54767be1b5fd05bf1",
+  "elapsed_seconds": 0.010062600020319223,
+  "resource": "Patient/117",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "774",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MAGA691005HCSRRL64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto Antonio Martinez Garcia",
+      "family": "Martinez Garcia",
+      "given": [
+        "Alberto",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618591077",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1969-10-05"
+}

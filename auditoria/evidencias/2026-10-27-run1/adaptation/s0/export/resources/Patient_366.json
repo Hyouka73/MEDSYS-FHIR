@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "366",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOGC720130MCSNZL16"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Laura Gonzalez Guzman",
+      "family": "Gonzalez Guzman",
+      "given": [
+        "Claudia",
+        "Laura"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612709045",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1972-01-30"
+}

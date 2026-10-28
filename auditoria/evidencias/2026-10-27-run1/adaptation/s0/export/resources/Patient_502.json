@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "502",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAME030309HCSHRN62"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Eduardo Chavez Moreno",
+      "family": "Chavez Moreno",
+      "given": [
+        "Enrique",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615455084",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2003-03-09"
+}

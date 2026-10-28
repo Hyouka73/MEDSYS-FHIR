@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "503",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAMM580427HCSLNG63"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Carlos Alvarez Mendoza",
+      "family": "Alvarez Mendoza",
+      "given": [
+        "Miguel",
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614525234",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1958-04-27"
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "991",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MACF970109HCSRSR11"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Armando Martinez Castro",
+      "family": "Martinez Castro",
+      "given": [
+        "Francisco",
+        "Armando"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1997-01-09"
+}

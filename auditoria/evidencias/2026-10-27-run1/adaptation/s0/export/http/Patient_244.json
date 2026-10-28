@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/244",
+  "started_utc": "2026-10-28T02:56:28.206721+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"244\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEPL120616MCSDRR74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lorena Natalia Medina Perez\",\n      \"family\": \"Medina Perez\",\n      \"given\": [\n        \"Lorena\",\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617282251\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2012-06-16\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "f9a1679c7f3e9857a8af6c2ecf0dbacbe1e8055722804873f448eab3bb9ca71b",
+  "elapsed_seconds": 0.01286630000686273,
+  "resource": "Patient/244",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

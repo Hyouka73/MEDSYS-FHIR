@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "390",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAHL971206MCSSRR40"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Gabriela Castillo Hernandez",
+      "family": "Castillo Hernandez",
+      "given": [
+        "Lorena",
+        "Gabriela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614436809",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-12-06"
+}

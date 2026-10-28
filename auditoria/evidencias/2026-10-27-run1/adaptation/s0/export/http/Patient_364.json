@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/364",
+  "started_utc": "2026-10-28T02:56:28.626861+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "554",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"364\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOGL641207HCSRRS14\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Luis Pedro Moreno Garcia\",\n      \"family\": \"Moreno Garcia\",\n      \"given\": [\n        \"Luis\",\n        \"Pedro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615950158\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1964-12-07\"\n}",
+  "body_bytes": 554,
+  "body_sha256": "e49d5146a01d67950fdab65df2d221d2be7b49c188b279070706ed09eaf73498",
+  "elapsed_seconds": 0.00692210003035143,
+  "resource": "Patient/364",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

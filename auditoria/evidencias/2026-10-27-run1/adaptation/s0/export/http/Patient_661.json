@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/661",
+  "started_utc": "2026-10-28T02:56:29.537600+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"661\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOMS871128MCSRNL41\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Silvia Carmen Moreno Mendez\",\n      \"family\": \"Moreno Mendez\",\n      \"given\": [\n        \"Silvia\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613728979\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1987-11-28\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "4b2384c2b3ddb8486a0af41a4d6e8b87f33eac7c87b1bfb9feec36cd6b1382a9",
+  "elapsed_seconds": 0.005565200001001358,
+  "resource": "Patient/661",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

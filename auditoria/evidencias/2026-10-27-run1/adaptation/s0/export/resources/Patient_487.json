@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "487",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIXL840229MCSMXR47"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Laura Karla Jimenez",
+      "family": "Jimenez",
+      "given": [
+        "Laura",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611354627",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1984-02-29"
+}

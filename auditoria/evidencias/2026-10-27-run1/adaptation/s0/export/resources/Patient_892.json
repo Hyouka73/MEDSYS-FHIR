@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "892",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOHK791209MCSNRR92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Gonzalez Hernandez",
+      "family": "Gonzalez Hernandez",
+      "given": [
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617962297",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-12-09"
+}

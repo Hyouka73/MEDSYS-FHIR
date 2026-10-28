@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1103",
+  "started_utc": "2026-10-28T02:55:32.348817+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1019",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:32 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1103\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"R51\",\n        \"display\": \"Cefalea\"\n      }\n    ],\n    \"text\": \"Cefalea\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/665\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1103\"\n  },\n  \"recordedDate\": \"2025-04-23\"\n}",
+  "body_bytes": 1019,
+  "body_sha256": "80ca08245a81563c1e9be85b19b6d31d6664943a8c964e88123c43cc20587d30",
+  "elapsed_seconds": 0.008420800033491105,
+  "resource": "Condition/1103",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

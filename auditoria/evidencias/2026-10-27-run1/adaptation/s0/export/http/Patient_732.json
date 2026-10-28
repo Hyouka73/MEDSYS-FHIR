@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/732",
+  "started_utc": "2026-10-28T02:56:29.734537+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "519",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"732\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REXA100131HCSYXR22\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Arturo Reyes\",\n      \"family\": \"Reyes\",\n      \"given\": [\n        \"Arturo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613670922\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2010-01-31\"\n}",
+  "body_bytes": 519,
+  "body_sha256": "8e9b2b2ea967081c99b5180eb2b47a91c8b3bb7460bc64f42aea399b7536fd55",
+  "elapsed_seconds": 0.008608700009062886,
+  "resource": "Patient/732",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

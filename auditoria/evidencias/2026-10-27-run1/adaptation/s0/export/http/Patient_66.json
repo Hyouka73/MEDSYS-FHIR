@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/66",
+  "started_utc": "2026-10-28T02:56:29.529230+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "547",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"66\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TOXM600818MCSRXR76\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Martha Carmen Torres\",\n      \"family\": \"Torres\",\n      \"given\": [\n        \"Martha\",\n        \"Carmen\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613420671\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1960-08-18\"\n}",
+  "body_bytes": 547,
+  "body_sha256": "b76d310089028adc4e4149ca9f542d4e927f8be998d818f6251e0fccfabb85d2",
+  "elapsed_seconds": 0.011307299952022731,
+  "resource": "Patient/66",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

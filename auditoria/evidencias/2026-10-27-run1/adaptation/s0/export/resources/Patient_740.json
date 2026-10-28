@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "740",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAMA630802MCSHDL30"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Laura Chavez Medina",
+      "family": "Chavez Medina",
+      "given": [
+        "Alejandra",
+        "Laura"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614809487",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-08-02"
+}

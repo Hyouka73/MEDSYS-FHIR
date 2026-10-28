@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "823",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOXE971217MCSMXL23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Paola Gomez",
+      "family": "Gomez",
+      "given": [
+        "Elena",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612701439",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-12-17"
+}

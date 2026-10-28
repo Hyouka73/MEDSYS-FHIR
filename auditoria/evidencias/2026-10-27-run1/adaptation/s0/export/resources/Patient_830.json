@@ -1,0 +1,24 @@
+{
+  "resourceType": "Patient",
+  "id": "830",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOGD570303MCSRZN30"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Torres Guzman",
+      "family": "Torres Guzman",
+      "given": [
+        "Daniela"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1957-03-03"
+}

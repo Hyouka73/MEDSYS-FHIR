@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/897",
+  "started_utc": "2026-10-28T02:56:30.284064+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"897\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CARR641015HCSSMC97\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ricardo Miguel Castillo Ramirez\",\n      \"family\": \"Castillo Ramirez\",\n      \"given\": [\n        \"Ricardo\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613354160\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1964-10-15\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "8157e303aa13e96f190d82d049199b9c7ed1a239a5e8036ec00743579a4133c5",
+  "elapsed_seconds": 0.007380200026091188,
+  "resource": "Patient/897",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

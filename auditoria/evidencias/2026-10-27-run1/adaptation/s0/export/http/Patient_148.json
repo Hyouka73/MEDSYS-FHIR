@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/148",
+  "started_utc": "2026-10-28T02:56:27.888366+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"148\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SARE100611MCSNDL68\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Gloria Sanchez Rodriguez\",\n      \"family\": \"Sanchez Rodriguez\",\n      \"given\": [\n        \"Elena\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619420968\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2010-06-11\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "8968077998a5c1e472bf4f7032d74ab59b4a6616339e9617c943898cec5b085f",
+  "elapsed_seconds": 0.007850299996789545,
+  "resource": "Patient/148",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

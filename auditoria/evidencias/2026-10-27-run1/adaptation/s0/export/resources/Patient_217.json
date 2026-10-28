@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "217",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIRL980323HCSZDS47"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Daniel Diaz Rodriguez",
+      "family": "Diaz Rodriguez",
+      "given": [
+        "Luis",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612403087",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1998-03-23"
+}

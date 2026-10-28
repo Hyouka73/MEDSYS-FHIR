@@ -1,0 +1,23 @@
+   Compiling medsys-core v1.2.0 (D:\Proyectos X\MedSys-FHIR\crates\medsys-core)
+   Compiling medsys-db v1.2.0 (D:\Proyectos X\MedSys-FHIR\crates\medsys-db)
+    Finished `test` profile [unoptimized] target(s) in 26.71s
+     Running unittests src\lib.rs (target\debug\deps\medsys_db-56d185538997cf19.exe)
+
+running 1 test
+test dynamic_repo::tests::regression_date_only_timestamps_preserve_source_precision ... FAILED
+
+failures:
+
+---- dynamic_repo::tests::regression_date_only_timestamps_preserve_source_precision stdout ----
+
+thread 'dynamic_repo::tests::regression_date_only_timestamps_preserve_source_precision' (15456) panicked at crates\medsys-db\src\dynamic_repo.rs:1173:64:
+YAML admite fecha sin hora: ProcessingError("T2 Fecha/hora inválida: fech_reg_txt")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    dynamic_repo::tests::regression_date_only_timestamps_preserve_source_precision
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 33 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p medsys-db --lib`

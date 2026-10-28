@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "799",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "REGA740126HCSYTN89"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Daniel Reyes Gutierrez",
+      "family": "Reyes Gutierrez",
+      "given": [
+        "Andres",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611800101",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1974-01-26"
+}

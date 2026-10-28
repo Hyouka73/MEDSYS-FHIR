@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/416",
+  "started_utc": "2026-10-28T02:56:28.769205+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"416\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAGM110714HCSRNG66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Raul Vargas Gonzalez\",\n      \"family\": \"Vargas Gonzalez\",\n      \"given\": [\n        \"Miguel\",\n        \"Raul\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614941650\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2011-07-14\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "91153c490737049ff761771ab4cfac803882ea1d02030f6e9fa490ceeb39b71c",
+  "elapsed_seconds": 0.02149940002709627,
+  "resource": "Patient/416",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

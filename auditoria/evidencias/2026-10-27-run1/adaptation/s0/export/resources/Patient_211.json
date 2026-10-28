@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "211",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEJA780326HCSDML41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro David Medina Jimenez",
+      "family": "Medina Jimenez",
+      "given": [
+        "Alejandro",
+        "David"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613810871",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1978-03-26"
+}

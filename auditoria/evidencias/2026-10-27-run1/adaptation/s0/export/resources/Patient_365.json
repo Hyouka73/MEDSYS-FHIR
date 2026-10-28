@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "365",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOVA560311HCSRRR15"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Rogelio Moreno Vargas",
+      "family": "Moreno Vargas",
+      "given": [
+        "Armando",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612330656",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1956-03-11"
+}

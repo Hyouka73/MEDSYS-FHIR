@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/186",
+  "started_utc": "2026-10-28T02:56:28.003311+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"186\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOCM120109MCSPSR16\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Martha Lorena Lopez Castro\",\n      \"family\": \"Lopez Castro\",\n      \"given\": [\n        \"Martha\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619719921\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2012-01-09\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "c5e7b081a0ec9728608d184aa6c9b33cb3db584e95013d0f762976ca2f3dcc4b",
+  "elapsed_seconds": 0.016399400017689914,
+  "resource": "Patient/186",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

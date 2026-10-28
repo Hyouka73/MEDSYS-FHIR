@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "250",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROPA000622HCSDRR80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Salvador Rodriguez Perez",
+      "family": "Rodriguez Perez",
+      "given": [
+        "Armando",
+        "Salvador"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612679778",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2000-06-22"
+}

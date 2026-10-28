@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/485",
+  "started_utc": "2026-10-28T02:56:28.966690+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"485\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOGF580710HCSPZR45\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernando Salvador Lopez Guzman\",\n      \"family\": \"Lopez Guzman\",\n      \"given\": [\n        \"Fernando\",\n        \"Salvador\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613462423\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1958-07-10\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "ec0fe0fb547f6b36a455e59e2cdc235a0357cd9826bb9058c1aed9fa0e82cc32",
+  "elapsed_seconds": 0.017418899980839342,
+  "resource": "Patient/485",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

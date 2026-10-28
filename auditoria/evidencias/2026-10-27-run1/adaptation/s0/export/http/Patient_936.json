@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/936",
+  "started_utc": "2026-10-28T02:56:30.395381+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "554",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"936\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RALM490224HCSMPR46\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mario Miguel Ramos Lopez\",\n      \"family\": \"Ramos Lopez\",\n      \"given\": [\n        \"Mario\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617787773\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1949-02-24\"\n}",
+  "body_bytes": 554,
+  "body_sha256": "77014f121eabdfb4bf505962706d1b57e11800c8e089dbc90ee0b341c92a44cd",
+  "elapsed_seconds": 0.008432200003881007,
+  "resource": "Patient/936",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/863",
+  "started_utc": "2026-10-28T02:56:30.173996+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "462",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"863\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MASF630707HCSRNR63\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernando Miguel Martinez Sanchez\",\n      \"family\": \"Martinez Sanchez\",\n      \"given\": [\n        \"Fernando\",\n        \"Miguel\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1963-07-07\"\n}",
+  "body_bytes": 462,
+  "body_sha256": "716a1fd3f3d2447b4c214f89e0bbbcbb1201c2bcbf35ef821815708690478df1",
+  "elapsed_seconds": 0.006536700006108731,
+  "resource": "Patient/863",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

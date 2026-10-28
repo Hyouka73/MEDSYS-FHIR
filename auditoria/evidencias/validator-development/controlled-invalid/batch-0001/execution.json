@@ -1,0 +1,21 @@
+{
+  "command": [
+    "java",
+    "-Xmx1536m",
+    "-jar",
+    "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+    "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-invalid.json",
+    "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-valid.json",
+    "-version",
+    "4.0.1",
+    "-tx",
+    "n/a",
+    "-output",
+    "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\controlled-invalid\\batch-0001\\outcomes.json",
+    "-output-style",
+    "json"
+  ],
+  "exit_code": 0,
+  "duration_seconds": 770.2074156,
+  "input_count": 2
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/558",
+  "started_utc": "2026-10-28T02:56:29.190757+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"558\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CARD070402HCSSDV28\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"David Eduardo Castro Rodriguez\",\n      \"family\": \"Castro Rodriguez\",\n      \"given\": [\n        \"David\",\n        \"Eduardo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615115546\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2007-04-02\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "f5a8641b512faf3f1b06fb9cea45e899bdf4d6e2253e61109bad375845e5b869",
+  "elapsed_seconds": 0.009248599992133677,
+  "resource": "Patient/558",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

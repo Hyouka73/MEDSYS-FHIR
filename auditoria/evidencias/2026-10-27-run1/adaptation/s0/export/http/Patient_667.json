@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/667",
+  "started_utc": "2026-10-28T02:56:29.553271+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"667\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MURG650903MCSNYB47\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Gloria Munoz Reyes\",\n      \"family\": \"Munoz Reyes\",\n      \"given\": [\n        \"Gabriela\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614808428\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1965-09-03\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "6e38d735aeeac0f53e566779207f2399a0bc43670cd116fbc893420fa6f7ee22",
+  "elapsed_seconds": 0.015225999988615513,
+  "resource": "Patient/667",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

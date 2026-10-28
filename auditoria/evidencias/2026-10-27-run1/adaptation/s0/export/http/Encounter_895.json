@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/895",
+  "started_utc": "2026-10-28T02:55:51.311563+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1192",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:51 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"895\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"895\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/514\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"7102948\"\n        },\n        \"display\": \"Dra. Sofía Hernández Gordillo\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-08-17T08:14:00+00:00\",\n    \"end\": \"2026-08-17T08:58:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Dolor epigástrico urente posprandial\"\n    }\n  ]\n}",
+  "body_bytes": 1192,
+  "body_sha256": "f8df24ed1d2403256c1316319200f3be3fd1f19eac5e5de1fcc7994d0314edfc",
+  "elapsed_seconds": 0.009994399966672063,
+  "resource": "Encounter/895",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

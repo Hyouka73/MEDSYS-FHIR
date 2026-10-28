@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "34",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUGR040731HCSZTL44"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Roberto Ruiz Gutierrez",
+      "family": "Ruiz Gutierrez",
+      "given": [
+        "Raul",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613373618",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2004-07-31"
+}

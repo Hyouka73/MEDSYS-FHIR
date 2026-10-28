@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "50",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GARA970827HCSRDL60"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Garcia Rodriguez",
+      "family": "Garcia Rodriguez",
+      "given": [
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613994911",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1997-08-27"
+}

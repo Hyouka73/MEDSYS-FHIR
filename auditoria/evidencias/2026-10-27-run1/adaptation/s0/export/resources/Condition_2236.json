@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "2236",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "M54.5",
+        "display": "Lumbago no especificado"
+      }
+    ],
+    "text": "Lumbago no especificado"
+  },
+  "subject": {
+    "reference": "Patient/939"
+  },
+  "encounter": {
+    "reference": "Encounter/2236"
+  },
+  "recordedDate": "2025-03-19"
+}

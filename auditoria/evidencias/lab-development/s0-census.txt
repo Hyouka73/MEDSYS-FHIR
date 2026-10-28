@@ -1,0 +1,5 @@
+Patient|1000
+Encounter|2500
+signs|2500
+Condition|3000
+omitted_resp|250

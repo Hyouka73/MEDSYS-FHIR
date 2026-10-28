@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/628",
+  "started_utc": "2026-10-28T02:56:29.432538+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "548",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"628\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAXR480723HCSSXB98\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Roberto Andres Castro\",\n      \"family\": \"Castro\",\n      \"given\": [\n        \"Roberto\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611835004\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1948-07-23\"\n}",
+  "body_bytes": 548,
+  "body_sha256": "05736c6b164701d4da4bbdf15df5d4a46155cf7451dac01eaf8da4fe67a510ad",
+  "elapsed_seconds": 0.014108700037468225,
+  "resource": "Patient/628",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

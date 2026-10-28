@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "947",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEXM080215MCSRXR57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mariana Monica Herrera",
+      "family": "Herrera",
+      "given": [
+        "Mariana",
+        "Monica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615700746",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2008-02-15"
+}

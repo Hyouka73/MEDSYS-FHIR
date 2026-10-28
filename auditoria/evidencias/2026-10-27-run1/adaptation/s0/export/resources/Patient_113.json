@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "113",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAJA130605HCSMRL33"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Arturo Ramirez Juarez",
+      "family": "Ramirez Juarez",
+      "given": [
+        "Alexis",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611856157",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2013-06-05"
+}

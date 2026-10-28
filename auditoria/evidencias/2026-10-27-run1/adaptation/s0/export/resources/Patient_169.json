@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "169",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOXP990208MCSRXL89"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Adriana Moreno",
+      "family": "Moreno",
+      "given": [
+        "Paola",
+        "Adriana"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1999-02-08"
+}

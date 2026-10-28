@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "675",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOXD170719HCSRXV55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Eduardo Morales",
+      "family": "Morales",
+      "given": [
+        "David",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611465889",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2017-07-19"
+}

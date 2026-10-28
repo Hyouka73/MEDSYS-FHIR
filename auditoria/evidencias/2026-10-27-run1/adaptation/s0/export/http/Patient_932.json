@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/932",
+  "started_utc": "2026-10-28T02:56:30.382811+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"932\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MURP070724MCSNML42\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Claudia Munoz Ramos\",\n      \"family\": \"Munoz Ramos\",\n      \"given\": [\n        \"Paola\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618522569\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2007-07-24\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "8bad618bcda7fee5c06180fb7ce9b66bcbae77e07dde428c146a2b1f405ececa",
+  "elapsed_seconds": 0.0068011999828740954,
+  "resource": "Patient/932",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

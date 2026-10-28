@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/81",
+  "started_utc": "2026-10-28T02:55:51.014159+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1186",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:51 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"81\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"81\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/374\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"9481726\"\n        },\n        \"display\": \"Dr. Fernando Gómez Coutiño\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-02-14T02:03:00+00:00\",\n    \"end\": \"2026-02-14T02:22:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Evaluación médica preventiva anual\"\n    }\n  ]\n}",
+  "body_bytes": 1186,
+  "body_sha256": "d9235fc31c6e70db25bb7df33a1d0633567430383ae930fe9e7d73da97e08b34",
+  "elapsed_seconds": 0.020676199987065047,
+  "resource": "Encounter/81",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "201",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CARD780825HCSSDN31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniel Arturo Castillo Rodriguez",
+      "family": "Castillo Rodriguez",
+      "given": [
+        "Daniel",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618236889",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1978-08-25"
+}

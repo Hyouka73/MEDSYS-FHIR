@@ -294,12 +294,14 @@ fn test_synthetic_data_persistence_mapping_to_fhir_e2e() {
     assert!(condition_json.contains("confirmed"));
 }
 
-/// Prueba de integración contra la instancia de PostgreSQL si está disponible.
-/// Si el contenedor Docker o la base de datos no están corriendo, reporta el estado
-/// y pasa limpiamente sin bloquear la suite de pruebas automatizadas.
+/// Integración real obligatoria con la fixture SQL sintética original.
+/// La ausencia de PostgreSQL o de DATABASE_URL es un fallo, no una aprobación.
 #[tokio::test]
-async fn test_live_postgresql_persistence_when_available() {
-    let mut config = DbConfig::from_env().unwrap_or_default();
+async fn test_live_postgresql_persistence_with_required_fixture() {
+    let mut config = DbConfig::new(
+        std::env::var("DATABASE_URL")
+            .expect("DATABASE_URL debe apuntar a la fixture sintética original"),
+    );
     config.acquire_timeout_secs = 2; // Timeout corto para detección no bloqueante
 
     println!(
@@ -307,103 +309,121 @@ async fn test_live_postgresql_persistence_when_available() {
         config.masked_url()
     );
 
-    match DbManager::new(config).await {
-        Ok(db_manager) => {
-            println!(
-                "  ✔ Conexión a PostgreSQL exitosa. Ejecutando suite de integración en vivo..."
-            );
+    let db_manager = DbManager::new(config)
+        .await
+        .expect("PostgreSQL sintético requerido: no contar conexión ausente como PASS");
+    println!("  ✔ Conexión a PostgreSQL exitosa. Ejecutando suite de integración en vivo...");
 
-            // Healthcheck
-            let hc = db_manager.healthcheck().await;
-            assert!(hc.is_ok(), "Healthcheck falló en base de datos en vivo");
+    // Healthcheck
+    let hc = db_manager.healthcheck().await;
+    assert!(hc.is_ok(), "Healthcheck falló en base de datos en vivo");
 
-            let repos = db_manager.repositories();
+    let repos = db_manager.repositories();
 
-            // 1. Pacientes
-            let paciente_1 = repos
-                .pacientes
-                .find_by_id(1)
-                .await
-                .expect("Fallo al buscar paciente 1");
-            assert_eq!(paciente_1.id_paciente, 1);
-            assert_eq!(paciente_1.curp, "ROMA900101HCSMNL09");
-            assert_eq!(paciente_1.primer_nombre, "Alberto");
-            assert_eq!(paciente_1.apellido_paterno, "Ramos");
+    // 1. Pacientes
+    let paciente_1 = repos
+        .pacientes
+        .find_by_id(1)
+        .await
+        .expect("Fallo al buscar paciente 1");
+    assert_eq!(paciente_1.id_paciente, 1);
+    assert_eq!(paciente_1.curp, "ROMA900101HCSMNL09");
+    assert_eq!(paciente_1.primer_nombre, "Alberto");
+    assert_eq!(paciente_1.apellido_paterno, "Ramos");
 
-            let paciente_curp = repos
-                .pacientes
-                .find_by_curp("LOPE950512MCSPRN07")
-                .await
-                .expect("Fallo al buscar paciente por CURP");
-            assert_eq!(paciente_curp.primer_nombre, "Mariana");
+    let paciente_curp = repos
+        .pacientes
+        .find_by_curp("LOPE950512MCSPRN07")
+        .await
+        .expect("Fallo al buscar paciente por CURP");
+    assert_eq!(paciente_curp.primer_nombre, "Mariana");
 
-            let todos_pacientes = repos
-                .pacientes
-                .find_all()
-                .await
-                .expect("Fallo al listar pacientes");
-            assert!(
-                todos_pacientes.len() >= 2,
-                "Se esperaban al menos 2 pacientes sintéticos"
-            );
+    let todos_pacientes = repos
+        .pacientes
+        .find_all()
+        .await
+        .expect("Fallo al listar pacientes");
+    assert!(
+        todos_pacientes.len() >= 2,
+        "Se esperaban al menos 2 pacientes sintéticos"
+    );
 
-            // Caso negativo
-            let paciente_no_existe = repos.pacientes.find_by_id(9999).await;
-            match paciente_no_existe {
-                Err(MedSysError::NotFound(_)) => {}
-                other => panic!("Esperaba MedSysError::NotFound, obtuve: {:?}", other),
-            }
-
-            // 2. Consultas
-            let consulta_1 = repos
-                .consultas
-                .find_by_id(1)
-                .await
-                .expect("Fallo al buscar consulta 1");
-            assert_eq!(consulta_1.id_consulta, 1);
-            assert_eq!(consulta_1.id_paciente, 1);
-            assert_eq!(consulta_1.cedula_medico_tratante, "8472910");
-
-            let consultas_p1 = repos
-                .consultas
-                .find_by_paciente_id(1)
-                .await
-                .expect("Fallo al buscar consultas por paciente");
-            assert!(!consultas_p1.is_empty());
-
-            // 3. Signos Vitales
-            let signos_1 = repos
-                .signos_vitales
-                .find_by_id(1)
-                .await
-                .expect("Fallo al buscar signo 1");
-            assert_eq!(signos_1.presion_sistolica, 130);
-            assert_eq!(signos_1.presion_diastolica, 85);
-            assert_eq!(signos_1.temperatura_celsius, Decimal::new(366, 1));
-
-            // 4. Diagnósticos
-            let diag_1 = repos
-                .diagnosticos
-                .find_by_id(1)
-                .await
-                .expect("Fallo al buscar diagnostico 1");
-            assert_eq!(diag_1.codigo_cie10, "I10");
-
-            let diags_i10 = repos
-                .diagnosticos
-                .find_by_codigo_cie10("I10")
-                .await
-                .expect("Fallo al buscar por CIE-10 I10");
-            assert!(!diags_i10.is_empty());
-
-            // Cerrar pool ordenadamente
-            db_manager.close().await;
-            println!("  ✔ Pruebas de integración sobre PostgreSQL 16 completadas exitosamente.");
-        }
-        Err(err) => {
-            println!("  ℹ PostgreSQL no detectado en localhost:5432 ({:?}).", err);
-            println!("    Se validó exitosamente la suite de contrato y mapeo de persistencia.");
-            println!("    (Para ejecutar pruebas contra el motor en vivo: Iniciar Docker Desktop y ejecutar .\\docker\\start-db.ps1)");
-        }
+    // Caso negativo
+    let paciente_no_existe = repos.pacientes.find_by_id(9999).await;
+    match paciente_no_existe {
+        Err(MedSysError::NotFound(_)) => {}
+        other => panic!("Esperaba MedSysError::NotFound, obtuve: {:?}", other),
     }
+
+    // 2. Consultas
+    let consulta_1 = repos
+        .consultas
+        .find_by_id(1)
+        .await
+        .expect("Fallo al buscar consulta 1");
+    assert_eq!(consulta_1.id_consulta, 1);
+    assert_eq!(consulta_1.id_paciente, 1);
+    assert_eq!(consulta_1.cedula_medico_tratante, "8472910");
+
+    let consultas_p1 = repos
+        .consultas
+        .find_by_paciente_id(1)
+        .await
+        .expect("Fallo al buscar consultas por paciente");
+    assert!(!consultas_p1.is_empty());
+
+    // 3. Signos Vitales
+    let signos_1 = repos
+        .signos_vitales
+        .find_by_id(1)
+        .await
+        .expect("Fallo al buscar signo 1");
+    assert_eq!(signos_1.presion_sistolica, 130);
+    assert_eq!(signos_1.presion_diastolica, 85);
+    assert_eq!(signos_1.temperatura_celsius, Decimal::new(366, 1));
+
+    // 4. Diagnósticos
+    let diag_1 = repos
+        .diagnosticos
+        .find_by_id(1)
+        .await
+        .expect("Fallo al buscar diagnostico 1");
+    assert_eq!(diag_1.codigo_cie10, "I10");
+
+    let diags_i10 = repos
+        .diagnosticos
+        .find_by_codigo_cie10("I10")
+        .await
+        .expect("Fallo al buscar por CIE-10 I10");
+    assert!(!diags_i10.is_empty());
+
+    // Cerrar pool ordenadamente
+    db_manager.close().await;
+    println!("  ✔ Pruebas de integración sobre PostgreSQL 16 completadas exitosamente.");
+}
+
+#[tokio::test]
+async fn test_unsupported_sql_type_is_decode_error_not_null() {
+    let config = DbConfig::new(
+        std::env::var("DATABASE_URL").expect("DATABASE_URL de laboratorio requerida"),
+    );
+    let manager = DbManager::new(config)
+        .await
+        .expect("PostgreSQL de laboratorio requerido");
+    let row = sqlx::query("SELECT decode('0001', 'hex') AS unsupported_value")
+        .fetch_one(manager.pool())
+        .await
+        .unwrap();
+    assert!(matches!(
+        medsys_db::pg_row_to_json_map(&row),
+        Err(MedSysError::DatabaseError(_))
+    ));
+    let row = sqlx::query("SELECT NULL::text AS absent_value, 'present'::text AS present_value")
+        .fetch_one(manager.pool())
+        .await
+        .unwrap();
+    let values = medsys_db::pg_row_to_json_map(&row).unwrap();
+    assert!(values["absent_value"].is_null());
+    assert_eq!(values["present_value"], "present");
+    manager.close().await;
 }

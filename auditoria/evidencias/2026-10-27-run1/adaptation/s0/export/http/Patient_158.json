@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/158",
+  "started_utc": "2026-10-28T02:56:27.918677+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"158\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUCA981006MCSTSL78\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandra Martha Gutierrez Castro\",\n      \"family\": \"Gutierrez Castro\",\n      \"given\": [\n        \"Alejandra\",\n        \"Martha\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611689684\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1998-10-06\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "1fcce4d81731f5371c80d1219c70bac80f1662479b02fb60860c98a1978d50cb",
+  "elapsed_seconds": 0.008211300009861588,
+  "resource": "Patient/158",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

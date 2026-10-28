@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "83",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOSC790315MCSRNL93"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Paola Moreno Sanchez",
+      "family": "Moreno Sanchez",
+      "given": [
+        "Claudia",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615803064",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-03-15"
+}

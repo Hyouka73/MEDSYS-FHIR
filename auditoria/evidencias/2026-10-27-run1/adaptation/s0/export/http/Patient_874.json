@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/874",
+  "started_utc": "2026-10-28T02:56:30.199220+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "542",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"874\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GAXD570312HCSRXN74\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniel Luis Garcia\",\n      \"family\": \"Garcia\",\n      \"given\": [\n        \"Daniel\",\n        \"Luis\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614216026\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1957-03-12\"\n}",
+  "body_bytes": 542,
+  "body_sha256": "e2cc9f0257c3cb45d5a37e89df228e572a6f37e1821f0cc9ef8c3df1badbd117",
+  "elapsed_seconds": 0.013755599968135357,
+  "resource": "Patient/874",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

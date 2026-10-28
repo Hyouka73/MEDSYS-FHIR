@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "115",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUDY670831MCSZZL35"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Gabriela Ruiz Diaz",
+      "family": "Ruiz Diaz",
+      "given": [
+        "Yolanda",
+        "Gabriela"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1967-08-31"
+}

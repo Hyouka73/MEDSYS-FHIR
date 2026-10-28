@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "482",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "K30",
+        "display": "Dispepsia funcional"
+      }
+    ],
+    "text": "Dispepsia funcional"
+  },
+  "subject": {
+    "reference": "Patient/375"
+  },
+  "encounter": {
+    "reference": "Encounter/482"
+  },
+  "recordedDate": "2026-07-24"
+}

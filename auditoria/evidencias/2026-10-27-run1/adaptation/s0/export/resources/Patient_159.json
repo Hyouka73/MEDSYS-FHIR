@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "159",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAGJ881212HCSSZS79"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Alberto Vasquez Guzman",
+      "family": "Vasquez Guzman",
+      "given": [
+        "Jose",
+        "Alberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615397882",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1988-12-12"
+}

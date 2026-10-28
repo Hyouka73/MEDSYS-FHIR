@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "266",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEFA950905HCSDLL96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Francisco Medina Flores",
+      "family": "Medina Flores",
+      "given": [
+        "Alejandro",
+        "Francisco"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616985204",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1995-09-05"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/337",
+  "started_utc": "2026-10-28T02:56:28.527788+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"337\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEAJ980614HCSDLR77\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jorge Alberto Medina Alvarez\",\n      \"family\": \"Medina Alvarez\",\n      \"given\": [\n        \"Jorge\",\n        \"Alberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611611221\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1998-06-14\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "0aec4f7db261f81a61d56e0b63c4af5619d0ab7bf73e25cd5db78900abe84f18",
+  "elapsed_seconds": 0.010868099983781576,
+  "resource": "Patient/337",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

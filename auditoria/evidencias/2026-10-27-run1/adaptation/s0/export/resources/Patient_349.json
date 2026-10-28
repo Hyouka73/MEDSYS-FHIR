@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "349",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIML650805MCSMRR89"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Karla Jimenez Morales",
+      "family": "Jimenez Morales",
+      "given": [
+        "Lorena",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612445425",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1965-08-05"
+}

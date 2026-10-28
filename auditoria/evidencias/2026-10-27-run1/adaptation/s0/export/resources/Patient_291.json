@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "291",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAAL840128HCSRLS31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Alexis Garcia Alvarez",
+      "family": "Garcia Alvarez",
+      "given": [
+        "Luis",
+        "Alexis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617384739",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1984-01-28"
+}

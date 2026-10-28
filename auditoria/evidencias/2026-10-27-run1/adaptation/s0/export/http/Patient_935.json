@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/935",
+  "started_utc": "2026-10-28T02:56:30.395045+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "546",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"935\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REXG940519MCSYXL45\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gloria Gloria Reyes\",\n      \"family\": \"Reyes\",\n      \"given\": [\n        \"Gloria\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612472949\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1994-05-19\"\n}",
+  "body_bytes": 546,
+  "body_sha256": "8ccf846fa59bfe2989eb162e2816dfdb10a64edcf10f769f8bdec8d0717664f3",
+  "elapsed_seconds": 0.006931099982466549,
+  "resource": "Patient/935",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "420",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOXF781214HCSLXR70"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Roberto Flores",
+      "family": "Flores",
+      "given": [
+        "Francisco",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615125492",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1978-12-14"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/630",
+  "started_utc": "2026-10-28T02:56:29.439644+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"630\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MAGL150517HCSRTS10\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Luis Manuel Martinez Gutierrez\",\n      \"family\": \"Martinez Gutierrez\",\n      \"given\": [\n        \"Luis\",\n        \"Manuel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614004738\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2015-05-17\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "9b1b56981b1a5c31a416944d6a82486c030377dbd96354597ab7ade32b842bef",
+  "elapsed_seconds": 0.006633999990299344,
+  "resource": "Patient/630",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

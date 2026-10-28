@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/53",
+  "started_utc": "2026-10-28T02:56:29.111284+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "551",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"53\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUMA580906MCSRNN63\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ana Karla Juarez Munoz\",\n      \"family\": \"Juarez Munoz\",\n      \"given\": [\n        \"Ana\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619457904\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1958-09-06\"\n}",
+  "body_bytes": 551,
+  "body_sha256": "9aff5640e9e03b445dd57f9101510c3acf6e3f7d8d118c94917e6a9d918ca43b",
+  "elapsed_seconds": 0.012773700000252575,
+  "resource": "Patient/53",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/45",
+  "started_utc": "2026-10-28T02:56:28.854377+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "561",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"45\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GASE491021MCSRNL55\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Elena Lorena Garcia Sanchez\",\n      \"family\": \"Garcia Sanchez\",\n      \"given\": [\n        \"Elena\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614916421\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1949-10-21\"\n}",
+  "body_bytes": 561,
+  "body_sha256": "d7a32300a53ff76c9aee08b2b5f0e10025e38f6374c0dd987e8e47da19ee4231",
+  "elapsed_seconds": 0.0086007000063546,
+  "resource": "Patient/45",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

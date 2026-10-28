@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/652",
+  "started_utc": "2026-10-28T02:56:29.504836+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"652\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AARD901009MCSLMN32\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniela Alvarez Ramirez\",\n      \"family\": \"Alvarez Ramirez\",\n      \"given\": [\n        \"Daniela\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611662376\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1990-10-09\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "b9040a99860124af61cf8393f176e74325cac7e312a1c85e653e2ebdcfb702f2",
+  "elapsed_seconds": 0.007453300000634044,
+  "resource": "Patient/652",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

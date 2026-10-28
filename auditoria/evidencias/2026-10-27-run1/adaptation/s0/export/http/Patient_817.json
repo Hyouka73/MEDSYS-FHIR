@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/817",
+  "started_utc": "2026-10-28T02:56:30.004294+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "525",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"817\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOXN760322MCSRXT17\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Moreno\",\n      \"family\": \"Moreno\",\n      \"given\": [\n        \"Natalia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617047034\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1976-03-22\"\n}",
+  "body_bytes": 525,
+  "body_sha256": "915c90ab7c5281c9e63d47d973a304491ad3b3ba8f779916e2fbaff45f7df027",
+  "elapsed_seconds": 0.026595900009851903,
+  "resource": "Patient/817",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "18",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOML090708MCSRRR28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Elena Morales Martinez",
+      "family": "Morales Martinez",
+      "given": [
+        "Lorena",
+        "Elena"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2009-07-08"
+}

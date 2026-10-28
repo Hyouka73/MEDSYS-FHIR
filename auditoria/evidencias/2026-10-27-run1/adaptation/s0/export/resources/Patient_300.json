@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "300",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOSA670623MCSPNN40"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Gloria Lopez Sanchez",
+      "family": "Lopez Sanchez",
+      "given": [
+        "Ana",
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615796616",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1967-06-23"
+}

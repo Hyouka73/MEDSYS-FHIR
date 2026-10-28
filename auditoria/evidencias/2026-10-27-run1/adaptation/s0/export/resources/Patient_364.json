@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "364",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOGL641207HCSRRS14"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Pedro Moreno Garcia",
+      "family": "Moreno Garcia",
+      "given": [
+        "Luis",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615950158",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1964-12-07"
+}

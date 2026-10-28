@@ -14,7 +14,10 @@ const SPECIFICATION_YAML: &str = include_str!("../../../mapping_rules.yaml");
 
 /// Construye una instancia del enrutador Axum para pruebas en memoria (sin sockets TCP).
 fn setup_test_app() -> axum::Router {
-    let config = DbConfig::default();
+    let config = DbConfig::new(
+        std::env::var("DATABASE_URL")
+            .expect("DATABASE_URL debe apuntar a la fixture sintética de pruebas"),
+    );
     let pool = init_pool_lazy(&config).expect("init_pool_lazy debe inicializar");
     let repos = MedsysRepositories::new(pool.clone());
     let mapping_rules = parse_mapping_rules(SPECIFICATION_YAML).expect("parse_mapping_rules falló");
@@ -191,10 +194,19 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
     assert_eq!(content_type, FHIR_JSON_CONTENT_TYPE);
 
     let body_patient = response_body_to_string(res_patient).await;
+    assert_eq!(
+        status,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
     if status == StatusCode::OK {
         assert!(body_patient.contains("\"resourceType\": \"Patient\""));
         assert!(body_patient.contains("ROMA900101HCSMNL09"));
-        assert!(!body_patient.contains("\"telecom\""));
+        // La semilla SQL original sí contiene teléfono en Patient/1. La omisión
+        // opcional se ensaya por separado con origen NULL, no inventando esa ausencia.
+        let patient: serde_json::Value = serde_json::from_str(&body_patient).unwrap();
+        assert_eq!(patient["telecom"][0]["value"], "9611234567");
+        assert_eq!(patient["telecom"][0]["system"], "phone");
     } else {
         // En caso de que el pool esté offline o id no exista
         assert!(body_patient.contains("\"resourceType\": \"OperationOutcome\""));
@@ -213,6 +225,11 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
         FHIR_JSON_CONTENT_TYPE
     );
     let body_enc = response_body_to_string(res_enc).await;
+    assert_eq!(
+        status_enc,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
     if status_enc == StatusCode::OK {
         assert!(body_enc.contains("\"resourceType\": \"Encounter\""));
         assert!(body_enc.contains("AMB"));
@@ -233,6 +250,11 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
         FHIR_JSON_CONTENT_TYPE
     );
     let body_obs = response_body_to_string(res_obs).await;
+    assert_eq!(
+        status_obs,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
     if status_obs == StatusCode::OK {
         assert!(body_obs.contains("\"resourceType\": \"Observation\""));
         assert!(body_obs.contains("8310-5"));
@@ -253,6 +275,11 @@ async fn test_fhir_canonical_endpoints_content_type_and_schema() {
         FHIR_JSON_CONTENT_TYPE
     );
     let body_cond = response_body_to_string(res_cond).await;
+    assert_eq!(
+        status_cond,
+        StatusCode::OK,
+        "La lectura nominal exige PostgreSQL y salida real"
+    );
     if status_cond == StatusCode::OK {
         assert!(body_cond.contains("\"resourceType\": \"Condition\""));
         assert!(body_cond.contains("I10"));
@@ -281,6 +308,11 @@ async fn test_observation_respiratory_rate_routes_prefix_and_suffix() {
         assert_ne!(res.status(), StatusCode::BAD_REQUEST, "uri: {uri}");
         let status = res.status();
         let body = response_body_to_string(res).await;
+        assert_eq!(
+            status,
+            StatusCode::OK,
+            "La lectura nominal exige PostgreSQL y salida real"
+        );
         if status == StatusCode::OK {
             assert!(body.contains("9279-1"));
         } else {

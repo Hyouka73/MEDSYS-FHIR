@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/524",
+  "started_utc": "2026-10-28T02:56:29.097636+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"524\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAMF120209HCSSRR84\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Francisco Daniel Castillo Moreno\",\n      \"family\": \"Castillo Moreno\",\n      \"given\": [\n        \"Francisco\",\n        \"Daniel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619889892\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2012-02-09\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "59d8efb541936aeb0f8f46a8624387d6374e29326a77bc238f9d3fed30c09f51",
+  "elapsed_seconds": 0.011206399998627603,
+  "resource": "Patient/524",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

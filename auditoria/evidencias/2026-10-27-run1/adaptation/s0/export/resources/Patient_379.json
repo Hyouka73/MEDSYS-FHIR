@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "379",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOAR720527HCSRLL29"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Hugo Torres Alvarez",
+      "family": "Torres Alvarez",
+      "given": [
+        "Raul",
+        "Hugo"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1972-05-27"
+}

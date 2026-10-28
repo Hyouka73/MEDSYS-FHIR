@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "714",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SARJ630918HCSNMV94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Roberto Sanchez Ramos",
+      "family": "Sanchez Ramos",
+      "given": [
+        "Javier",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617207054",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1963-09-18"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/819",
+  "started_utc": "2026-10-28T02:56:30.010555+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "446",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"819\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"ROXL590131MCSDXT19\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Leticia Elena Rodriguez\",\n      \"family\": \"Rodriguez\",\n      \"given\": [\n        \"Leticia\",\n        \"Elena\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1959-01-31\"\n}",
+  "body_bytes": 446,
+  "body_sha256": "d46337a0ddc88e6969cfa7734d4af07f45354a9617cfc43a5b9177a5fb95d43a",
+  "elapsed_seconds": 0.018412599980365485,
+  "resource": "Patient/819",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

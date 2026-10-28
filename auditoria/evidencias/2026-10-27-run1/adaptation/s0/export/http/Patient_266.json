@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/266",
+  "started_utc": "2026-10-28T02:56:28.288884+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"266\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEFA950905HCSDLL96\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Francisco Medina Flores\",\n      \"family\": \"Medina Flores\",\n      \"given\": [\n        \"Alejandro\",\n        \"Francisco\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616985204\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1995-09-05\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "45525198b10c7bdcb91b41680acd6adcb5460ca47cbbc598f8b4d0dfc5bff778",
+  "elapsed_seconds": 0.028585599968209863,
+  "resource": "Patient/266",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

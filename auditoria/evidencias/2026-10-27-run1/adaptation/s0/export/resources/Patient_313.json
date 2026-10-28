@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "313",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MERE930611MCSDML53"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Paola Medina Ramirez",
+      "family": "Medina Ramirez",
+      "given": [
+        "Elena",
+        "Paola"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618611632",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1993-06-11"
+}

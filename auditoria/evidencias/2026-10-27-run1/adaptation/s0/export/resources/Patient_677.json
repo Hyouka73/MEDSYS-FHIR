@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "677",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOGB130409MCSRZT57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Torres Guzman",
+      "family": "Torres Guzman",
+      "given": [
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613426485",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2013-04-09"
+}

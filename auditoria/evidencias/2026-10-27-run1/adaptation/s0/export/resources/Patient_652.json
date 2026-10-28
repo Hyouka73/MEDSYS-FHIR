@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "652",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AARD901009MCSLMN32"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Daniela Alvarez Ramirez",
+      "family": "Alvarez Ramirez",
+      "given": [
+        "Daniela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611662376",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1990-10-09"
+}

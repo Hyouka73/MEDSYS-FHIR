@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/971",
+  "started_utc": "2026-10-28T02:56:30.498610+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "543",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"971\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GAGA600225MCSRND81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Adriana Garcia Gonzalez\",\n      \"family\": \"Garcia Gonzalez\",\n      \"given\": [\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612805701\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1960-02-25\"\n}",
+  "body_bytes": 543,
+  "body_sha256": "fb0f7f43e9c3fe66584e54a9bfed4196e77ad16cd68af1f7191b9dd20aaffc18",
+  "elapsed_seconds": 0.01971580000827089,
+  "resource": "Patient/971",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

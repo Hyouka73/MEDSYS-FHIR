@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "136",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOGG470115MCSLTL56"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Yolanda Flores Gutierrez",
+      "family": "Flores Gutierrez",
+      "given": [
+        "Gloria",
+        "Yolanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614344666",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1947-01-15"
+}

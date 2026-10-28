@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/22",
+  "started_utc": "2026-10-28T02:56:28.115635+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "557",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"22\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAGJ490924HCSRZN32\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Antonio Vargas Guzman\",\n      \"family\": \"Vargas Guzman\",\n      \"given\": [\n        \"Juan\",\n        \"Antonio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616533108\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1949-09-24\"\n}",
+  "body_bytes": 557,
+  "body_sha256": "32fc43d5d6e712a2f18b65a970c92dcc320d73e22232f10a00812990353f98f3",
+  "elapsed_seconds": 0.008263299998361617,
+  "resource": "Patient/22",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

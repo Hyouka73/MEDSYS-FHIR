@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "293",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MECM830709MCSNSR33"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Patricia Mendoza Castillo",
+      "family": "Mendoza Castillo",
+      "given": [
+        "Martha",
+        "Patricia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612766761",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1983-07-09"
+}

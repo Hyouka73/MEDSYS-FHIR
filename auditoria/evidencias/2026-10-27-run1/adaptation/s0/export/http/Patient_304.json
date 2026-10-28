@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/304",
+  "started_utc": "2026-10-28T02:56:28.406592+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"304\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RARM730801MCSMMR44\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Mariana Claudia Ramirez Ramos\",\n      \"family\": \"Ramirez Ramos\",\n      \"given\": [\n        \"Mariana\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611830917\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1973-08-01\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "28a8db131090ec117f9e58e986d9f3ad6f66e9d623e87a90574a738deaf2a926",
+  "elapsed_seconds": 0.00818579999031499,
+  "resource": "Patient/304",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

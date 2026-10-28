@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "475",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOMG730930MCSNNL35"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Gonzalez Munoz",
+      "family": "Gonzalez Munoz",
+      "given": [
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615061070",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1973-09-30"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "499",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RURV560213MCSZMR59"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Veronica Monica Ruiz Ramos",
+      "family": "Ruiz Ramos",
+      "given": [
+        "Veronica",
+        "Monica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616704199",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1956-02-13"
+}

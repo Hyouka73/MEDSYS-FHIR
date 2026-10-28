@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "249",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOCR851016HCSMSB79"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Roberto Raul Gomez Castro",
+      "family": "Gomez Castro",
+      "given": [
+        "Roberto",
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613806380",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1985-10-16"
+}

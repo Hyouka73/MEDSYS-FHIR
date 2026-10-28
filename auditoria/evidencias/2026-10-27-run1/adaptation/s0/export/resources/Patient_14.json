@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "14",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUGG000611MCSZNB24"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Alejandra Guzman Gonzalez",
+      "family": "Guzman Gonzalez",
+      "given": [
+        "Gabriela",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616448618",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2000-06-11"
+}

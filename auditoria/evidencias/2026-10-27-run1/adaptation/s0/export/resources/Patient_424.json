@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "424",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAVE010821HCSHSN74"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Mario Chavez Vasquez",
+      "family": "Chavez Vasquez",
+      "given": [
+        "Enrique",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615258947",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2001-08-21"
+}

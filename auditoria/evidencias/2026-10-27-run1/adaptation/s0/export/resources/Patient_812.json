@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "812",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MASL901017MCSRNR12"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Mariana Martinez Sanchez",
+      "family": "Martinez Sanchez",
+      "given": [
+        "Lorena",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613133688",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1990-10-17"
+}

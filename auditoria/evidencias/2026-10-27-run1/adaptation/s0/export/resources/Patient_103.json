@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "103",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUXM631123MCSGXR23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Maria Daniela Aguilar",
+      "family": "Aguilar",
+      "given": [
+        "Maria",
+        "Daniela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613581104",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-11-23"
+}

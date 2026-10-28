@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/977",
+  "started_utc": "2026-10-28T02:56:30.518017+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"977\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GAAP080727HCSRGD87\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Pedro Jose Garcia Aguilar\",\n      \"family\": \"Garcia Aguilar\",\n      \"given\": [\n        \"Pedro\",\n        \"Jose\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613257517\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2008-07-27\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "2b1f7329d6467354a699f9cfa5ce3b9b850896922eabaf30ab371a1e7d8d92b0",
+  "elapsed_seconds": 0.010078300023451447,
+  "resource": "Patient/977",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

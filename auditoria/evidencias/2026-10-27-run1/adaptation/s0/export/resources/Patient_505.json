@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "505",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GALJ880225HCSRPR65"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Arturo Garcia Lopez",
+      "family": "Garcia Lopez",
+      "given": [
+        "Jorge",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616136198",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1988-02-25"
+}

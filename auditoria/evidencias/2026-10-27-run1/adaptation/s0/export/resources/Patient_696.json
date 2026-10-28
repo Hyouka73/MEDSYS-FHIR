@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "696",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUVC170705MCSRSR76"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Carmen Juarez Vasquez",
+      "family": "Juarez Vasquez",
+      "given": [
+        "Carmen",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617320155",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2017-07-05"
+}

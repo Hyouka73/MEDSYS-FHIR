@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "179",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AARJ091201HCSLDN99"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Enrique Alvarez Rodriguez",
+      "family": "Alvarez Rodriguez",
+      "given": [
+        "Juan",
+        "Enrique"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613464298",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2009-12-01"
+}

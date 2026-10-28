@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "259",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MUML650914MCSNNC89"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Gloria Munoz Mendez",
+      "family": "Munoz Mendez",
+      "given": [
+        "Lucia",
+        "Gloria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611315189",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1965-09-14"
+}

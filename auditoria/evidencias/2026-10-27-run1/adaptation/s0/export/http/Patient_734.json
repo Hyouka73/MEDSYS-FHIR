@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/734",
+  "started_utc": "2026-10-28T02:56:29.737260+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"734\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOML631027MCSPDR24\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lorena Mariana Lopez Medina\",\n      \"family\": \"Lopez Medina\",\n      \"given\": [\n        \"Lorena\",\n        \"Mariana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617009156\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1963-10-27\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "5b7c88eac893bb906762395185c722de95cac79b7159c34c169391fb36b12569",
+  "elapsed_seconds": 0.006577100022695959,
+  "resource": "Patient/734",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

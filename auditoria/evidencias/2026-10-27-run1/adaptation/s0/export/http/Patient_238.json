@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/238",
+  "started_utc": "2026-10-28T02:56:28.183949+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "548",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"238\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEXJ731012HCSDXV68\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Alberto Medina\",\n      \"family\": \"Medina\",\n      \"given\": [\n        \"Javier\",\n        \"Alberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618445045\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1973-10-12\"\n}",
+  "body_bytes": 548,
+  "body_sha256": "45d1d41131a65cd4c45e6218aa135bac67a8444c84e0df523047ea089c37594a",
+  "elapsed_seconds": 0.013880499987863004,
+  "resource": "Patient/238",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

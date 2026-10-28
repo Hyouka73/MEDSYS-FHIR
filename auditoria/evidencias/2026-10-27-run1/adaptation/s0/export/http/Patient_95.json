@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/95",
+  "started_utc": "2026-10-28T02:56:30.432891+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "540",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"95\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HERR640710HCSRYG15\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rogelio Hernandez Reyes\",\n      \"family\": \"Hernandez Reyes\",\n      \"given\": [\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611953488\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1964-07-10\"\n}",
+  "body_bytes": 540,
+  "body_sha256": "d3f72cadb4261ec8bb098b3d93c8055fc283b6cd5f266352d54cda7e5262616a",
+  "elapsed_seconds": 0.007213300035800785,
+  "resource": "Patient/95",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "575",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SAVC171116MCSNRR45"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Leticia Sanchez Vargas",
+      "family": "Sanchez Vargas",
+      "given": [
+        "Carmen",
+        "Leticia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2017-11-16"
+}

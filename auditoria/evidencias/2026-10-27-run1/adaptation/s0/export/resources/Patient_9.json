@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "9",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAGM990821HCSRZG19"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Gabriel Vargas Guzman",
+      "family": "Vargas Guzman",
+      "given": [
+        "Miguel",
+        "Gabriel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611274030",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1999-08-21"
+}

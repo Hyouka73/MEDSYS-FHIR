@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "133",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEVR610727MCSRRS53"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Carmen Perez Vargas",
+      "family": "Perez Vargas",
+      "given": [
+        "Rosa",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614548071",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-07-27"
+}

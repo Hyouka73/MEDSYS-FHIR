@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1614",
+  "started_utc": "2026-10-28T02:55:34.182702+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "864",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:34 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1614\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"B34.9\",\n        \"display\": \"Infección viral, no especificada\"\n      }\n    ],\n    \"text\": \"Infección viral, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/216\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1614\"\n  },\n  \"recordedDate\": \"2025-03-11\"\n}",
+  "body_bytes": 864,
+  "body_sha256": "cfa2775833bde31a3d9752a6819152bb6c59f188abe657de14a88b98116d893c",
+  "elapsed_seconds": 0.01114030001917854,
+  "resource": "Condition/1614",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

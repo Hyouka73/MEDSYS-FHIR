@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Observation/hr-1337",
+  "started_utc": "2026-10-28T02:56:03.701332+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "776",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:03 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Observation\",\n  \"id\": \"hr-1337\",\n  \"status\": \"final\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n          \"code\": \"vital-signs\",\n          \"display\": \"Vital Signs\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://loinc.org\",\n        \"code\": \"8867-4\",\n        \"display\": \"Heart rate\"\n      }\n    ],\n    \"text\": \"Frecuencia cardíaca\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/443\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1337\"\n  },\n  \"effectiveDateTime\": \"2025-08-23T11:06:00+00:00\",\n  \"valueQuantity\": {\n    \"value\": 105,\n    \"unit\": \"/min\",\n    \"system\": \"http://unitsofmeasure.org\",\n    \"code\": \"/min\"\n  }\n}",
+  "body_bytes": 776,
+  "body_sha256": "043e394cc7fbfdf3ca240af0cea55b1fd931d13096a40821c9b27b98777da667",
+  "elapsed_seconds": 0.04353720002109185,
+  "resource": "Observation/hr-1337",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

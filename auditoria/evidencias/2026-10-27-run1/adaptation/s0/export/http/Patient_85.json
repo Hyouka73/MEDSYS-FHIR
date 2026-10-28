@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/85",
+  "started_utc": "2026-10-28T02:56:30.129287+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "563",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"85\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEGY710927MCSNML95\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Yolanda Adriana Mendez Gomez\",\n      \"family\": \"Mendez Gomez\",\n      \"given\": [\n        \"Yolanda\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616571780\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1971-09-27\"\n}",
+  "body_bytes": 563,
+  "body_sha256": "0bff66f8ff7b61506e0a277bd6d315d91a9835f977ce014cf963c73dad74a083",
+  "elapsed_seconds": 0.013978699978906661,
+  "resource": "Patient/85",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

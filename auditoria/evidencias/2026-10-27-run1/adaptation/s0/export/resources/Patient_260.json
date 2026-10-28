@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "260",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MOFS490910HCSRLL90"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Salvador Andres Moreno Flores",
+      "family": "Moreno Flores",
+      "given": [
+        "Salvador",
+        "Andres"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611774009",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1949-09-10"
+}

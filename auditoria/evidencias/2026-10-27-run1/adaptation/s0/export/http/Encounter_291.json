@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/291",
+  "started_utc": "2026-10-28T02:55:48.985781+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1179",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:48 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"291\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"291\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/88\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"9481726\"\n        },\n        \"display\": \"Dr. Fernando Gómez Coutiño\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2026-05-15T21:26:00+00:00\",\n    \"end\": \"2026-05-15T21:46:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Cefalea persistente y mareos\"\n    }\n  ]\n}",
+  "body_bytes": 1179,
+  "body_sha256": "1a35785ffc7a6fe8b7e05968ea8f50ba23b02c53c78a1c28672bc4449f0bfb6b",
+  "elapsed_seconds": 0.010851600032765418,
+  "resource": "Encounter/291",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

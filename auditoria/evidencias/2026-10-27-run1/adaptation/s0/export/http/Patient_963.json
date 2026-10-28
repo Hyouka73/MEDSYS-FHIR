@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/963",
+  "started_utc": "2026-10-28T02:56:30.473256+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"963\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUMM790216HCSZRG73\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Miguel Alejandro Guzman Martinez\",\n      \"family\": \"Guzman Martinez\",\n      \"given\": [\n        \"Miguel\",\n        \"Alejandro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613865168\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1979-02-16\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "334ee65d65c3eca687b2107034f0b990f96d6a488c16e4a59cef864f10a309bb",
+  "elapsed_seconds": 0.010767700034193695,
+  "resource": "Patient/963",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

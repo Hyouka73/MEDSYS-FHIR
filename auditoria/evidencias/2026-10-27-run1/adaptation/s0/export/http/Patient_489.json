@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/489",
+  "started_utc": "2026-10-28T02:56:28.978997+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"489\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUMR480131HCSGRC49\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ricardo Fernando Aguilar Martinez\",\n      \"family\": \"Aguilar Martinez\",\n      \"given\": [\n        \"Ricardo\",\n        \"Fernando\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613184616\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1948-01-31\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "88ffcb0534cdd0a2b71fbff0978e129a6418966f3614d8196eab99c74ddc468e",
+  "elapsed_seconds": 0.007124900002963841,
+  "resource": "Patient/489",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

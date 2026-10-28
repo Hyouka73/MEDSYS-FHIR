@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "143",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAXL760724HCSRXS63"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Arturo Vargas",
+      "family": "Vargas",
+      "given": [
+        "Luis",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616728613",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1976-07-24"
+}

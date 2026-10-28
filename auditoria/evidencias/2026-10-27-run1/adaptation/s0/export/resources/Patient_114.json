@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "114",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RARJ690102HCSMMR34"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Mario Ramirez Ramos",
+      "family": "Ramirez Ramos",
+      "given": [
+        "Jorge",
+        "Mario"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618779955",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1969-01-02"
+}

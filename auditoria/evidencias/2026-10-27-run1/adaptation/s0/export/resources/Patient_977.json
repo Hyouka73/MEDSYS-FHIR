@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "977",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAAP080727HCSRGD87"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Jose Garcia Aguilar",
+      "family": "Garcia Aguilar",
+      "given": [
+        "Pedro",
+        "Jose"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613257517",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2008-07-27"
+}

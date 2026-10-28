@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "896",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUXS050804MCSZXL96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Silvia Carmen Guzman",
+      "family": "Guzman",
+      "given": [
+        "Silvia",
+        "Carmen"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2005-08-04"
+}

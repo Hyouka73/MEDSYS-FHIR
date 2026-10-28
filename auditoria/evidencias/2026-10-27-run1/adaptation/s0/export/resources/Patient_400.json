@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "400",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PECC940912MCSRSR50"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Beatriz Perez Castillo",
+      "family": "Perez Castillo",
+      "given": [
+        "Carmen",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613680036",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1994-09-12"
+}

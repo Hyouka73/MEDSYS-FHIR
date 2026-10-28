@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "888",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOGJ580227HCSNNN88"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Manuel Gonzalez Gonzalez",
+      "family": "Gonzalez Gonzalez",
+      "given": [
+        "Juan",
+        "Manuel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618582163",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1958-02-27"
+}

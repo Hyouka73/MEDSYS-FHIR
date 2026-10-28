@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "425",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEMF940716MCSRNR75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Perez Mendez",
+      "family": "Perez Mendez",
+      "given": [
+        "Fernanda"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617857590",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1994-07-16"
+}

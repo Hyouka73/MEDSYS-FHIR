@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/188",
+  "started_utc": "2026-10-28T02:56:28.006349+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"188\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIHJ810331HCSMRS18\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jose Raul Jimenez Herrera\",\n      \"family\": \"Jimenez Herrera\",\n      \"given\": [\n        \"Jose\",\n        \"Raul\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612911850\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1981-03-31\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "a9fe765bb4e56b334cc8488469bcad08ed07d9725af9946da71a3ae1a1aec958",
+  "elapsed_seconds": 0.014185899985022843,
+  "resource": "Patient/188",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "668",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAMA720629HCSSRL48"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Carlos Castro Martinez",
+      "family": "Castro Martinez",
+      "given": [
+        "Alejandro",
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613724887",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1972-06-29"
+}

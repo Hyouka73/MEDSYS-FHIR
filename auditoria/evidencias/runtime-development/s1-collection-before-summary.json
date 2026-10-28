@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:18741/fhir/r4/Patient?limit=1&offset=0",
+  "http_status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1055",
+    "connection": "close",
+    "date": "Mon, 26 Oct 2026 04:02:19 GMT"
+  },
+  "total": 1000,
+  "entries": 1,
+  "binary_sha256": "ea7e9e29bc730558cf0b0de993203bf0413d06c29478e273b6aa140eb8f5f9ad",
+  "database": "medsys_eval_v2_s1",
+  "commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+  "captured_utc": "2026-10-26T04:02:19.406937+00:00",
+  "interpretation": "Existing YAML DISTINCT ON already yields 1000 distinct Patient resources; no new FHIR deduplication added."
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "384",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HECY000218MCSRSL34"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Lorena Herrera Castillo",
+      "family": "Herrera Castillo",
+      "given": [
+        "Yolanda",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615765728",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2000-02-18"
+}

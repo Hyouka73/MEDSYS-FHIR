@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/841",
+  "started_utc": "2026-10-28T02:56:30.094898+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "560",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"841\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAJP920907MCSRML41\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Karla Vargas Jimenez\",\n      \"family\": \"Vargas Jimenez\",\n      \"given\": [\n        \"Paola\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617929139\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1992-09-07\"\n}",
+  "body_bytes": 560,
+  "body_sha256": "8fd29e7044c9e49fccb6196cef6402f88e0b5629a529f83c725ce230c6cb6c5b",
+  "elapsed_seconds": 0.023169899999629706,
+  "resource": "Patient/841",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

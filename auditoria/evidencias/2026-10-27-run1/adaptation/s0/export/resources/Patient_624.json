@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "624",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEOG100411HCSDRB94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Alberto Medina Ortiz",
+      "family": "Medina Ortiz",
+      "given": [
+        "Gabriel",
+        "Alberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617703780",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2010-04-11"
+}

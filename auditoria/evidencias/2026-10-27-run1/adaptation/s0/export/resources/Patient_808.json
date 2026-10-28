@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "808",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "METM610916MCSDRN98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Monica Alejandra Medina Torres",
+      "family": "Medina Torres",
+      "given": [
+        "Monica",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611463294",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-09-16"
+}

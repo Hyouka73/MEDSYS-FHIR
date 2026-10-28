@@ -1,16 +1,18 @@
 //! Manejadores HTTP para el recurso FHIR `Patient`.
 
-use axum::extract::{Path, Query, State};
+use axum::extract::{rejection::QueryRejection, OriginalUri, Path, Query, State};
 use helios_fhir::r4::Resource;
-use medsys_core::{create_searchset_bundle, transform_patient};
+use medsys_core::transform_patient;
 use serde::Deserialize;
 
+use super::common::{bundle_page, normalize_row, output_rules, parse_query, read_mapping};
 use crate::error::ServerError;
 use crate::response::FhirResponse;
 use crate::state::AppState;
 
 /// Parámetros opcionales de paginación para consultas de colección.
 #[derive(Debug, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct PaginationParams {
     pub limit: Option<i64>,
     pub offset: Option<i64>,
@@ -38,14 +40,12 @@ pub async fn get_patient(
         ServerError::InvalidPath(format!("Identificador de paciente inválido: '{raw_id}'"))
     })?;
 
-    let legacy_paciente = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Patient") {
-        Some(m) if m.source_table != "tbl_pacientes" => {
-            let row = state.repositories.dynamic.find_by_id(m, id).await?;
-            medsys_db::row_to_legacy_paciente(&row)?
-        }
-        _ => state.repositories.pacientes.find_by_id(id).await?,
-    };
-    let fhir_patient = transform_patient(&legacy_paciente, Some(&state.mapping_rules))?;
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Patient")?;
+    let row = state.repositories.dynamic.find_by_id(&mapping, id).await?;
+    let legacy_paciente = medsys_db::row_to_legacy_paciente(&normalize_row(&state, row)?)?;
+
+    let fhir_patient = transform_patient(&legacy_paciente, Some(&rules))?;
 
     Ok(FhirResponse(Resource::Patient(Box::new(fhir_patient))))
 }
@@ -54,43 +54,27 @@ pub async fn get_patient(
 /// Retorna la colección de pacientes encapsulada en un `Bundle` FHIR de tipo `searchset`.
 pub async fn list_patients(
     State(state): State<AppState>,
-    Query(params): Query<PaginationParams>,
+    OriginalUri(uri): OriginalUri,
+    query: Result<Query<PaginationParams>, QueryRejection>,
 ) -> Result<FhirResponse, ServerError> {
-    let pacientes = match state.mapping_rules.resources.iter().find(|r| r.resource_type == "Patient") {
-        Some(m) if m.source_table != "tbl_pacientes" => {
-            let rows = state
-                .repositories
-                .dynamic
-                .find_all_raw(m, params.limit(), params.offset())
-                .await?;
-            let mut list = Vec::with_capacity(rows.len());
-            for r in &rows {
-                list.push(medsys_db::row_to_legacy_paciente(r)?);
-            }
-            list
-        }
-        _ => {
-            let all = state.repositories.pacientes.find_all().await?;
-            let total = all.len();
-            let offset = params.offset() as usize;
-            let limit = params.limit() as usize;
-            if offset < total {
-                all.into_iter().skip(offset).take(limit).collect()
-            } else {
-                Vec::new()
-            }
-        }
-    };
-
-    let count = pacientes.len();
-    let mut resources = Vec::with_capacity(count);
-
-    for p in pacientes {
-        let fhir_p = transform_patient(&p, Some(&state.mapping_rules))?;
-        resources.push(Resource::Patient(Box::new(fhir_p)));
+    let params = parse_query(query)?;
+    let rules = output_rules(&state);
+    let mapping = read_mapping(&state, "Patient")?;
+    let rows = state
+        .repositories
+        .dynamic
+        .find_all_raw(&mapping, i64::MAX, 0)
+        .await?;
+    let mut resources = Vec::new();
+    for row in rows {
+        let paciente = medsys_db::row_to_legacy_paciente(&normalize_row(&state, row)?)?;
+        let value = transform_patient(&paciente, Some(&rules))?;
+        resources.push(Resource::Patient(Box::new(value)));
     }
-
-    let bundle = create_searchset_bundle(Some("bundle-patients"), resources, Some(count));
-
-    Ok(FhirResponse(Resource::Bundle(Box::new(bundle))))
+    Ok(bundle_page(
+        resources,
+        params.limit(),
+        params.offset(),
+        &uri,
+    ))
 }

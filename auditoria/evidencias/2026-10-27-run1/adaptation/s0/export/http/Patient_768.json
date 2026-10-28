@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/768",
+  "started_utc": "2026-10-28T02:56:29.838103+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"768\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CAXR080711HCSSXL58\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Raul Francisco Castillo\",\n      \"family\": \"Castillo\",\n      \"given\": [\n        \"Raul\",\n        \"Francisco\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615073247\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2008-07-11\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "08d7f0dff7e0e4e9a697e43792d673db09a39979af67bb77977ba5ab6d93bb42",
+  "elapsed_seconds": 0.013582099985796958,
+  "resource": "Patient/768",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

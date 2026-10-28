@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "626",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIDP520903HCSRZD96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Rogelio Ortiz Diaz",
+      "family": "Ortiz Diaz",
+      "given": [
+        "Pedro",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618977003",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1952-09-03"
+}

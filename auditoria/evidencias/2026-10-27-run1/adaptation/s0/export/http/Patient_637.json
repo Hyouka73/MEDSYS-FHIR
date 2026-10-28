@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/637",
+  "started_utc": "2026-10-28T02:56:29.456072+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "434",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"637\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAXD501106HCSMXV17\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"David Alexis Ramos\",\n      \"family\": \"Ramos\",\n      \"given\": [\n        \"David\",\n        \"Alexis\"\n      ]\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-11-06\"\n}",
+  "body_bytes": 434,
+  "body_sha256": "6f6939ba66565451da31168950fec2d89ffc141e55d574a4bfdbf6ecc6524179",
+  "elapsed_seconds": 0.009574999974574894,
+  "resource": "Patient/637",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

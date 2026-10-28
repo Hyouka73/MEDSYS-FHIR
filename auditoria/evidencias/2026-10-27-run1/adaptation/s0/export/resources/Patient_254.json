@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "254",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROME830808MCSDNL84"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Ana Rodriguez Mendez",
+      "family": "Rodriguez Mendez",
+      "given": [
+        "Elena",
+        "Ana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617763587",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1983-08-08"
+}

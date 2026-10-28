@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/506",
+  "started_utc": "2026-10-28T02:56:29.040630+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"506\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAMD110922HCSMDN66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Daniel Hugo Ramirez Medina\",\n      \"family\": \"Ramirez Medina\",\n      \"given\": [\n        \"Daniel\",\n        \"Hugo\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614255262\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2011-09-22\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "73f6d42e6dec463d22b5c57c20c3e187d3efefb8012e0609ef31493866a698f8",
+  "elapsed_seconds": 0.008881499990820885,
+  "resource": "Patient/506",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

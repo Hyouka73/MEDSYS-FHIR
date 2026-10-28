@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-10-21T05:27:54.9758762Z",
+  "validator": {
+    "bytes": 204412235,
+    "sha256": "e3e50f06b806437821b7aef8189a1b790415cb96c5036e0812ed62981452b377",
+    "git": "de3463393298",
+    "url": "https://github.com/hapifhir/org.hl7.fhir.core/releases/download/7.0.2/validator_cli.jar",
+    "version": "7.0.2"
+  },
+  "k6": {
+    "zip_sha256": "112276d495e5741c968e2bc09ea6196099c1275bd6db9ee0875d173c7148ce43",
+    "executable": "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\k6\\k6-v2.3.0-windows-amd64\\k6.exe",
+    "exe_sha256": "efec04c36452cfb9c0ef313082c021e5656caf5004f922c2d8b807fdf4a0e02f",
+    "url": "https://github.com/grafana/k6/releases/download/v2.3.0/k6-v2.3.0-windows-amd64.zip",
+    "version": "v2.3.0"
+  },
+  "java_version": "openjdk version \"21.0.10\" 2026-01-20 LTS\nOpenJDK Runtime Environment Microsoft-13106404 (build 21.0.10+7-LTS)\nOpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sharing)",
+  "sources": [
+    "https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/7.0.2",
+    "https://grafana.com/docs/k6/latest/set-up/install-k6/",
+    "https://github.com/grafana/k6/releases/tag/v2.3.0"
+  ]
+}

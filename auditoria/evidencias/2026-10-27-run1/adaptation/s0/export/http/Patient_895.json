@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/895",
+  "started_utc": "2026-10-28T02:56:30.269976+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"895\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OICA480505MCSRHN95\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ana Laura Ortiz Chavez\",\n      \"family\": \"Ortiz Chavez\",\n      \"given\": [\n        \"Ana\",\n        \"Laura\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617160766\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1948-05-05\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "56ceffe97c090876daa5969fe3aa5da091ef668c7bba68211dfa6d6a34e01485",
+  "elapsed_seconds": 0.01020830002380535,
+  "resource": "Patient/895",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

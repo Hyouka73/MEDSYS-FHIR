@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/883",
+  "started_utc": "2026-10-28T02:56:30.230950+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "529",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"883\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"REJJ851007HCSYRN83\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Reyes Juarez\",\n      \"family\": \"Reyes Juarez\",\n      \"given\": [\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613006191\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1985-10-07\"\n}",
+  "body_bytes": 529,
+  "body_sha256": "220ea198a70713bdbea12068df225109b6ecf2be23eaa43b7d1c6eae447b4b10",
+  "elapsed_seconds": 0.014440600003581494,
+  "resource": "Patient/883",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

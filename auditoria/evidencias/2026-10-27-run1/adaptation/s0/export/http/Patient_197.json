@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/197",
+  "started_utc": "2026-10-28T02:56:28.034322+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"197\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RUGP520409MCSZZT27\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Patricia Claudia Ruiz Guzman\",\n      \"family\": \"Ruiz Guzman\",\n      \"given\": [\n        \"Patricia\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611352099\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1952-04-09\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "57fb2f2c799ec9ad03c5ecc214b0716f96f6953f6314e432582878a49608ca81",
+  "elapsed_seconds": 0.01820620003854856,
+  "resource": "Patient/197",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

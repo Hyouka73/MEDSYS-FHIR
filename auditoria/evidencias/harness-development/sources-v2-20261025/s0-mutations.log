@@ -1,0 +1,26 @@
+================================================================================
+INICIANDO PRUEBAS DE MUTACIÓN DEL ORÁCULO (MUTATION TESTING — 20 CASOS)
+================================================================================
+  [OK] MUT-01 (Patient/1): Alterar último dígito de la CURP -> DETECTADA (RECHAZADA)
+  [OK] MUT-02 (Patient/1): Invertir género masculino a femenino -> DETECTADA (RECHAZADA)
+  [OK] MUT-03 (Patient/1): Modificar día en birthDate -> DETECTADA (RECHAZADA)
+  [OK] MUT-04 (Patient/1): Corromper sistema de CURP -> DETECTADA (RECHAZADA)
+  [OK] MUT-05 (Patient/1): Alterar apellido paterno -> DETECTADA (RECHAZADA)
+  [OK] MUT-06 (Encounter/1): Cambiar estado de finished a cancelled -> DETECTADA (RECHAZADA)
+  [OK] MUT-07 (Encounter/1): Modificar código de clase de AMB a IMP -> DETECTADA (RECHAZADA)
+  [OK] MUT-08 (Encounter/1): Alterar referencia de paciente (Patient/1 -> Patient/2) -> DETECTADA (RECHAZADA)
+  [OK] MUT-09 (Encounter/1): Alterar cédula profesional SEP del médico tratante -> DETECTADA (RECHAZADA)
+  [OK] MUT-10 (Encounter/1): Alterar hora de inicio en period.start -> DETECTADA (RECHAZADA)
+  [OK] MUT-11 (Observation/bp-1): Alterar código LOINC del panel (85354-9 -> 85353-1) -> DETECTADA (RECHAZADA)
+  [OK] MUT-12 (Observation/bp-1): Intercambiar código LOINC de sistólica por diastólica (8480-6 -> 8462-4) -> DETECTADA (RECHAZADA)
+  [OK] MUT-13 (Observation/bp-1): Alterar valor de presión sistólica (130 -> 140) -> DETECTADA (RECHAZADA)
+  [OK] MUT-14 (Observation/temp-1): Alterar código LOINC de temperatura (8310-5 -> 8311-3) -> DETECTADA (RECHAZADA)
+  [OK] MUT-15 (Observation/temp-1): Alterar unidad de temperatura de Cel a degF -> DETECTADA (RECHAZADA)
+  [OK] MUT-16 (Observation/temp-1): Alterar valor de temperatura de 36.6 a 39.5 -> DETECTADA (RECHAZADA)
+  [OK] MUT-17 (Observation/hr-1): Alterar valor de frecuencia cardíaca de 76 a 120 -> DETECTADA (RECHAZADA)
+  [OK] MUT-18 (Condition/1): Alterar código CIE-10 (I10 -> E11.9) -> DETECTADA (RECHAZADA)
+  [OK] MUT-19 (Condition/1): Invertir verificationStatus de confirmed a provisional -> DETECTADA (RECHAZADA)
+  [OK] MUT-20 (Condition/3): Inyectar indebidamente verificationStatus cuando era NULL (violación D-006) -> DETECTADA (RECHAZADA)
+--------------------------------------------------------------------------------
+RESULTADO MUTATION TESTING: 20 / 20 detectadas (100.0% sensibilidad)
+================================================================================

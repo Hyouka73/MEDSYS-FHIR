@@ -1,0 +1,50 @@
+{
+  "resourceType": "Condition",
+  "id": "746",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "H10.9",
+        "display": "Conjuntivitis, no especificada"
+      }
+    ],
+    "text": "Conjuntivitis, no especificada"
+  },
+  "subject": {
+    "reference": "Patient/671"
+  },
+  "encounter": {
+    "reference": "Encounter/746"
+  },
+  "recordedDate": "2026-09-02"
+}

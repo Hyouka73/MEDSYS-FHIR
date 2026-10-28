@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "227",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUDG881016MCSRZD57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Guadalupe Carmen Juarez Diaz",
+      "family": "Juarez Diaz",
+      "given": [
+        "Guadalupe",
+        "Carmen"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616948694",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-10-16"
+}

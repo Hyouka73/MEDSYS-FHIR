@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Encounter/10",
+  "started_utc": "2026-10-28T02:55:42.835083+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1176",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:42 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Encounter\",\n  \"id\": \"10\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"https://distritosalud1.chiapas.gob.mx/encounters\",\n      \"value\": \"10\"\n    }\n  ],\n  \"status\": \"finished\",\n  \"class\": {\n    \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n    \"code\": \"AMB\",\n    \"display\": \"ambulatory\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/752\"\n  },\n  \"participant\": [\n    {\n      \"type\": [\n        {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n              \"code\": \"ATND\",\n              \"display\": \"attender\"\n            }\n          ],\n          \"text\": \"Médico Tratante\"\n        }\n      ],\n      \"individual\": {\n        \"type\": \"Practitioner\",\n        \"identifier\": {\n          \"use\": \"official\",\n          \"system\": \"http://cedulaprofesional.sep.gob.mx\",\n          \"value\": \"9182374\"\n        },\n        \"display\": \"Dr. Roberto Mendoza Solís\"\n      }\n    }\n  ],\n  \"period\": {\n    \"start\": \"2025-07-02T00:36:00+00:00\",\n    \"end\": \"2025-07-02T00:56:00+00:00\"\n  },\n  \"reasonCode\": [\n    {\n      \"text\": \"Cefalea persistente y mareos\"\n    }\n  ]\n}",
+  "body_bytes": 1176,
+  "body_sha256": "bd559305c46b83e5770a5f8675a92e817b77d6b94e67193ba1c4969cf54dbab1",
+  "elapsed_seconds": 0.045365699974354357,
+  "resource": "Encounter/10",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

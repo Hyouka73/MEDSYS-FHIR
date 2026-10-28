@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/457",
+  "started_utc": "2026-10-28T02:56:28.882918+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"457\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JURC891213HCSRMR17\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carlos Manuel Juarez Ramos\",\n      \"family\": \"Juarez Ramos\",\n      \"given\": [\n        \"Carlos\",\n        \"Manuel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614317518\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1989-12-13\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "5ecfc10e5f9f6d5baa6d03b1dbd29c563181b4421a3366c4f10bcb64deb4f101",
+  "elapsed_seconds": 0.024159999971743673,
+  "resource": "Patient/457",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

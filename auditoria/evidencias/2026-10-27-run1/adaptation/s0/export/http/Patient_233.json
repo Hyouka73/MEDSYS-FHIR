@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/233",
+  "started_utc": "2026-10-28T02:56:28.157560+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"233\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"OIPJ501031HCSRRN63\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Andres Ortiz Perez\",\n      \"family\": \"Ortiz Perez\",\n      \"given\": [\n        \"Juan\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614068844\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1950-10-31\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "9cafb70f7bc4d3a2f30d8876a6e66d906a90db9d3ed7eed73494ac587f0df525",
+  "elapsed_seconds": 0.008649100025650114,
+  "resource": "Patient/233",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

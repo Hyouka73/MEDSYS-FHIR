@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/428",
+  "started_utc": "2026-10-28T02:56:28.799761+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "550",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"428\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUXL660804MCSGXC78\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Adriana Aguilar\",\n      \"family\": \"Aguilar\",\n      \"given\": [\n        \"Lucia\",\n        \"Adriana\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616190631\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1966-08-04\"\n}",
+  "body_bytes": 550,
+  "body_sha256": "4f2ce344ab95306a7116e5b1f08c2223b75e9dacda9c0caee6c326e23dd8abc9",
+  "elapsed_seconds": 0.028609299974050373,
+  "resource": "Patient/428",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

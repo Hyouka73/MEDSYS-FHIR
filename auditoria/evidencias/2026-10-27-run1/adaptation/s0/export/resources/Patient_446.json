@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "446",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEAJ460217HCSDLS96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Arturo Medina Alvarez",
+      "family": "Medina Alvarez",
+      "given": [
+        "Jose",
+        "Arturo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614132107",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-02-17"
+}

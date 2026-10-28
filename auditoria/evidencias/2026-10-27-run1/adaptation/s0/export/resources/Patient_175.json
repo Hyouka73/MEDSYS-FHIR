@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "175",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MELL681128HCSNPS95"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Raul Mendez Lopez",
+      "family": "Mendez Lopez",
+      "given": [
+        "Luis",
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616074882",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1968-11-28"
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "378",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXP110211MCSHXL28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Alejandra Chavez",
+      "family": "Chavez",
+      "given": [
+        "Paola",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612416520",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2011-02-11"
+}

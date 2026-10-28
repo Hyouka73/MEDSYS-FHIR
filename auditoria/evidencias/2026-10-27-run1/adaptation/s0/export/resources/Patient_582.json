@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "582",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VACK790221MCSSHR52"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Karla Rosa Vasquez Chavez",
+      "family": "Vasquez Chavez",
+      "given": [
+        "Karla",
+        "Rosa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614500116",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-02-21"
+}

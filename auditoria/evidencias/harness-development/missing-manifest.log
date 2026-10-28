@@ -1,0 +1,2 @@
+usage: run_all_cap4_experiments.py [-h] --manifest MANIFEST --output OUTPUT
+run_all_cap4_experiments.py: error: the following arguments are required: --manifest, --output

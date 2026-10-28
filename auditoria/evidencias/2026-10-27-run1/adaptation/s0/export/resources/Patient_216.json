@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "216",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAME650717HCSRND46"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Miguel Vargas Munoz",
+      "family": "Vargas Munoz",
+      "given": [
+        "Eduardo",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616886723",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1965-07-17"
+}

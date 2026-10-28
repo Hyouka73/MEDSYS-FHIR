@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "141",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "SARR070119MCSNMS61"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Rosa Sanchez Ramos",
+      "family": "Sanchez Ramos",
+      "given": [
+        "Rosa",
+        "Rosa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618163730",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2007-01-19"
+}

@@ -1,0 +1,54 @@
+{
+  "resourceType": "Encounter",
+  "id": "2115",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "https://distritosalud1.chiapas.gob.mx/encounters",
+      "value": "2115"
+    }
+  ],
+  "status": "finished",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/821"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND",
+              "display": "attender"
+            }
+          ],
+          "text": "Médico Tratante"
+        }
+      ],
+      "individual": {
+        "type": "Practitioner",
+        "identifier": {
+          "use": "official",
+          "system": "http://cedulaprofesional.sep.gob.mx",
+          "value": "7102948"
+        },
+        "display": "Dra. Sofía Hernández Gordillo"
+      }
+    }
+  ],
+  "period": {
+    "start": "2026-04-04T05:10:00+00:00",
+    "end": "2026-04-04T05:39:00+00:00"
+  },
+  "reasonCode": [
+    {
+      "text": "Lumbalgia mecánica tras esfuerzo físico"
+    }
+  ]
+}

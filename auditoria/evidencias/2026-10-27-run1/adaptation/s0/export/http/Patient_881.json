@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/881",
+  "started_utc": "2026-10-28T02:56:30.223921+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"881\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAMG500526MCSMRB81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Gabriela Karla Ramirez Moreno\",\n      \"family\": \"Ramirez Moreno\",\n      \"given\": [\n        \"Gabriela\",\n        \"Karla\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612144273\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1950-05-26\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "97916aafb0250bd621f0da4d5e7fe73a7545a7c7ec4d4f8f18373177fa7aea1b",
+  "elapsed_seconds": 0.011563499982003123,
+  "resource": "Patient/881",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

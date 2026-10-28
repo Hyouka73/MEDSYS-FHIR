@@ -1,5 +1,6 @@
 //! Módulo agrupador de manejadores HTTP.
 
+mod common;
 pub mod condition;
 pub mod encounter;
 pub mod health;

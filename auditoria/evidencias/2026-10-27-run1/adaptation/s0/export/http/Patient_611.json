@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/611",
+  "started_utc": "2026-10-28T02:56:29.391809+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"611\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERS980619MCSNYF81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Laura Mendoza Reyes\",\n      \"family\": \"Mendoza Reyes\",\n      \"given\": [\n        \"Sofia\",\n        \"Laura\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615449282\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1998-06-19\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "0ccdc631c2100b0dcb80cf155f4120d0eb73cd4af69b94a77d2a8fb86b3c8d0f",
+  "elapsed_seconds": 0.013404399971477687,
+  "resource": "Patient/611",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

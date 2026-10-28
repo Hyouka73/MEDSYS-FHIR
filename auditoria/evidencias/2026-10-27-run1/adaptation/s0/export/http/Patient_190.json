@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/190",
+  "started_utc": "2026-10-28T02:56:28.010008+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"190\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HECC850603MCSRHR20\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carmen Sofia Herrera Chavez\",\n      \"family\": \"Herrera Chavez\",\n      \"given\": [\n        \"Carmen\",\n        \"Sofia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613021387\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1985-06-03\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "2d74394a9eed3ef03c65f5a8a4a4c7d03bce6cfc1f67fc6f5b708994da35c2fe",
+  "elapsed_seconds": 0.015259600011631846,
+  "resource": "Patient/190",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

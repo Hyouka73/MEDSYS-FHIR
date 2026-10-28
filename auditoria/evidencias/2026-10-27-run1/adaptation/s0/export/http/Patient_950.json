@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/950",
+  "started_utc": "2026-10-28T02:56:30.434167+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"950\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOJA891102HCSRRL60\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Francisco Morales Juarez\",\n      \"family\": \"Morales Juarez\",\n      \"given\": [\n        \"Alexis\",\n        \"Francisco\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612240328\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1989-11-02\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "30c2b39e65addc3dead1ed7b611da232cd08d6dfb8719b52ab19015e4716e45c",
+  "elapsed_seconds": 0.00865120004164055,
+  "resource": "Patient/950",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

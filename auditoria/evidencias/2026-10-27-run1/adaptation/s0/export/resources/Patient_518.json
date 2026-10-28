@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "518",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAXL920818HCSRXS78"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Rogelio Vargas",
+      "family": "Vargas",
+      "given": [
+        "Luis",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611737012",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1992-08-18"
+}

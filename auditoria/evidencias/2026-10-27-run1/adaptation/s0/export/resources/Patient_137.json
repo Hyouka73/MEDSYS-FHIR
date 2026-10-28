@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "137",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GARE500703MCSRYL57"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Elena Rosa Garcia Reyes",
+      "family": "Garcia Reyes",
+      "given": [
+        "Elena",
+        "Rosa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618465492",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1950-07-03"
+}

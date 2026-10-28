@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "553",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OIMA800615HCSRNR23"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Armando Miguel Ortiz Mendez",
+      "family": "Ortiz Mendez",
+      "given": [
+        "Armando",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613712218",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1980-06-15"
+}

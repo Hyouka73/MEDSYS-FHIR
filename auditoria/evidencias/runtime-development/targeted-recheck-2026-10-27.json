@@ -1,0 +1,56 @@
+{
+  "captured_utc": "2026-10-28T02:53:59.210605+00:00",
+  "results": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-j1",
+        "--frozen",
+        "--workspace",
+        "regression_",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 0,
+      "log": "recheck-2026-10-27-regressions.log",
+      "passed": 9,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-j1",
+        "--frozen",
+        "--workspace",
+        "test_unsupported_sql_type_is_decode_error_not_null",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 0,
+      "log": "recheck-2026-10-27-decode.log",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-j1",
+        "--frozen",
+        "--workspace",
+        "source_date_precision_is_restored_without_observed_midnight",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 0,
+      "log": "recheck-2026-10-27-date-precision.log",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  ]
+}

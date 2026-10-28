@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/282",
+  "started_utc": "2026-10-28T02:56:28.346332+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "535",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"282\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIJJ720724HCSMMS22\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jose Jimenez Jimenez\",\n      \"family\": \"Jimenez Jimenez\",\n      \"given\": [\n        \"Jose\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615791290\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1972-07-24\"\n}",
+  "body_bytes": 535,
+  "body_sha256": "5ce61f02684287877a7983e6ff372a761238d07d449827ae5e956c500d5e63f6",
+  "elapsed_seconds": 0.009382299962453544,
+  "resource": "Patient/282",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

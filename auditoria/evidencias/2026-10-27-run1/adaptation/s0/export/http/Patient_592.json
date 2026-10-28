@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/592",
+  "started_utc": "2026-10-28T02:56:29.293963+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "572",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"592\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"CACN580602MCSHST62\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Natalia Patricia Chavez Castillo\",\n      \"family\": \"Chavez Castillo\",\n      \"given\": [\n        \"Natalia\",\n        \"Patricia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618040707\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1958-06-02\"\n}",
+  "body_bytes": 572,
+  "body_sha256": "f08ec520f9ad6d4694fc58cdd484b14353bd6d484d5ca6bf5074da98a4bd344a",
+  "elapsed_seconds": 0.02809570002136752,
+  "resource": "Patient/592",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "859",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAGJ550201HCSMRR59"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jorge Hugo Ramirez Garcia",
+      "family": "Ramirez Garcia",
+      "given": [
+        "Jorge",
+        "Hugo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617798774",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1955-02-01"
+}

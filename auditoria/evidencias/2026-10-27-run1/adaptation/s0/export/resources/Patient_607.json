@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "607",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUHJ520128HCSRRV77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Juan Juarez Herrera",
+      "family": "Juarez Herrera",
+      "given": [
+        "Javier",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612796251",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1952-01-28"
+}

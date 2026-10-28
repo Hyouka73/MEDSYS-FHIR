@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "872",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAML510523HCSRRS72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Luis Miguel Vargas Martinez",
+      "family": "Vargas Martinez",
+      "given": [
+        "Luis",
+        "Miguel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618451896",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1951-05-23"
+}

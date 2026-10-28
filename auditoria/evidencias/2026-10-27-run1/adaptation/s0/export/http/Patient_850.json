@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/850",
+  "started_utc": "2026-10-28T02:56:30.130668+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"850\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RAJL170524MCSMRC50\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Beatriz Ramirez Juarez\",\n      \"family\": \"Ramirez Juarez\",\n      \"given\": [\n        \"Lucia\",\n        \"Beatriz\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616318751\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2017-05-24\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "f1bb3f95ee13a281e7802e01bb62b42c04e73683285c9647196600a7c9e6c4b7",
+  "elapsed_seconds": 0.012116800004150718,
+  "resource": "Patient/850",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/559",
+  "started_utc": "2026-10-28T02:56:29.192451+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"559\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AAFF620704HCSLLR29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernando Carlos Alvarez Flores\",\n      \"family\": \"Alvarez Flores\",\n      \"given\": [\n        \"Fernando\",\n        \"Carlos\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618794488\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1962-07-04\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "08b90590c0fcef84a8e037ba7377950467193aa5a82dfb5f916086622fd6d5c7",
+  "elapsed_seconds": 0.017016700003296137,
+  "resource": "Patient/559",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

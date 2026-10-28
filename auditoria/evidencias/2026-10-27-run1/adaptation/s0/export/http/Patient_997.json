@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/997",
+  "started_utc": "2026-10-28T02:56:30.582935+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "568",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"997\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SACC160421HCSNSR17\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Carlos Roberto Sanchez Castillo\",\n      \"family\": \"Sanchez Castillo\",\n      \"given\": [\n        \"Carlos\",\n        \"Roberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614383260\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2016-04-21\"\n}",
+  "body_bytes": 568,
+  "body_sha256": "0a6c76eceb51337c49a4e1efa8bbb9c2d4541edd1eabb661c3afdeee600ee582",
+  "elapsed_seconds": 0.03617799998028204,
+  "resource": "Patient/997",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

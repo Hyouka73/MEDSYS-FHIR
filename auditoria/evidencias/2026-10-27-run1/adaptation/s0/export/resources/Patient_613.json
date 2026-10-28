@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "613",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "DIMC920323MCSZRR83"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Carmen Daniela Diaz Morales",
+      "family": "Diaz Morales",
+      "given": [
+        "Carmen",
+        "Daniela"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-03-23"
+}

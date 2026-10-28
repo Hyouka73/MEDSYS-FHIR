@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/917",
+  "started_utc": "2026-10-28T02:56:30.339349+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "535",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"917\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"TOTA951201HCSRRL27\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alexis Torres Torres\",\n      \"family\": \"Torres Torres\",\n      \"given\": [\n        \"Alexis\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611065817\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1995-12-01\"\n}",
+  "body_bytes": 535,
+  "body_sha256": "1761ef0c2a35d074b376a297385ee781f1a568e989bce5918fe281dce35104e6",
+  "elapsed_seconds": 0.012481599987950176,
+  "resource": "Patient/917",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

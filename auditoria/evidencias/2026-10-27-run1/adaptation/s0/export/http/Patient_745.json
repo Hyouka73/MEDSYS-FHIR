@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/745",
+  "started_utc": "2026-10-28T02:56:29.768715+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"745\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GUPJ080317HCSTRV35\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Javier Pedro Gutierrez Perez\",\n      \"family\": \"Gutierrez Perez\",\n      \"given\": [\n        \"Javier\",\n        \"Pedro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619108847\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2008-03-17\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "4033d985c4d4ab8d42a9aa69638d9284ecc78f735b3c4d1130be06af20f5496b",
+  "elapsed_seconds": 0.010937399987597018,
+  "resource": "Patient/745",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

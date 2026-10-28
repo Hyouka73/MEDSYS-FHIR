@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "720",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUCS690414MCSZSF10"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Sofia Alejandra Ruiz Castillo",
+      "family": "Ruiz Castillo",
+      "given": [
+        "Sofia",
+        "Alejandra"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616464056",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1969-04-14"
+}

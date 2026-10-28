@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "664",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JUGR480215HCSRRC44"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Ricardo Pedro Juarez Garcia",
+      "family": "Juarez Garcia",
+      "given": [
+        "Ricardo",
+        "Pedro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9619443013",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1948-02-15"
+}

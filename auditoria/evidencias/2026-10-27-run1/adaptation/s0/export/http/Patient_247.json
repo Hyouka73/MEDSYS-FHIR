@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/247",
+  "started_utc": "2026-10-28T02:56:28.219863+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"247\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AUOL071012MCSGRC77\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Claudia Aguilar Ortiz\",\n      \"family\": \"Aguilar Ortiz\",\n      \"given\": [\n        \"Lucia\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616496922\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2007-10-12\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "aee30d9ae2d0173c76220c6695cb738049d86e7afe48f74d57896f5a945ec12b",
+  "elapsed_seconds": 0.01219510001828894,
+  "resource": "Patient/247",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "478",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAVJ150512HCSMRN38"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Juan Eduardo Ramos Vargas",
+      "family": "Ramos Vargas",
+      "given": [
+        "Juan",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614295663",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2015-05-12"
+}

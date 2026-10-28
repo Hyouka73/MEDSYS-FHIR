@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "244",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEPL120616MCSDRR74"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lorena Natalia Medina Perez",
+      "family": "Medina Perez",
+      "given": [
+        "Lorena",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617282251",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-06-16"
+}

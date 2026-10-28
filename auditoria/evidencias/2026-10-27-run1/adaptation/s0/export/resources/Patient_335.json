@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "335",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEGY910412MCSRRL75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Claudia Perez Garcia",
+      "family": "Perez Garcia",
+      "given": [
+        "Yolanda",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612385004",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1991-04-12"
+}

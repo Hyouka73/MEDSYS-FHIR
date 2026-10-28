@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "570",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROJE600305HCSDRN40"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Enrique Ricardo Rodriguez Juarez",
+      "family": "Rodriguez Juarez",
+      "given": [
+        "Enrique",
+        "Ricardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617157753",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1960-03-05"
+}

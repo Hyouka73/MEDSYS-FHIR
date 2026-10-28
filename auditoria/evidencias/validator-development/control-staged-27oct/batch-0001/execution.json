@@ -1,0 +1,23 @@
+{
+  "command": [
+    "java",
+    "-Xmx768m",
+    "-jar",
+    "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+    "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\control-staged-27oct\\batch-0001\\inputs",
+    "-version",
+    "4.0.1",
+    "-tx",
+    "n/a",
+    "-output",
+    "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\control-staged-27oct\\batch-0001\\outcomes.json",
+    "-output-style",
+    "json"
+  ],
+  "exit_code": 0,
+  "started_utc": "2026-10-28T02:57:49.856451+00:00",
+  "input_count": 2,
+  "windows_command_line_utf16_units_including_nul": 368,
+  "duration_seconds": 96.6126647000201,
+  "finished_utc": "2026-10-28T02:59:26.469132+00:00"
+}

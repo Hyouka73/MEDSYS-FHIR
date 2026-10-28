@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/280",
+  "started_utc": "2026-10-28T02:56:28.334080+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"280\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MECJ031019HCSNSR20\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Jorge Pedro Mendoza Castillo\",\n      \"family\": \"Mendoza Castillo\",\n      \"given\": [\n        \"Jorge\",\n        \"Pedro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618840973\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2003-10-19\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "927b27abdf94ab2730a528978f536f60b6a0a239e782e1b0144b20ad55ac12ae",
+  "elapsed_seconds": 0.028007899993099272,
+  "resource": "Patient/280",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

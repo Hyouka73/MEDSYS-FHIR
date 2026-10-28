@@ -1,0 +1,164 @@
+{
+  "kind": "CA-1",
+  "started_utc": "2026-10-21T05:25:21.520051+00:00",
+  "status": "FAIL",
+  "fhir_version": "4.0.1",
+  "terminology": "n/a",
+  "terminology_limit": "tx=n/a disables terminology server checks; structural conformance is not complete terminology validation",
+  "batches": [
+    {
+      "command": [
+        "java",
+        "-Xmx1536m",
+        "-jar",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-invalid.json",
+        "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\fixtures\\Patient-valid.json",
+        "-version",
+        "4.0.1",
+        "-tx",
+        "n/a",
+        "-output",
+        "D:\\Proyectos X\\MedSys-FHIR\\auditoria\\evidencias\\validator-development\\controlled-invalid\\batch-0001\\outcomes.json",
+        "-output-style",
+        "json"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 770.2074156,
+      "input_count": 2
+    }
+  ],
+  "jar": "D:\\Proyectos X\\MedSys-FHIR\\tools\\experimental\\bin\\validator_cli.jar",
+  "jar_sha256": "e3e50f06b806437821b7aef8189a1b790415cb96c5036e0812ed62981452b377",
+  "java": {
+    "command": [
+      "java",
+      "-version"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "openjdk version \"21.0.10\" 2026-01-20 LTS\nOpenJDK Runtime Environment Microsoft-13106404 (build 21.0.10+7-LTS)\nOpenJDK 64-Bit Server VM Microsoft-13106404 (build 21.0.10+7-LTS, mixed mode, sharing)\n"
+  },
+  "expected_count": 2,
+  "observed_count": 2,
+  "severity_counts": {
+    "error": 2,
+    "warning": 2
+  },
+  "report_resource_count": 2,
+  "packages": [
+    {
+      "name": "hl7.fhir.uv.extensions.r4",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\0a1579a2-55c1-4a7d-8023-fcf790b1c3fd\\package",
+      "file_count": 1401,
+      "tree_sha256": "ae0ca26512b5aa6a2e97adaa0bf7ad5c80a31dcec8b802f25728c95918522890",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r4",
+      "version": "6.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\1b74415e-e111-4fcd-a472-89e9897e4732\\package",
+      "file_count": 4342,
+      "tree_sha256": "a9ebec2143e87c862e9ed33dae7304f9b6bdc0cb50b0abe2e0984384399ed234",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions.r5",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\3f57693c-781d-4c15-9f42-bc3fa74c2095\\package",
+      "file_count": 1401,
+      "tree_sha256": "1b730308f45a1d9021aac70bd4e55da4604fcea3ca34e05cbb422ccca296ad9a",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r5",
+      "version": "7.1.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\67851277-8f47-49cb-9f52-d1a54612bac5\\package",
+      "file_count": 4120,
+      "tree_sha256": "5af59c886367f2d22a270384fde7d12890d409b023091493dfc16e91d9db6f5c",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions",
+      "version": "5.3.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\9b908c54-3049-4604-b726-4cf55b0e16a9\\package",
+      "file_count": 1565,
+      "tree_sha256": "c66b5f1d969e0127ead2dfd640839bc8ad757d1e79eb4ba1225173f6dbec9382",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.r4.core",
+      "version": "4.0.1",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\d9d7f741-e209-4973-97e9-43390afe1131\\package",
+      "file_count": 4741,
+      "tree_sha256": "70d66023b0cc2143be32eef6c97ca1595cd3f59aa5f12838260451fbd9ac6238",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology",
+      "version": "7.4.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\f45c57b5-00cf-410a-af1a-3397f80ff886\\package",
+      "file_count": 4230,
+      "tree_sha256": "dca68f40ebe6456eaf82bcb280d37e53b68c6d2862dc6d54b7260c8f56b07c2f",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.r4.core",
+      "version": "4.0.1",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.fhir.r4.core#4.0.1\\package",
+      "file_count": 4741,
+      "tree_sha256": "70d66023b0cc2143be32eef6c97ca1595cd3f59aa5f12838260451fbd9ac6238",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions",
+      "version": "5.3.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.fhir.uv.extensions#5.3.0\\package",
+      "file_count": 1565,
+      "tree_sha256": "c66b5f1d969e0127ead2dfd640839bc8ad757d1e79eb4ba1225173f6dbec9382",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions.r4",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.fhir.uv.extensions.r4#5.2.0\\package",
+      "file_count": 1401,
+      "tree_sha256": "ae0ca26512b5aa6a2e97adaa0bf7ad5c80a31dcec8b802f25728c95918522890",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.fhir.uv.extensions.r5",
+      "version": "5.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.fhir.uv.extensions.r5#5.2.0\\package",
+      "file_count": 1401,
+      "tree_sha256": "1b730308f45a1d9021aac70bd4e55da4604fcea3ca34e05cbb422ccca296ad9a",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology",
+      "version": "7.4.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.terminology#7.4.0\\package",
+      "file_count": 4230,
+      "tree_sha256": "dca68f40ebe6456eaf82bcb280d37e53b68c6d2862dc6d54b7260c8f56b07c2f",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r4",
+      "version": "6.2.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.terminology.r4#6.2.0\\package",
+      "file_count": 4342,
+      "tree_sha256": "a9ebec2143e87c862e9ed33dae7304f9b6bdc0cb50b0abe2e0984384399ed234",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    },
+    {
+      "name": "hl7.terminology.r5",
+      "version": "7.1.0",
+      "directory": "C:\\Users\\baka6\\.fhir\\packages\\hl7.terminology.r5#7.1.0\\package",
+      "file_count": 4120,
+      "tree_sha256": "5af59c886367f2d22a270384fde7d12890d409b023091493dfc16e91d9db6f5c",
+      "hash_definition": "sorted relative POSIX path bytes followed by binary SHA256 for each file"
+    }
+  ],
+  "finished_utc": "2026-10-21T05:53:15.579796+00:00"
+}

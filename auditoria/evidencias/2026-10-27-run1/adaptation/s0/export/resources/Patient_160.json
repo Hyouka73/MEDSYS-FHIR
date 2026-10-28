@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "160",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOOG610120MCSMRB80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Maria Gomez Ortiz",
+      "family": "Gomez Ortiz",
+      "given": [
+        "Gabriela",
+        "Maria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615160271",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1961-01-20"
+}

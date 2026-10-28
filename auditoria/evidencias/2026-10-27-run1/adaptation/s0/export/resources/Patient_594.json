@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "594",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAME870504HCSMND64"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Ricardo Ramos Mendez",
+      "family": "Ramos Mendez",
+      "given": [
+        "Eduardo",
+        "Ricardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614328713",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1987-05-04"
+}

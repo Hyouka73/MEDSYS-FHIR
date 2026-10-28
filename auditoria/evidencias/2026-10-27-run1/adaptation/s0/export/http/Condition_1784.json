@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1784",
+  "started_utc": "2026-10-28T02:55:35.023984+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1083",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:35 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1784\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"F41.9\",\n        \"display\": \"Trastorno de ansiedad, no especificado\"\n      }\n    ],\n    \"text\": \"Trastorno de ansiedad, no especificado\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/780\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1784\"\n  },\n  \"recordedDate\": \"2025-04-11\"\n}",
+  "body_bytes": 1083,
+  "body_sha256": "0ac962a8e2ae5c9372e7e06032c132ea830643afee3bd4b8c9cdfb0aaa73c057",
+  "elapsed_seconds": 0.009525700006633997,
+  "resource": "Condition/1784",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

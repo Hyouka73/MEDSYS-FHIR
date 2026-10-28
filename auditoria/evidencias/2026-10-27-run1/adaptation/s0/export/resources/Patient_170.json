@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "170",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUMC481212MCSGRL90"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Maria Aguilar Moreno",
+      "family": "Aguilar Moreno",
+      "given": [
+        "Claudia",
+        "Maria"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612103880",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-12-12"
+}

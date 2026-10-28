@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/439",
+  "started_utc": "2026-10-28T02:56:28.833431+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"439\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MOLM120317MCSRPR89\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Maria Lorena Moreno Lopez\",\n      \"family\": \"Moreno Lopez\",\n      \"given\": [\n        \"Maria\",\n        \"Lorena\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612173267\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2012-03-17\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "95e1b9a17943e2fc814b18fdb77b7fe70c7a16336c432362758251399453d602",
+  "elapsed_seconds": 0.011264400032814592,
+  "resource": "Patient/439",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

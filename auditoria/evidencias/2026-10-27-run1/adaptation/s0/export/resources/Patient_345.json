@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "345",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEXL561120MCSRXC85"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Laura Herrera",
+      "family": "Herrera",
+      "given": [
+        "Lucia",
+        "Laura"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1956-11-20"
+}

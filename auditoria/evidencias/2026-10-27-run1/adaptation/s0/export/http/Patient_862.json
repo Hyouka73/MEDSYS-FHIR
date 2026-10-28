@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/862",
+  "started_utc": "2026-10-28T02:56:30.172620+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"862\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOMA571107MCSNND62\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Adriana Laura Gonzalez Mendez\",\n      \"family\": \"Gonzalez Mendez\",\n      \"given\": [\n        \"Adriana\",\n        \"Laura\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615760075\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1957-11-07\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "19a4d2e5a9ec2598211cb3868636ae327fffb8466588bff2598d59d3eddb4cd0",
+  "elapsed_seconds": 0.015251800010446459,
+  "resource": "Patient/862",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

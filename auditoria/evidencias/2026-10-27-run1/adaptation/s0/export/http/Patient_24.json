@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/24",
+  "started_utc": "2026-10-28T02:56:28.187290+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "551",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"24\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MEXL541205MCSDXC34\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Lucia Alejandra Medina\",\n      \"family\": \"Medina\",\n      \"given\": [\n        \"Lucia\",\n        \"Alejandra\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619940443\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1954-12-05\"\n}",
+  "body_bytes": 551,
+  "body_sha256": "8896ddeda37fe2d8236df28246ad2bda8156773aed29f3b22f99cc061040a804",
+  "elapsed_seconds": 0.0133108000154607,
+  "resource": "Patient/24",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "441",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAHA790719HCSSRN91"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Alejandro Vasquez Hernandez",
+      "family": "Vasquez Hernandez",
+      "given": [
+        "Andres",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611262400",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1979-07-19"
+}

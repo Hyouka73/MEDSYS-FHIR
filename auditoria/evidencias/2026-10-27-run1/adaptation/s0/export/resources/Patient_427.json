@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "427",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HEXA170515HCSRXL77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandro Roberto Herrera",
+      "family": "Herrera",
+      "given": [
+        "Alejandro",
+        "Roberto"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617640062",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2017-05-15"
+}

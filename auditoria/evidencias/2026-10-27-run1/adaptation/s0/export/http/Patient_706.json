@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/706",
+  "started_utc": "2026-10-28T02:56:29.659070+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"706\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MERA040406HCSNMR86\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Armando Alejandro Mendez Ramos\",\n      \"family\": \"Mendez Ramos\",\n      \"given\": [\n        \"Armando\",\n        \"Alejandro\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616116338\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2004-04-06\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "fa29f15e90ac7779109834a84b229044705a63f04b480446216b4466f0ec372c",
+  "elapsed_seconds": 0.011782100016716868,
+  "resource": "Patient/706",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

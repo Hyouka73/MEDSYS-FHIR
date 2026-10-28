@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "962",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VATR490327HCSSRL72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Raul Vasquez Torres",
+      "family": "Vasquez Torres",
+      "given": [
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614217370",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1949-03-27"
+}

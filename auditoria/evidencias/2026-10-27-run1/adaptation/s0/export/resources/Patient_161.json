@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "161",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIOV861212MCSMRR81"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Veronica Martha Jimenez Ortiz",
+      "family": "Jimenez Ortiz",
+      "given": [
+        "Veronica",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616131135",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1986-12-12"
+}

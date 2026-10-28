@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/179",
+  "started_utc": "2026-10-28T02:56:27.972880+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"179\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"AARJ091201HCSLDN99\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Enrique Alvarez Rodriguez\",\n      \"family\": \"Alvarez Rodriguez\",\n      \"given\": [\n        \"Juan\",\n        \"Enrique\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9613464298\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2009-12-01\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "559812b99604cac37bd7733fa7aaae8055f33c38fe663e871b1b543444d4c82e",
+  "elapsed_seconds": 0.02392469998449087,
+  "resource": "Patient/179",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

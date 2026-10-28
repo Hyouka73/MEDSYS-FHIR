@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "203",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIXP700423MCSMXL33"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Natalia Jimenez",
+      "family": "Jimenez",
+      "given": [
+        "Paola",
+        "Natalia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616053418",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1970-04-23"
+}

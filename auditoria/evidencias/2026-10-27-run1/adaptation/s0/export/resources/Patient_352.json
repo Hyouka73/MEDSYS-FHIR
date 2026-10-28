@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "352",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUFR480520MCSTLS92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Rosa Teresa Gutierrez Flores",
+      "family": "Gutierrez Flores",
+      "given": [
+        "Rosa",
+        "Teresa"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615016704",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1948-05-20"
+}

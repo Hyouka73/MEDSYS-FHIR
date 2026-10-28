@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "247",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AUOL071012MCSGRC77"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Claudia Aguilar Ortiz",
+      "family": "Aguilar Ortiz",
+      "given": [
+        "Lucia",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616496922",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2007-10-12"
+}

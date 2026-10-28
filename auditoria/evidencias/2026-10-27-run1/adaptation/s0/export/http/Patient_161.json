@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/161",
+  "started_utc": "2026-10-28T02:56:27.931362+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"161\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIOV861212MCSMRR81\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Veronica Martha Jimenez Ortiz\",\n      \"family\": \"Jimenez Ortiz\",\n      \"given\": [\n        \"Veronica\",\n        \"Martha\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616131135\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1986-12-12\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "d4547b9a33df1a7ebb6e22242013d48a2d9fb9c6af3a8e16796fc55621f6a055",
+  "elapsed_seconds": 0.008589499979279935,
+  "resource": "Patient/161",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

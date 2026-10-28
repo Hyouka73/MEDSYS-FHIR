@@ -1,0 +1,41 @@
+{
+  "resourceType": "Condition",
+  "id": "819",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "J20.9",
+        "display": "Bronquitis aguda, no especificada"
+      }
+    ],
+    "text": "Bronquitis aguda, no especificada"
+  },
+  "subject": {
+    "reference": "Patient/522"
+  },
+  "encounter": {
+    "reference": "Encounter/819"
+  },
+  "recordedDate": "2025-02-01"
+}

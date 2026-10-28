@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "759",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RUMY150426MCSZRL49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Yolanda Lorena Ruiz Moreno",
+      "family": "Ruiz Moreno",
+      "given": [
+        "Yolanda",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612056822",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2015-04-26"
+}

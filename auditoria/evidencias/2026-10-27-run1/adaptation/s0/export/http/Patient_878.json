@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/878",
+  "started_utc": "2026-10-28T02:56:30.210909+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "564",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"878\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORR800428HCSMMB78\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Roberto Antonio Gomez Ramirez\",\n      \"family\": \"Gomez Ramirez\",\n      \"given\": [\n        \"Roberto\",\n        \"Antonio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617208816\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1980-04-28\"\n}",
+  "body_bytes": 564,
+  "body_sha256": "f86d8e72ad460a27967801a5364461ca5a5e63f3f3e6b332f305ea0bc5cf0f7e",
+  "elapsed_seconds": 0.01374780002515763,
+  "resource": "Patient/878",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/138",
+  "started_utc": "2026-10-28T02:56:27.858872+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:27 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"138\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JUGA700404HCSRTN58\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Andres Daniel Juarez Gutierrez\",\n      \"family\": \"Juarez Gutierrez\",\n      \"given\": [\n        \"Andres\",\n        \"Daniel\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614519403\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1970-04-04\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "00eecb05eefa175af17d731f38f51a1f0e7663bbeae6e2758fc7f207f21b5b31",
+  "elapsed_seconds": 0.013286700006574392,
+  "resource": "Patient/138",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

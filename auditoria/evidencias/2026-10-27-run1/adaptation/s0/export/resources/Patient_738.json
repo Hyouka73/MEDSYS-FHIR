@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "738",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAOA870105HCSRRN28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Alexis Garcia Ortiz",
+      "family": "Garcia Ortiz",
+      "given": [
+        "Antonio",
+        "Alexis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614998049",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1987-01-05"
+}

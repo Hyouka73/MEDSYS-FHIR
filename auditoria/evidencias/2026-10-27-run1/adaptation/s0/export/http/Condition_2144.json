@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/2144",
+  "started_utc": "2026-10-28T02:55:36.526304+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "858",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:36 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"2144\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"H10.9\",\n        \"display\": \"Conjuntivitis, no especificada\"\n      }\n    ],\n    \"text\": \"Conjuntivitis, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/241\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/2144\"\n  },\n  \"recordedDate\": \"2025-07-14\"\n}",
+  "body_bytes": 858,
+  "body_sha256": "dac33141f5904dcdbede02e7144ce256b8bc722c34388bf1812f064770fcb61f",
+  "elapsed_seconds": 0.009999500005505979,
+  "resource": "Condition/2144",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

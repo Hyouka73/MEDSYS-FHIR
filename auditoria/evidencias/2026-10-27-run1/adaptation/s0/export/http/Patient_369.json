@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/369",
+  "started_utc": "2026-10-28T02:56:28.636946+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "552",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"369\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"VAXA581201HCSRXL19\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Alejandro Carlos Vargas\",\n      \"family\": \"Vargas\",\n      \"given\": [\n        \"Alejandro\",\n        \"Carlos\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9619200463\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1958-12-01\"\n}",
+  "body_bytes": 552,
+  "body_sha256": "bff5a76f30a4d946be6200fa73ff935cfedacd88aea0b6f3104cc575e897fe92",
+  "elapsed_seconds": 0.013053899980150163,
+  "resource": "Patient/369",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

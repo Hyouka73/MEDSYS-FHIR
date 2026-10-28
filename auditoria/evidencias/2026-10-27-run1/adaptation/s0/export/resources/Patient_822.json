@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "822",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "OICJ480313HCSRSS22"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Jose Daniel Ortiz Castillo",
+      "family": "Ortiz Castillo",
+      "given": [
+        "Jose",
+        "Daniel"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615770375",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1948-03-13"
+}

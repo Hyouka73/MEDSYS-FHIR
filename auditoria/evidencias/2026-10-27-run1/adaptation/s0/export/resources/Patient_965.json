@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "965",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAJF930318HCSMRR75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernando Ramos Juarez",
+      "family": "Ramos Juarez",
+      "given": [
+        "Fernando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613401362",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1993-03-18"
+}

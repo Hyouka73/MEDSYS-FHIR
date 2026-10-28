@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "637",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAXD501106HCSMXV17"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "David Alexis Ramos",
+      "family": "Ramos",
+      "given": [
+        "David",
+        "Alexis"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1950-11-06"
+}

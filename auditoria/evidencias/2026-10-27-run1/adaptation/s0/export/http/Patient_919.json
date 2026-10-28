@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/919",
+  "started_utc": "2026-10-28T02:56:30.344032+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "574",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"919\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEMG511014MCSRDD29\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Guadalupe Teresa Hernandez Medina\",\n      \"family\": \"Hernandez Medina\",\n      \"given\": [\n        \"Guadalupe\",\n        \"Teresa\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614609035\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1951-10-14\"\n}",
+  "body_bytes": 574,
+  "body_sha256": "ff1521aea800e946de162fe47db08d995c04576845118ea709e9d91cb4f0f513",
+  "elapsed_seconds": 0.012137999990954995,
+  "resource": "Patient/919",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

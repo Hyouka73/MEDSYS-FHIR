@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "86",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "HETA460309HCSRRN96"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Jose Herrera Torres",
+      "family": "Herrera Torres",
+      "given": [
+        "Andres",
+        "Jose"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617392783",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-03-09"
+}

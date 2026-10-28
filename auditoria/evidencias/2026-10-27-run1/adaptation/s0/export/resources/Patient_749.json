@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "749",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MURM170626MCSNDN39"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Monica Karla Munoz Rodriguez",
+      "family": "Munoz Rodriguez",
+      "given": [
+        "Monica",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616533540",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2017-06-26"
+}

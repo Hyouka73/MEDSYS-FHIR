@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/689",
+  "started_utc": "2026-10-28T02:56:29.613984+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "566",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"689\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEGA521025HCSRRN69\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Andres Andres Hernandez Garcia\",\n      \"family\": \"Hernandez Garcia\",\n      \"given\": [\n        \"Andres\",\n        \"Andres\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9616268940\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1952-10-25\"\n}",
+  "body_bytes": 566,
+  "body_sha256": "e26b499cac888c7be207879dfdf4cd05a008ec01817d9813c172496f56ed73f9",
+  "elapsed_seconds": 0.009638100047595799,
+  "resource": "Patient/689",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

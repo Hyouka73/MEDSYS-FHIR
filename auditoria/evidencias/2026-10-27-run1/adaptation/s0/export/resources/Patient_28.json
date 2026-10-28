@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "28",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VALP031101MCSRPL38"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Paola Elena Vargas Lopez",
+      "family": "Vargas Lopez",
+      "given": [
+        "Paola",
+        "Elena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615220160",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2003-11-01"
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "381",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOVG161208HCSNSB31"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriel Francisco Gonzalez Vasquez",
+      "family": "Gonzalez Vasquez",
+      "given": [
+        "Gabriel",
+        "Francisco"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2016-12-08"
+}

@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "769",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXA140524HCSNXN59"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Antonio Mendoza",
+      "family": "Mendoza",
+      "given": [
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612201065",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2014-05-24"
+}

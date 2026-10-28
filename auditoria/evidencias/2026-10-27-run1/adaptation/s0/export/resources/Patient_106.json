@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "106",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "REGB490326MCSYTT26"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Laura Reyes Gutierrez",
+      "family": "Reyes Gutierrez",
+      "given": [
+        "Beatriz",
+        "Laura"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9615482141",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1949-03-26"
+}

@@ -1,0 +1,4 @@
+bin/*.jar
+bin/*.zip
+bin/k6/
+__pycache__/

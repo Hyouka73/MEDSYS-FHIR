@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "782",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOGA011103HCSMZR72"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Arturo Juan Gomez Guzman",
+      "family": "Gomez Guzman",
+      "given": [
+        "Arturo",
+        "Juan"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618509782",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2001-11-03"
+}

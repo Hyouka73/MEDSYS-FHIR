@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "219",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIGT550119MCSMMR49"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Teresa Mariana Jimenez Gomez",
+      "family": "Jimenez Gomez",
+      "given": [
+        "Teresa",
+        "Mariana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612151897",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1955-01-19"
+}

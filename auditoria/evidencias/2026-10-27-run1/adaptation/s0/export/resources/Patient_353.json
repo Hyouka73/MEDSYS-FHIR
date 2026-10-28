@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "353",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAXA170805HCSRXL93"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alberto Alejandro Garcia",
+      "family": "Garcia",
+      "given": [
+        "Alberto",
+        "Alejandro"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616246751",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2017-08-05"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/192",
+  "started_utc": "2026-10-28T02:56:28.027090+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "562",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"192\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GOHJ110509HCSMRN22\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Juan Alberto Gomez Hernandez\",\n      \"family\": \"Gomez Hernandez\",\n      \"given\": [\n        \"Juan\",\n        \"Alberto\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9618438387\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"2011-05-09\"\n}",
+  "body_bytes": 562,
+  "body_sha256": "db2d9de1702433d494732e44aa0c30aa1c370a00b7cc3ee26c947924e5f39088",
+  "elapsed_seconds": 0.010312700003851205,
+  "resource": "Patient/192",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

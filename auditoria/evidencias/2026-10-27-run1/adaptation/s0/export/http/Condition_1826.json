@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Condition/1826",
+  "started_utc": "2026-10-28T02:55:35.209851+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "1057",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:55:35 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Condition\",\n  \"id\": \"1826\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-clinical\",\n        \"code\": \"active\",\n        \"display\": \"Active\"\n      }\n    ]\n  },\n  \"verificationStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/condition-ver-status\",\n        \"code\": \"confirmed\",\n        \"display\": \"Confirmed\"\n      }\n    ]\n  },\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/condition-category\",\n          \"code\": \"encounter-diagnosis\",\n          \"display\": \"Encounter Diagnosis\"\n        }\n      ]\n    }\n  ],\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://hl7.org/fhir/sid/icd-10\",\n        \"code\": \"G43.9\",\n        \"display\": \"Migraña, no especificada\"\n      }\n    ],\n    \"text\": \"Migraña, no especificada\"\n  },\n  \"subject\": {\n    \"reference\": \"Patient/295\"\n  },\n  \"encounter\": {\n    \"reference\": \"Encounter/1826\"\n  },\n  \"recordedDate\": \"2025-12-05\"\n}",
+  "body_bytes": 1057,
+  "body_sha256": "833a9da8612a13bf02de98486836e2b4489d9e9e1210ab8ea85b0713f4712ea5",
+  "elapsed_seconds": 0.039912000007461756,
+  "resource": "Condition/1826",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

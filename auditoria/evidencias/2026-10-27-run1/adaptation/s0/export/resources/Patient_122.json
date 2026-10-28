@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "122",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEXT870104MCSDXR42"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Teresa Silvia Medina",
+      "family": "Medina",
+      "given": [
+        "Teresa",
+        "Silvia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613365162",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1987-01-04"
+}

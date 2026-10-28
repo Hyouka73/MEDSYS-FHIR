@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "7",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GOPM081018HCSMRR17"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mario Carlos Gomez Perez",
+      "family": "Gomez Perez",
+      "given": [
+        "Mario",
+        "Carlos"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616993343",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2008-10-18"
+}

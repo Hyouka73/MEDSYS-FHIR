@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "880",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAXH110629HCSSXG80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Hugo Eduardo Vasquez",
+      "family": "Vasquez",
+      "given": [
+        "Hugo",
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617793235",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2011-06-29"
+}

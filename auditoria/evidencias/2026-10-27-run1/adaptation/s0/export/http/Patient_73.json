@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/73",
+  "started_utc": "2026-10-28T02:56:29.721998+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "569",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"73\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"HEMS470801MCSRRF83\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Sofia Veronica Hernandez Moreno\",\n      \"family\": \"Hernandez Moreno\",\n      \"given\": [\n        \"Sofia\",\n        \"Veronica\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611616300\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1947-08-01\"\n}",
+  "body_bytes": 569,
+  "body_sha256": "192b732447482eb3e88de1e969885ac35ccff129fc682714029560e7d3e7a5f4",
+  "elapsed_seconds": 0.007348200015258044,
+  "resource": "Patient/73",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

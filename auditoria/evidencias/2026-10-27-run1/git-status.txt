@@ -1,0 +1,61 @@
+ M .agents/rules/project-profile.md
+ M BACKLOG.md
+ M Cargo.lock
+ M DECISIONS.md
+ M STATE.md
+ M auditoria/RESULTADOS_CAPITULO_IV.md
+ M crates/medsys-core/src/engine/evaluator.rs
+ M crates/medsys-core/src/engine/transform.rs
+ M crates/medsys-core/src/model/fhir_helpers.rs
+ M crates/medsys-db/Cargo.toml
+ M crates/medsys-db/src/dynamic_repo.rs
+ M crates/medsys-db/src/lib.rs
+ M crates/medsys-db/src/query_builder.rs
+ M crates/medsys-db/tests/persistence_integration.rs
+ M crates/medsys-server/src/error.rs
+ M crates/medsys-server/src/handlers/condition.rs
+ M crates/medsys-server/src/handlers/encounter.rs
+ M crates/medsys-server/src/handlers/health.rs
+ M crates/medsys-server/src/handlers/mod.rs
+ M crates/medsys-server/src/handlers/observation.rs
+ M crates/medsys-server/src/handlers/patient.rs
+ M crates/medsys-server/src/router.rs
+ M crates/medsys-server/tests/e2e_interoperability.rs
+ M crates/medsys-server/tests/server_integration.rs
+ M docker/sql/02_bulk_data.sql
+ M docker/sql/bulk_s1.sql
+ M docker/sql/bulk_s2.sql
+ M docker/sql/bulk_s3.sql
+ M scripts/export_fhir_samples.py
+ M scripts/generate_data.py
+ M scripts/oracle_verifier.py
+ M scripts/run_all_cap4_experiments.py
+ M scripts/run_fault_corpus.py
+?? .agents/tools/
+?? auditoria/REVERIFICACION_2026-10-25.md
+?? auditoria/evidencias/2026-10-27-run1/
+?? auditoria/evidencias/antigravity-review/
+?? auditoria/evidencias/harness-development/
+?? auditoria/evidencias/lab-development/
+?? auditoria/evidencias/reanudacion/
+?? auditoria/evidencias/runtime-development/
+?? auditoria/evidencias/validator-development/
+?? auditoria/revision/
+?? crates/medsys-server/src/handlers/common.rs
+?? crates/medsys-server/tests/regression_runtime_contract.rs
+?? scripts/EXPERIMENTAL_EVIDENCE.md
+?? scripts/create_evaluation_lab_v2.py
+?? scripts/experimental_evidence.py
+?? scripts/requirements-experiments.txt
+?? scripts/test_experimental_evidence.py
+?? tools/experimental/.gitignore
+?? tools/experimental/README.md
+?? tools/experimental/aggregate_ct.py
+?? tools/experimental/audit_prior_validator.py
+?? tools/experimental/evidence_runners.py
+?? tools/experimental/fixtures/
+?? tools/experimental/lab-compose.yaml
+?? tools/experimental/lab-docker-init.sh
+?? tools/experimental/lab-migrate-persistent.sh
+?? tools/experimental/lab-postgres.sh
+?? tools/experimental/lab_verify.py

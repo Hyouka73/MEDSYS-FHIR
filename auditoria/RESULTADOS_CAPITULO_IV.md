@@ -1,3 +1,5 @@
+> **ANTECEDENTE NO VERIFICADO — NO ES EL DICTAMEN VIGENTE.** Este reporte conserva cifras asignadas por el consolidador histórico, sin evidencia primaria suficiente. No acredita CA-1–CA-5 ni CT; la etiqueta histórica aquí mencionada no está verificada. Consultar `REVERIFICACION_2026-10-25.md` y los manifiestos de nuevas corridas. Se preserva el contenido original como antecedente, no como aprobación.
+
 # CAPÍTULO IV: RESULTADOS Y DISCUSIÓN — REPORTE EXPERIMENTAL CONSOLIDADO
 
 > **Tesis:** *Desarrollo y evaluación de un middleware en Rust basado en reglas declarativas para la interoperabilidad de bases de datos clínicas relacionales con el estándar HL7 FHIR R4 en entornos de recursos limitados*  

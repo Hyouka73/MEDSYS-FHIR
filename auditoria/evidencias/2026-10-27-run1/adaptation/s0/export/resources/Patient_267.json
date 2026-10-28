@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "267",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AAJG570504MCSLRB97"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Monica Alvarez Juarez",
+      "family": "Alvarez Juarez",
+      "given": [
+        "Gabriela",
+        "Monica"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1957-05-04"
+}

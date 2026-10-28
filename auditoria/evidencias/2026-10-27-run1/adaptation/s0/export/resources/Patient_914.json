@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "914",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MERJ591122HCSNMV24"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier Rogelio Mendez Ramirez",
+      "family": "Mendez Ramirez",
+      "given": [
+        "Javier",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618126578",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1959-11-22"
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "70",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOMJ820227HCSPNV80"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Javier David Lopez Munoz",
+      "family": "Lopez Munoz",
+      "given": [
+        "Javier",
+        "David"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1982-02-27"
+}

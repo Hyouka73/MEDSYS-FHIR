@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "186",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "LOCM120109MCSPSR16"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Martha Lorena Lopez Castro",
+      "family": "Lopez Castro",
+      "given": [
+        "Martha",
+        "Lorena"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9619719921",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2012-01-09"
+}

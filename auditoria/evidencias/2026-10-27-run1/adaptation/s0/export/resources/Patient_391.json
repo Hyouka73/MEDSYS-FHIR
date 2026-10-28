@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "391",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GORN780903MCSMMT41"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Natalia Monica Gomez Ramos",
+      "family": "Gomez Ramos",
+      "given": [
+        "Natalia",
+        "Monica"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612066263",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1978-09-03"
+}

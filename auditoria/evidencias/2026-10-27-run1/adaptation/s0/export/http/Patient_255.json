@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/255",
+  "started_utc": "2026-10-28T02:56:28.241860+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "558",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"255\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"GORP920210MCSMYL85\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Paola Claudia Gomez Reyes\",\n      \"family\": \"Gomez Reyes\",\n      \"given\": [\n        \"Paola\",\n        \"Claudia\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615093963\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1992-02-10\"\n}",
+  "body_bytes": 558,
+  "body_sha256": "b1fcb1ee431e6a5303b3c52c4c4c3dd7ac01b2f93fd400e0f75cddde56cffaae",
+  "elapsed_seconds": 0.016789200017228723,
+  "resource": "Patient/255",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

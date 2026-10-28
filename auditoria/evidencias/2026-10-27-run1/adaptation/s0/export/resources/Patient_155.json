@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "155",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAFA050928HCSSLL75"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alexis Antonio Vasquez Flores",
+      "family": "Vasquez Flores",
+      "given": [
+        "Alexis",
+        "Antonio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612714152",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2005-09-28"
+}

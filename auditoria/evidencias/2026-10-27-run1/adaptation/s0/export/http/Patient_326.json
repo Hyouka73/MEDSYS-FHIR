@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/326",
+  "started_utc": "2026-10-28T02:56:28.488065+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "570",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"326\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JICA980806MCSMSD66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Adriana Gloria Jimenez Castillo\",\n      \"family\": \"Jimenez Castillo\",\n      \"given\": [\n        \"Adriana\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9612284827\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1998-08-06\"\n}",
+  "body_bytes": 570,
+  "body_sha256": "1a4fc3bfa5ac765c5220fa42b669d295a5ee48b11c46ea6893a19a8e7a0c62c7",
+  "elapsed_seconds": 0.013253799988888204,
+  "resource": "Patient/326",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

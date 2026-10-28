@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/990",
+  "started_utc": "2026-10-28T02:56:30.558668+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"990\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"MORP820927HCSRMD10\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Pedro Juan Moreno Ramirez\",\n      \"family\": \"Moreno Ramirez\",\n      \"given\": [\n        \"Pedro\",\n        \"Juan\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9617517081\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1982-09-27\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "b3e4cfd6894200aff44fb887dc05420904e9d3c5145ddea1d8067616be56b53d",
+  "elapsed_seconds": 0.008915500016883016,
+  "resource": "Patient/990",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

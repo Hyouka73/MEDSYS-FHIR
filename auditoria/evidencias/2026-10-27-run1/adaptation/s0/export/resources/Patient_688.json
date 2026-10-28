@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "688",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MEOA780501HCSNRN68"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Andres Rogelio Mendoza Ortiz",
+      "family": "Mendoza Ortiz",
+      "given": [
+        "Andres",
+        "Rogelio"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613761323",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1978-05-01"
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "199",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GAMA160528MCSRDD29"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Adriana Leticia Garcia Medina",
+      "family": "Garcia Medina",
+      "given": [
+        "Adriana",
+        "Leticia"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2016-05-28"
+}

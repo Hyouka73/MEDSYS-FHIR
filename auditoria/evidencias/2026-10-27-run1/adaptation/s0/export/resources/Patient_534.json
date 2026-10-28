@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "534",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "RAXP530818MCSMXT94"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Patricia Teresa Ramos",
+      "family": "Ramos",
+      "given": [
+        "Patricia",
+        "Teresa"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1953-08-18"
+}

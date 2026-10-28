@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "442",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "ROCL970615MCSDSC92"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Martha Rodriguez Castro",
+      "family": "Rodriguez Castro",
+      "given": [
+        "Lucia",
+        "Martha"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617204174",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1997-06-15"
+}

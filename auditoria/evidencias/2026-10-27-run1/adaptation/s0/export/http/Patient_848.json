@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/848",
+  "started_utc": "2026-10-28T02:56:30.121226+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "458",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:30 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"848\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"JIGF631225MCSMZR48\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Fernanda Paola Jimenez Guzman\",\n      \"family\": \"Jimenez Guzman\",\n      \"given\": [\n        \"Fernanda\",\n        \"Paola\"\n      ]\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1963-12-25\"\n}",
+  "body_bytes": 458,
+  "body_sha256": "cbb8e312d09e739ed1520e6aec958149c6c9c788e4b8cada5d22d5169f2fe956",
+  "elapsed_seconds": 0.01045709999743849,
+  "resource": "Patient/848",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "793",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "MAHC880420MCSRRL83"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Claudia Sofia Martinez Herrera",
+      "family": "Martinez Herrera",
+      "given": [
+        "Claudia",
+        "Sofia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9612339461",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-04-20"
+}

@@ -24,6 +24,7 @@ import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone, timedelta
+from zoneinfo import ZoneInfo
 
 # Asegurar importación de generate_data desde el directorio scripts
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -37,7 +38,7 @@ except ImportError:
     raise ImportError("No se pudo importar 'generate_data.py' desde scripts/. Verifique la estructura del repositorio.")
 
 # Zona horaria oficial para resolución en México (UTC-6)
-TZ_MEXICO = timezone(timedelta(hours=-6))
+TZ_MEXICO = ZoneInfo('America/Mexico_City')
 
 # Códigos canónicos y sistemas terminológicos oficiales
 SYS_CURP = "urn:oid:2.16.840.1.113883.4.629"
@@ -58,23 +59,47 @@ SYS_ICD10 = "http://hl7.org/fhir/sid/icd-10"
 # ------------------------------------------------------------------------------
 
 def normalize_iso_datetime(dt_str: str) -> str:
-    """Normaliza cadenas ISO de fecha y hora para comparación agnóstica de zona."""
+    """Compare instants without discarding offsets or fractional seconds.
+
+    Naive laboratory timestamps use historical America/Mexico_City rules.
+    Date-only values retain their precision and are not invented midnights.
+    """
     if not dt_str:
         return ""
-    # Quitar sufijo de zona o 'Z' para normalizar comparación en tiempo local
     s = str(dt_str).strip()
-    if s.endswith("Z"):
-        s = s[:-1]
-    if len(s) > 19 and (s[-6] in ('+', '-') or s[-5] in ('+', '-')):
-        s = s[:19]
-    return s.replace(" ", "T")
+    if len(s) == 10:
+        try:
+            return datetime.strptime(s, '%Y-%m-%d').date().isoformat()
+        except ValueError:
+            return '#invalid-datetime#' + s
+    try:
+        parsed = datetime.fromisoformat(s.replace('Z', '+00:00'))
+    except ValueError:
+        return '#invalid-datetime#' + s
+    if parsed.tzinfo is None:
+        candidates = []
+        for fold in (0, 1):
+            candidate = parsed.replace(tzinfo=TZ_MEXICO, fold=fold)
+            if candidate.astimezone(timezone.utc).astimezone(TZ_MEXICO).replace(tzinfo=None) == parsed:
+                candidates.append(candidate)
+        if not candidates or len({value.utcoffset() for value in candidates}) != 1:
+            return '#ambiguous-or-nonexistent-local-time#' + s
+        parsed = candidates[0]
+    fraction = re.search(r'\d{2}:\d{2}:\d{2}[.,](\d+)', s)
+    suffix = ('.' + fraction[1].rstrip('0')) if fraction and fraction[1].rstrip('0') else ''
+    return parsed.astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S') + suffix + '+00:00'
 
 
 def safe_float(val) -> float:
+    # Invalid and absent values must never masquerade as a legitimate zero.
+    import math
+    if isinstance(val, bool):
+        return float('nan')
     try:
-        return float(val)
+        result = float(val)
+        return result if math.isfinite(result) else float('nan')
     except (ValueError, TypeError):
-        return 0.0
+        return float('nan')
 
 
 # ------------------------------------------------------------------------------
@@ -476,7 +501,7 @@ class IndependentOracleModel:
             "encounter": {
                 "reference": f"Encounter/{d['id_consulta']}"
             },
-            "recordedDate": normalize_iso_datetime(f"{d['fecha']}T00:00:00")
+            "recordedDate": normalize_iso_datetime(d['fecha'])
         }
 
         tipo = d.get("tipo")
@@ -534,6 +559,34 @@ class FhirOracleVerifier:
             FhirOracleVerifier._verify_condition(candidate, expected, errors)
         else:
             errors.append(f"Tipo de recurso no soportado: '{r_type}'")
+
+        # Check every projected leaf as well as domain constraints above.
+        # This prevents an unchanged scalar verifier from silently omitting
+        # text, systems, display values, or participant/source metadata.
+        def compare_projected(actual, projected, path='$'):
+            if isinstance(projected, dict):
+                if not isinstance(actual, dict):
+                    errors.append(f'{path}: expected object, got {actual!r}')
+                    return
+                for key, value in projected.items():
+                    if key not in actual:
+                        errors.append(f'{path}.{key}: missing projected field')
+                    else:
+                        compare_projected(actual[key], value, path + '.' + key)
+            elif isinstance(projected, list):
+                if not isinstance(actual, list) or len(actual) != len(projected):
+                    errors.append(f'{path}: projected array cardinality mismatch')
+                    return
+                for index, value in enumerate(projected):
+                    compare_projected(actual[index], value, f'{path}[{index}]')
+            else:
+                if path.rsplit('.', 1)[-1] in {'start', 'end', 'effectiveDateTime', 'recordedDate'}:
+                    equal = normalize_iso_datetime(actual) == normalize_iso_datetime(projected)
+                else:
+                    equal = actual == projected and not (isinstance(actual, bool) != isinstance(projected, bool))
+                if not equal:
+                    errors.append(f'{path}: expected {projected!r}, got {actual!r}')
+        compare_projected(candidate, expected)
 
         return len(errors) == 0, errors
 
@@ -823,7 +876,7 @@ def run_mutation_tests(model: IndependentOracleModel) -> tuple[int, int, list[di
 
 def main():
     parser = argparse.ArgumentParser(
-        description="MedSys-FHIR: Oráculo Diferencial Independiente en Python (v1.2.0-eval)"
+        description="MedSys-FHIR: oráculo independiente; autopruebas separadas de evidencia Rust"
     )
     parser.add_argument("--self-test", action="store_true", help="Ejecutar autoverificación local completa sobre los 16,250 recursos.")
     parser.add_argument("--run-mutations", action="store_true", help="Ejecutar suite de 20 pruebas de mutación (sensibilidad 100%%).")
@@ -831,12 +884,24 @@ def main():
     parser.add_argument("--base-url", type=str, default="", help="URL base del servidor MedSys-FHIR en vivo (ej. http://localhost:3000).")
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED, help=f"Semilla pseudoaleatoria (default {DEFAULT_SEED}).")
     parser.add_argument("--report", type=str, default="output/oracle_report.json", help="Ruta del reporte de verificación.")
+    parser.add_argument("--source", default="", help="Snapshot PostgreSQL real para comparar exportaciones HTTP.")
 
     args = parser.parse_args()
 
+    if args.base_url:
+        parser.error('El sondeo histórico cubría solo 100 Patient. Use experimental_evidence.py snapshot/export/compare para el censo completo.')
+    if args.input_dir:
+        if not args.source:
+            parser.error('--input-dir requiere --source con snapshot PostgreSQL real; no se permite comparar únicamente con la semilla supuesta.')
+        from types import SimpleNamespace
+        from experimental_evidence import compare
+        sys.exit(compare(SimpleNamespace(source=args.source, input_dir=args.input_dir, output=args.report)))
+    if not args.self_test and not args.run_mutations:
+        parser.error('Seleccione explícitamente --self-test o --run-mutations; estos modos solo verifican el oráculo.')
+
     t_start = time.time()
     print("=" * 80)
-    print("MEDSYS-FHIR: ORÁCULO DIFERENCIAL INDEPENDIENTE EN PYTHON (v1.2.0-eval)")
+    print("MEDSYS-FHIR: AUTOPRUEBA DEL ORÁCULO PYTHON; NO ES RESULTADO DEL MIDDLEWARE RUST")
     print(f"Semilla experimental: {args.seed} | Fecha: {datetime.now().isoformat()}")
     print("=" * 80)
 
@@ -936,82 +1001,6 @@ def main():
         else:
             print(f"\nRESULTADO FINAL: FALLO ({failed} recursos no superaron la verificación).")
             sys.exit(1)
-
-    # Modo Validación de Directorio Exportado (--input-dir)
-    if args.input_dir:
-        input_dir = os.path.abspath(args.input_dir)
-        print(f"EJECUTANDO MODO VALIDACIÓN DE DIRECTORIO: {input_dir}")
-        if not os.path.isdir(input_dir):
-            print(f"Error: El directorio {input_dir} no existe.")
-            sys.exit(1)
-
-        files = [f for f in os.listdir(input_dir) if f.endswith(".json") and not f.startswith("oracle_report")]
-        print(f"Archivos JSON detectados en directorio: {len(files):,}")
-
-        passed = 0
-        failed = 0
-        failures = []
-
-        for fname in files:
-            fpath = os.path.join(input_dir, fname)
-            try:
-                with open(fpath, "r", encoding="utf-8") as f:
-                    cand = json.load(f)
-            except Exception as e:
-                failed += 1
-                failures.append({"file": fname, "error": f"JSON parse error: {e}"})
-                continue
-
-            r_type = cand.get("resourceType")
-            r_id = cand.get("id")
-            key = f"{r_type}/{r_id}"
-
-            expected = model.expected_resources.get(key)
-            if not expected:
-                failed += 1
-                failures.append({"file": fname, "error": f"Recurso inesperado o ID desconocido: {key}"})
-                continue
-
-            is_valid, errs = FhirOracleVerifier.verify_resource(cand, expected)
-            if is_valid:
-                passed += 1
-            else:
-                failed += 1
-                failures.append({"file": fname, "resource": key, "errors": errs})
-
-        elapsed = time.time() - t_start
-        print(f"Verificación de directorio concluida: {passed:,} aprobados, {failed:,} fallidos en {elapsed:.2f} s")
-        sys.exit(0 if failed == 0 else 1)
-
-    # Modo Servidor en Vivo (--base-url)
-    if args.base_url:
-        base_url = args.base_url.rstrip("/")
-        print(f"EJECUTANDO MODO SERVIDOR EN VIVO CONTRA: {base_url}")
-        # Muestra representativa de 100 recursos para sondeo HTTP rápido
-        sample_keys = list(model.expected_resources.keys())[:100]
-        passed = 0
-        failed = 0
-        failures = []
-
-        for key in sample_keys:
-            url = f"{base_url}/fhir/r4/{key}"
-            try:
-                req = urllib.request.Request(url, headers={"Accept": "application/fhir+json"})
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    cand = json.loads(resp.read().decode("utf-8"))
-                expected = model.expected_resources[key]
-                is_valid, errs = FhirOracleVerifier.verify_resource(cand, expected)
-                if is_valid:
-                    passed += 1
-                else:
-                    failed += 1
-                    failures.append({"resource": key, "errors": errs})
-            except Exception as e:
-                failed += 1
-                failures.append({"resource": key, "error": str(e)})
-
-        print(f"Sondeo en vivo concluido: {passed} / {len(sample_keys)} aprobados, {failed} fallidos.")
-        sys.exit(0 if failed == 0 else 1)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/300",
+  "started_utc": "2026-10-28T02:56:28.398007+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "556",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"300\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"LOSA670623MCSPNN40\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Ana Gloria Lopez Sanchez\",\n      \"family\": \"Lopez Sanchez\",\n      \"given\": [\n        \"Ana\",\n        \"Gloria\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9615796616\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"1967-06-23\"\n}",
+  "body_bytes": 556,
+  "body_sha256": "5517d57a5ec5d3d86adc110c995a413b10d03ab1e27a081c5e01037a0e84e52a",
+  "elapsed_seconds": 0.0070321999955922365,
+  "resource": "Patient/300",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

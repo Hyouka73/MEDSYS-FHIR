@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "507",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "TOGA830909MCSRZL67"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Alejandra Karla Torres Guzman",
+      "family": "Torres Guzman",
+      "given": [
+        "Alejandra",
+        "Karla"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613333501",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1983-09-09"
+}

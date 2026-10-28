@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "76",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GARM790423MCSRDR86"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Mariana Claudia Garcia Rodriguez",
+      "family": "Garcia Rodriguez",
+      "given": [
+        "Mariana",
+        "Claudia"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618125302",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-04-23"
+}

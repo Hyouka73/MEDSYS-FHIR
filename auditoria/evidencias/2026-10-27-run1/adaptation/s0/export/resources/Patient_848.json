@@ -1,0 +1,25 @@
+{
+  "resourceType": "Patient",
+  "id": "848",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "JIGF631225MCSMZR48"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Fernanda Paola Jimenez Guzman",
+      "family": "Jimenez Guzman",
+      "given": [
+        "Fernanda",
+        "Paola"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1963-12-25"
+}

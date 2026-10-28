@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "988",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "FOMB791216MCSLNT98"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Beatriz Ana Flores Mendoza",
+      "family": "Flores Mendoza",
+      "given": [
+        "Beatriz",
+        "Ana"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9617278013",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-12-16"
+}

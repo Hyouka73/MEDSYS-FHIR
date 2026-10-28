@@ -1,0 +1,19 @@
+commit 293396423cc993cc5b191d727ae0609e15a5aeb6
+Author:     Hyouka73 <baka637472@gmail.com>
+AuthorDate: Tue Oct 20 23:18:07 2026 -0600
+Commit:     Hyouka73 <baka637472@gmail.com>
+CommitDate: Tue Oct 20 23:18:07 2026 -0600
+
+    chore: checkpoint experimental reverification and pending regressions
+
+ BACKLOG.md                                         |   15 +
+ DECISIONS.md                                       |    4 +
+ STATE.md                                           |   19 +
+ .../2026-10-20-reverificacion/ACCESO_Y_BASELINE.md |   19 +
+ .../2026-10-20-reverificacion/cap3-fuente.txt      |  546 +++++++
+ .../2026-10-20-reverificacion/cap4-fuente.txt      |  601 ++++++++
+ .../2026-10-20-reverificacion/registro-fuente.txt  | 1613 ++++++++++++++++++++
+ crates/medsys-db/src/dynamic_repo.rs               |   25 +
+ tools/experimental/bin/k6-release.json             |  416 +++++
+ tools/experimental/bin/validator-release.json      |  127 ++
+ 10 files changed, 3385 insertions(+)

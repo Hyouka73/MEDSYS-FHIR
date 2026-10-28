@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "803",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CARL690912MCSHZC93"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Lucia Beatriz Chavez Ruiz",
+      "family": "Chavez Ruiz",
+      "given": [
+        "Lucia",
+        "Beatriz"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9616192804",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1969-09-12"
+}

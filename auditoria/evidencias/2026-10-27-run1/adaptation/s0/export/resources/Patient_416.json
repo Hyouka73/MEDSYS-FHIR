@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "416",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAGM110714HCSRNG66"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Miguel Raul Vargas Gonzalez",
+      "family": "Vargas Gonzalez",
+      "given": [
+        "Miguel",
+        "Raul"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614941650",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2011-07-14"
+}

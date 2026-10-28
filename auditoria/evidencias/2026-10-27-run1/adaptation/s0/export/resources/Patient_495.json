@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "495",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "PEHF030415HCSRRR55"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Francisco Luis Perez Hernandez",
+      "family": "Perez Hernandez",
+      "given": [
+        "Francisco",
+        "Luis"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613540625",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2003-04-15"
+}

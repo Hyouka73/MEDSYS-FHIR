@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "465",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "GUHG050512MCSTRL25"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gloria Guadalupe Gutierrez Hernandez",
+      "family": "Gutierrez Hernandez",
+      "given": [
+        "Gloria",
+        "Guadalupe"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9614906351",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2005-05-12"
+}

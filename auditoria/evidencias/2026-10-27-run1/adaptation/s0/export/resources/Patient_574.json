@@ -1,0 +1,32 @@
+{
+  "resourceType": "Patient",
+  "id": "574",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "VAFP541013HCSSLD44"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Pedro Fernando Vasquez Flores",
+      "family": "Vasquez Flores",
+      "given": [
+        "Pedro",
+        "Fernando"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9611232907",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1954-10-13"
+}

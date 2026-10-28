@@ -1,0 +1,31 @@
+{
+  "kind": "instrument_regression_evidence",
+  "timestamp_utc": "2026-10-21T05:30:55.590286+00:00",
+  "historical_commit": "293396423cc993cc5b191d727ae0609e15a5aeb6",
+  "historical_oracle_sha256": "29b8d31f943c0a5463ca039a550dba720d60d979ea70d29847f6f42142943a25",
+  "timezone_wrongly_equal_before": true,
+  "timezone_wrongly_equal_after": false,
+  "changed_reason_text_accepted_before": true,
+  "changed_reason_text_accepted_after": false,
+  "regression_command": [
+    "C:\\Python313\\python.exe",
+    "scripts/test_experimental_evidence.py"
+  ],
+  "regression_exit_code": 0,
+  "missing-manifest.log": {
+    "exit_code": 2,
+    "command": [
+      "C:\\Python313\\python.exe",
+      "scripts/run_all_cap4_experiments.py"
+    ]
+  },
+  "fake-http-refused.log": {
+    "exit_code": 2,
+    "command": [
+      "C:\\Python313\\python.exe",
+      "scripts/run_fault_corpus.py",
+      "--base-url",
+      "http://127.0.0.1:1"
+    ]
+  }
+}

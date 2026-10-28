@@ -269,6 +269,9 @@ impl<'a> DynamicSqlBuilder<'a> {
                     if !seen_aliases.contains(src_col) {
                         select_items
                             .push(format!("{}.{} AS {}", join_alias, lk.value_column, src_col));
+                        // Conservar presencia del FK de origen para distinguir NULL
+                        // legítimo de catálogo sin correspondencia (también opcional).
+                        select_items.push(format!("t0.{src_col} AS {src_col}__source"));
                         seen_aliases.insert(src_col.clone());
                     }
                 }

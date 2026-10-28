@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "966",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "CAXG790901MCSSXB76"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Gabriela Castro",
+      "family": "Castro",
+      "given": [
+        "Gabriela"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9618485239",
+      "use": "mobile"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-09-01"
+}

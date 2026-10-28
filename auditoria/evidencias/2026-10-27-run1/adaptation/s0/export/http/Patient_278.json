@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/278",
+  "started_utc": "2026-10-28T02:56:28.328339+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "541",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:28 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"278\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"SAAR471205HCSNGG18\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rogelio Sanchez Aguilar\",\n      \"family\": \"Sanchez Aguilar\",\n      \"given\": [\n        \"Rogelio\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9611393787\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"male\",\n  \"birthDate\": \"1947-12-05\"\n}",
+  "body_bytes": 541,
+  "body_sha256": "9dc126a6d069c8ffc0e27b6bf46ecf6e144f9ca76d72a7d5b3b4a9501b444eae",
+  "elapsed_seconds": 0.011302600032649934,
+  "resource": "Patient/278",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

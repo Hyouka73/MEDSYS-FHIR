@@ -1,0 +1,31 @@
+{
+  "resourceType": "Patient",
+  "id": "198",
+  "identifier": [
+    {
+      "use": "official",
+      "system": "urn:oid:2.16.840.1.113883.4.629",
+      "value": "AULE050826HCSGPD28"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Eduardo Aguilar Lopez",
+      "family": "Aguilar Lopez",
+      "given": [
+        "Eduardo"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "9613503318",
+      "use": "mobile"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "2005-08-26"
+}

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3310/fhir/r4/Patient/596",
+  "started_utc": "2026-10-28T02:56:29.336306+00:00",
+  "status": 200,
+  "headers": {
+    "content-type": "application/fhir+json; charset=utf-8",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "access-control-allow-origin": "*",
+    "content-length": "544",
+    "connection": "close",
+    "date": "Wed, 28 Oct 2026 02:56:29 GMT"
+  },
+  "body": "{\n  \"resourceType\": \"Patient\",\n  \"id\": \"596\",\n  \"identifier\": [\n    {\n      \"use\": \"official\",\n      \"system\": \"urn:oid:2.16.840.1.113883.4.629\",\n      \"value\": \"RUXR051025MCSZXS66\"\n    }\n  ],\n  \"active\": true,\n  \"name\": [\n    {\n      \"use\": \"official\",\n      \"text\": \"Rosa Fernanda Ruiz\",\n      \"family\": \"Ruiz\",\n      \"given\": [\n        \"Rosa\",\n        \"Fernanda\"\n      ]\n    }\n  ],\n  \"telecom\": [\n    {\n      \"system\": \"phone\",\n      \"value\": \"9614989506\",\n      \"use\": \"mobile\"\n    }\n  ],\n  \"gender\": \"female\",\n  \"birthDate\": \"2005-10-25\"\n}",
+  "body_bytes": 544,
+  "body_sha256": "17f2c7bae046c869628276ba737823648a7739df78f1147944d3d98daa1ff8b8",
+  "elapsed_seconds": 0.008765599981416017,
+  "resource": "Patient/596",
+  "expected_status": 200,
+  "invalid_content_type": false
+}

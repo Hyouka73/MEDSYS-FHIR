@@ -123,6 +123,9 @@ def evaluate_case_in_memory(case: dict) -> tuple[bool, str, int, str]:
     return False, "Categoría desconocida", 500, "exception"
 
 def run_fault_corpus(base_url: str = None) -> int:
+    if base_url:
+        print('[ERROR] This historical runner does not inject PostgreSQL or call HTTP. Use scripts/experimental_evidence.py faults.')
+        return 2
     if not os.path.exists(CORPUS_PATH):
         print(f"[ERROR] No se encontró el archivo del corpus en {CORPUS_PATH}")
         return 1
@@ -138,7 +141,7 @@ def run_fault_corpus(base_url: str = None) -> int:
     if base_url:
         print(f"Modo: HTTP Server en vivo ({base_url})")
     else:
-        print("Modo: Verificación Determinista en Memoria (Motor de Dominio FHIR)")
+        print("Modo: AUTOPRUEBA Python en memoria; NO evidencia HTTP ni del middleware Rust")
     print("-" * 80)
 
     category_stats = {
@@ -201,6 +204,8 @@ def run_fault_corpus(base_url: str = None) -> int:
     report_file = os.path.join(out_dir, "fault_corpus_report.json")
     with open(report_file, "w", encoding="utf-8") as f:
         json.dump({
+            "kind": "python_fault_model_self_test_only",
+            "middleware_verified": False,
             "total_cases": total_cases,
             "total_rejected": total_rejected,
             "sensitivity_rate": overall_rate,
@@ -211,7 +216,7 @@ def run_fault_corpus(base_url: str = None) -> int:
     print(f"[REPORTE] Resumen exportado en: {report_file}")
 
     if all_passed and total_rejected == 100:
-        print("[ÉXITO] 100 de 100 casos anómalos rechazados con HTTP 422 OperationOutcome (100.0% sensibilidad).")
+        print("[AUTOPRUEBA] 100/100 casos detectados por el modelo Python. No se ejecutó PostgreSQL, HTTP ni Rust.")
         return 0
     else:
         print("[ERROR] Falló la verificación de resiliencia del corpus.")
